@@ -1,0 +1,17 @@
+[
+	{"id":"0-myprojects","text":"My Projects", "state" : {"selected" : true}, "children":
+		[
+			{"id":"00-project123go","text":"Project 123GO", "children" :
+				[
+					{"id":"000-media", "text":"Media"},
+					{"id":"001-legal", "text":"Legal"}
+				]
+
+			},
+			{"id":"01-webredesign","text":"Web Redesign"},
+			{"id":"02-spotmedia","text":"Spot Media"},
+			{"id":"03-fastecommerce","text":"Fast E-Commerce"},
+			{"id":"04-seo","text":"SEO"}
+		]
+	}
+]

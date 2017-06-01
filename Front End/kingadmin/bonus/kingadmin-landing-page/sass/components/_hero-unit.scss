@@ -1,0 +1,81 @@
+/* -------------------
+ * HERO UNIT 
+ * -------------------*/
+
+.hero-unit {
+	position: relative;
+	padding: 35px 0;
+	margin-bottom: 80px;
+	font-size: 2em;
+	text-align: center;
+	color: #fff;
+	background: {
+		image: image-url('hero-background.jpg');
+		repeat: no-repeat;
+		position: center center;
+	}
+
+	.container {
+		position: relative;
+	}
+
+	.hero-content {
+		position: relative;
+		top: 5em;
+		text-align: center;
+	}
+
+	.hero-heading {
+		margin-bottom: 12px;
+		font-size: 56px;
+		color: #fff;
+	}
+
+	.lead {
+		font-size: 22px;
+		margin-bottom: 30px;
+		padding: 0 10em;
+	}
+
+	.img-hero {
+		margin: 0 auto;
+		margin-top: 70px;
+	}
+
+	@include max-screen($break-xlarge) {
+		margin-bottom: 30px;
+
+		.hero-content {
+			top: 1.7em;
+		}
+
+		.lead {
+			padding: 0;
+			font-size: 18px;
+			font-weight: 400;
+		}
+	}
+
+	@include max-screen($break-small) {
+		.hero-heading {
+			font-size: 1.5em;
+		}
+	}
+
+	@include min-screen($break-medium) {
+		text-align: left;
+	}
+
+	@include min-screen($break-large) {
+		font-size: 2.2em;
+	}
+
+	@include min-screen($break-xlarge) {
+		.hero-content {
+			top: 2em;
+		}
+	}
+}
+
+
+

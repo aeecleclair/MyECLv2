@@ -1,0 +1,39 @@
+ul.main-menu .sub-menu li a{
+	padding : 5px 0 5px 33%;
+}
+
+.top-bar{
+	background-color: #a00034;
+}
+
+
+/* Titre */
+
+#title{
+	font-family: Tahoma; /* à importer */
+	font-size : 170%;
+	margin-left: 20px;
+}
+
+#title a{
+	color : white;
+}
+
+#title a:hover{
+	text-decoration: none;
+}
+
+.top-bar-right .icone{
+	display: inline-block;
+	font-size: 100%;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.top-bar-right .icone .fa{
+	color : white;
+}
+
+.top-bar-right #user{
+	font-size : 150%;
+}

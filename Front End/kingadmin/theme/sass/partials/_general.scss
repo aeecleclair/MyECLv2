@@ -1,0 +1,198 @@
+/*------------------------------------------------*/
+/*	General Styles
+/*------------------------------------------------*/
+
+body {
+	font-family: $base-font-family;
+	font-size: $base-font-size;
+	color: $base-font-color-dark;
+	background: $body-bg-color;
+}
+
+h1, h2 {
+	font-family: $secondary-font-family-light;
+}
+
+h3, h4, h5, h6 {
+	font-family: $base-font-family;
+}
+
+a {
+	color: $brand-primary;
+
+	&:hover,
+	&:focus {
+		color: darken($brand-primary, 12%);
+	}
+}
+
+hr {
+	border-top-color: $line-color;
+
+	&.inner-separator {
+		border-style: dashed;
+	}
+}
+
+label {
+	font-weight: 300;
+}
+
+blockquote {
+	border-color: #e4e4e4;
+}
+
+input {
+	border-radius: 0;
+}
+
+@include min-screen($break-small) {
+	.container {
+		max-width: 100%;
+		width: 100%;
+	}
+}
+
+@font-face {
+	font-family: "latolight";
+	src: url('../fonts/lato-lig-webfont.eot');
+	src: url('../fonts/lato-lig-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/lato-lig-webfont.woff') format('woff'), url('../fonts/lato-lig-webfont.ttf') format('truetype'), url('../fonts/lato-lig-webfont.svg') format('svg');
+}
+
+
+@font-face {
+	font-family: "latoregular";
+	src: url('../fonts/lato-reg-webfont.eot');
+	src: url('../fonts/lato-reg-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/lato-reg-webfont.woff') format('woff'), url('../fonts/lato-reg-webfont.ttf') format('truetype'), url('../fonts/lato-reg-webfont.svg') format('svg');
+}
+
+@font-face {
+	font-family: "latobold";
+	src: url('../fonts/lato-bol-webfont.eot');
+	src: url('../fonts/lato-bol-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/lato-bol-webfont.woff') format('woff'), url('../fonts/lato-bol-webfont.ttf') format('truetype'), url('../fonts/lato-bol-webfont.svg') format('svg');
+}
+
+#wrapper {
+	width: 100%;
+	margin: 0 auto;
+}
+
+body.topnav-fixed #wrapper {
+	padding-top: 44px;
+}
+
+/* full page such as 404, login, register */
+.full-page-wrapper {
+	&.wrapper {
+		min-height: 96%;
+		height: 96%;
+	}
+
+	.inner-page {
+		padding-top: 5%;
+	}
+
+	@include max-screen($break-small) {
+		position: initial;
+		padding-top: 5em;
+		margin-top: 0;
+
+		.inner-page {
+			position: relative;
+			padding: 0 1em;
+		}
+	}
+
+	@include max-screen($break-xsmall) {
+		padding-top: 0;
+
+		.inner-page {
+			padding: 5em 1em;
+		}
+	}
+}
+
+.red-font {
+	color: $the-red;
+}
+
+.yellow-font {
+	color: $the-yellow;
+}
+
+.green-font {
+	color: $the-green;
+}
+
+.red-bg {
+	background-color: $the-red;
+}
+
+.yellow-bg {
+	background-color: $the-yellow;
+}
+
+.green-bg {
+	background-color: $the-green;
+}
+
+.link-disabled {
+	@include opacity(0.5);
+
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+.no-padding {
+	padding: 0 !important;
+}
+
+.no-margin {
+	margin: 0 !important;
+}
+
+.bottom-30px {
+	margin-bottom: 30px;
+}
+
+.bottom-60px {
+	margin-bottom: 60px;
+}
+
+/* 2 column data presentation */
+.data-row {
+	margin-bottom: 0;
+
+	.data-name,
+	.data-value {
+		@include inline-block;
+
+		padding: 5px;
+
+		@include max-screen($break-xsmall) {
+			display: block;
+		}
+	}
+
+	.data-name {
+		width: 12em;
+		background-color: $body-bg-color;
+		color: darken($body-bg-color, 20%);
+		font-size: 0.9em;
+		vertical-align: top;
+	}
+
+	.data-value {
+		padding-left: 10px;
+	}
+}
+
+.control-inline {
+	display: -moz-inline-stack !important;
+	display: inline-block !important;
+	vertical-align: middle !important;
+	zoom: 1 !important;
+	margin-right: 10px;
+}
+
+

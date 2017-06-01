@@ -1,0 +1,38 @@
+/*
+*	############################################################################################
+*	
+*	KingAdmin Landing - KingAdmin Landing Page Bonus Template
+*	---------------------------------------------------------------------
+*
+*	Version:	1.0
+*	Author:		The Develovers
+*	Website:	https://www.themeineed.com/
+*	Twitter: 	https://twitter.com/thedevelovers
+*
+*	############################################################################################
+*/
+
+
+// import Compass dependencies
+@import 'compass/css3';
+
+// import mixins
+@import 'mixins/responsive';
+
+// import global styles and variables
+@import 'base/variables';
+@import 'base/global';
+
+// import 3rd-party
+@import 'vendors/owl-carousel/owl.carousel';
+@import 'vendors/owl-carousel/owl.theme';
+@import 'vendors/owl-carousel/owl.transitions';
+@import 'vendors/socicon';
+
+// import theme styles
+@import 'components/elements';
+@import 'components/hero-unit';
+@import 'components/pricing-table';
+@import 'components/testimonial';
+@import 'layout/navbar';
+@import 'layout/footer';

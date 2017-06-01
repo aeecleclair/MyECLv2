@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en" class="no-js"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en" class="no-js"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en" class="no-js"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+	<title>Documentation | KingAdmin - Admin Dashboard</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="KingAdmin Admin Dashboard Documentation">
+	<meta name="author" content="The Develovers">
+
+	<!-- CSS -->
+	<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/shCore.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/shThemeDefault.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+	<div class="container">
+		<header>
+			<img src="assets/img/kingadmin-logo.png" alt="KingAdmin Logo" /> <em>v1.6.2</em>
+			<h1>KingAdmin - Admin Dashboad Documentation</h1>
+		</header>
+		<div class="row main">
+			<div class="col-md-3">
+				<nav class="main-nav affix">
+					<ul class="list-unstyled">
+						<li><a href="#section1">Getting Started</a></li>
+						<li><a href="#section2">Layouts</a></li>
+						<li><a href="#section3">Common JS</a></li>
+						<li><a href="#section4">Pages</a></li>
+						<li><a href="#section5">Chart &amp; Stat</a></li>
+						<li><a href="#section6">Forms</a></li>
+						<li><a href="#section7">UI Elements</a></li>
+						<li><a href="#section8">Components</a></li>
+						<li><a href="#section9">Tables</a></li>
+						<li><a href="#section10">Typography</a></li>
+						<li><a href="#section11">Skins</a></li>
+						<li><a href="#section12">Changelog</a></li>
+						<li><a href="#section13">Credits</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="col-md-9">
+				<!-- ####################### SECTION ####################### -->
+				<section id="section1">
+					<h2>Getting Started</h2>
+					<p>Thank you for purchasing KingAdmin Admin Dashboard. By reading this documentation we hope you will get the most of its features. This template/theme is built with the latest Bootstrap 3 and <a href="http://sass-lang.com/">Sass</a>. We recommend that you use Sass to customize the theme because it will be very easy since we have provided variables to change the color, font and others. If you have any questions that are beyond the scope of this help file, please feel free to contact us by sending your message via form provided by Wrapbootstrap <a href="https://wrapbootstrap.com/user/thedevelovers">https://wrapbootstrap.com/user/thedevelovers</a>.</p>
+					<h3>Directory Structure</h3>
+					After unzipping the downloaded file, you will get files and directories structured as below:
+					<ul>
+						<li><code>documentation/</code>: where this documentation is placed</li>
+						<li><code>theme/</code>: includes theme files</li>
+					</ul>
+					<p>Javascript files includes jQuery and the plugins are located at <code>assets/js/</code>. Files named as <code>king-*</code> are used to initialize and and configure plugins. They are:</p>
+					<ul>
+						<li><code>king-chart-stat.js</code></li>
+						<li><code>king-chart-stat-transparent.js</code></li>
+						<li><code>king-common.js</code></li>
+						<li><code>king-components.js</code></li>
+						<li><code>king-components-transparent.js</code></li>
+						<li><code>king-elements.js</code></li>
+						<li><code>king-form-layouts.js</code></li>
+						<li><code>king-page.js</code></li>
+						<li><code>king-page-transparent.js</code></li>
+						<li><code>king-table.js</code></li>
+					</ul>
+
+					<p>File with "-transparent.js" is specificly used with transparent skin only. It's required because some color customization can only be done when the plugin is configured and initialized. Other than that, it's done in css skin file <code>assets/css/skins/transparent.css</code>.</p>
+
+					<div class="alert alert-warning">
+						<h3>Warning</h3> Direct change to main.css is not recommended to avoid problems when theme updates arrived in the future. So, override theme styles or write custom styles and save it to <code>assets/css/my-custom-styles.css</code>. If you use Sass, please use <code>sass/my-custom-styles.scss</code>
+					</div>
+
+					<div class="alert alert-danger">
+						<h3>Having Page Redirect Error?</h3> If you have problem with page redirect after clicking "Start Tour" button and can't navigate anywhere after, please go to <a href="#bootstrap-tour-basepath">Bootstrap Tour basePath Setting</a>
+					</div>
+
+				</section>
+				<!-- ####################### END SECTION ####################### -->
+
+				<!-- ####################### SECTION ####################### -->
+				<section>
+					<h2 id="section2">Layouts</h2>
+					<p>The layout in general is divided into 4 main areas, they are top bar, left navigation, right area as main content and footer. Also, we put general alert on above top bar and it can be closed. See below for the illustration.</p>
+					<div class="general-layout">
+						<div class="top-bar">TOP BAR <code>.top-bar</code></div>
+						<div class="row">
+							<div class="col-md-4 left-nav"><div>LEFT NAVIGATION <code>.left-sidebar</code></div></div>
+							<div class="col-md-8 main-content"><div>MAIN CONTENT <code>.content-wrapper</code></div></div>
+						</div>
+						<div class="footer">FOOTER <code>.footer</code></div>
+					</div>
+
+					<h3>Layout Options</h3>
+					<p>KingAdmin provides you with option for layout as below:</p>
+					<ul>
+						<li>Collapsed Sidebar: when page is loaded, left navigation sidebar is initially collapsed. Open <code>layout-collapsed.php</code> for demo.</li>
+						<li>Minified Sidebar: when page is loaded, left navigation sidebar is initially minified with icon only. Open <code>layout-minified.php</code> for demo.</li>
+						<li>On-Top Navigation: alternative main navigation, placed on top bar. Open <code>layout-ontop-navigation.php</code> for demo.</li>
+					</ul>
+				</section>
+				<!-- ####################### END SECTION ####################### -->
+
+				<!-- ####################### SECTION ####################### -->
+				<section>
+					<h2 id="section3">Common JS</h2>
+					<p>Below is the list of the common javascripts files needed for all the pages. Make sure that you always include them.</p>
+					<ul>
+						<li><code>jquery-2.1.0.min.js</code> jQuery</li>
+						<li><code>bootstrap.js</code> Bootstrap</li>
+						<li><code>modernizr.js</code> Modernizr</li>
+						<li><code>bootstrap-tour.custom.js</code> Bootstrap Tour</li>
+						<li><code>king-common.js</code> Initialization file for various common functions such as top bar notifications, left menu dropdown, widget etc</li>
+					</ul>
+
+					<h3>Widget</h3>
+					<p>The widget comes with several styles and functionalities, including button to trigger AJAX call and make changes to the widget content. Basic widget will have a structure as below.</p>
+
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="widget">
+							<div class="widget-header">
+								<h3>Simple Plain Widget</h3>
+							</div>
+							<div class="widget-content">
+								<p>Just widget as simple container with header and footer</p>
+							</div>
+							<div class="widget-footer">
+								Footer area
+							</div>
+						</div>
+					]]>
+					</script>
+					<p>However some widgets could have a button to do a single task, for example triggering AJAX call as below.</p>					
+					<p class="well">
+						<strong>JS File:</strong> <code>assets/js/king-common.js</code><br/>
+						<strong>PHP File:</strong> <code>php/widget-ajax.php</code>
+					</p>
+					<div class="alert alert-info">Please note that this widget work only if you run the theme on web server with PHP environment.</div>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="widget widget-ajax">
+							<div class="widget-header">
+								<h3>Ajax Enable</h3>
+								<div class="btn-group widget-header-toolbar">
+									<button type="button" class="btn btn-primary btn-sm btn-ajax"><i class="fa fa-floppy-o"></i> <span>Update</span></button>
+								</div>
+							</div>
+							<div class="widget-content">
+								<div class="alert alert-info"><i class="fa fa-info-circle"></i> <span>Click "Update" button to call ajax function and get the message from the server.</span></div>
+							</div>
+						</div>
+					]]>
+					</script>
+
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('.widget-header-toolbar .btn-ajax').click( function(e){
+							e.preventDefault();
+							$theButton = $(this);
+
+							$.ajax({
+								url: 'php/widget-ajax.php',
+								type: 'POST',
+								dataType: 'json',
+								cache: false,
+								beforeSend: function(){
+									$theButton.prop('disabled', true);
+									$theButton.find('i').removeClass().addClass('fa fa-spinner fa-spin');
+									$theButton.find('span').text('Loading...');
+								},
+								success: function( data, textStatus, XMLHttpRequest ) {
+									
+									setTimeout( function() {
+										getResponseAction($theButton, data['msg'])
+									}, 1000 );
+									/* setTimeout is used for demo purpose only */
+
+								},
+								error: function( XMLHttpRequest, textStatus, errorThrown ) {
+									console.log("AJAX ERROR: \n" + XMLHttpRequest.responseText);
+								}
+							});
+						});
+
+						function getResponseAction(theButton, msg){
+							theButton = $('.widget-header-toolbar .btn-ajax')
+
+							$('.widget-ajax .alert').removeClass('alert-info').addClass('alert-success')
+							.find('span').text( msg );
+
+							$('.widget-ajax .alert').find('i').removeClass().addClass('fa fa-check-circle');				
+
+							theButton.prop('disabled', false);
+							theButton.find('i').removeClass().addClass('fa fa-floppy-o');
+							theButton.find('span').text('Update');
+						}
+
+					]]>
+					</script>
+
+
+				</section>
+				<!-- ####################### END SECTION ####################### -->
+
+				<!-- ####################### SECTION ####################### -->
+				<section>
+					<h2 id="section4">Pages</h2>
+					<p>Some of the pages such as <strong>Invoice</strong> and <strong>Inbox</strong> need the scripts to work properly. Please see <code>king-page.js</code> to check the scripts needed for page template. Somehow, other script may be included for example <code>bootstrap-switch.min.js</code> to create the switch version of the checkbox and so on.</p>
+				</section>
+				<!-- ####################### END SECTION ####################### -->
+
+				<!-- ####################### SECTION ####################### -->
+				<section>
+					<h2 id="section5">Chart &amp; Stat</h2>
+					<p>KingAdmin uses Flot Chart (<a href="http://www.flotcharts.org/">http://www.flotcharts.org/</a>) as main library to work with charts. Flot Chart scrips located at <code>assets/js/stat/flot/</code> directory with <code>jquery.flot.min.js</code> as the main library script, meanwhile others are plugin to work with specific function such as chart selection, tooltip etc. In addition, we also provide easyPieChart and Sparkline for other chart and statistic purposes.</p>
+					<h3>Flot Chart</h3>
+					<p>Create a placeholder div to put the graph in and it's important to note that the chart need a dimension defined, so <strong>you have to set width and height</strong> either by inline css or external stylesheet. This example uses inline style, whereas the theme use external stylesheet.</p>
+
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div id="placeholder" style="width:600px;height:300px"></div>
+					]]>
+					</script>
+					<p>Then when the div is ready in the DOM, which is usually on document ready, run the plot function:</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$.plot($("#placeholder"), data, options);
+					]]>
+					</script>
+					
+					<p>Here, data is an array of data series and options is an object with settings if you want to customize the plot. Take a look at the examples for some ideas of what to put in or look at the <a href="https://github.com/flot/flot/blob/master/API.md">API reference</a>. Here's a quick example that'll draw a line from (0, 0) to (1, 1):</p>
+
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$.plot($("#placeholder"), 
+							   [ [[0, 0], [1, 1]] ], 
+							   { 
+									yaxis: { max: 1 } 
+							   }
+							);
+					]]>
+					</script>
+
+					<p>For more advanced use with various options as seen on the chart demo page, you can check the scripts at <code>king-chart-stat.js</code> and find "CHART AND STAT DEMO PAGE". Official documentation can be found here at <a href="https://github.com/flot/flot/blob/master/API.md">https://github.com/flot/flot/blob/master/API.md</a></p>
+
+					<h3>easyPieChart</h3>
+					<p>easyPieChart (<a href="http://rendro.github.io/easy-pie-chart/">http://rendro.github.io/easy-pie-chart/</a>) create simple pie chart with single value as you see on the first widget of the dashboard.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/stat/jquery.easypiechart.min.js</code><br />
+						<strong>Site:</strong> <a href="http://rendro.github.io/easy-pie-chart/">http://rendro.github.io/easy-pie-chart/</a>
+					</p>
+					<p>To create the chart first add the element with <code>data-percent</code> attribute with the percent number as the value.</p>
+
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="chart" data-percent="73">73%</div>
+					]]>
+					</script>
+
+					<p>Initialize the chart as below:</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('.chart').easyPieChart({
+							//your configuration goes here
+						});
+					]]>
+					</script>
+
+					<p>For further complete documentation includes possible configuration options, please visit the official documentation at <a href="http://rendro.github.io/easy-pie-chart/">http://rendro.github.io/easy-pie-chart/</a></p>
+
+					<h3>Sparkline</h3>
+					<p>This chart is mainly used for inline chart with relatively small size compared to the others. First add the placeholder element as below.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js</code><br/>
+						<strong>Site:</strong> <a href="http://omnipotent.net/jquery.sparkline/#s-docs">http://omnipotent.net/jquery.sparkline/#s-docs</a>
+					</p>
+
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="inlinesparkline">Loading...</div>
+					]]>
+					</script>
+
+					<p>Provide the data and initialize the chart as below:</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						var myvalues = [10,8,5,7,4,4,1];
+						$('.dynamicsparkline').sparkline(myvalues);
+					]]>
+					</script>
+
+					<p>Please visit official documentation at <a href="http://omnipotent.net/jquery.sparkline/#s-docs">http://omnipotent.net/jquery.sparkline/#s-docs</a> for further examples and options.</p>
+
+					<h3>D3 Heatmap Charts</h3>
+					<p>This chart is an example of data visualization of visit statistic for 24 hours in a week. It uses D3.js, a Javascript library for manipulating documents based on data.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/stat/d3.js</code><br/>
+						<strong>Site:</strong> <a href="http://d3js.org/">http://d3js.org/</a><br/>
+						<strong>Data File:</strong> <code>assets/js/plugins/stat/data-heatmap.tsv</code><br/>
+						<strong>Optional:</strong> <code>assets/js/plugins/stat/colorbrewer.js</code> (providing set of colors)
+					</p>
+					<div class="alert alert-warning">Please note that this chart will work as the demo only if you run the theme <strong><em>on web server environment</em></strong>.</div>
+					<p>As data source for the chart, we use <code>.tsv</code> (tab-separated values) file as source of data. Then the next step is creating a placeholder for the chart, in the below example the element has id <code>demo-d3-heatmap</code>. Part of code below is taken from <code>charts-d3charts.html</code> in case you want to see the full code.</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="demo-d3-chart" id="demo-d3-heatmap"></div>
+					]]>
+					</script>
+
+					<p>Next, open file <code>assets/js/king-chart-stat.js</code> and find "demo-d3-heatmap", it should point to the code as below:</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						/* d3 charts: heatmap */
+						if( $('#demo-d3-heatmap').length > 0 ) {
+
+							var dataHeat = "assets/js/plugins/stat/data-heatmap.tsv"; // path/to/your/datafile.tsv
+							var placeholderHeat = "#demo-d3-heatmap"; // chart placeholder or container
+
+							...
+						}
+					]]>
+					</script>
+
+					<p>Provide the value to the <code>placeholderHeat</code> and <code>dateHeat</code>. The variable name and comment on the above code should be self-explanatory.</p>
+
+					<h3>D3 Bar Chart</h3>
+					<p>The chart can accomodate negative values and built based on D3.js library</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/stat/d3.js</code><br/>
+						<strong>Site:</strong> <a href="http://d3js.org/">http://d3js.org/</a><br/>
+						<strong>Data File:</strong> <code>assets/js/plugins/stat/data-barchart.tsv</code>
+					</p>
+					<div class="alert alert-warning">Please note that this chart will work as the demo only if you run the theme <strong><em>on web server environment</em></strong>.</div>
+					<p>Create the placeholder for the chart</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="demo-d3-chart" id="demo-d3-barchart"></div>
+					]]>
+					</script>
+					<p>Next, open file <code>assets/js/king-chart-stat.js</code> and find "demo-d3-barchart", it should point to the code as below:</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						/* d3 chart: bar chart with negative values */
+						if( $('#demo-d3-heatmap').length > 0 ) {
+
+							var dataBar = "assets/js/plugins/stat/data-barchart.tsv"; // path/to/your/datafile.tsv
+							var placeholderBar = "#demo-d3-barchart"; // placeholder or container
+
+							...
+						}
+					]]>
+					</script>
+
+					<p>Provide the value to the <code>placeholderBar</code> and <code>dataBar</code>. The variable name and comment on the above code should be self-explanatory.</p>
+
+				</section>
+				<!-- ####################### END SECTION ####################### -->
+
+				<!-- ####################### SECTION ####################### -->
+				<section>
+					<h2 id="section6">Forms</h2>
+					<p>This section explains form element used in the theme and its validation. In addition, we will show you how to create the file upload zone area from Dropzone and the PHP files related with uploading process.</p>
+					<h3>Form Elements</h3>
+					<p>Beside the standard Bootstrap form element, we also provide some 3rd-party libraries for additional functions and styles. The scripts used for the initialization is <code>king-elements.js</code></p>
+					<h4>Masked Input</h4>
+					<p>It allows a user to more easily enter fixed width input where you would like them to enter the data in a certain format (dates,phone numbers, etc)</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/jquery-maskedinput/jquery.masked-input.min.js</code><br/>
+						<strong>Site:</strong> <a href="http://digitalbush.com/projects/masked-input-plugin/">http://digitalbush.com/projects/masked-input-plugin/</a>
+					</p>
+					<p>For example you want the text field is formatted as phone number, first create the input element as below</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<input type="text" id="phone" class="form-control">
+					]]>
+					</script>
+					
+					<p>Then define the rules as below example, you can define your own rule though</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('#phone').mask('(999) 999-9999');
+					]]>
+					</script>					
+
+					<p>For further examples, see <code>king-element.js</code> or visit the official site at <a href="http://digitalbush.com/projects/masked-input-plugin/">http://digitalbush.com/projects/masked-input-plugin/</a></p>
+					
+					<h4>Switch</h4>
+					<p>Fancy checkbox and radio button with various styles</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/bootstrap-switch/bootstrap-switch.min.js</code><br/>
+						<strong>Site:</strong> <a href="http://www.bootstrap-switch.org">http://www.bootstrap-switch.org</a>
+					</p>
+
+					<p>Add the checkbox element</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<input type="checkbox" class="switch-demo" checked>
+					]]>
+					</script>
+
+					<p>Initialize it</p>
+
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('.switch-demo').bootstrapSwitch();
+					]]>
+					</script>
+	
+					<h4>Multiselect</h4>
+					<p>Plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/bootstrap-multiselect/bootstrap-multiselect.js</code><br/>
+						<strong>Site:</strong> <a href="http://davidstutz.github.io/bootstrap-multiselect/">http://davidstutz.github.io/bootstrap-multiselect/</a>
+					</p>
+					
+					<p>Create the select element as below</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<select class="multiselect" multiple="multiple">
+							<option value="cheese">Cheese</option>
+							<option value="tomatoes">Tomatoes</option>
+							<option value="mozarella">Mozzarella</option>
+							<option value="mushrooms">Mushrooms</option>
+							<option value="pepperoni">Pepperoni</option>
+							<option value="onions">Onions</option>
+						</select>
+					]]>
+					</script>
+
+					<p>Initialize the plugin</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$(document).ready(function() {
+							$('.multiselect').multiselect();
+						});
+					]]>
+					</script>
+					
+
+					<h4 id="range-slider">Range Slider Input</h4>
+					<p>A powerful slider for selecting value ranges, supporting dates and more.</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="basic-slider"></div>
+					]]>
+					</script>
+
+					<p>Initialize the plugin</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/jqallrangesliders/jQAllRangeSliders-min.js</code><br/>
+						<strong>Site:</strong> <a href="http://ghusse.github.io/jQRangeSlider/documentation.html">http://ghusse.github.io/jQRangeSlider/documentation.html</a>
+					</p>
+
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('.basic-slider').rangeSlider({
+							arrows: false
+						});
+					]]>
+					</script>
+
+					<h4>Date Picker</h4>
+					<p>Adding date picker capability to field or other element</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js</code><br/>
+						<strong>Site:</strong> <a href="http://www.eyecon.ro/bootstrap-datepicker">http://www.eyecon.ro/bootstrap-datepicker</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="input-group">						
+							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							<input type="text" id="datepicker" class="form-control">		
+						</div>
+					]]>
+					</script>
+					<p>Initialize the plugin, also hide it after the date has been selected.</p>					
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('#datepicker').datepicker()
+						.on('changeDate', function(e) {
+							dtp.datepicker('hide');
+						});
+					]]>
+					</script>
+					
+					<h4>Date Range Picker</h4>
+					<p>Enable date range selection via dropdown menu calendar</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/daterangepicker/daterangepicker.js</code><br/>
+						<strong>Require: </strong> <code>assets/js/plugins/moment/moment.js</code><br/>
+						<strong>Site:</strong> <a href="https://github.com/dangrossman/bootstrap-daterangepicker">https://github.com/dangrossman/bootstrap-daterangepicker</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="input-group">												
+							<input type="text" id="daterange-default" class="form-control">
+							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						</div>
+					]]>
+					</script>
+					<p>Initialize the plugin with timePicker enabled</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('#daterange-default').daterangepicker({
+							timePicker: true,
+							timePickerIncrement: 10,
+							format: 'MM/DD/YYYY h:mm A'
+						});
+					]]>
+					</script>
+
+					<h4>Text Area</h4>
+					<p>Enable character counter to text area</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<textarea class="form-control textarea-with-counter" rows="6" cols="30" maxlength="99"></textarea>
+						<p class="help-block text-right textarea-msg"><span class="text-muted"></span></p>
+					]]>
+					</script>
+					<p>Determine the maximum character as below</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('.textarea-msg span').html($('.textarea-with-counter').attr('maxlength') + ' characters remaining');
+
+						$('.textarea-with-counter').keyup(function() {
+							var textMax = $(this).attr('maxlength');
+							var textLength = $(this).val().length;
+							var textRemaining = textMax - textLength;
+							$(this).next().find('span').html(textRemaining + ' characters remaining');
+						});
+					]]>
+					</script>
+
+
+					<h4>Spinner Input</h4>
+					<p>A mobile and touch friendly input spinner component for Bootstrap 3. It supports the mousewheel and the up/down keys.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js</code><br/>
+						<strong>Site:</strong> <a href="http://www.virtuosoft.eu/code/bootstrap-touchspin/">http://www.virtuosoft.eu/code/bootstrap-touchspin/</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<input id="demo1" type="text" value="55" name="demo1">
+					]]>
+					</script>
+					
+					<p>Initialize the plugin</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$("input[name='demo1']").TouchSpin({
+							min: 0,
+							max: 100,
+							step: 0.1,
+							decimals: 2,
+							boostat: 5,
+							maxboostedstep: 10,
+							postfix: '%'
+						});
+					]]>
+					</script>
+
+					<h4>Color Picker</h4>
+					<p>Adding color picker to field or any other element</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js</code><br/>
+						<strong>Site:</strong> <a href="http://www.eyecon.ro/bootstrap-colorpicker/">http://www.eyecon.ro/bootstrap-colorpicker/</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<input type="text" id="demo1" class="form-control" value="#5367ce" />
+					]]>
+					</script>					
+					<p>Initialize the plugin</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('#demo1').colorpicker();
+					]]>
+					</script>
+					
+
+					<h5>Simple Color Picker</h5>
+					<p>Simple color picker with provided color options</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js</code><br/>
+						<strong>Site:</strong> <a href="https://github.com/tkrotoff/jquery-simplecolorpicker">https://github.com/tkrotoff/jquery-simplecolorpicker</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<select name="colorpicker-picker-longlist">
+							<option value="#ac725e">#ac725e</option>
+							<option value="#d06b64">#d06b64</option>
+							<option value="#f83a22">#f83a22</option>
+							<option value="#fa573c">#fa573c</option>
+							<option value="#ff7537">#ff7537</option>									
+						</select>
+					]]>
+					</script>
+					<p>Initialize the plugin</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('select[name="colorpicker-picker-longlist"]').simplecolorpicker({
+							picker: true, 
+							theme: 'fontawesome' // to define the check mark icon
+						});
+					]]>
+					</script>
+
+
+					<h4>Dynamic Form Fields</h4>
+					<p>User can add more field as necessary</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<input type="hidden" name="count" value="1" />
+						<div class="input-appendable-wrapper">
+							<input type="hidden" id="count" value="1">
+							<div class="input-group input-group-appendable" id="input-group-appendable1">						
+								<input autocomplete="off" class="input form-control" id="field1" name="field1" type="text" >
+								<span class="input-group-btn">
+									<button id="btn1" class="btn btn-primary add-more" type="button">+</button>
+								</span>
+							</div>
+						</div>
+					]]>
+					</script>
+					<p>jQuery script as below</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$( "form.input-append" ).keypress(function(e) {
+							if ( e.which == 13 ) {
+								e.preventDefault();
+							}
+						});
+
+						$('.input-group-appendable .add-more').click(function(){
+							$wrapper = $(this).parents('.input-appendable-wrapper');
+							$lastItem = $wrapper.find('.input-group-appendable').last(); 
+
+							$newInput = $lastItem.clone(true);
+
+							// change attribute for new item
+							$count = $wrapper.find('#count').val();
+							$count++;
+
+							// change text input and the button
+							$newInput.attr('id', 'input-group-appendable' + $count);
+							$newInput.find('input[type="text"]').attr({
+								id: "field" + $count,
+								name: "field" + $count
+							});
+
+							$newInput.find('.btn').attr('id', 'btn' + $count);
+							$newInput.appendTo($wrapper);
+
+							//change the previous button to remove
+							$lastItem.find('.btn')
+							.removeClass('add-more btn-primary')
+							.addClass('btn-danger')
+							.text('-')
+							.off()
+							.on('click', function(){
+								$(this).parents('.input-group-appendable').remove();
+							});
+
+							$wrapper.find('#count').val($count);
+
+						});
+					]]>
+					</script>
+
+					<h4>Slider Input <span class="badge">since v1.2</span></h4>
+					<p>A Bootstrap slider input with various features such as horizontal, vertical slider, step, range selector and others.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/bootstrap-slider/bootstrap-slider.js</code><br/>
+						<strong>Site:</strong> <a href="http://www.eyecon.ro/bootstrap-slider">http://www.eyecon.ro/bootstrap-slider</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<input type="text" class="bootstrap-slider" value="">
+					]]>
+					</script>
+					<p>Initialize the plugin via javascript</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('.bootstrap-slider').slider({
+							min: 0,
+							max: 500,
+							value: 120,
+							tooltip: 'hide',
+							handle: 'square'
+						});
+					]]>
+					</script>
+					<p>You can also determine the orientation either horizontal (default) or vertical slider. In addition if you want to create step slider (incremented by certain number), use <code>step</code> option and provide the step number.</p>
+					<div class="alert alert-info">For range slider type, we recommend you to use <a href="#range-slider">Range Slider Input</a></div>
+
+					<h4>Select2 <span class="badge">since v1.2</span></h4>
+					<p>This plugin is used to replace the default select boxes.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/select2/select2.min.js</code><br/>
+						<strong>Site:</strong> <a href="http://ivaynberg.github.io/select2/index.html">http://ivaynberg.github.io/select2/index.html</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<select name="select2" id="select2" class="select2">
+							<option value="option1">Option 1</option>
+							<option value="option2">Option 2</option>
+							<option value="option3">Option 3</option>
+							<option value="option4">Option 4</option>
+						</select>
+					]]>
+					</script>
+					<p>Initialize the plugin via javascript</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('.select2').select2();
+					]]>
+					</script>
+					<p>For further use, you can visit the official documentation here <a href="http://ivaynberg.github.io/select2/index.html#documentation">http://ivaynberg.github.io/select2/index.html#documentation</a>.</p>
+
+					<h4>Tags Input <span class="badge">since v1.2</span></h4>
+					<p>Provide input for tags as easy as type and hit enter.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js</code><br/>
+						<strong>Site:</strong> <a href="http://timschlechter.github.io/bootstrap-tagsinput/examples/bootstrap3/">http://timschlechter.github.io/bootstrap-tagsinput/examples/bootstrap3/</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<input type="text" value="bootstrap, responsive, admin, theme" data-role="tagsinput" />
+					]]>
+					</script>
+					<p>Just add <code>data-role="tagsinput"</code> to your input field to automatically change it to a tags input field. You can also provide the initial value as shown on the above snippet.</p>
+					
+					<h3>Form Validation</h3>
+					<p>We use Parsley to validate form without writing any single line of javascript, powerful, simple and easy to use.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/parsley-validation/parsley.min.js</code><br/>
+						<strong>Site:</strong> <a href="http://parsleyjs.org">http://parsleyjs.org</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<form data-parsley-validate novalidate>
+							<div class="form-group">
+								<label>Text Input</label>
+								<input type="text" class="form-control" required>
+							</div>
+						</form>
+					]]>
+					</script>
+
+					<p>For more example and options please visit the official documentation at <a href="http://parsleyjs.org/documentation.html">http://parsleyjs.org/documentation.html</a></p>
+
+					<h3>Dropzone File Upload</h3>
+					<p>Provides drag and drop uploads with image previews. It also has fallback support for older browser.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/dropzone/dropzone.min.js</code><br/>
+						<strong>Site:</strong> <a href="http://www.dropzonejs.com/">http://www.dropzonejs.com/</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<form class="dropzone" enctype="multipart/form-data"></form>
+					]]>
+					</script>
+					<p>Initialize the plugin as below</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						Dropzone.autoDiscover = false;
+		
+						$(".dropzone").dropzone({
+							url: "php/dropzone-upload.php",
+							addRemoveLinks : true,
+							maxFilesize: 0.5,
+							maxFiles: 5,
+							acceptedFiles: 'image/*, application/pdf, .txt',
+							dictResponseError: 'File Upload Error.'
+						});
+					]]>
+					</script>
+
+					<p>The <code>url</code> refers to server-side upload processor file (<code>dropzone-upload.php</code>), in this case PHP. You can find it on the <code>php/</code> directory. As you can see on the <code>dropzone-upload.php</code>, the file will be uploaded to <code>php/uploads/</code> directory.</p>
+					<div class="alert alert-info">Please note that the upload functionality will work only if you run the theme on web server with PHP environment.</div>
+					<div class="alert alert-warning">If somehow you can't upload the file, please check the <code>php/uploads/</code> directory permission, make sure it's writable (CHMOD 777).</div>
+
+					<h3>In-Place Editing <span class="badge">since v1.2</span></h3>
+					<p>This theme uses x-editable plugin to allow you to create editable elements on your page or form, includes both popup and inline mode.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/bootstrap-editable/bootstrap-editable.min.js</code><br/>
+						<strong>Site:</strong> <a href="http://vitalets.github.io/x-editable/">http://vitalets.github.io/x-editable/</a>
+					</p>
+
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+
+						<!-- will change to text input once clicked -->
+						<a href="#" id="username" data-type="text" data-pk="1" data-url="/post" data-title="Enter username">superuser</a>
+					]]>
+					</script>
+
+					<p>Main attributes you should define are:</p>
+					<ul>
+						<li><code>type</code> - type of input (text, textarea, select, etc)</li>
+						<li><code>url</code> - url to server-side script to process submitted value (<code>/post</code>, <code>post.php</code> etc)</li>
+						<li><code>pk</code> - primary key of record to be updated (ID in db)</li>
+						<li><code>id</code> or <code>name</code> - name of field to be updated (column in db). Taken from <code>id</code> or <code>data-name</code> attribute</li>
+						<li><code>value</code> - initial value. Usefull for select, where value is integer key of text to be shown. If empty - will be taken from element html contents</li>
+					</ul>
+
+					<p>Alternatively, you can set all options via javascript</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<a href="#" id="username">superuser</a>
+					]]>
+					</script>
+
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('#username').editable({
+							type: 'text',
+							pk: 1,
+							url: '/post',
+							title: 'Enter username'
+						});
+					]]>
+					</script>
+					<div class="alert alert-info"><p>The demo uses <a href="https://github.com/appendto/jquery-mockjax">Mockjax</a> to mocking or simulating ajax request and response. The handler setup can be found at <code>/assets/js/demo-mock.js</code></p></div>
+
+					<h3>WYSIWYG Text Editor <span class="badge">since v1.2</span></h3>
+					<p>Summernote is super simple text editor for Bootstrap.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/summernote/summernote.min.js</code><br/>
+						<strong>Site:</strong> <a href="http://hackerwins.github.io/summernote/">http://hackerwins.github.io/summernote/</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="summernote">Hello there,<br/>
+							<p>The toolbar can be customized and it also supports various callbacks such as <code>oninit</code>, <code>onfocus</code>, <code>onpaste</code> and many more.</p>
+							<p>Please try <b>paste some texts</b> here</p>
+						</div>
+					]]>
+					</script>
+					<p>Initialize the plugin with some options</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('.summernote').summernote({
+							height: 300,
+							focus: true,
+							onpaste: function() {
+								alert('You have pasted something to the editor');
+							}
+						});
+					]]>
+					</script>
+					<p>You can also define custom toolbar and use callbacks, please follow this documentation <a href="http://hackerwins.github.io/summernote/features.html#api">http://hackerwins.github.io/summernote/features.html#api</a></p>
+
+					<h3>Markdown Text Editor <span class="badge">since v1.2</span></h3>
+					<p>A simple Markdown editor for Bootstrap, easy to use with useful APIs. </p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/markdown/bootstrap-markdown.js</code><br/>
+						<strong>Site:</strong> <a href="http://github.com/toopay/bootstrap-markdown">http://github.com/toopay/bootstrap-markdown</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<textarea id="markdown-editor" name="markdown-content" data-provide="markdown" data-iconlibrary="fa" rows="10"></textarea>
+					]]>
+					</script>
+					<p>On the code above we initialize the editor using <code>data-provide</code> attribute. In addition the text editor will use Font Awesome icons as icon library for the editor via <code>data-iconlibrary</code>, default to <code>glyph</code> (Glyphicons) as provided by Bootstrap distribution file.</p>
+				</section>
+				<!-- ####################### END SECTION ####################### -->
+				
+				<!-- ####################### SECTION ####################### -->
+				<section>
+					<h2 id="section7">UI Elements</h2>
+					<h3>Progress Bar</h3>
+					<p>This plugin extend the basic progress bar from Twitter Bootstrap. It can animate the progress bar and has various info progress format such as percentage or custom format.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/bootstrap-progressbar/bootstrap-progressbar.js</code><br/>
+						<strong>Site:</strong> <a href="http://www.minddust.com/project/bootstrap-progressbar/">http://www.minddust.com/project/bootstrap-progressbar/</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="progress">
+							<div class="progress-bar" data-transitiongoal="20"></div>
+						</div>
+					]]>
+					</script>
+
+					<p>Initialization with basic config:</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('.progress.demo-only .progress-bar').progressbar({
+							display_text: 'fill'
+						});
+					]]>
+					</script>
+
+					<h3>Labels &amp; Badges</h3>
+					<p>Standard bootstrap labels and badges, please follow the links below for the documentation.</p>
+					<p class="well">
+						<strong>Site: </strong> <a href="http://getbootstrap.com/components/#labels">http://getbootstrap.com/components/#labels</a>, <a href="http://getbootstrap.com/components/#badges">http://getbootstrap.com/components/#badges</a>
+					</p>
+					<h3>Pagination</h3>
+					<p>In addition to the standard bootstrap pagination, we also provide alternative style for pagination.</p>
+					<p class="well">
+						<strong>Site: </strong> <a href="http://getbootstrap.com/components/#pagination">http://getbootstrap.com/components/#pagination</a>
+					</p>
+					<p>Alternative style for pagination, just add class <code>borderless</code>.</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<ul class="pagination borderless">
+							<li><a href="#">&laquo;</a></li>
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li class="active"><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">&raquo;</a></li>
+						</ul>
+					]]>
+					</script>
+					
+
+					<h3>Alerts</h3>
+					<p>Standard bootstrap alerts, please follow link below for the documentation.</p>
+					<p class="well">
+						<strong>Site: </strong> <a href="http://getbootstrap.com/components/#alerts">http://getbootstrap.com/components/#alerts</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="alert alert-danger alert-dismissable">
+							<a href="" class="close">&times;</a>
+							<strong>Oh snap!</strong> Change a few things up and try submitting again.
+						</div>
+					]]>
+					</script>
+					<p>For smoother closed message with fade out effect, we add a little bit script as below</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('.alert .close').click( function(e){
+							e.preventDefault();
+							$(this).parents('.alert').fadeOut(300);
+						});
+					]]>
+					</script>
+
+					<h3>Tooltips</h3>
+					<p>Standard bootstrap tooltip.</p>
+					<p class="well">
+						<strong>Plugin File: </strong> <code>assets/js/bootstrap/bootstrap.js</code><br/>
+						<strong>Site: </strong> <a href="http://getbootstrap.com/javascript/#tooltips">http://getbootstrap.com/javascript/#tooltips</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="demo-tooltip">
+							<button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="left" data-original-title="Tooltip on left">Tooltip on left</button>
+							<button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="Tooltip on top">Tooltip on top</button>
+							<button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" data-original-title="Tooltip on bottom">Tooltip on bottom</button>
+							<button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" data-original-title="Tooltip on right">Tooltip on right</button>
+						</div>
+					]]>
+					</script>					
+
+					<p>Initialize the plugin as below</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('body').tooltip({
+						  selector: "[data-toggle=tooltip]",
+						  container: "body"
+						})
+					]]>
+					</script>
+
+					<h3>Modal Dialog</h3>
+					<p>Modals are streamlined, but flexible, dialog prompts with the minimum required functionality and smart defaults.</p>
+					<p class="well">
+						<strong>Plugin File: </strong> <code>assets/js/bootstrap/bootstrap.js</code><br/>
+						<strong>Site: </strong> <a href="http://getbootstrap.com/javascript/#modals">http://getbootstrap.com/javascript/#modals</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch demo modal</button>					
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+								</div>
+								<div class="modal-body">
+									<p>Modal dialog content...</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
+									<button type="button" class="btn btn-custom-primary"><i class="fa fa-check-circle"></i> Save changes</button>
+								</div>
+							</div>
+							</div>
+						</div>
+					]]>
+					</script>
+					<h3>Tabs</h3>
+					<p>Add quick, dynamic tab functionality to transition through panes of local content, even via dropdown menus.</p>
+					<p class="well">
+						<strong>Plugin File: </strong> <code>assets/js/bootstrap/bootstrap.js</code><br/>
+						<strong>Site: </strong> <a href="http://getbootstrap.com/javascript/#tabs">http://getbootstrap.com/javascript/#tabs</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+
+						<!-- basic tabs with icon -->
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="active"><a href="#home" data-toggle="tab"><i class="fa fa-home"></i> Home</a></li>
+							<li><a href="#profile" data-toggle="tab"><i class="fa fa-user"></i> Profile</a></li>
+							<li class="dropdown">
+								<a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-list	"></i> Dropdown <b class="caret"></b></a>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+									<li><a href="#dropdown1" tabindex="-1" data-toggle="tab">Dropdown Item 1</a></li>
+									<li><a href="#dropdown2" tabindex="-1" data-toggle="tab">Dropdown Item 2</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane fade in active" id="home">
+								<p>#home content</p>
+							</div>
+							<div class="tab-pane fade" id="profile">
+								<p>#profile content</p>
+							</div>
+							<div class="tab-pane fade" id="dropdown1">
+								<p>#dropdown1 content</p>
+							</div>
+							<div class="tab-pane fade" id="dropdown2">
+								<p>#dropdown2 content</p>
+							</div>
+						</div>
+
+						<!-- basic tabs on the right -->
+						<ul class="nav nav-tabs nav-tabs-right" role="tablist"> ... </ul>
+						<div class="tab-content"> ... </div>
+
+						<!-- basic pill -->
+						<ul class="nav nav-pills" role="tablist"> ... </ul>
+						<div class="tab-content"> ... </div>
+
+						<!-- custom tab colored -->
+						<ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist"> ... </ul>
+						<div class="tab-content"> ... </div>
+
+						<!-- custom tab minimal, top border -->
+						<ul class="nav nav-pills nav-pills-custom-minimal" role="tablist"> ... </ul>
+						<div class="tab-content"> ... </div>
+
+						<!-- custom tab minimal, bottom border -->
+						<ul class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom" role="tablist">
+						<div class="tab-content"> ... </div>
+
+						<!-- custom vertical tab -->
+						<div class="custom-tabs-left">
+							<ul class="nav nav-tabs" role="tablist"> ... </ul>
+							<div class="tab-content"> ... </div>
+						</div>
+					]]>
+					</script>
+					
+					
+					<h3>Accordion</h3>
+					<p>Standard bootstrap collapsible content. We can add icon, label and badge to the tab.</p>
+					<p class="well">
+						<strong>Plugin File: </strong> <code>assets/js/bootstrap/bootstrap.js</code><br/>
+						<strong>Site: </strong> <a href="http://getbootstrap.com/javascript/#collapse">http://getbootstrap.com/javascript/#collapse</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Collapsible Group Item #1 <i class="fa fa-angle-down pull-right"></i><i class="fa fa-angle-up pull-right"></i></a>
+								</h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse in">
+								<div class="panel-body">body content</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">Collapsible Group Item #2 <i class="fa fa-angle-down pull-right"></i><i class="fa fa-angle-up pull-right"></i></a>
+								</h4>
+							</div>
+							<div id="collapseTwo" class="panel-collapse collapse">
+								<div class="panel-body">body content</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed">Collapsible Group Item #3 <i class="fa fa-angle-down pull-right"></i><i class="fa fa-angle-up pull-right"></i></a>
+								</h4>
+							</div>
+							<div id="collapseThree" class="panel-collapse collapse">
+								<div class="panel-body">body content</div>
+							</div>
+						</div>
+					</div>
+					]]>
+					</script>
+
+					<h3>Buttons</h3>
+					<p>The standard bootstrap buttons can be extended as buttons dropdown, grouped as button groups and combined with font icon such as Font Awesome. In addition, button also can have loading state on it, mostly used to process ajax.</p>
+					<p class="well">
+						<strong>Site: </strong> <a href="http://getbootstrap.com/css/#buttons">http://getbootstrap.com/css/#buttons</a><br/>
+						<strong>Stateful button: </strong> <a href="http://getbootstrap.com/javascript/#buttons">http://getbootstrap.com/javascript/#buttons</a> <span class="badge">since v1.2</span>
+					</p>
+					<p>Below is the example on how to create a stateful button</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<button type="button" id="loading-example-btn" data-loading-text="Loading..." class="btn btn-primary">Loading state</button>
+					]]>
+					</script>
+					<p>Javascript to process ajax by clicking the button</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('#loading-example-btn').click( function() {
+							var btn = $(this);
+
+							$.ajax({
+								url: 'php/widget-ajax.php',
+								type: 'POST',
+								dataType: 'json',
+								cache: false,
+								beforeSend: function(){
+									btn.button('loading');
+								},
+								success: function(  data, textStatus, XMLHttpRequest  ) {
+									// dummy delay for demo purpose only
+									setTimeout( function() {
+										$('#server-message').text(data['msg']).addClass('green-font');
+										btn.button('reset');
+									}, 1000 );
+
+
+								},
+								error: function( XMLHttpRequest, textStatus, errorThrown ) {
+									console.log("AJAX ERROR: \n" + errorThrown);
+								}
+							});
+
+						});
+					]]>
+					</script>
+					<p>As shown above, the button will start change to loading state once executed <code>btn.button('loading')</code> and back to initial after reset, <code>btn.button('reset')</code>.</p>
+
+					<h3>Icons</h3>
+					<p>We use Font Awesome icons as our main icon collection, but however you can also use Glyphicons delivered with bootstrap. Note that these icons only comes with 200 glyphs from the Glyphicon Halflings set.</p>
+					<p class="well">
+						<strong>Site: </strong> <a href="http://getbootstrap.com/components/#glyphicons">http://getbootstrap.com/components/#glyphicons</a><br/>
+						<strong>Font Awesome: </strong> <a href="http://fortawesome.github.io/Font-Awesome/examples/">http://fortawesome.github.io/Font-Awesome/examples/</a><br/>
+						<strong>Glyphicons: </strong> <a href="http://glyphicons.com/">http://glyphicons.com/</a>
+					</p>
+					<h3>Flash Message</h3>
+					<p>Alert a user with Growl like flash message which comes with alert placement and style options. It has sound too!</p>
+					<p class="well">
+						<strong>Plugin File: </strong> <code>assets/js/plugins/jquery-gritter/jquery.gritter.min.js</code><br/>
+						<strong>Site: </strong> <a href="http://boedesign.com/blog/2009/07/11/growl-for-jquery-gritter/">http://boedesign.com/blog/2009/07/11/growl-for-jquery-gritter/</a>
+					</p>
+					<p>Initialize a flash message</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$.gritter.add({
+							title: 'Regular Alert!',
+							text: 'Fades out automatically in amount of time.',
+						});
+					]]>
+					</script>
+				</section>
+				<!-- ####################### END SECTION ####################### -->
+
+				<!-- ####################### SECTION ####################### -->
+				<section>
+					<h2 id="section8">Components</h2>
+					<p>In this section, we will explain how the wizard works with form validation, setup calendar, maps and others</p>
+					<h3>Wizard</h3>
+					<p>We have added the validation to the wizard using parsley form validator as explained on the <strong>Form Validation</strong> sub-topic</p>
+					<p class="well">
+						<strong>Plugin File: </strong> <code>assets/js/plugins/wizard/wizard.min.js</code><br/>
+						<strong>Site: </strong> <a href="http://exacttarget.github.io/fuelux/#wizard">http://exacttarget.github.io/fuelux/#wizard</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="wizard-wrapper">
+							<div id="demo-wizard" class="wizard">
+								<ul class="steps">
+									<li data-target="#step1" class="active"><span class="badge badge-info">1</span>Account Type<span class="chevron"></span></li>
+									<li data-target="#step2"><span class="badge">2</span>User Account<span class="chevron"></span></li>
+									<li data-target="#step3"><span class="badge">3</span>Options<span class="chevron"></span></li>
+									<li data-target="#step4" class="last"><span class="badge">4</span>Create Account</li>
+								</ul>
+							</div>
+							<div class="step-content">
+								<div class="step-pane active" id="step1">
+									<form id="form1" data-parsley-validate novalidate>
+										<p>Choose your account type:</p>
+										<label class="fancy-radio">
+											<input type="radio" name="account-type" value="personal" required data-parsley-errors-container="#error-step1">
+											<span><i></i>Personal</span>
+										</label>
+										<label class="fancy-radio">
+											<input type="radio" name="account-type" value="business" >
+											<span><i></i>Business</span>
+										</label>
+										<label class="fancy-radio">
+											<input type="radio" name="account-type" value="enterprise">
+											<span><i></i>Enterprise</span>
+										</label>
+										<p id="error-step1"></p>
+									</form>
+								</div>
+								<div class="step-pane" id="step2">
+									<form id="form2" data-parsley-validate novalidate>
+										<p>Please provide email, username and password<br/>
+											<em><small>Field marked * is required</small></em>
+										</p>
+										<div class="row">
+											<div class="col-md-3">
+												<div class="form-group">
+													<label for="email">Email *</label>
+													<input type="email" id="email" class="form-control" required>
+												</div>
+												<div class="form-group">
+													<label for="password">Password *</label>
+													<input type="password" id="password" name="password" class="form-control" required>
+												</div>
+												<div class="form-group">
+													<label for="password2">Repeat Password *</label>
+													<input type="password" id="password2" name="password2" class="form-control" required data-parsley-equalto="#password" data-parsley-equalto-message="Password doesn't match.">
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+								<div class="step-pane" id="step3">
+									<form id="form3" data-parsley-validate novalidate>
+										<label class="fancy-checkbox">
+											<input type="checkbox" name="newsletter">
+											<span>Subscribe to monthly newsletter</span>
+										</label>
+										<label class="fancy-checkbox">
+											<input type="checkbox" name="terms">
+											<span>I accept the <a href="#">Terms &amp; Agreements</a></span>
+										</label>
+									</form>
+								</div>
+								<div class="step-pane" id="step4">
+									<p class="lead"><i class="fa fa-check-circle text-success"></i> All is well! Click "Create My Account" to complete.</p>
+								</div>
+							</div>
+							<div class="actions">
+								<button type="button" class="btn btn-default btn-prev"><i class="fa fa-arrow-left"></i> Prev</button>
+								<button type="button" class="btn btn-primary btn-next">Next <i class="fa fa-arrow-right"></i></button>
+							</div>
+						</div>
+					]]>
+					</script>
+					<p>As you can see the validation is simple, by adding the data attributes <code>data-parsley-*</code> as your requirements. Then we initialize the plugin, integrate it with Parsley validator and setup the navigation and event when the wizard is finished.</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('#demo-wizard').on('change', function(e, data) {
+							// validation
+							if( $('#form'+data.step).length > 0 ) {
+								var parsleyForm = $('#form'+data.step).parsley();
+								parsleyForm.validate();
+
+								if( !parsleyForm.isValid() )
+									return false;
+							}
+
+							// last step button
+							$btnNext = $(this).parents('.wizard-wrapper').find('.btn-next');
+							
+							if(data.step === 3 && data.direction == 'next') {
+								$btnNext.text(' Create My Account')
+								.prepend('<i class="fa fa-check-circle"></i>')
+								.removeClass('btn-primary').addClass('btn-success');
+							}else{
+								$btnNext.text('Next ').
+								append('<i class="fa fa-arrow-right"></i>')
+								.removeClass('btn-success').addClass('btn-primary');
+							}
+								
+						}).on('finished', function(){
+							alert('Your account has been created.');
+						});
+
+						$('.wizard-wrapper .btn-next').click( function(){	
+							$('#demo-wizard').wizard('next');
+						});
+						$('.wizard-wrapper .btn-prev').click( function(){	
+							$('#demo-wizard').wizard('previous');
+						});
+					]]>
+					</script>
+					
+					<h3>Calendar</h3>
+					<p>The calendar from FullCalendar plugin provides a full-sized, drag & drop calendar. The calendar comes with 3 view modes, i.e. month, week and day</p>
+					<p class="well">
+						<strong>Plugin File: </strong> <code>assets/js/plugins/fullcalendar/fullcalendar.min.js</code><br/>
+						<strong>Site: </strong> <a href="http://arshaw.com/fullcalendar/docs/usage/">http://arshaw.com/fullcalendar/docs/usage/</a>
+					</p>
+					<p>First add the element for calendar placeholder</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div id='calendar'></div>
+					]]>
+					</script>
+					<p>Then initialize the plugin</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('#calendar').fullCalendar({
+							// put your options and callbacks here
+						})
+					]]>
+					</script>
+					<h3>Maps</h3>
+					<p>We use Mapael as map plugin that allows you to display dynamic vector maps, we also provide Google Map with custom style.</p>
+					<h4>Vector Map</h4>
+					<p class="well">
+						<strong>Plugin File: </strong> <code>assets/js/plugins/jquery-mapael/jquery.mapael.js</code><br/>
+						<strong>Require: </strong> <code>assets/js/plugins/raphael/raphael-min.js</code><br/>
+						<strong>Maps: </strong> <code>assets/js/plugins/raphael/maps/</code><br/>
+						<strong>Optional: </strong> <code>assets/js/plugins/jquery-mousewheel/jquery.mousewheel.js</code> used in map zoom demo<br/>
+						<strong>Site: </strong> <a href="http://www.neveldo.fr/mapael/">http://www.neveldo.fr/mapael/</a>
+					</p>
+					<p>Add elements as below</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<div class="container">
+							<div class="map">Alternative content as fallback support</div>
+						</div>
+					]]>
+					</script>
+					<p>Then initialize the plugin</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$(".container").mapael({
+							map : {
+								name : "world_countries"
+							}
+						});
+					]]>
+					</script>
+
+					<p><code>name</code> value: <code>world_countries</code> refers to map name defined in the <code>assets/js/maps/world_countries.js</code>, usually has a same value as its file name.</p>
+					<h4>Google Map</h4>
+					<p class="well">
+						<strong>Js File: </strong> <code>assets/js/plugins/google-map/google-map.js</code><br/>
+						<strong>Site: </strong> <a href="https://developers.google.com/maps/documentation/javascript/basics">https://developers.google.com/maps/documentation/javascript/basics</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<style>
+							.google-map #map-canvas {
+								height: 350px;
+							}
+						</style>
+
+						<div class="google-map">
+							<div id="map-canvas"></div>
+						</div>
+					]]>
+					</script>
+
+					<p>Provide your API key and map address by finding functions below at <code>google-map.js</code></p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						function loadScript() {
+							var script = document.createElement('script');
+							script.type = 'text/javascript';
+							script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=true&' +
+								'callback=initialize';
+							document.body.appendChild(script);
+						}
+
+						function codeAddress() {
+	
+							var address = "Google New York, 76 Ninth Ave, New York, NY, USA"; // YOUR ADDRESS HERE
+							geocoder.geocode( { 'address': address}, function(results, status) {
+								if (status == google.maps.GeocoderStatus.OK) {
+									map.setCenter(results[0].geometry.location);
+									var image = new google.maps.MarkerImage("assets/img/location-pin.png", null, null, null, new google.maps.Size(32, 32));
+									var beachMarker = new google.maps.Marker({
+										map: map,
+										icon: image,
+										position: results[0].geometry.location
+									});
+
+								} else {
+									alert('Geocode was not successful for the following reason: ' + status);
+								}
+							});
+						}
+
+					]]>
+					</script>
+
+					<div class="alert alert-info">
+						<strong>Note: Google map requires API key</strong>. Please visit this link to obtain API key <a href="https://developers.google.com/maps/documentation/javascript/tutorial#api_key">https://developers.google.com/maps/documentation/javascript/tutorial#api_key</a>
+					</div>
+					<h3>Bootstrap Tour</h3>
+					<p>Bootstrap tour is new in KingAdmin v1.1 and it's useful to guide user, especially new user to learn the website or simply showing new feature/update to the website. <strong>Note that we have fixed bug that only show on IE, so this isn't the original plugin file.</strong></p>
+					<p class="well">
+						<strong>Plugin File: </strong> <code>assets/js/plugins/bootstrap-tour/bootstrap-tour.custom.js</code><br/>
+						<strong>Site: </strong> <a href="http://bootstraptour.com/">http://bootstraptour.com/</a>
+					</p>
+					<div id="bootstrap-tour-basepath" class="alert alert-warning">
+						<h3>basePath value</h3>
+						<p>Bootstrap Tour configured in this theme needs valid <code>basePath</code> value based on web server environment. Please open <code>assets/js/king-common.js</code> and find parameter <code>basePath</code> and provide your value. For example if the theme url is: <strong>http://demo.thedevelovers.com/dashboard/kingadmin-v1.1/</strong> the <code>basePath</code> should be <strong>/dashboard/kingadmin-v1.1/</strong>.</p>
+						<p>If you clicking "Start Tour" before providing valid <code>basePath</code> value, the page will be redirected to currently provided <code>basePath</code> value. So to avoid redirection problem, after providing valid value for <code>basePath</code>, you also have to remove key <code>tour_current_step</code> in your browser local storage. Below is how to find and remove the key.</p><br>
+						<img src="assets/img/localStorage.png" class="img-responsive" alt="Local Storage">
+
+						<p>Make sure the key has been removed by refreshing local storage (step 5), then back to homepage (dashboard).</p>
+					</div>
+
+					<p>To create a tour first we have to determine element target identified by <code>id</code> or <code>class</code>. Let's say we want the search box is guided by tour then we will have the element as below:</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<!-- search box -->
+						<div id="searchbox" class="input-group searchbox">
+							<input type="search" class="form-control" placeholder="enter keyword here...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+							</span>
+						</div>
+						<!-- end search box -->
+
+						<button type="button" id="important-button">Click to Update</button>
+					]]>
+					</script>
+
+					<p>Note that the search box has id <code>tour-searchbox</code> and a button with id <code>important-button</code>, so in the javascript we will set this as below:</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						// Instance the tour
+						var tour = new Tour({
+							steps: [
+							{
+								element: "#searchbox",
+								title: "Search Box Guide",
+								content: "Try to find the widget here in the search box by typing widget title."
+							},
+							{
+								element: "#important-button",
+								title: "Important Notice",
+								content: "Please be aware that the website has to be updated soon."
+							}
+						]});
+
+						// Initialize the tour
+						tour.init();
+
+						// Start the tour
+						tour.start();
+					]]>
+					</script>
+					<p>So in the example above. the first step of the tour will highlight the searchbox and then to the button as the next step. You can also create a cross-page tour by defining <code>path</code> value on the <code>step</code>. Please read the full documentation about Bootstrap Tour at <a href="http://bootstraptour.com/api">http://bootstraptour.com/api</a></p>
+
+					<h3>Tree View</h3>
+					<p>Tree view is implemented with jsTree plugin using AJAX data loading method.</p>
+					<p class="well">
+						<strong>Plugin File:</strong> <code>assets/js/plugins/tree/jstree.js</code><br/>
+						<strong>Site:</strong> <a href="http://www.jstree.com/">http://www.jstree.com/</a><br/>
+						<strong>Data File:</strong> <code>assets/js/plugins/tree/tree-filesystem.json</code><br/>
+					</p>
+					<p>Below is a customized tree view, it uses icons from Font Awesome.</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						// customized tree view, remove "king-tree" class if you want to use default style
+						<div id="treeview-custom-icon" class="king-tree"></div>
+					]]>
+					</script>
+
+					<p>Initialization and configuration</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						// tree view with custom icon
+						var treeviewCustomIcon = $('#treeview-custom-icon');
+
+						treeviewCustomIcon.jstree({
+							'core' : {
+								'data' : {
+									'url' : 'assets/js/plugins/tree/tree-filesystem.json',
+								},
+								'check_callback' : true,
+							},
+							'plugins' : ['checkbox', 'contextmenu', 'types'],
+							'checkbox' : {
+								'keep_selected_style' : false
+							},
+							'types' : {
+								'root' : {
+									'icon' : 'fa fa-desktop text-primary'
+								},
+								'default' : {
+									'icon' : 'fa fa-folder'
+								},
+								'text' : {
+									'icon' : 'fa fa-file-text-o'
+								},
+								'pdf' : {
+									'icon' : 'fa fa-file-pdf-o'
+								},
+								'word' : {
+									'icon' : 'fa fa-file-word-o'
+								},
+								'excel' : {
+									'icon' : 'fa fa-file-excel-o'
+								},
+								'ppt' : {
+									'icon' : 'fa fa-file-powerpoint-o'
+								},
+								'img' : {
+									'icon' : 'fa fa-file-image-o'
+								},
+								'zip' : {
+									'icon' : 'fa fa-file-zip-o'
+								}
+							}
+						});
+
+					]]>
+					</script>
+					<p>Since the tree is populated with JSON by AJAX loading, provide valid <code>url</code> to the JSON file. jsTree also provide plugins to extend core functionality, on the example above, <code>contextmenu</code> is used to provide right click pop-up menu for each tree item while <code>checkbox</code> plugin is used to enable checkbox in each node item. In addition, you can change icon for each tree item type using <code>types</code> plugin.</p>
+					<p>Tree data JSON file: <code>assets/js/plugins/tree/tree-filesystem.json</code></p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						[
+							{"id":"root","text":"My Projects", "type" : "root", "children":
+								[
+									{"id":"01","text":"Project 123GO", "children" :
+										[
+											{"id":"011", "text": "Media"},
+											{"id":"012", "text": "Legal"},
+											{"id":"013", "text": "Proposal.docx", "type": "word"},
+											{"id":"014", "text": "Proposal_FINAL.pdf", "type": "pdf"},
+											{"id":"015", "text": "Presentation.ppt", "type": "ppt"},
+											{"id":"016", "text": "Statistic.xlsx", "type": "excel"}
+										]
+
+									},
+									{"id":"02", "text": "Web Redesign"},
+									{"id":"03", "text": "Spot Media"},
+									{"id":"04", "text": "Fast E-Commerce"},
+									{"id":"05", "text": "SEO"},
+									{"id":"06", "text": "Review.pdf", "type": "pdf"},
+									{"id":"07", "text": "CompanyLogo.jpg", "type": "img"}
+								]
+							}
+						]
+					]]>
+					</script>
+
+				</section>
+				<!-- ####################### END SECTION ####################### -->
+
+				<!-- ####################### SECTION ####################### -->
+				<section>
+					<h2 id="section9">Tables</h2>
+					<p>This section will show you about the tables, both static comes from standard bootstrap table and dynamic table from jQuery Datatables</p>
+					<h3>Static Table</h3>
+					<p>Standard bootstrap table</p>
+					<p class="well">
+						<strong>Site: </strong> <a href="http://getbootstrap.com/css/#tables">http://getbootstrap.com/css/#tables</a>
+					</p>
+					
+					<h3>Dynamic Table</h3>
+					<h4>DataTables</h4>
+					<p>We use DataTables, a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, which will add advanced interaction controls to any HTML table. Below is basic usage of DataTables with bootstrap support</p>
+					<p class="well">
+						<strong>Plugin File: </strong> <code>assets/js/plugins/datatable/jquery.dataTables.min.js</code><br/>
+						<strong>Require : </strong> <code>assets/js/plugins/datatable/dataTables.bootstrap.js</code> for bootstrap style support, <code>assets/js/plugins/datatable/exts/</code> as datatable extension such as export data feature<br/>
+						<strong>Site: </strong> <a href="http://datatables.net/">http://datatables.net/</a>
+					</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<table class="table datatable">
+							<thead>
+								<tr>
+									<th>Browser</th>
+									<th>Operating System</th>
+									<th>Visits</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Chrome</td>
+									<td>Macintosh</td>
+									<td>360</td>
+								</tr>
+
+								....
+
+							</tbody>
+						</table>
+					]]>
+					</script>
+					<p>Initialise the datatable with bootstrap small column (<code>col-sm-6</code>) for table features at the top and bottom of the table.</p>
+					<script type="syntaxhighlighter" class="brush: js">
+					<![CDATA[
+						$('.datatable').dataTable({
+							sDom: "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+						});
+					]]>
+					</script>
+					<div class="alert alert-info">
+						<strong>Data Export Feature</strong><br/>Note: Table with data export require Flash plugin.
+					</div>
+
+					<h4>jqGrid</h4>
+					<p>jqGrid is an Ajax-enabled JavaScript control that provides solutions for representing and manipulating tabular data on the web.</p>
+					<p class="well">
+						<strong>Plugin File: </strong> <code>assets/js/plugins/jqgrid/jquery.jqGrid.min.js</code><br/>
+						<strong>Recommended : </strong> <code>assets/js/plugins/jqgrid/jquery.jqGrid.fluid.js</code><br/>
+						<strong>PHP File : </strong> <code>php/jqgrid/server.php</code><br/>
+						<strong>DB File : </strong> <code>database_demo.sql</code> to be exported to the database later<br/>
+						<strong>Site: </strong> <a href="http://www.trirand.com/jqgridwiki/doku.php">http://www.trirand.com/jqgridwiki/doku.php</a>
+					</p>
+					<div class="alert alert-warning">Please note that jqGrid will work as the demo only if you run the theme <strong><em>on web server with PHP environment and have created database table needed</em></strong>. The <code>server.php</code> file works as server-side processor to connect to the database, query data and return it to the table.</div>
+					<p><strong>Important:</strong> Please configure your database connection on <code>php/jqgrid/dbconfig.php</code> as below</p>
+					<script type="syntaxhighlighter" class="brush: php">
+					<![CDATA[
+						<?php
+
+							$DB_HOST = 'localhost';
+							$DB_NAME = 'dashboard_demo';
+							$DB_USERNAME = 'YOUR_DATABASE_USERNAME';
+							$DB_PASSWORD = 'YOUR_DATABASE_PASSWORD';
+
+						?>
+					]]>
+					</script>
+					<ol>
+						<li>Create database <code>dashboard_demo</code></li>
+						<li>Import sql script <code>database_demo.sql</code> to create <code>invheader</code> table with its data.</li>
+					</ol>
+
+				</section>
+				<!-- ####################### END SECTION ####################### -->
+
+				<!-- ####################### SECTION ####################### -->
+				<section>
+					<h2 id="section10">Typography</h2>
+					<p>For further documentation, please visit bootstrap official documentation</p>
+					<p class="well">
+						<strong>Site: </strong> <a href="http://getbootstrap.com/css/#type">http://getbootstrap.com/css/#type</a>
+					</p>					
+				</section>
+				<!-- ####################### END SECTION ####################### -->
+
+				<!-- ####################### SECTION ####################### -->
+				<section>
+					<h2 id="section11">Skins</h2>
+					<p>Since Kingboard v1.1 you are provided with 10 built-in skins that includes 8 color skins and 3 special skins (Transparent, Full Bright and Full Dark). You can locate the skin files at <code>assets/css/skins/</code> and if you use Sass locate the files at <code>sass/skins/</code>. By default the theme didn't use any skin file provided and if you want to apply the skin to the theme please add code below in the <code>head</code> of each html file.</p>
+					<script type="syntaxhighlighter" class="brush: html">
+					<![CDATA[
+						<!-- CSS -->
+						<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+						<link href="assets/css/font-awesome.css" rel="stylesheet" type="text/css">
+						<link href="assets/css/main.css" rel="stylesheet" type="text/css">
+						<link href="assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
+						
+						<!-- added code to apply skin -->
+						<link href="assets/css/skins/teal.css" rel="stylesheet" type="text/css"> 
+						<!-- end added code to apply skin -->
+					]]>
+					</script>
+					<p>In the example above, a skin (teal.css) is applied and you may prefer the other skin like darkblue, orange, fulldark and so on as provided at <code>assets/css/skins/</code></p>
+
+				</section>
+				<!-- ####################### END SECTION ####################### -->
+
+				<!-- ####################### SECTION ####################### -->
+				<section>
+					<h2 id="section12">Changelog</h2>
+					<div class="well">
+						<h5>Version 1.6.2 (28-04-2017)</h5>
+						<ul>
+							<li>REMOVED Compass</li>
+							<li>REMOVED unnecessary style switcher script</li>
+							<li>FIXED submenu list style</li>
+						</ul>
+
+						<h5>Version 1.6.1 (14-09-2016)</h5>
+							<ul>
+								<li>ADDED bonus: KingAdmin Landing Page</li>
+								<li>IMPROVED color contrast for maps, charts and overall UI</li>
+								<li>IMPROVED fullbright skin, now it’s cleaner</li>
+								<li>IMPROVED transparent skin, font color contrast adjustment</li>
+								<li>IMPROVED left sidebar navigation animation and transition in minified mode</li>
+								<li>UPDATED page-inbox.html to hold more message examples</li>
+								<li>FIXED invincible area that triggering submenu in minified navigation</li>
+								<li>FIXED widget focus mode, hide top bar and left sidebar</li>
+								<li>FIXED widget collapse and expand feature</li>
+								<li>FIXED normal left sidebar z-index relative to top bar</li>
+							</ul>
+						<h5>Version 1.6 (24-07-2016)</h5>
+						<ul>
+							<li>ADDED new dashboard (investment portfolio)</li>
+							<li>ADDED new on-top main navigation layout</li>
+							<li>ADDED layouts demo page to show navigation default behavior, such as minified, collapsed</li>
+							<li>ADDED navigations demo page to show default left sidebar and normal left sidebar behavior (from previous version)</li>
+							<li>UPDATED Font Awesome to v4.6.3</li>
+							<li>UPDATED major changes to main navigation (left sidebar), it’s now scrollable by default and smaller width to make main content wider</li>
+							<li>UPDATED top bar is now top-fixed by default</li>
+							<li>UPDATED documentation</li>
+							<li>IMPROVED off-canvas left sidebar navigation on smaller screen</li>
+							<li>IMPROVED major changes also includes removing unnecessary div on left sidebar and top bar. For top-level layout, it doesn’t depend on grid sizing (col-md-*) anymore</li>
+							<li>IMPROVED misc thins such as footer, font size on left sidebar, shorter menu item name and more vertical padding for menu items</li>
+							<li>REMOVED left sidebar info to make more vertical space and focus for main navigation</li>
+						</ul>
+
+						<h5>Version 1.5 (04-01-2016)</h5>
+						<ul>
+							<li>ADDED new transparent skin</li>
+							<li>ADDED new dashboard home page</li>
+							<li>ADDED new elements such as quick inbox, profile completeness meter, Slack UI, real-time pie chart, tiny stat info (progress bar)</li>
+							<li>UPDATED Bootstrap to v3.3.6</li>
+							<li>UPDATED Font Awesome to v4.5.0</li>
+							<li>UPDATED documentation</li>
+							<li>IMPROVED general UI elements, drag & drop to-do list</li>
+							<li>IMPROVED textarea with counter, more flexible. Thanks to our customer, Jon</li>
+							<li>FIXED quick note now can give focus on title field</li>
+							<li>FIXED top general alert, now placed inside content wrapper</li>
+						</ul>
+
+						<h5>Version 1.4 (26-03-2015)</h5>
+						<ul>
+							<li>ADDED Tree View</li>
+							<li>ADDED new dashboard page</li>
+							<li>ADDED Pages: File Manager, Projects, Project Detail, FAQ</li>
+							<li>ADDED Widgets: Widget with AJAX state (loading, success, error), Quick Note, Widget Scrolling, Contextual Summary Info, Activity Feed, Employee of The Month, Ajax Drag and Drop To-Do List</li>
+							<li>ADDED 3 level navigation menu</li>
+							<li>ADDED my-custom-styles.scss for customizing, provided to avoid direct change to main.scss or main.css</li>
+							<li>UPDATED to Bootstrap 3.3.2</li>
+							<li>UPDATED to FontAwesome 4.3.0</li>
+							<li>UPDATED to Datatable 1.10.5, datatable TableTools</li>
+							<li>UPDATED input with validation states (form-bootstrap-elements.html)</li>
+							<li>UPDATED documentation</li>
+							<li>CHANGED all .fa to i</li>
+							<li>IMPROVED navigation menu transition, refactor login and register page styles, widget help popover will active on hover, message dropdown notification for unread message</li>
+							<li>IMPROVED separate .scss file for Bootstrap elements related (_ui-bootstrap-elements.scss) and custom/plugin elements (_ui-elements.scss)</li>
+							<li>FIXED top navigation dropdown menu overflow, invoice print style problem, initial down arrow when a child page is visited</li>
+							<li>FIXED username on-focus color for full bright skin</li>
+							<li>MISC removed unnecessary .btn-group at widget header, removed button outline on focus, removed underline when hovering active link, change widget content heading (h4, h5, h6), remove unnecessary styles, remove primary and secondary color (_base.scss), removed push-sticky-footer</li>
+						</ul>
+
+						<h5>Version 1.3 (11-09-2014)</h5>
+						<ul>
+							<li>ADDED more Pages (New Message, Compose Message, Search Result, Submit Ticket)</li>
+							<li>ADDED more dynamic tables based on Datatables (drag/drop column reorder, column filter, data export feature, scrolling table)</li>
+							<li>ADDED more static tables (responsive table, contextual table)</li>
+							<li>ADDED Google Map</li>
+							<li>ADDED Bootstrap tabs and custom tabs</li>
+							<li>ADDED option for top-fixed navigation</li>
+							<li>UPDATED to Bootstrap 3.2.0</li>
+							<li>UPDATED to Font Awesome 4.2.0</li>
+							<li>UPDATED to Datatables 1.10.2</li>
+							<li>UPDATED to Bootstrap Progressbar 0.8.3</li>
+							<li>UPDATED to Bootstrap Touchspin 3.0.1</li>
+							<li>UPDATED to Multiselect 0.9.8</li>
+							<li>UPDATED to Parsleyjs 2.0.5</li>
+							<li>IMPROVED fancy checkbox and radio button, simpler and more flexible to be included in other elements/plugins, other elements to be W3C compliants.</li>
+							<li>IMPROVED javascript file and directory management</li>
+							<li>FIXED styles on IE9, splitting css file into parts to avoid IE9 selectors limit</li>
+							<li>Other miscellaneous fixes, css refactor, code cleaning and improvements</li>
+						</ul>
+
+						<h5>Version 1.2 (16-05-2014)</h5>
+						<ul>
+							<li>Rebranding due to name similarity with an open-source project</li>
+							<li>ADDED in-place editing</li>
+							<li>ADDED form layouts</li>
+							<li>ADDED WYSIWYG and Markdown text editor</li>
+							<li>ADDED global sound on/off switch</li>
+							<li>ADDED more elements such as buttons, input slider, select2 and tags input</li>
+							<li>ADDED more standard bootstrap elements and separate them to another page</li>
+							<li>IMPROVED login page</li>
+							<li>IMPROVED top alert won't shown once the user click close button</li>
+							<li>IMPROVED code cleaning and restructuring</li>
+							<li>IMPROVED fancy radio button dot, won't look ugly on some browsers</li>
+							<li>FIXED sticky footer</li>
+							<li>FIXED small overflow on top bar dropdown, center alignment on small screen</li>
+							<li>FIXED top mini bar chart and top quick access on smaller screen</li>
+							<li>Other miscellaneous improvements for UI, codes and structure</li>
+						</ul>
+
+						<h5>Version 1.1 (07-04-2014)</h5>
+						<ul>
+							<li>UPDATED to jQuery 2.1.0</li>
+							<li>UPDATED to jQuery-UI 1.10.4</li>
+							<li>ADDED Bootstrap Tour</li>
+							<li>ADDED 10 built-in skins</li>
+							<li>ADDED 2 charts (Heatmap and Bar Chart with Negative Values)</li>
+							<li>ADDED attachment icon on inbox message list</li>
+							<li>IMPROVED font visibility, layout and UI related aspects</li>
+							<li>UPDATED documentation</li>
+							<li>FIXED some miscellaneous errors</li>
+						</ul>
+
+						<h5>Version 1.0 (04-03-2014)</h5>
+						<ul>
+							<li>Initial release</li>
+						</ul>
+						
+							
+					</div>
+
+				</section>
+
+				<!-- ####################### SECTION ####################### -->
+				<section>
+					<h2 id="section13">Credits</h2>
+					<p>We would like to thank you for jQuery plugins, icons, fonts, images and audio files used in this theme created by the fellow individual developer or team below: </p>
+					<ul>
+						<li>jQuery - <a href="http://jquery.com/">http://jquery.com/</a></li>
+						<li>Bootstrap - <a href="http://getbootstrap.com/">http://getbootstrap.com/</a></li>
+						<li>Modernizr - <a href="http://modernizr.com/">http://modernizr.com/</a></li>
+						<li>jQuery Flot - <a href="http://www.flotcharts.org/">http://www.flotcharts.org/</a></li>
+						<li>easyPieChart - <a href="http://rendro.github.io/easy-pie-chart/">http://rendro.github.io/easy-pie-chart/</a></li>
+						<li>Sparkline - <a href="http://omnipotent.net/jquery.sparkline/">http://omnipotent.net/jquery.sparkline/</a></li>
+						<li>Mapael - <a href="http://www.neveldo.fr/mapael/">http://www.neveldo.fr/mapael/</a></li>
+						<li>Rapael - <a href="http://raphaeljs.com/">http://raphaeljs.com/</a></li>
+						<li>DataTable - <a href="http://datatables.net/">http://datatables.net/</a></li>
+						<li>jqGrid - <a href="http://www.trirand.com/blog/">http://www.trirand.com/blog/</a></li>
+						<li>FullCalendar - <a href="http://arshaw.com/fullcalendar/">http://arshaw.com/fullcalendar/</a></li>
+						<li>jQueryUI - <a href="http://jqueryui.com/">http://jqueryui.com/</a></li>
+						<li>FuelUX - <a href="http://exacttarget.github.io/fuelux/">http://exacttarget.github.io/fuelux/</a></li>
+						<li>Bootstrap Switch - <a href="http://www.bootstrap-switch.org">http://www.bootstrap-switch.org</a></li>
+						<li>Masked Input - <a href="http://digitalbush.com/projects/masked-input-plugin">http://digitalbush.com/projects/masked-input-plugin</a></li>
+						<li>jQRangeSlider - <a href="http://ghusse.github.io/jQRangeSlider/documentation.html">http://ghusse.github.io/jQRangeSlider/documentation.html</a></li>
+						<li>Bootstrap Color Picker - <a href="http://ghusse.github.io/jQRangeSlider/documentation.html">http://ghusse.github.io/jQRangeSlider/documentation.html</a></li>
+						<li>Simple Color Picker - <a href="https://github.com/tkrotoff/jquery-simplecolorpicker">https://github.com/tkrotoff/jquery-simplecolorpicker</a></li>
+						<li>Bootstrap TouchSpin - <a href="https://github.com/istvan-meszaros/bootstrap-touchspin">https://github.com/istvan-meszaros/bootstrap-touchspin</a></li>
+						<li>Bootstrap Date Picker - <a href="http://www.eyecon.ro/bootstrap-datepicker">http://www.eyecon.ro/bootstrap-datepicker</a></li>
+						<li>Date Range Picker - <a href="https://github.com/dangrossman/bootstrap-daterangepicker">https://github.com/dangrossman/bootstrap-daterangepicker</a></li>
+						<li>Dropzone - <a href="http://www.dropzonejs.com/">http://www.dropzonejs.com/</a></li>
+						<li>Parsley - <a href="http://parsleyjs.org/">http://parsleyjs.org/</a></li>
+						<li>Bootstrap Multiselect - <a href="https://github.com/davidstutz/bootstrap-multiselect">https://github.com/davidstutz/bootstrap-multiselect</a></li>
+						<li>Bootstrap Progress Bar - <a href="http://www.minddust.com/bootstrap-progressbar/bootstrap-3.0.0-rc2.html">http://www.minddust.com/bootstrap-progressbar/bootstrap-3.0.0-rc2.html</a></li>
+						<li>Bootstrap Tour - <a href="http://bootstraptour.com">http://bootstraptour.com</a></li>
+						<li>Data-Driven Documents - <a href="http://d3js.org/">http://d3js.org/</a></li>
+						<li>Color Brewer - <a href="http://colorbrewer.org/">http://colorbrewer.org/</a></li>
+						<li>Gritter - <a href="http://boedesign.com/blog/2009/07/11/growl-for-jquery-gritter/">http://boedesign.com/blog/2009/07/11/growl-for-jquery-gritter/</a></li>
+						<li>Images - <a href="http://unsplash.com/">http://unsplash.com/</a></li>
+						<li>UIFaces - <a href="http://uifaces.com/">http://uifaces.com/</a></li>
+						<li>Font Awesome Icons - <a href="http://fortawesome.github.io/Font-Awesome/">http://fortawesome.github.io/Font-Awesome/</a></li>
+						<li>Glyphicons - <a href="http://glyphicons.com">http://glyphicons.com</a></li>
+						<li>Sound Jay - <a href="http://www.soundjay.com/">http://www.soundjay.com/</a></li>
+						<li>X-Editable - <a href="http://vitalets.github.io/x-editable/">http://vitalets.github.io/x-editable/</a></li>
+						<li>Summernote - <a href="http://hackerwins.github.io/summernote/">http://hackerwins.github.io/summernote/</a></li>
+						<li>Bootstrap Markdown - <a href="http://github.com/toopay/bootstrap-markdown">http://github.com/toopay/bootstrap-markdown</a></li>
+						<li>Select2 <a href="http://ivaynberg.github.io/select2/index.html">http://ivaynberg.github.io/select2/index.html</a></li>
+						<li>Bootstrap Slider - <a href="http://www.eyecon.ro/bootstrap-slider">http://www.eyecon.ro/bootstrap-slider</a></li>
+						<li>Bootstrap Tags Input - <a href="http://timschlechter.github.io/bootstrap-tagsinput/examples/bootstrap3/">http://timschlechter.github.io/bootstrap-tagsinput/examples/bootstrap3/</a></li>
+						<li>Typeaheadjs - <a href="https://github.com/twitter/typeahead.js">https://github.com/twitter/typeahead.js</a></li>
+						<li>Mockjax - <a href="https://github.com/appendto/jquery-mockjax">https://github.com/appendto/jquery-mockjax</a></li>
+						<li>jsTree - <a href="http://www.jstree.com/">http://www.jstree.com/</a></li>
+						<li>Bootstrap Context Menu - <a href="https://github.com/sydcanem/bootstrap-contextmenu">https://github.com/sydcanem/bootstrap-contextmenu</a></li>
+						<li>jQuery slimScroll - <a href="http://rocha.la/jQuery-slimScroll">http://rocha.la/jQuery-slimScroll</a></li>
+					</ul>
+				</section>
+				<!-- ####################### END SECTION ####################### -->
+					
+			</div>
+		</div>
+
+		<footer>&copy; 2016. The Develovers</footer>
+	</div>
+
+	<script type="text/javascript" src="assets/js/shCore.js"></script>
+	<script type="text/javascript" src="assets/js/shBrushXml.js"></script>
+	<script type="text/javascript" src="assets/js/shBrushCss.js"></script>
+	<script type="text/javascript" src="assets/js/shBrushJScript.js"></script>
+	<script type="text/javascript" src="assets/js/shBrushPhp.js"></script>
+
+	<script type="text/javascript">
+		SyntaxHighlighter.all()
+	</script>
+
+</body>
+</html>

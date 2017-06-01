@@ -1,0 +1,47 @@
+/* ---------------
+ * Global Styles 
+ * --------------- */
+
+body {
+	font-family: $font-family-body;
+	font-size: $body-font-size;
+	font-weight: 300;
+	color: $body-font-color;
+	line-height: 1.6;
+}
+
+a {
+	color: darken($brand-primary, 8%);
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		color: $brand-primary;
+		text-decoration: none;
+	}
+}
+
+section {
+	padding: 50px 0;
+
+	.preheading {
+		font-size: 20px;
+		color: #9C9C9C;
+	}
+
+	.heading {
+		margin: 0;
+		font-size: 48px;
+		color: $brand-primary;
+	}
+}
+
+.section-heading {
+	text-align: center;
+	margin-bottom: 80px;
+
+	@include max-screen($break-xsmall) {
+		margin-bottom: 40px;
+	}
+}
+
