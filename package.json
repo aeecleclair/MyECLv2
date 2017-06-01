@@ -1,0 +1,29 @@
+{
+  "name": "myecl",
+  "version": "2.0.0",
+  "description": "Appli web destinée à simplifier la vie associative à Centrale Lyon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://forge.eclair.ec-lyon.fr/dloureir/MyECLv2.git"
+  },
+  "keywords": [
+    "MyECL",
+    "ECL",
+    "Centrale",
+    "Lyon",
+    "Ingenieur",
+    "Association"
+  ],
+  "author": "Mandat ECLAIR 2017",
+  "license": "ISC",
+  "dependencies": {
+    "cas-authentication": "0.0.8",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "http": "0.0.0"
+  }
+}

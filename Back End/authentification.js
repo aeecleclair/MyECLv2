@@ -3,7 +3,7 @@ var express = require('express');
 var session = require('express-session');
 var CasAuth = require('cas-authentication');
 
-var servStatic = require('./servStatic').servStaticFile;
+// var servStatic = require('./servStatic').servStaticFile;
 
 var app = express();
 
@@ -19,15 +19,18 @@ var cas = new CasAuth({
     cas_version     : '2.0'
 });
 
-app.use("/auth", cas.bounce);
-app.get("/", function(req, res){
-    res.send('OK');
+app.use(cas.bounce)
+
+app.get("/index",function(req, res){
+    res.sendFile("../Front End/index.html");
 });
 
-app.use("/private", cas.block);
-app.get("/private", function(req, res){
-    res.send('Only god can judge.');
-});
+app.get("/private",cas.block,function(req,res){
+    res.send("You accessed the private content!");
+})
 
-app.listen(8080, "localhost");
+
+app.listen(8080, "localhost",function(){
+    console.log("Server started");
+});
 
