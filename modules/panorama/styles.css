@@ -1,0 +1,39 @@
+/* Importation de Tahoma */
+@font-face {
+	font-family: "Tahoma";
+	src: url('fonts/tahoma.ttf');
+}
+@font-face {
+	font-family: "Tahoma";
+	src: url('fonts/tahomabd.ttf');
+	font-weight: bold;
+}
+
+
+/* HEADER */
+
+header{
+	background-color: #a00034; /* Couleur officielle de l'ECL */
+	top : 0;
+	margin: 0;
+	padding : 0;
+	z-index: 9;
+	position:fixed;
+	width : 100%;
+	height: 40px
+}
+
+#title-countainer{
+	text-align: center;
+}
+
+#titre{ /* Texte "MyECL" du header */
+	margin : 0;
+	padding : 0;
+	color : white;
+	font-family: Tahoma;
+}
+
+#authent{
+	text-align: right;
+}

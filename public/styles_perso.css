@@ -37,3 +37,7 @@ ul.main-menu .sub-menu li a{
 .top-bar-right #user{
 	font-size : 150%;
 }
+
+.content-wrapper{
+	background: white;
+}

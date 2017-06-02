@@ -27,8 +27,7 @@ app.use(cas.bounce)
 
 
 app.get("/",function(req, res){
-    console.log(__dirname);
-    res.render("header.ejs");
+    res.render("welcome.ejs",{user:req.session.cas_user});
 });
 
 app.get("/private",cas.block,function(req,res){

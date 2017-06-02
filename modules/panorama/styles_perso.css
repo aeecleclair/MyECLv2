@@ -1,0 +1,486 @@
+/* Importation de Impact */
+@font-face {
+	font-family: "impact";
+	src: url('fonts/impact.ttf');
+}
+
+
+/* HEADER */
+
+#menu{
+	padding : 10px;
+}
+
+#menu li{ /* Bloc  avec le lien vers chaque section */
+	display:inline-block;
+	width : 100%;
+	background-color :rgba(255,255,255,0.9);
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	font-size : 100%;
+	text-align : center;
+	-webkit-transition: background-color 0.5s;
+}
+
+#menu li.active, #menu li:hover{ /* Section sur laquelle on se trouve */
+	background-color: #a00034;
+}
+
+#menu li a{
+	color: #a00034;
+	text-decoration: none;
+	-webkit-transition : color 0.5s;
+}
+
+#menu li.active a, #menu li a:hover{
+	color: white;
+}
+
+#menu li a,#menu li.active a{
+	padding:9px 18px;
+	display:block;
+}
+
+/* FIN DU HEADER */
+
+
+/* PARTIE PRINCIPALE DU SITE */
+
+.texte{ /* Titre et description des assos/clubs */
+	text-align: justify;
+    -moz-text-align-last: center;
+    text-align-last: center;
+	margin-left : 70px;
+	margin-right : 70px;
+	margin-top : 70px;
+	margin-bottom: 30px;
+	height : 600px;
+}
+
+.titre_section{ /* Titre des assos/clubs */
+	display: inline-block;
+	font-family: impact;
+	color : white;
+	text-shadow: 0 0 5px black;
+	font-size : 900%;
+	padding-top: 30%; /* Définit la hauteur par défaut du titre et de la description */
+	-webkit-transition : 1s;
+}
+
+.lien_description{
+	display: inline-block;
+	color : white;
+	text-shadow: 0 0 5px black;
+	text-decoration: underline;
+	font-size : 150%;
+	margin-left: 40px;
+}
+
+.description{ /* Description des sections */
+	font-family: tahoma;
+	font-size : 150%;
+	color : rgba(255,255,255,0); /* Cachées au début */
+	-webkit-transition : 0.5s;
+}
+
+/* Même chose mais avec la desciption visible et le titre décallé vers le haut : */
+
+.titre_section.decalle{ /* Titre des assos/clubs */
+	display: inline-block;
+	font-family: impact;
+	color : white;
+	text-shadow: 0 0 5px black;
+	font-size : 900%;
+	padding-top: 0px; /* Définit la hauteur par défaut du titre et de la description */
+}
+
+.description.decalle{ /* Description des sections */
+	font-family: tahoma;
+	font-size : 150%;
+	color : rgba(255,255,255,1); /* Visibles */
+	visibility : visible;
+	background-color: rgba(0,0,0,0.4);
+}
+
+/* Classes fullpage gérant les slides et les background */
+
+.section{
+	background-size: cover;
+}
+
+.slide{
+	background-size: cover;
+}
+
+.intro{
+	background-size: cover;
+	height: 100%;
+}
+
+
+/*/////////
+BACKGROUNDS
+///////////
+
+Dans cette section on place le background ainsi que le texte des différentes slides*/
+
+.slide{
+	background-position: center 0; /*Option de placement par défaut pour que l'imagine reste centrée sur smartphone, attention la deuxième valeur ne doit pas être négative*/
+}
+
+
+/* Accueil */
+
+
+#section0{
+	background-image: url(images/asso.jpg);
+	background-position: center 0;
+}
+#section0 .titre_section{
+	padding-top: 15%;
+}
+
+
+/* AEECL */
+
+#aeecl{
+	background-image: url(images/AEECL/aeecl.png);
+	background-position: 0 0;
+}
+#aeecl .description{
+	padding-top : 45%;
+	color : black;
+	text-shadow: 0 0 5px white;
+	visibility: visible;
+}
+
+
+#bde{
+	background-image: url(images/AEECL/bde.jpg);
+}
+
+
+#bda{
+	background-image: url(images/AEECL/bda.jpg)
+}
+
+
+#gala{
+	background-image: url(images/AEECL/gala.jpg);
+	background-position: center 70%;
+}
+
+
+#wei{
+	background-image: url(images/AEECL/wei.png);
+	background-position: center 60%;
+}
+#wei .titre_section{
+	padding-top : 1%;
+}
+#wei .titre_section.decalle{
+	padding-top: 0%;
+}
+
+
+#eclair{
+	background-image: url(images/AEECL/eclair.jpg);
+	background-position: center 60%;
+}
+
+
+#ctn{
+	background-image: url(images/AEECL/ctn.png);
+	background-position : center 80%;
+}
+
+
+#bi{
+	background-image: url(images/AEECL/bi.jpg);
+	background-position : center 50%;
+}
+
+
+#dbs{
+	background-image: url(images/AEECL/dbs.jpg);
+	background-position: center 60%;
+}
+
+
+#bar{
+	background-image: url(images/AEECL/bar.jpeg);
+	background-position: center 50%;
+}
+
+
+#barpa{
+	background-image: url(images/AEECL/barpa.jpg);
+	background-position: center 20%;
+}
+
+
+#pao{
+	background-image: url(images/AEECL/pao.jpg);
+}
+#pao .titre_section{
+	padding-top : 15%;
+}
+#pao .titre_section.decalle{
+	padding-top : 0;
+}
+
+
+#sdec{
+	background-image: url(images/AEECL/sdec.jpg);
+	background-position : center 20%;
+}
+
+
+#ph{
+	background-image: url(images/AEECL/ph.png);
+}
+
+
+/* USEECL */
+
+#useecl{
+	background-image: url(images/USEECL/useecl.png);
+	background-position: 0 0;
+}
+#useecl .description{
+	padding-top : 45%;
+	color : black;
+	text-shadow: 0 0 5px white;
+	visibility: visible;
+}
+
+
+#bds{
+	background-image: url(images/USEECL/bds.jpg);
+}
+
+
+#challenge{
+	background-image: url(images/USEECL/challenge.jpg);
+}
+
+
+#raid{
+	background-image: url(images/USEECL/raid.jpg);
+}
+
+
+#cmecl{
+	background-image: url(images/USEECL/cmecl.jpg);
+	background-position: center 60%;
+}
+
+
+#tennis{
+	background-image: url(images/USEECL/club-tennis.png);
+}
+
+
+#escrime{
+	background-image: url(images/USEECL/escrime.jpg);
+	background-position: center 100%;
+}
+
+
+#foot{
+	background-image: url(images/USEECL/foot.jpg);
+	background-position: center 60%;
+}
+
+
+#bad{
+	background-image: url(images/USEECL/bad.jpg)
+}
+
+
+#volley{
+	background-image: url(images/USEECL/volley.jpg);
+	background-position: center 80%;
+}
+
+
+#rugby{
+	background-image: url(images/USEECL/rugby.jpg);
+	background-position: center 60%;
+}
+
+
+#basket{
+	background-image: url(images/USEECL/basket.jpg);
+	background-position: center 40%;
+}
+
+
+/* Indép */
+
+
+#indepdt{
+	background-image: url(images/Indep/indep.png);
+	background-position: 0 0;
+}
+#indepdt .description{
+	padding-top : 45%;
+	color : black;
+	text-shadow: 0 0 5px white;
+	visibility: visible;
+}
+
+
+#commuz{
+	background-image: url(images/Indep/commuz.jpg);
+	background-position: center 35%;
+}
+#commuz .titre_section{
+	padding-top: 0;
+}
+
+
+#je{
+	background-image: url(images/Indep/je.jpg);
+	background-position: center 20%;
+}
+
+
+#forum{
+	background-image: url(images/Indep/forum.jpg);
+}
+
+
+#smartup{
+	background-image: url(images/Indep/smartup.jpg);
+}
+
+
+#clc{
+	background-image: url(images/Indep/clc.jpg);
+}
+
+
+#epsa{
+	background-image: url(images/Indep/epsa.jpg);
+	background-position: center 40%;
+}
+
+
+#cheerup{
+	background-image: url(images/Indep/cheerup.jpg);
+}
+
+
+#planetandco{
+	background-image: url(images/Indep/planet-and-co.jpg);
+	background-position: center 10%;
+}
+#planetandco .titre_section{
+	padding-top: 10%;
+}
+#planetandco .titre_section.decalle{
+	padding-top: 0;
+}
+
+
+#fablab{
+	background-image: url(images/Indep/fablab.jpg);
+}
+
+
+#soli{
+	background-image: url(images/Indep/soli.jpg);
+	background-position: center 30%;
+}
+
+
+/* Clubs */
+
+
+#club {
+	background-image: url(images/Clubs/clubs.png);
+	background-position: 0 0;
+}
+#club .description{
+	padding-top : 45%;
+	color : black;
+	text-shadow: 0 0 5px white;
+	visibility: visible;
+}
+
+
+#photo{
+	background-image: url(images/Clubs/club-photo.jpg);
+	background-position: center 60%;
+}
+
+
+#kebab{
+	background-image: url(images/Clubs/kebab.jpg);
+	background-position: center 20%;
+}
+#kebab .titre_section{
+	padding-top: 5%;
+}
+#kebab .titre_section.decalle{
+	padding-top: 0;
+}
+
+
+#bzh{
+	background-image: url(images/Clubs/bzh.jpg);
+	background-position: center 100%;
+}
+
+
+#pits{
+	background-image: url(images/Clubs/pits.jpg);
+}
+
+
+#str{
+	background-image: url(images/Clubs/str.jpg);
+}
+
+
+#theatre{
+	background-image: url(images/Clubs/theatre.jpg);
+}
+
+
+#cine{
+	background-image: url(images/Clubs/cine.jpeg);
+	background-position: center 30%;
+}
+
+
+#cheerlions{
+	background-image: url(images/Clubs/cheerlions.jpg);
+}
+
+
+#japon{
+	background-image: url(images/Clubs/club-japon.png);
+}
+
+
+#danse{
+	background-image: url(images/Clubs/danse.jpg);
+}
+
+
+#raimbow{
+	background-image: url(images/Clubs/raimbow.png);
+}
+
+
+#tai-chi{
+	background-image: url(images/Clubs/tai-chi.jpg);
+}
+
+
+#cirque{
+	background-image: url(images/Clubs/club-cirque.jpg);
+	background-position: center 50%;
+}
