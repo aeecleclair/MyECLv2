@@ -1,12 +1,13 @@
-var http = require('http');
+// var http = require('http');
 var express = require('express');
 var session = require('express-session');
 var CasAuth = require('cas-authentication');
-
+var app = express();
 // var servStatic = require('./servStatic').servStaticFile;
 
-var app = express();
+app.use(express.static(__dirname + '/public'));
 
+// ------Parametrage du CAS---------
 app.use(session({
     secret      : 'dats a fuckin good secret',
     resave      : false,
@@ -21,8 +22,13 @@ var cas = new CasAuth({
 
 app.use(cas.bounce)
 
-app.get("/index",function(req, res){
-    res.sendFile("../Front End/index.html");
+//-----------------------------------
+
+
+
+app.get("/",function(req, res){
+    console.log(__dirname);
+    res.render("header.ejs");
 });
 
 app.get("/private",cas.block,function(req,res){
