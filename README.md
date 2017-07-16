@@ -90,7 +90,7 @@ L'idée est la même que pour le menu mais cela concerne le header de la page.
 Pour l'instant aucune autre proproété de la configuration n'est utilisé par le chargeur de module mais ça viendra.
 
 ## Un exemple de configuration
-'''json
+```json
 {
     "authorisation" : "ecl",
     "description" : "Module de test",
@@ -141,4 +141,4 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
         }
     ]
 }
-'''
+```
