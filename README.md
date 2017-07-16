@@ -89,3 +89,56 @@ L'idée est la même que pour le menu mais cela concerne le header de la page.
 
 Pour l'instant aucune autre proproété de la configuration n'est utilisé par le chargeur de module mais ça viendra.
 
+## Un exemple de configuration
+'''json
+{
+    "authorisation" : "ecl",
+    "description" : "Module de test",
+    "rules" : [
+        {
+            "route" : "/modules/test/static/*",
+            "static" : "static/"
+        },
+        {
+            "body" : "main",
+            "callback" : "main_cb"
+        },
+        {
+            "body" : "victoire",
+            "static" : "static/boo.html"
+        },
+        {
+            "body" : "daf",
+            "static" : "static/daf.html"
+        }
+    ],
+    "menu" : [
+        {
+            "body" : "main",
+            "name" : "Hello",
+            "icon" : "<span class='fa fa-user'>"
+        },
+        {
+            "body" : "victoire",
+            "name" : "Boo Yah !"
+        },
+        {
+            "name" : "D'autres trucs",
+            "sub" : [
+                {
+                    "body" : "daf",
+                    "name" : "Dah fuck ?"
+                },
+                {
+                    "link" : "http://assoce.eclair.ec-lyon.fr/",
+                    "name" : "Les assos"
+                }
+            ]
+        },
+        {
+            "link" : "https://www.google.com",
+            "name" : "Google"
+        }
+    ]
+}
+'''
