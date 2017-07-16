@@ -1,0 +1,208 @@
+/*------------------------------------------------*/
+/*	Page: Projects
+/*------------------------------------------------*/
+
+.project-list {
+	.progress {
+		margin-bottom: 0;
+	}
+
+	.progress-bar {
+		font-size: 10px;
+	}
+
+	> tbody > tr > td {
+		padding: 12px 8px;
+
+		.avatar {
+			width: 22px;
+			border: 1px solid #CCC;
+		}
+	}
+}
+
+/*------------------------------------------------*/
+/*	Page: Project Details
+/*------------------------------------------------*/
+
+.project-section {
+	margin-bottom: 30px;
+
+	h3 {
+		@include inline-block;
+
+		margin-top: 0;
+		margin-bottom: 20px;
+		font-size: 20px; 
+	}
+
+	.general-info .btn {
+		position: relative;
+		bottom: 3px;
+	}
+
+	dl {
+		margin-top: 20px;
+		margin-bottom: 0;
+
+		dd {
+			margin-bottom: 10px;
+		}
+
+		@include min-screen($break-small) {
+			&.dl-horizontal {
+				dt {
+					width: 95px;
+					margin-bottom: 10px;
+				}
+
+				dd {
+					margin-left: 105px;
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+
+	ul.team-list {
+		margin-top: 10px;
+
+		> li {
+			min-width: 105px;
+			margin-bottom: 15px;
+			padding: 0 10px;
+			text-align: center;
+
+			img {
+				width: 40px;
+				margin-bottom: 8px;
+			}
+
+			p {
+				margin-bottom: 0;
+				line-height: 1;
+			}
+
+			a, a:hover, a:focus {
+				text-decoration: none;
+			}
+
+			span {
+				font-size: 10px;
+			}
+
+			&.team-add {
+				> i {
+					@include border-radius(50%);
+
+					display: block;
+					margin: 0 auto;
+					margin-bottom: 22px;
+					width: 40px;
+					height: 40px;
+					font-size: 28px;
+					background-color: #ccc;
+					color: inherit;
+				}
+
+				a {
+					position: relative;
+					top: -15px;
+				}
+			}
+		}
+	}
+}
+
+ul.project-activity-list > li {
+	border-top: 1px dashed #CCC;
+
+	&:first-child {
+		border-top: none;
+	}
+
+	.activity-item {
+		.avatar, > i {
+			width: 24px;
+		}
+
+		> i {
+			font-size: 24px;
+		}
+	}
+}
+
+.project-progress {
+	margin-top: 20px;
+
+	.easy-pie-chart {
+		width: 100px;
+
+		.percent {
+			line-height: 100px;
+		}
+	}
+
+	.percent, .chart-title {
+		color: inherit;
+	}
+}
+
+/* recent files */
+ul.recent-file-list {
+	margin-bottom: 15px;
+
+	> li {
+		margin-bottom: 5px;
+	}
+}
+
+/* project activity */
+.project-section {
+	.activity-list > li {
+		position: relative;
+	}
+
+	&.activity {
+		.avatar {
+			width: 32px;
+		}
+
+		.activity-attachment {
+			padding-top: 20px;
+		}
+
+		.well {
+			margin-left: 60px;
+			border: none;
+		}
+
+		.activity-actions {
+			position: absolute;
+			top: 15px;
+			right: 0;
+
+			.btn {
+				padding: 0 5px;
+				background: #E7E7E7;
+				color: darken(#E7E7E7, 25%);
+
+				&:hover, &:focus {
+					background: darken(#E7E7E7, 3%);
+					color: darken(#E7E7E7, 35%);
+				}
+
+				i {
+					margin: 0;
+				}
+			}
+
+			.dropdown-menu > li > a {
+				font-size: 0.9em;
+				padding: 3px 10px;
+			}
+		}
+	}
+}
+
+

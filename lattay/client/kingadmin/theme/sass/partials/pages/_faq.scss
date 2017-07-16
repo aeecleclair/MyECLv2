@@ -1,0 +1,97 @@
+/*------------------------------------------------*/
+/*	Page: FAQ
+/*------------------------------------------------*/
+
+.panel-group-faq {
+	margin-bottom: 60px;
+
+	.panel {
+		background-color: transparent;
+
+		.panel-title {
+			font-size: 16px;
+			line-height: 30px;
+
+			a {
+				color: inherit;
+
+				&:hover, &:focus {
+					color: darken($base-font-color-dark, 10%);
+					text-decoration: none;
+				}
+			}
+		}
+
+		.panel-body {
+			padding-left: 14px;
+		}
+	}
+
+	&.top-faq {
+		.panel-heading {
+			position: relative;
+
+			.number {
+				@include border-radius(50%);
+				@include inline-block;
+
+				width: 30px;
+				height: 30px;
+				position: absolute;
+				left: 0;
+				font-size: 14px;
+				color: #fff;
+				line-height: 30px;
+				text-align: center;
+				background-color: $color-primary;
+			}
+		}
+		
+		.panel-title {
+			font-size: 18px;
+			padding-left: 25px;
+		}
+
+		.panel-body {
+			padding-left: 40px; 
+		}
+	}
+
+	.panel-minimal .panel-heading + .panel-collapse > .panel-body {
+		margin-top: 0;
+	}
+}
+
+.faq-footer {
+	position: relative;
+	margin-top: 15px;
+	padding: 5px 8px;
+	background-color: #e7e7e7;
+	font-size: 11px;
+
+	.share {
+		@include inline-block;
+
+		position: absolute;
+		right: 8px;
+	}
+
+	@include max-screen($break-xsmall - 30px) {
+		font-size: 13px;
+
+		.share {
+			position: relative;
+			right: 0;
+		}
+	}
+}
+
+.faq-further-links-list {
+	margin: 30px 0;
+
+	> li {
+		width: 20em;
+	}
+}
+
+

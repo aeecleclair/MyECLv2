@@ -1,0 +1,432 @@
+/*------------------------------------------------*/
+/*	UI Bootstrap Elements
+/*------------------------------------------------*/
+
+/* remove round border */
+.dropdown-menu,
+.panel,
+.well,
+code {
+	@include border-radius(0);
+}
+
+/* nav stacked */
+.nav-stacked {
+	> li {
+		border: 1px solid $line-color;
+
+		&:not(:first-child) {
+			border-top: none;
+		}
+
+		> a {
+			@include border-radius(0);
+		}
+
+		+ li {
+			margin-top: 0;
+		}
+	}
+}
+
+/* bootstrap form elements */
+.radio label,
+.checkbox label,
+.radio-inline, 
+.checkbox-inline {
+	font-weight: 300;
+}
+
+.radio label,
+.radio-inline {
+	line-height: 1.8;
+}
+
+select[multiple].form-control {
+	height: auto;
+}
+
+select.form-control {
+	@include border-radius(0);
+
+	background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline style='fill: #555' points='46.139,15.518 25.166,36.49 4.193,15.519'/></svg>") right no-repeat;
+	background-size: 0.8em;
+	background-position: right 5px top 12px;
+
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+
+select[multiple].form-control {
+	background: none;
+	height: auto;
+}
+
+select {
+	&.input-lg {
+		line-height: initial;
+		background-position: right 5px top 17px;
+	}
+
+	&.input-sm {
+		line-height: initial;
+		background-position: right 5px top 11px;
+	}
+}
+
+.dropdown-menu > .active > a {
+	background-color: #99A1A7;
+
+	&:hover, &:focus {
+		background-color: #99A1A7;
+	}
+}
+
+fieldset {
+	margin-bottom: 40px;
+}
+
+.form-horizontal .control-label {
+	text-align: left;
+}
+
+.form-control,
+.input-group .form-control {
+	@include border-radius(0);
+	@include box-shadow(none);
+}
+
+.input-group-addon {
+	@include border-radius(0);
+
+	background-color: #fff;
+
+	&.input-sm,
+	&.input-lg {
+		@include border-radius(0);
+	}
+
+	i {
+		min-width: 12px;
+	}
+}
+
+.input-group-lg {
+	> .form-control,
+	> .input-group-addon,
+	> .input-group-btn > .btn {
+		@include border-radius(0);
+	}
+}
+
+.input-group-sm {
+	> .form-control,
+	> .input-group-addon,
+	> .input-group-btn > .btn {
+		@include border-radius(0);
+	}
+}
+
+.input-group-appendable {
+	margin-bottom: 10px;
+
+	.btn {
+		min-width: 34px;
+	}
+}
+
+/* pagination */
+.pagination {
+	@include border-radius(0);
+
+	> li:first-child > a, 
+	> li:first-child > span {
+		@include border-radius(0);
+
+		margin-left: 0;
+		border-bottom-left-radius: 4px;
+		border-top-left-radius: 4px;
+	}
+
+	> li:last-child > a, 
+	> li:last-child > span {
+		@include border-radius(0);
+	}
+
+	> .active {
+		> a, a:focus, a:hover 
+		> span, span:focus, span:hover {
+			background-color: $brand-primary;
+		}
+	}
+}
+
+/* button */
+.btn {
+	@include border-radius(0); 
+
+	font-family: $button-font;
+
+	i {
+		margin-right: 3px;
+	}
+
+	&.active.focus, &.active:focus, &.focus, 
+	&:active.focus, &:active:focus, &:focus {
+		outline: none;
+	}
+}
+
+.btn-default {
+	color: #fff;
+	background-color: $color-default-btn;
+	border-color: darken($color-default-btn, 5%);
+
+	&:hover, &:focus, &:active, &.active {
+		color: #fff;
+		background-color: darken($color-default-btn, 10%);
+		border-color: darken($color-default-btn, 5%);
+	}
+
+	&.disabled, &[disabled], &.disabled:hover, &[disabled]:hover,
+	&.disabled:focus, &[disabled]:focus, &.disabled:active, &[disabled]:active,
+	&.disabled.active, &[disabled].active {
+		background-color: lighten($color-default-btn, 10%);
+		border-color: darken($color-default-btn, 5%);
+	}
+
+	.caret {
+		border-top-color: #fff;
+	}
+}
+
+.open .dropdown-toggle.btn-default {
+	@extend .btn-default:hover;
+}
+
+fieldset[disabled] .btn-default,
+fieldset[disabled] .btn-default:hover,
+fieldset[disabled] .btn-default:focus,
+fieldset[disabled] .btn-default:active,
+fieldset[disabled] .btn-default.active {
+	background-color: lighten($color-default-btn, 10%);
+}
+
+.btn-primary {
+	background-color: $color-primary;
+	border-color: darken($color-primary, 5%);
+
+	&:hover, &:focus, &:active, &.active,
+	.open .dropdown-toggle.btn-primary {
+		background-color: darken($color-primary, 5%);
+	}
+}
+
+.btn-info {
+	background-color: $color-info;
+	border-color: darken($color-info, 5%);
+
+	&:hover, &:focus, &:active, &.active,
+	.open .dropdown-toggle.btn-info {
+		background-color: darken($color-info, 5%);
+	}
+}
+
+.btn-success {
+	background-color: $color-success;
+	border-color: darken($color-success, 5%);
+
+	&:hover, &:focus, &:active, &.active,
+	.open .dropdown-toggle.btn-success {
+		background-color: darken($color-success, 5%);
+	}
+}
+
+.btn-warning {
+	background-color: $color-warning;
+	border-color: darken($color-warning, 5%);
+
+	&:hover, &:focus, &:active, &.active,
+	.open .dropdown-toggle.btn-warning {
+		background-color: darken($color-warning, 5%);
+	}
+}
+
+.btn-danger {
+	background-color: $color-danger;
+	border-color: darken($color-danger, 5%);
+
+	&:hover, &:focus, &:active, &.active,
+	.open .dropdown-toggle.btn-danger {
+		background-color: darken($color-danger, 5%);
+	}
+}
+
+.btn-link {
+	border-color: transparent;
+
+	&:hover, &:focus, &:active, &.active,
+	.open .dropdown-toggle.btn-link {
+		outline: none;
+		text-decoration: none;
+	}
+}
+
+.btn-group {
+	> .btn {
+		@include border-radius(0);
+
+		+ .dropdown-toggle {
+			border-left: 1px solid rgba(0, 0, 0, 0.1);
+		}
+	}
+}
+
+.btn-group > .btn-group:nth-child(2) > .multiselect.btn {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+/* pager */
+.pager {
+	li > a,
+	li > span {
+		background-color: transparent;
+		border: none;
+	}
+
+	li > a {
+		&:hover, &:focus {
+			background-color: transparent;
+		}
+	}
+}
+
+/* bootstrap alert */
+.alert {
+	@include border-radius(0);
+}
+
+/* bootstrap tooltip */
+.tooltip {
+	.tooltip-inner {
+		@include border-radius(0);
+
+		background: $tooltip-bg-color;
+	}
+
+	&.top .tooltip-arrow,
+	&.top-left .tooltip-arrow,
+	&.top-right .tooltip-arrow {
+		border-top-color: $tooltip-bg-color;
+	}
+
+	&.bottom .tooltip-arrow,
+	&.bottom-left .tooltip-arrow,
+	&.bottom-right .tooltip-arrow {
+		border-bottom-color: $tooltip-bg-color;
+	}
+
+	&.right .tooltip-arrow {
+		border-right-color: $tooltip-bg-color;
+	}
+
+	&.left .tooltip-arrow {
+		border-left-color: $tooltip-bg-color;
+	}
+}
+
+/* bootstrap popover */
+.popover {
+	@include border-radius(0);
+
+	.popover-content {
+		font-size: 0.9em;
+	}
+}
+
+/* bootstrap progress bar */
+.progress {
+	@include border-radius(0);
+	@include box-shadow(none);
+
+	background-color: #e2e2e2;
+
+	&.wide {
+		width: 60px;
+	}
+
+	.progress-bar {
+		@include transition(width 3s ease);
+	}
+
+	&.progress-sm {
+		height: 12px;
+	}
+
+	&.progress-xs {
+		height: 5px;
+	}
+
+	&.progress-sm, &.progress-xs {
+		.progress-bar {
+			text-indent: -9999px;
+		}
+	}
+}
+
+.progress-vertical-wrapper {
+	height: 200px;
+}
+
+/* modal dialog */
+.modal-content {
+	@include border-radius(0);
+}
+
+/* panel, panel group, accordion */
+.panel {
+	@include box-shadow(none);
+
+	background-color: $widget-bg-color;
+}
+
+.panel-heading {
+	@include border-radius(0);
+}
+
+.panel-group .panel {
+	@include border-radius(0);
+
+	.panel-heading {
+		padding: 0 15px; 
+	}
+
+	.panel-title > a {
+		display: block;
+		padding: 10px 0;
+		width: 100%;
+		font-weight: 300;
+		color: #868686;
+
+		&:hover {
+			text-decoration: none;
+		}
+		
+		>i:first-child,
+		&.collapsed > i + i {
+			display: none;
+		}
+
+		&.collapsed > i:first-child {
+			@include inline-block;
+		}
+	}
+}
+
+/* bootstrap well */
+.well {
+	@include box-shadow(none);
+}
+
+

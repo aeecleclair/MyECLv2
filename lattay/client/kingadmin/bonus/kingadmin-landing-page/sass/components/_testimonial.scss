@@ -1,0 +1,69 @@
+/* -------------------
+ * TESTIMONIAL
+ * -------------------*/
+
+.testimonial-big-carousel {
+	&.owl-theme .owl-controls {
+		margin-top: 30px;
+	}
+}
+
+.testimonial-big {
+	text-align: center;
+
+	.content {
+		display: inline;
+		line-height: 1;
+		position: relative;
+		color: #898989;
+		font: {
+			weight: 300;
+			style: italic;
+			size: 48px;
+		}
+		
+		&:after {
+			display: block;
+			content: " ";
+			width: 100px;
+			height: 3px;
+			margin: 40px auto;
+			background-color: $brand-primary;
+		}
+
+		span {
+			position: relative;
+			z-index: 1;
+		}
+	}
+
+	.author {
+		img {
+			width: 60px;
+			margin-bottom: 10px;
+		}
+
+		.name, .title {
+			display: block;
+		}
+
+		.name {
+			font: {
+				weight: 700;
+				size: 16px;
+			}
+		}
+
+		.title {
+			color: #adadad;
+		}
+	}
+
+	@include max-screen($break-small) {
+		.content {
+			font-size: 30px;
+		}
+	}
+}
+
+

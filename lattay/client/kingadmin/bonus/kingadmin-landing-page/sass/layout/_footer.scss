@@ -1,0 +1,35 @@
+/* -------------------
+ * FOOTER
+ * -------------------*/
+
+.footer-minimal {
+	padding: 50px 0 30px 0;
+	margin-top: 50px;
+	text-align: center;
+	background-color: #f9f9f9;
+
+	nav {
+		margin-bottom: 50px;
+
+		ul > li > a {
+			color: inherit;
+			font-size: 13px;
+			padding: 0 8px;
+
+			&:hover,
+			&:focus {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.social-icons {
+		margin-bottom: 50px;
+	}
+}
+
+
+.copyright-text {
+	margin-top: 30px;
+	font-size: 12px;
+}

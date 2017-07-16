@@ -1,0 +1,71 @@
+/*	
+*	############################################################################
+*	
+*	KINGADMIN Admin Dashboard Style
+*	---------------------------------------------------------------------
+*
+*	Version		1.6.2
+*	Author		The Develovers
+*	Website: 	https://www.themeineed.com/
+*	Copyright	Copyright 2017 The Develovers
+*	
+*	############################################################################
+*/
+
+
+// Import main
+@import "vendors/bootstrap-switch";
+@import "vendors/bootstrap-multiselect";
+@import "vendors/bootstrap-colorpicker";
+@import "vendors/simplecolorpicker";
+@import "vendors/datepicker";
+@import "vendors/daterangepicker-bs3";
+@import "vendors/ui.jqgrid";
+@import "vendors/jquery.gritter";
+@import "vendors/fullcalendar";
+@import "vendors/bootstrap-progressbar-3.0.0";
+@import "vendors/dropzone";
+@import "vendors/bootstrap-tour";
+@import "vendors/bootstrap-editable";
+@import "vendors/typeahead.js-bootstrap";
+@import "vendors/select2";
+@import "vendors/bootstrap-slider";
+@import "vendors/summernote";
+@import "vendors/summernote-bs3";
+@import "vendors/bootstrap-markdown";
+@import "vendors/bootstrap-tagsinput";
+@import "vendors/jquery.bootstrap-touchspin";
+@import "vendors/dataTables.bootstrap";
+@import "vendors/dataTables.colVis";
+@import "vendors/dataTables.colReorder";
+@import "vendors/dataTables.tableTools";
+@import "vendors/jstree-default-custom";
+
+@import "modules/mixins-responsive";
+@import "modules/css3";
+
+// Import partials
+@import "partials/base";
+@import "partials/general";
+@import "partials/top-bar";
+@import "partials/navigation";
+@import "partials/main-content";
+@import "partials/chart";
+@import "partials/ui-bootstrap-elements";
+@import "partials/ui-elements";
+@import "partials/tables";
+@import "partials/forms";
+@import "partials/components";
+@import "partials/pages/profile";
+@import "partials/pages/invoice";
+@import "partials/pages/knowledgebase";
+@import "partials/pages/404";
+@import "partials/pages/inbox";
+@import "partials/pages/authentication";
+@import "partials/pages/search-results";
+@import "partials/pages/project";
+@import "partials/pages/faq";
+@import "partials/pages/file-manager";
+@import "partials/footer";
+
+

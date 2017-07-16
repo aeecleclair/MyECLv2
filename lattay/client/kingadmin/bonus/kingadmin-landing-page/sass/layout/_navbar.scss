@@ -1,0 +1,107 @@
+/* -------------------
+ * NAVIGATION BAR
+ * -------------------*/
+
+ .navbar {
+	@include border-radius(0);
+
+	.container {
+		position: relative;
+	}
+}
+
+.navbar-default {
+	@include transition(all .3s ease-out);
+
+	border: none;
+	background: none;
+
+	.navbar-nav {
+		> li {
+			padding: 15px;
+		}
+
+		> li > a {
+			padding: 5px;
+			color: #fff;
+			border-bottom: 3px solid transparent;
+			font: {
+				family: $font-family-body;
+				weight: 600;
+				size: 13px;
+			}
+
+			&:hover {
+				color: #fff;
+				border-bottom-color: $brand-primary;
+			}
+
+			&:focus {
+				color: #fff;
+			}
+		}
+
+		> .active > a {
+			&,
+			&:hover,
+			&:focus {
+				color: #fff;
+				background: none;
+				border-bottom-color: $brand-primary;
+			}
+		}
+	}
+
+	.navbar-collapse {
+		float: right;
+		border-top: none;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.navbar-toggle {
+		margin: 10px 0 0 15px;
+		line-height: 1;
+
+		&,
+		&:hover,
+		&:focus {
+			border: none;
+			background: #f3f3f3;
+		}
+
+		i {
+			font-size: 21px;
+		}
+	}
+
+	@include max-screen($break-small) {
+		.navbar-collapse {
+			padding-left: inherit;
+			padding-right: inherit;
+			width: 100%;
+			margin-left: 0;
+			margin-right: 0;
+			max-height: none;
+			background-color: #313131;
+		}
+
+		.navbar-nav {
+			> li {
+				float: none;
+				padding: 8px 15px;
+			}
+		}
+	}
+}
+
+.navbar-solid-color {
+	background-color: #313131;
+}
+
+.navbar-brand {
+	height: auto;
+	padding: 21px 15px;
+}
+
+

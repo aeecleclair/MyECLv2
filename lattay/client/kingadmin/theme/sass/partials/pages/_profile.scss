@@ -1,0 +1,82 @@
+/*------------------------------------------------*/
+/*	Page: Profile
+/*------------------------------------------------*/
+
+.profile,
+.activity,
+.settings {
+	h3 {
+		font-family: $base-font-family;
+		font-size: 1.2em;
+		margin-top: 0;
+		margin-bottom: 20px;
+
+		i {
+			margin-right: 5px;
+		}
+	}
+}
+
+.tab-content.profile-page {
+	padding: 35px 15px;
+}
+
+/* profile tab */
+.profile {
+	.user-info-left,
+	.user-info-right {
+		padding: 10px 0;
+	}
+
+	.user-info-left {
+		text-align: center;
+
+		img {
+			border: 3px solid #fff;
+		}
+
+		h2 {
+			font-family: $base-font-family;
+			font-size: 1.3em;
+			margin-bottom: 20px;
+
+			i {
+				font-size: 0.6em;
+				position: relative;
+				top: -8px;
+			}
+
+		}
+
+		ul.social {
+			margin: 20px 0;
+
+			a {
+				font-size: 20px;
+				color: darken($body-bg-color, 20%);
+
+				&:hover {
+					color: darken($body-bg-color, 40%);
+				}
+			}
+		}
+
+	}
+
+	.user-info-right {
+		border-left: 1px solid $line-color;
+		padding-left: 30px;
+
+		> div {
+			margin-bottom: 60px;
+		}
+
+		@include max-screen($break-medium) {
+			border-left: none;
+			padding-left: 0;
+		}
+	}
+
+}
+
+

@@ -1,0 +1,21 @@
+{
+  "name": "MyECL",
+  "version": "1.0.0",
+  "description": "",
+  "main": "myecl.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cas-authentication": "0.0.8",
+    "dom-to-image": "^2.5.2",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "multer": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node myecl.js"
+  },
+  "author": "Théo (Lattay) Cavignac",
+  "license": "MIT"
+}

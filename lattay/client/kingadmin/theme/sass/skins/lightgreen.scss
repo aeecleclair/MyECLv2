@@ -1,0 +1,113 @@
+/*------------------------------------------------*/
+/*	Skin: Light Green
+/*------------------------------------------------*/
+
+$the-lightgreen: #bcbf23;
+$link-color: #c3b813;
+
+/* general */
+
+a {
+	color: $link-color;
+
+	&:hover, &:focus {
+		color: darken($link-color, 7%);
+	}
+}
+
+.top-bar {
+	background-color: $the-lightgreen;
+
+	.top-bar-right {
+		.btn-link {
+			color: lighten($the-lightgreen, 40%);
+
+			&:hover {
+				color: #fff;
+			}
+		}
+	}
+
+	.notifications {
+		.count {
+			border-color: $the-lightgreen;
+		}
+	}
+
+	.searchbox {
+		input[type="search"] {
+			background-color: darken($the-lightgreen, 18%);
+			border-color: darken($the-lightgreen, 15%);
+		}
+
+		.btn {
+			background-color: lighten($the-lightgreen, 5%);
+			border-color: darken($the-lightgreen, 15%);
+
+			i {
+				color: darken($the-lightgreen, 15%);
+			}
+
+			&:hover {
+				border-color: darken($the-lightgreen, 15%);
+
+				i {
+					color: darken($the-lightgreen, 20%);
+				}
+			}
+		}
+	}
+	
+}
+
+/* widget */
+.widget {
+	border-color: lighten($the-lightgreen, 15%);
+
+	.widget-header {
+		background-color: $the-lightgreen;
+		border-bottom-color: darken($the-lightgreen, 5%);
+		color: #fff;
+
+		em {
+			color: #fff;
+		}
+
+		.btn-help {
+			color: lighten($the-lightgreen, 20%);
+		}
+
+		.widget-header-toolbar {
+			border-left-color: darken($the-lightgreen, 3%);
+
+			.control-title {
+				color: #fff;
+			}
+		}
+
+		.btn-group > a {
+			color: #fff;
+
+			&:hover, &:focus {
+				color: #fcfcac;
+			}
+		}
+	}
+}
+
+/* main content */
+.main-header {
+	h2 {
+		color: darken($the-lightgreen, 8%);
+		border-right-color: lighten($the-lightgreen, 15%);
+	}
+
+	em {
+		color: lighten($the-lightgreen, 3%);
+	}
+}
+
+/* footer */
+.footer {
+	background-color: $the-lightgreen;
+}

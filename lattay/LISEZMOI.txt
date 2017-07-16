@@ -1,0 +1,31 @@
+Ce document a pour objectif de permettre a une personne maitrisant les
+concepts de bases de Node.js et Express d'appréhender l'architecture de MyECL
+et de comprendre la march a suivre pour réaliser un module.
+
+I Architecture globale du site
+    1 Motivations
+Le site est basé sur Express et Node.js. Le code coté serveur est donc en
+JavaScript. Le concept fondamentale de ce site est l'aspect modulaire qui a
+pour objectif de permettre l'extension des fonctionnalitées par des
+générations d'ÉCLAIRmen sans que ceux ci ai besoin de comprendre le code des
+dévellopeurs précédents. La compréhension de l'interface proposé doit être
+suffisante pour dévelloper un nouveau module.
+
+    2 Organisation des fichiers
+A la racine du site se trouvent :
+- l'ensemble des fichiers du code de base
+- le dossier client
+- le dossier module
+- le dossier node_modules
+
+Le dossier client contient :
+- les fichiers de base a envoyer au client (html, css, etc)
+- le dossier shared qui peut contenir des fichiers en provenance de n'importe
+  quel module
+Le dossier module contient un dossier pour chaque module activé ainsi que les
+fichiers utiles à la gestion des modules.
+Le dossier node_modules contient les modules installés avec npm
+
+II Architecture d'un module
+    1 Les fichiers essentiels
+

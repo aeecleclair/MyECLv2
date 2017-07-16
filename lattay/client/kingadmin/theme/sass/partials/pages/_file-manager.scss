@@ -1,0 +1,138 @@
+/*------------------------------------------------*/
+/*	Page: File Manager
+/*------------------------------------------------*/
+
+.jstree-open > .jstree-anchor > .fa-folder:before {
+	content: "\f07c";
+}
+
+/* jstree context menu, following bootstrap dropdown menu */
+.vakata-context, 
+.vakata-context ul {
+	@include box-shadow(0 6px 12px rgba(0, 0, 0, 0.175));
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.vakata-context li > a {
+	padding-left: 10px;
+	color: $base-font-color-dark;
+
+	.vakata-contextmenu-sep {
+		display: none;
+	}
+}
+
+.vakata-context .vakata-context-separator {
+	> a, a:hover {
+		margin: 0;
+	}
+}
+
+/* file table */
+.file-manager {
+	.tree-wrapper {
+		min-height: 500px;
+		margin-top: 8px;
+		padding-left: 0;
+		padding-right: 0;
+		border: none;
+		border-right: 1px solid #ccc;
+		background-color: $content-wrapper-bg-color;
+	}
+
+	table tr {
+		cursor: pointer;
+
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+
+		&.DTTT_selected.even,
+		&.DTTT_selected.even td.sorting_1,
+		&.DTTT_selected.odd,
+		&.DTTT_selected.odd td.sorting_1 {
+			background-color: #e2e2e2;
+
+			&:hover, &:focus {
+				background-color: #e2e2e2;
+			}
+		}
+
+		td:first-child {
+			white-space: nowrap;
+		}
+	}
+
+	@include max-screen($break-small) {
+		.tree-wrapper {
+			min-height: 0;
+		}
+	}
+}
+
+.file-main-menu {
+	> li {
+		margin: 0 10px 15px 10px;
+
+		> a {
+			&.inactive {
+				color: #ccc;
+			}
+
+			> .fa-stack, > i {
+				display: block;
+				margin: 0 auto 5px auto;
+			}
+
+			> i {
+				font-size: 34px;
+				text-align: center;
+			}
+		}
+	}
+
+	a {
+		color: $base-font-color-dark;
+
+		&:hover, &:focus {
+			color: #337AB7;
+			text-decoration: none;
+		}
+	}
+
+	@include max-screen($break-bs-large) {
+		> li {
+			margin: 0 0 15px 0;
+		}
+	}
+}
+
+.file-secondary-menu {
+	padding: 10px 0;
+
+	> li {
+		padding-right: 15px;
+	}
+
+	a {
+		color: $base-font-color-dark;
+
+		&:hover, &:focus {
+			color: #337AB7;
+			text-decoration: none;
+		}
+	}
+
+	@include max-screen($break-bs-large) {
+		> li {
+			padding-right: 50px;
+			margin-bottom: 10px;
+		}
+	}
+}
+
+

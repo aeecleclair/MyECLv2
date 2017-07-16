@@ -1,0 +1,215 @@
+/*------------------------------------------------*/
+/*	Skin: Full Bright
+/*------------------------------------------------*/
+
+$the-bright: #fff;
+$link-color: #7b7b7b;
+$body-color: #555;
+
+/* general */
+
+body {
+	background: $the-bright;
+}
+
+a {
+	color: $link-color;
+
+	&:hover, &:focus {
+		color: darken($link-color, 15%);
+	}
+}
+
+/* top bar */
+.top-bar {
+	background-color: $the-bright;
+	border-bottom: 1px solid darken($the-bright, 5%);
+
+	.top-bar-right {
+		.btn-link {
+			color: $link-color;
+
+			&:hover {
+				color: darken($link-color, 15%);
+			}
+		}
+	}
+
+	.notifications {
+		.count {
+			border-color: $the-bright;
+		}
+
+		.notification-item .btn-group > a {
+			color: $link-color;
+
+			&:hover, &:focus {
+				color: darken($link-color, 15%);
+			}
+		}
+	}
+
+	.searchbox {
+		input[type="search"] {
+			background-color: $the-bright;
+			border: 1px solid darken($the-bright, 10%);
+			color: darken($the-bright, 20%);
+		}
+
+		.btn {
+			background-color: darken($the-bright, 15%);
+			border-color: darken($the-bright, 10%);
+
+			i {
+				color: darken($the-bright, 5%);
+			}
+
+			&:hover {
+				border-color: darken($the-bright, 15%);
+
+				i {
+					color: darken($the-bright, 10%);
+				}
+			}
+		}
+	}
+
+	.logged-user .open .btn {
+		color: $link-color;
+	}
+	
+}
+
+.content-wrapper {
+	border-bottom: 1px solid darken($the-bright, 10%);
+	background-color: #fff;
+}
+
+/* navigation */
+ul.main-menu {
+	> li {
+		a {
+			background-color: $the-bright;
+			border-top: 1px solid $the-bright;
+			color: $link-color;
+
+			&:hover {
+				background-color: darken($the-bright, 2%);
+			}
+		}
+
+		&.active {
+			> a {
+				background-color: darken($the-bright, 5%);
+			}
+		}
+	}
+}
+
+.left-sidebar {
+	background-color: $the-bright;
+}
+
+.left-sidebar.minified .main-menu {
+	> li:hover {
+		> a > .text {
+			background: darken($the-bright, 5%);
+			border: 1px solid $the-bright;
+		}
+
+		ul.sub-menu {
+			border: 1px solid darken($the-bright, 3%);
+		}
+	}
+}
+
+.toggle-sidebar-collapse {
+	color: $link-color;
+
+	&:hover,
+	&:focus {
+		color: darken($link-color, 8%);
+	}
+}
+
+/* on-top navigation */
+#main-navbar-collapse {
+	.navbar-nav > li > a {
+		&:hover,
+		&:focus,
+		&:visited {
+			color: $link-color;
+			background: darken($the-bright, 3%);
+		}
+	}
+
+	.dropdown-menu {
+		background-color: darken($the-bright, 3%);
+
+		> li > a {
+			color: $link-color;
+
+			&:hover,
+			&:focus,
+			&:active,
+			&.active {
+				background-color: darken($the-bright, 5%);
+			}
+		}
+	}
+}
+
+/* sidebar */
+.sidebar-content {
+	.panel {
+		&.panel-default {
+			border-color: darken($the-bright, 10%);
+			background-color: darken($the-bright, 2%);
+			color: $body-color;
+			
+			> .panel-heading {
+				background-color: darken($the-bright, 5%);
+				border-color: darken($the-bright, 10%);
+			}
+		}
+	}
+
+	h5.label-default {
+		background-color: darken($the-bright, 5%);
+		border: 1px solid darken($the-bright, 10%);
+		border-bottom: none;
+		color: inherit;
+	}
+
+	.list-info-sidebar {
+		background-color: lighten($the-bright, 2%);
+		border: 1px solid darken($the-bright, 10%);
+		color: #fff;
+
+		.data-name {
+			color: darken($the-bright, 20%);
+		}
+
+		.data-value {
+			color: $body-color;
+		}
+	}
+}
+
+/* widget */
+.widget {
+	.widget-header,
+	.widget-footer {
+		background-color: #fdfdfd;
+	}
+
+	.widget-content {
+		background-color: #fff;
+	}
+}
+
+.footer {
+	background-color: $the-bright;
+	color: $body-color;
+}
+

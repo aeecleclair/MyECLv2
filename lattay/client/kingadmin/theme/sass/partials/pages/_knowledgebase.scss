@@ -1,0 +1,78 @@
+/*------------------------------------------------*/
+/*	Page: Knowledge Base
+/*------------------------------------------------*/
+
+.form-knowledge-search {
+	margin-bottom: 50px;
+	-webkit-appearance: none;
+
+	@include max-screen($break-xsmall) {
+		input[type="search"] {
+			font-size: 0.9em;
+		}
+	}
+}
+
+.knowledge {
+	h3 {
+		border-bottom: 1px solid $line-color;
+		line-height: 28px;
+		font-size: 1.2em;
+
+		span {
+			font-weight: normal;
+		}
+
+		a {
+			text-decoration: none;
+		}
+	}
+
+	ul {
+		li {
+			line-height: 30px;
+
+			a {
+				color: $base-font-color-dark;
+				display: block;
+				padding-left: 20px; 
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+
+			i.pull-left {
+				line-height: 29px;
+			}
+		}
+	}
+}
+
+.knowledge-recent-popular {
+	margin-top: 50px;
+
+	ol {
+		padding-left: 20px;
+		li {
+			line-height: 30px; 
+		}
+	}
+}
+
+ul.nav-categories {
+	margin-bottom: 30px;
+
+	> li {
+		> a {
+			color: $base-font-color-dark;
+		}
+	}
+}
+
+.ticket-box {
+	border: 1px solid $line-color;
+	padding: 15px;
+}
+
+

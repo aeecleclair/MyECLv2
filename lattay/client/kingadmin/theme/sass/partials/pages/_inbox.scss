@@ -1,0 +1,494 @@
+/*------------------------------------------------*/
+/*	Page: Inbox
+/*------------------------------------------------*/
+
+.inbox {
+	.searchbox {
+		margin-bottom: 10px;
+		width: 45em;
+		padding-left: 4.8em;
+
+		@include max-screen($break-large) {
+			width: auto;
+			padding-left: initial;
+		}
+	}
+
+	.top {
+		.row {
+			> div:first-child {
+				padding-right: 0;
+
+				@include max-screen($break-large) {
+					padding-right: 15px;
+				}
+			}
+		}
+	}
+
+	.top-menu {
+		padding-left: 21px;
+		border-left: 1px solid $line-color;
+
+		@include max-screen($break-large - 1px) {
+			padding-left: 0;
+			border-left: none;
+			margin-top: 10px;
+		}
+
+		.top-menu-label {
+			margin-right: 5px;
+		}
+		
+		> ul {
+			@include inline-block;
+		}
+
+		> ul {
+			margin-right: 10px;
+
+			> li {
+				padding-left: 0;
+				padding-right: 0;
+			}
+		}
+
+		.btn {
+			background-color: #e4e4e4;
+			color: darken(#e4e4e4, 45%);
+			font-size: 0.85em;
+
+			&:hover {
+				color: darken(#e4e4e4, 65%);
+			}
+
+			&:active, &.active,
+			&:focus, &.focus {
+				@include box-shadow(none);
+
+				outline: none;
+			}
+		}
+
+		.btn-group.open {
+			.dropdown-toggle {
+				@include box-shadow(none);
+			}
+		}
+
+		ul.dropdown-menu {
+			li {
+				font-size: 0.9em;
+
+				a {
+					color: darken(#e4e4e4, 45%);
+					padding: 3px 11px;
+				}
+			}
+		}
+
+		.navigation {
+			position: absolute;
+			top: -6px;
+			right: 0;
+
+			.inbox-nav-toggle {
+				position: relative;
+				top: 5px;
+				float: left;
+				padding: 0;
+				background-color: transparent;
+
+				i {
+					font-size: 24px;
+					color: lighten($base-font-color-dark, 25%);
+					cursor: pointer;
+
+					&:hover {
+						color: $base-font-color-dark;
+					}
+				}
+			}
+
+			@include max-screen($break-small) {
+				display: block;
+				position: initial;
+
+				.pager-wrapper {
+					float: right;
+				}
+			}
+
+			.info {
+				position: relative;
+				top: 2px;
+				right: 15px;
+				font-size: 0.85em;
+			}
+
+			ul.pager {
+				@include inline-block;
+
+				margin: 0;
+				position: relative;
+				right: 8px;
+
+				@include max-screen($break-small) {
+					position: initial;
+				}
+
+				li {
+					font-size: 24px;
+
+					a {
+						color: darken(#e4e4e4, 45%);
+						padding: 5px 7px;
+
+						&:hover {
+							color: darken(#e4e4e4, 65%);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.bottom {
+		border-top: 1px solid $line-color;
+
+		.row {
+			> .inbox-left-menu {
+				padding-right: 0;
+				padding-top: 14px;
+
+				@include max-screen($break-small - 1px) {
+					@include transition(all .3s ease-in);
+
+					max-height: 0;
+					padding-right: 15px;
+					overflow-y: hidden;
+					
+					&.active {
+						max-height: 330px;
+					}
+				}
+			}
+
+			.messages {
+				border-left: 1px solid #ccc;
+				padding-left: 15px;
+				padding-top: 10px;
+
+				@include max-screen($break-small) {
+					border-left: none;
+					padding-left: 0;
+				}
+			}
+		}
+
+		ul.left-menu {
+			margin-bottom: 40px;
+
+			li {
+				a {
+					display: block;
+					color: lighten($base-font-color-dark, 20%);
+					padding: 5px 0px;
+					font-size: 0.9em;
+
+					&:hover {
+						color: $base-font-color-dark;
+						text-decoration: none;
+					}
+				}
+
+				i {
+					width: 15px;
+					margin-right: 5px;
+				}
+
+				.badge {
+					background-color: #a2a2a2;
+					color: $widget-bg-color;
+				}
+			}
+		}
+	}
+
+	.labels {
+		h3 {
+			font-size: 1em;
+		}
+
+		li {
+			a {
+				font-size: 0.9em;
+				color: lighten($base-font-color-dark, 20%);
+
+				&:hover {
+					color: $base-font-color-dark;
+					text-decoration: none;
+				}
+			}
+
+			i {
+				width: 14px;
+				height: 14px;
+				position: relative;
+				top: 2px;
+			}
+		}
+	}
+
+	.message-label {
+		padding: 3px;
+		font-size: 0.8em;
+		font-family: $secondary-font-family-bold;
+		color: #fff !important;
+
+		@include max-screen($break-medium) {
+			display: none;
+		}
+	}
+
+	.label1 {
+		color: #97DD03;
+		background-color: #97DD03;
+	}
+
+	.label2 {
+		color: #03CCDD;
+		background-color: #03CCDD;
+	}
+
+	.label3 {
+		color: #DD4003;
+		background-color: #DD4003;
+	}
+
+	table.message-table {
+		table-layout: fixed;
+		width: 100%;
+		margin-bottom: 30px;
+
+		@include max-screen($break-medium) {
+			display: block;
+		}
+
+		colgroup {
+			.col-check {
+				width: 25px;
+			}
+
+			.col-star {
+				width: 25px;
+			}
+			
+			.col-from {
+				width: 140px;
+			}
+
+			.col-attachment {
+				width: 50px;
+			}
+
+			.col-timestamp {
+				width: 70px;
+			}
+
+			@include max-screen($break-medium) {
+				.col-from,
+				.col-blank, .col-timestamp {
+					width: auto;
+				}
+			}
+		}
+
+		tr {
+			cursor: pointer;
+			border-bottom: 1px solid $body-bg-color;
+
+			&.unread {
+				font-weight: 700;
+				background-color: #fcfcfc;
+
+				.icon-attachment i {
+					color: initial;
+				}
+			}
+
+			&.highlighted {
+				background-color: #FFFEED;
+			}
+
+			td {
+				color: $base-font-color-dark;
+				font-size: 0.9em;
+				white-space: nowrap;
+				overflow: hidden;
+
+				&:nth-child(3),
+				&:nth-child(4) {
+					@include max-screen($break-medium) {
+						display: block;
+						white-space: normal;
+						overflow: visible;
+					}
+				}
+
+				&:hover {
+					text-decoration: none;
+				}
+
+				.fancy-checkbox {
+					margin: 5px 0;
+				}
+
+				i {
+					font-size: 17px;
+					position: relative;
+					top: 2px;
+					color: #ccc;
+
+					&.fa-star {
+						color: $the-yellow;
+					}
+				}
+
+				.from {
+					@include inline-block;
+
+					margin-right: 20px;
+				}
+
+				.preview {
+					font-weight: normal;
+					color: #aaa;
+				}
+
+				.timestamp {
+					@include inline-block;
+
+					float: right;
+				}
+			}
+		}
+	}
+}
+
+/* new/compose message */
+.inbox.new-message .top-menu {
+	border-left: none;
+	padding-left: 0;
+}
+
+.new-message-form {
+	padding: 15px;
+	border-left: 1px solid #ccc;
+
+	@include max-screen($break-small) {
+		border-left: none;
+		padding: 0;
+	}
+}
+
+/* view single message */
+.view-single-message .searchbox {
+	padding-left: 0;
+}
+
+.single-message-item {
+	padding: 15px;
+	border-left: 1px solid #ccc;
+
+	@include max-screen($break-small) {
+		border-left: none;
+	}
+
+	.message-label {
+		color: #fff !important;
+		padding-bottom: 4px;
+
+		@include max-screen($break-medium) {
+			@include inline-block;
+			padding-top: 4px;
+		}
+	}
+
+	.header-top {
+		margin-bottom: 20px;
+
+		.label-with-btn {
+			margin-left: 10px;
+
+			@include max-screen($break-small) {
+				margin-left: 0;
+			}
+		}
+	}
+
+	h2 {
+		@include inline-block;
+
+		font-size: 1.5em;
+		margin: 0;
+		line-height: 1.6;
+
+		@include max-screen($break-small) {
+			display: block;
+		}
+	}
+
+	.media,
+	.media-body {
+		overflow: visible;
+	}
+
+	.header-bottom {
+		a:hover, a:focus {
+			text-decoration: none;
+		}
+
+		.dropdown-menu > li > a {
+			padding: 3px 15px;
+			color: lighten($base-font-color-dark, 20%);
+
+			&:hover, &:focus {
+				color: $base-font-color-dark;
+			}
+
+			i {
+				width: 20px;
+			}
+		}
+	}
+
+	.message-body-text {
+		padding: 20px 0;
+	}
+
+	.attachments {
+		margin-bottom: 30px;
+
+		.download-all {
+			margin-left: 10px;
+		}
+
+		li {
+			line-height: 1.8;
+
+			.text-muted {
+				font-size: 0.9em;
+				margin-left: 5px;
+			}
+		}
+	}
+
+	.reply-box {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+
+

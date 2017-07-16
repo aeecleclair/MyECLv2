@@ -1,0 +1,483 @@
+/*------------------------------------------------*/
+/*  Components
+/*------------------------------------------------*/
+
+/* wizard */
+.wizard {
+	position: relative;
+	overflow: hidden;
+	background-color: #f9f9f9;
+
+	&:before,
+	&:after {
+		display: table;
+		line-height: 0;
+		content: "";
+	}
+
+	&:after {
+		clear: both;
+	} 
+
+	ul {
+		width: 4000px;
+		padding: 0;
+		margin: 0;
+		list-style: none outside none;
+
+		&.previous-disabled li.complete {
+			cursor: default;
+
+			&:hover {
+				color: #468847;
+				cursor: default;
+				background: #f3f4f5;
+
+				.chevron:before {
+					border-left-color: #f3f4f5;
+				}
+			}
+		}
+
+		li {
+			position: relative;
+			float: left;
+			height: 46px;
+			padding: 0 20px 0 30px;
+			margin: 0;
+			font-size: 16px;
+			line-height: 46px;
+			color: darken(#f2f2f2, 30%);
+			cursor: default;
+			background: #f2f2f2;
+
+			&:first-child {
+				padding-left: 20px;
+			}
+
+			.chevron {
+				position: absolute;
+				top: -24px;
+				right: -14px;
+				z-index: 1;
+				display: block;
+				border: 48px solid transparent;
+				border-right: 0;
+				border-left: 24px solid #fff;
+
+				&:before {
+					position: absolute;
+					top: -48px;
+					right: 5px;
+					display: block;
+					border: 48px solid transparent;
+					border-right: 0;
+					border-left: 24px solid #f2f2f2;
+					content: "";
+				}
+			}
+
+			&.complete {
+				color: #fff;
+				background: $color-success;
+
+				&:hover {
+					cursor: pointer;
+					background: darken($color-success, 1%);
+
+					.chevron:before {
+						border-left: 24px solid darken($color-success, 1%);
+					}
+				}
+
+				.chevron:before {
+					border-left: 24px solid $color-success;
+				}
+			}
+
+			&.active {
+				color: #fff;
+				background: $color-primary;
+
+				.chevron:before {
+					border-left: 24px solid $color-primary;
+				}
+			}
+
+			.badge {
+				position: relative;
+				top: -2px;
+				margin-right: 8px;
+				padding: 4px 7px;
+
+				&.badge-info {
+					background-color: darken($color-primary, 10%);
+				}
+
+				&.badge-success {
+					background-color: darken($color-success, 10%);
+				}
+			}
+		}
+	}
+}
+
+.step-content {
+	margin: 30px 0;
+	padding-left: 20px;
+	
+	.step-pane {
+		display: none;
+	}
+
+	.active {
+		display: block;
+
+		.btn-group .active {
+			display: inline-block;
+		}
+	}
+}
+
+/* maps by mapael */
+.mapTooltip {
+	@include opacity(0.9);
+
+	position: fixed;
+	padding: 10px;
+	z-index: 1000;
+	max-width: 200px;
+	display: none;
+	background-color : #f3f3f3;
+	border: 1px solid #fff;
+	color: #555;
+
+	span {
+		font-weight: 700;
+	}
+}
+
+.data-us-map .plotLegend {
+	margin-top: 50px;
+}
+
+.zoom-map {
+	position: relative;
+
+	.btn-group {
+		margin-bottom: 20px;
+
+		@include max-screen($break-xsmall) {
+			.btn {
+				float: none;
+				width: 100%;
+				margin-left: 0;
+				margin-bottom: 3px; 
+			}
+		}
+	}
+}
+
+.map {
+	.zoomIn,
+	.zoomOut {
+		position: absolute;
+		left: 10px;
+		background: #fff;
+		width: 20px;
+		cursor: pointer;
+		border: 1px solid #ccc;
+		text-align: center;
+		line-height: 20px;
+
+		&:hover {
+			background: darken(#fff, 3%);
+		}
+	}
+
+	.zoomIn {
+		top: 60px;
+	}
+
+	.zoomOut {
+		top: 85px;
+	}
+}
+
+@include max-screen($break-xsmall) {
+	.zoom-map {
+		.zoomIn {
+			top: 100px;
+		}
+
+		.zoomOut {
+			top: 124px;
+		}
+	}
+}
+
+.map-custom-width {
+	width: 75%; 
+
+	.map {
+		position: relative;
+		left: 20%;
+	}
+}
+
+/* calendar */
+.fc-header-title {
+	h2 {
+		font-family: $secondary-font-family-bold;
+		font-size: 1.5em;
+	}
+}
+
+.fc .fc-header-space {
+	padding-left: 0;
+}
+
+.fc-header {
+	.fc-button {
+		@include border-radius(0);
+
+		margin-right: 3px;
+		background-image: none;
+		background-color: transparent;
+		border: none;
+		text-shadow: none;
+		box-shadow: none;
+		color: $base-font-color-dark;
+	}
+
+	.fc-header-left {
+		.fc-button {
+			border-bottom: 1px solid #E1E1E1;
+
+			&:hover, &:focus, &:active, &.active,
+			&.fc-state-active {
+				background-color: #ECECEC;
+			}
+		}
+	}
+}
+
+.fc-button.fc-button-today {
+	background-color: $color-primary;
+	color: #fff;
+	cursor: pointer;
+
+	&:hover, &:focus, &:active, &.active {
+		background-color: darken($color-primary, 10%);
+	}
+}
+
+.fc-content table thead tr {
+	background-color: #F3F3F3;
+}
+
+.fc-ltr .fc-view .fc-event-hori {
+	@include border-radius(0);
+}
+
+.fc-event-container {
+	a:hover, a:focus {
+		color: #C7DAE4;
+	}
+}
+
+.fc-event-inner {
+	padding: 2px 5px;
+}
+
+.fc-view-month .fc-event {
+	.fc-event-inner {
+		&:before {
+			@include inline-block;
+
+			font-family: FontAwesome;
+			content: '\f111';
+			font-size: 7px;
+			margin-right: 5px;
+		}
+	}
+}
+
+.fc-event-vert {
+	@include border-radius(0);
+}
+
+.fc-agenda-allday th {
+	border-width: 0 0px;
+}
+
+#external-events {
+	.simplecolorpicker {
+		display: table;
+		width: 100%;
+		border-collapse: separate;
+		padding: 0;
+		margin-bottom: 5px;
+
+		span.color {
+			display: table-cell;
+			text-align: center;
+		}
+	}
+}
+
+.external-event {
+	@include inline-block;
+
+	padding: 2px 5px;
+	border: 1px solid #3A87AD;
+	background-color: #3A87AD;
+	color: #fff;
+	font-size: 0.9em;
+	margin-right: 0;
+	margin-bottom: 3px;
+	cursor: move;
+}
+
+/* gallery */
+.king-gallery {
+
+	@include screen(575px, $break-small - 1px) {
+		width: 500px;
+		margin: 0 auto;
+	}
+
+	.list-group-item-heading {
+		font-size: 1em;
+	}
+
+	.thumbnail {
+		@include border-radius(0);
+
+		margin-bottom: 20px;
+		padding: 0px;
+		max-height: 225px;
+	}
+
+	.item {
+		.thumbnail {
+			position: relative;
+			overflow: hidden;
+			border: none;
+
+			img {
+				@include transition(transform .4s ease);
+				
+				-moz-backface-visibility: hidden;
+				-webkit-backface-visibility: hidden;
+				backface-visibility: hidden;
+			}
+
+			.caption {
+				@include opacity(0);
+
+				width: 100%;
+				position: absolute;
+				top: auto;
+				bottom: 0;
+				left: 0;
+				padding: 9px;
+				background-color: #fff;
+				color: $base-font-color-dark;
+
+				-moz-transition-property: -moz-transform, opacity;
+				-o-transition-property: -o-transform, opacity;
+				-webkit-transition-property: -webkit-transform, opacity;
+				transition-property: transform, opacity;
+
+				-moz-transition-duration: 0.4s, 0.1s;
+				-o-transition-duration: 0.4s, 0.1s;
+				-webkit-transition-duration: 0.4s, 0.1s;
+				transition-duration: 0.4s, 0.1s;
+
+				-moz-transition-delay: initial, 0.3s;
+				-o-transition-delay: initial, 0.3s;
+				-webkit-transition-delay: initial, 0.3s;
+				transition-delay: initial, 0.3s;
+
+				-moz-transform: translateY(100%);
+				-ms-transform: translateY(100%);
+				-webkit-transform: translateY(100%);
+				transform: translateY(100%);
+
+				-moz-backface-visibility: hidden;
+				-webkit-backface-visibility: hidden;
+				backface-visibility: hidden;
+				
+				li {
+					font-size: 0.85em;
+				}
+			}
+
+			&:hover {
+				img {
+					-moz-transform: translateY(-50px);
+					-ms-transform: translateY(-50px);
+					-webkit-transform: translateY(-50px);
+					transform: translateY(-50px);
+				}
+
+				.caption {
+					@include opacity(1);
+					
+					-moz-transition-property: -moz-transform, opacity;
+					-o-transition-property: -o-transform, opacity;
+					-webkit-transition-property: -webkit-transform, opacity;
+					transition-property: transform, opacity;
+
+					-moz-transition-duration: 0.4s, 0.1s;
+					-o-transition-duration: 0.4s, 0.1s;
+					-webkit-transition-duration: 0.4s, 0.1s;
+					transition-duration: 0.4s, 0.1s;
+					
+					-moz-transform: translateY(0px);
+					-ms-transform: translateY(0px);
+					-webkit-transform: translateY(0px);
+					transform: translateY(0px);
+				}
+			}
+		}
+	}
+}
+
+.gallery-buttons .btn {
+	@include max-screen($break-xsmall) {
+		width: 100%;
+		margin-bottom: 15px;
+	}
+}
+
+/* tree view */
+.king-tree {
+	&.jstree-default .jstree-checkbox {
+		background-image: none;
+		font-style: normal;
+
+		&:before {
+			font-family: FontAwesome;
+			font-size: 18px;
+			content: '\f096';
+		}
+
+		&.jstree-undetermined:before {
+			content: '\f0c8';
+			color: #ccc;
+		}
+	}
+
+	&.jstree-default.jstree-checkbox-selection .jstree-clicked > .jstree-checkbox,
+	&.jstree-default .jstree-checked > .jstree-checkbox {
+		&:before {
+			content: '\f14a';
+			color: $the-green;
+		}
+	}
+
+}
+
+

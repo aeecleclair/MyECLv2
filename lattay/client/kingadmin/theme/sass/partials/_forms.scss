@@ -1,0 +1,98 @@
+/*------------------------------------------------*/
+/*	Forms
+/*------------------------------------------------*/
+
+/* form */
+fieldset {
+	margin-bottom: 40px;
+}
+
+legend {
+	color: $base-font-color-dark;
+	font-size: 1.5em;
+}
+
+.form-horizontal .control-label {
+	text-align: left;
+}
+
+.form-horizontal ul.multiselect-container {
+	.radio, .checkbox {
+		min-height: initial;
+		padding-top: 0;
+	}
+}
+
+div[class*="col-"] > .form-group {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.form-control,
+.input-group .form-control {
+	@include border-radius(0);
+	@include box-shadow(none);
+}
+
+.input-group-lg {
+	> .form-control,
+	> .input-group-addon,
+	> .input-group-btn > .btn {
+		@include border-radius(0);
+	}
+} 
+
+.input-group-sm {
+	> .form-control,
+	> .input-group-addon,
+	> .input-group-btn > .btn {
+		@include border-radius(0);
+	}
+}
+
+/* form control feedback */
+.has-feedback label {
+	~.form-control-feedback {
+		top: 35px;
+	}
+
+	&.sr-only~.form-control-feedback {
+		top: 12px;
+	}
+}
+
+.form-horizontal .has-feedback .form-control-feedback {
+	top: 10px;
+}
+
+@media (min-width: 768px) {
+	.form-inline .has-feedback .form-control-feedback {
+		top: 10px;
+	}
+}
+
+/* erorr list */
+.parsley-errors-list {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	overflow: hidden;
+	*zoom: 1;
+	
+	li {
+		list-style-image: none;
+		list-style-type: none;
+		margin-left: 0;
+		display: inline-block;
+		vertical-align: middle;
+		*vertical-align: auto;
+		*zoom: 1;
+		*display: inline;
+		white-space: nowrap;
+		color: $color-danger;
+		font-size: 0.9em;
+		margin-top: 3px;
+	}
+}
+
+

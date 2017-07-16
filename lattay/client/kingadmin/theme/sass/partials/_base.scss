@@ -1,0 +1,74 @@
+// ------------------------------------------------ //
+//	Base
+// ------------------------------------------------ //
+
+// general colors
+$body-bg-color: #ececec;
+$brand-primary: #1D92AF;
+$brand-secondary: #7d939a;
+$line-color: #ddd;
+
+$base-font-color-dark: #555;
+$base-font-color-light: #fff;
+$base-heading-font-color: #2f2f2f;
+$base-subheading-font-color: #757575;
+
+$the-red: #E60404 !important;
+$the-yellow: #FFB800 !important;
+$the-green: #3E9C1A !important;
+
+// sign, button colors
+$color-default: #F5F5F5; // except for button
+$color-default-btn: #626262;
+$color-primary: $brand-primary;
+$color-info: #46B0CF;
+$color-danger: #DB3833;
+$color-warning: #E7A13D;
+$color-success: #4BA84B;
+$color-custom-primary: #E24715;
+$color-custom-secondary: #1CACA0;
+
+// fonts
+$base-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$base-font-size: 13px;
+$secondary-font-family-light: "latolight";
+$secondary-font-family-regular: "latoregular";
+$secondary-font-family-bold: "latobold";
+$button-font: "latolight";
+
+// custom media queries breakpoint
+$break-xsmall: 480px;
+$break-small: 768px;
+$break-medium: 992px;
+$break-large: 1280px;
+$break-large-wide: 1366px;
+$break-xlarge: 1850px;
+
+// media queries breakpoint, based on bootstrap
+$break-bs-small: 768px;
+$break-bs-medium: 992px;
+$break-bs-large: 1200px;
+
+// top bar
+$top-bar-bg-color: #555;
+$top-bar-foreground-color: #f1f1f1;
+$top-bar-darker-color: darken($top-bar-bg-color, 5%);
+$foreground-color: darken($top-bar-bg-color, 3%);
+
+// element color, such as stat, quick access 
+$element-bg-color-blue: #1D92AF;
+$element-bg-color-green: #859419;
+$element-bg-color-orange: #CE7B11;
+$element-bg-color-seagreen: #3F7577;
+$element-color-seagreen: #3F7577;
+$element-color-blue: #1D92AF;
+$element-color-orange: #CE7B11;
+$tooltip-bg-color: rgba(0, 0, 0, 0.8);
+
+// main content wrapper
+$content-wrapper-bg-color: #f1f1f1;
+
+// widget color
+$widget-bg-color: lighten($content-wrapper-bg-color, 3%);
+$widget-border-color: darken($body-bg-color, 10%);
+

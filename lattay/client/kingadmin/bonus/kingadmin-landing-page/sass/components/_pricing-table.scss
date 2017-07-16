@@ -1,0 +1,93 @@
+/* -------------------
+ * PRICING TABLES
+ * -------------------*/
+
+.pricing-table-set {
+	padding-top: 20px;
+	text-align: center;
+}
+
+.pricing-table {
+	@include inline-block;
+
+	padding: 20px;
+	margin: 0 8px;
+	width: 25%;
+	background-color: #FCFCFC;
+	border: 1px solid #E7E7E7;
+	border-top-width: 5px;
+	border-top-color: darken(#E7E7E7, 18%);
+
+	.pricing-heading {
+		margin-top: 0;
+		margin-bottom: 15px;
+		font-size: 24px;
+		font-weight: 700;
+		color: #898989;
+	}
+
+	.package-info {
+		margin-bottom: 0;
+		color: #b9b9b9;
+	}
+
+	.pricing {
+		margin: 50px 0;
+		color: #898989;
+	}
+
+	&.pricing-recommended {
+		position: relative;
+
+		.popular {
+			position: absolute;
+			top: -37px;
+			width: 100.6%;
+			left: -1px;
+			padding: 8px;
+			background: $brand-primary;
+			color: #fff;
+		}
+	}
+
+	.price {
+		display: block;
+		margin-bottom: 10px;
+		font-size: 68px;
+		font-weight: 300;
+		line-height: 1;
+	}
+
+	.price-info {
+		color: darken(#fcfcfc, 12%);
+	}
+
+	.btn-default {
+		background-color: #71787B;
+		border-color: darken(#71787B, 8%);
+		color: #fff;
+
+		&:hover,
+		&:focus {
+			background-color: darken(#71787B, 8%);
+		}
+	}
+
+	@include max-screen($break-medium) {
+		width: 30%;
+		padding: 20px 10px;
+	}
+
+	@include max-screen($break-small) {
+		display: block;
+		margin-bottom: 30px;
+		margin-left: 0;
+		width: 100%;
+
+		&.pricing-recommended {
+			margin-top: 60px;
+		}
+	}
+}
+
+
