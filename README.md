@@ -1,10 +1,8 @@
-Ce document a pour objectif de permettre a une personne maitrisant les
-concepts de bases de Node.js et Express d'appréhender l'architecture de MyECL
-et de comprendre la march a suivre pour réaliser un module.
+Ce document a pour objectif de permettre à une personne maitrisant les concepts de bases de Node.js et Express d'appréhender l'architecture de MyECL et de comprendre la marche à suivre pour réaliser un module.
 
-# I Architecture globale du site
+# 1 Architecture globale du site
 
-## 1 Motivations
+## A Motivations
 
 Le site est basé sur Express et Node.js. Le code coté serveur est donc en
 JavaScript. Le concept fondamentale de ce site est l'aspect modulaire qui a
@@ -13,10 +11,14 @@ générations d'ÉCLAIRmen sans que ceux-ci ai besoin de comprendre le code des
 dévellopeurs précédents. La compréhension de l'interface proposé doit être
 suffisante pour dévelloper un nouveau module.
 
-## 2 Organisation des fichiers
+## B Architecture d'une page classique du site
+
+Une page classique de MyECL se décompose en trois grandes parties. En haut on à un __header__ qui donne accès à des liens essentiels. À gauche on a un __menu__ qui peut être plier et qui rassemble des liens vers les différentes pages disponibles. Enfin au centre on a le __body__ qui affiche les pages du site.
+
+## C Organisation des fichiers
 
 A la racine du site se trouvent :
-- le fichier de configuration générale de l'application myecl_config.json
+- le fichier de configuration générale de l'application *myecl_config.json*
 - le point d'entrée de l'application myecl.js
 - le dossier _src_
 - le dossier _client_
@@ -41,14 +43,14 @@ fichiers utiles à la gestion des modules.
 
 Le dossier *node_modules* contient les modules installés avec npm
 
-# II Architecture d'un module
+# 2 Architecture d'un module
 
-## 1 Les fichiers essentiels
+## A Les fichiers essentiels
 
 Un module est entierement contenu dans le dossier qui porte sont nom dans le répertoire _modules_
 Un module n'a qu'un ou deux fichiers absolument indispensable. S'il ne contient que des fichiers statiques il ne nécessite que le fichier _config.json_. S'il contient en plus des routes dynamiques (la réponse est créer par du code JS) alors il aura en plus un fichier _callbacks.js_. Le reste du contenu du dossier est gérer comme bon lui semble par l'auteur du module.
 
-## 2 Structure de _config.json_
+## B Structure de _config.json_
 
 Le fichier _config.json_ est la base de la définition d'un module. Il rassemble toute les informations nécessaires pour mettre en place le module.
 
@@ -89,7 +91,7 @@ L'idée est la même que pour le menu mais cela concerne le header de la page.
 
 Pour l'instant aucune autre proproété de la configuration n'est utilisé par le chargeur de module mais ça viendra.
 
-## 2 Un exemple de configuration
+## B Un exemple de configuration
 ```json
 {
     "authorisation" : "ecl",
