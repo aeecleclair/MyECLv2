@@ -2,9 +2,9 @@ Ce document a pour objectif de permettre a une personne maitrisant les
 concepts de bases de Node.js et Express d'appréhender l'architecture de MyECL
 et de comprendre la march a suivre pour réaliser un module.
 
-# Architecture globale du site
+# I Architecture globale du site
 
-## Motivations
+## 1 Motivations
 
 Le site est basé sur Express et Node.js. Le code coté serveur est donc en
 JavaScript. Le concept fondamentale de ce site est l'aspect modulaire qui a
@@ -13,7 +13,7 @@ générations d'ÉCLAIRmen sans que ceux-ci ai besoin de comprendre le code des
 dévellopeurs précédents. La compréhension de l'interface proposé doit être
 suffisante pour dévelloper un nouveau module.
 
-## Organisation des fichiers
+## 2 Organisation des fichiers
 
 A la racine du site se trouvent :
 - le fichier de configuration générale de l'application myecl_config.json
@@ -41,14 +41,14 @@ fichiers utiles à la gestion des modules.
 
 Le dossier *node_modules* contient les modules installés avec npm
 
-# Architecture d'un module
+# II Architecture d'un module
 
-##  Les fichiers essentiels
+## 1 Les fichiers essentiels
 
 Un module est entierement contenu dans le dossier qui porte sont nom dans le répertoire _modules_
 Un module n'a qu'un ou deux fichiers absolument indispensable. S'il ne contient que des fichiers statiques il ne nécessite que le fichier _config.json_. S'il contient en plus des routes dynamiques (la réponse est créer par du code JS) alors il aura en plus un fichier _callbacks.js_. Le reste du contenu du dossier est gérer comme bon lui semble par l'auteur du module.
 
-## Structure de _config.json_
+## 2 Structure de _config.json_
 
 Le fichier _config.json_ est la base de la définition d'un module. Il rassemble toute les informations nécessaires pour mettre en place le module.
 
@@ -89,7 +89,7 @@ L'idée est la même que pour le menu mais cela concerne le header de la page.
 
 Pour l'instant aucune autre proproété de la configuration n'est utilisé par le chargeur de module mais ça viendra.
 
-## Un exemple de configuration
+## 2 Un exemple de configuration
 ```json
 {
     "authorisation" : "ecl",
