@@ -1,0 +1,16 @@
+{
+    "authorisation" : "public",
+    "description" : "Page des assos",
+    "rules" : [
+        {
+            "route" : "/modules/panorama/*",
+            "static" : "static/"
+        }
+    ],
+    "menu" : [
+        {
+            "link" : "/modules/panorama/index.html",
+            "name" : "Panorama associatif"
+        }
+    ]
+}

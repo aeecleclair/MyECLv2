@@ -1,30 +1,21 @@
 {
-  "name": "myecl",
-  "version": "2.0.0",
-  "description": "Appli web destinée à simplifier la vie associative à Centrale Lyon",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://forge.eclair.ec-lyon.fr/dloureir/MyECLv2.git"
-  },
-  "keywords": [
-    "MyECL",
-    "ECL",
-    "Centrale",
-    "Lyon",
-    "Ingenieur",
-    "Association"
-  ],
-  "author": "Mandat ECLAIR 2017",
-  "license": "ISC",
+  "name": "MyECL",
+  "version": "1.0.0",
+  "description": "",
+  "main": "myecl.js",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "cas-authentication": "0.0.8",
-    "ejs": "^2.5.6",
-    "express": "^4.15.3",
-    "express-session": "^1.15.3",
-    "http": "0.0.0"
-  }
+    "dom-to-image": "^2.5.2",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "multer": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node myecl.js"
+  },
+  "author": "Théo (Lattay) Cavignac",
+  "license": "MIT"
 }
