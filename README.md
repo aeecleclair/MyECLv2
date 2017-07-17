@@ -180,8 +180,30 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
 
 ### Modules à créer
 
+Ceux que l'on doit faire avant la mise en ligne :
 - PH
 - JE
+- SDeC
 - annonces BDE
+- Club ciné
+- Beat Box
 - Interface Admin
+
+Les autres qu'il faudrait faire rapidement :
+- Emploi du temps
+- Central'isation
+- Réservation BDE
 - ...
+
+## Autres projets pour bien plus tard
+
+- Module BDS pour gérer leur materiel
+- Module dBs, pareil
+- Intégration de MediaPiston
+- Module de chat
+- Module fil d'actualité
+- Module de jeux (pour remetre Dodge Malou chez nous et en faire des nouveaux)
+- Module de sondage
+- Module pour se mettre en fil d'attente pour que ECLAIR dévellope un module
+- Module CMB
+
