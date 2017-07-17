@@ -143,3 +143,45 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
     ]
 }
 ```
+
+# 3 Avancement du projet
+
+## Serveur de base
+
+### Ce qui est fait
+
+- Mise en place d'une interface simple pour les modules
+- Mise en place d'un squelette du système de sécurité
+- Design de la page type
+- Implémentation du __menu__
+- Implémentation du __body__
+
+
+
+### Ce qui doit être fait
+
+- Mise en place de la base de données
+- Mise en place du système complet de sécurité
+    - Création d'une page de connexion
+    - Création d'une page "Acces interdit"
+    - Conception d'un système de mot de passe sûre
+    - Implémentation du système de mot de passe
+    - Création d'un système d'autorisations flexible pour définir quel utilisateur a accès à chaque module
+    - Implémentation du système d'autorisation
+- Implémentation de la customisation des headers
+- Implémentation du chargement des tiles
+- Implémentation d'un système de gestion des tiles pour l'utilisateur
+
+## Modules
+
+### Modules existants
+
+- Exemple pour montrer les fonctionnalitées de base
+
+### Modules à créer
+
+- PH
+- JE
+- annonces BDE
+- Interface Admin
+- ...
