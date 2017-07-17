@@ -171,6 +171,7 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
 - Implémentation de la customisation des headers
 - Implémentation du chargement des tiles
 - Implémentation d'un système de gestion des tiles pour l'utilisateur
+- Implémentation des notifications
 
 ## Modules
 
