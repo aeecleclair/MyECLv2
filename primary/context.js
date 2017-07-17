@@ -13,8 +13,8 @@ module.exports = function(config_file){
         throw err;
     }
     
-    conf.public_root = conf.root_path + '/public';
-    conf.ecl_root = conf.root_path + '/client';
+    conf.public_root = conf.root_path + '/static/public';
+    conf.private_root = conf.root_path + '/static/private';
     conf.module_path = conf.root_path + '/modules';
 
     return conf;

@@ -20,13 +20,12 @@ Une page classique de MyECL se décompose en trois grandes parties. En haut on �
 A la racine du site se trouvent :
 - le fichier de configuration générale de l'application *myecl_config.json*
 - le point d'entrée de l'application myecl.js
-- le dossier _src_
-- le dossier _client_
-- le dossier _public_
+- le dossier _primary_
+- le dossier _static_
 - le dossier _module_
 - le dossier *node_modules*
 
-Le dossier _src_ contient les différents fichiers JS qui rassemblent le code de base du serveur :
+Le dossier _primary_ contient les différents fichiers JS qui rassemblent les fonctionnalitées primaires du serveur :
 - _init.js_ permet d'initialiser l'application Express, créer les routes minimales et exploite les autres fichiers
 - _context.js_ lit la configuration, ajoute quelques propriétées et retourne un objet context qui va servir dans la plupart des autres fichiers comme source de parametres.
 - _logger.js_ fournie des méthodes pour afficher des informations
@@ -34,9 +33,9 @@ Le dossier _src_ contient les différents fichiers JS qui rassemblent le code de
 - _authenticate.js_ met en place l'aspect authentification, l'interface de connexion et la communication avec le CAS
 - _authorise.js_ met en place l'aspect autorisation : il vérifie que l'utilisateur n'accède qu'au ressources qui lui sont permisent
 
-Le dossier _client_ contient les fichiers statiques qui sont réservé à un utilisateur authentifié (connecté) et qui ne dépendent pas d'un module.
-
-Le dossier _public_ contient les fichiers statiques consultable même sans se connecter
+Le dossier _static_ contient les fichiers statiques (ressources envoyées tel quel au client) séparé dans deux dossiers :
+- _public_ contient les fichiers accessible même sans être passer par la conexion par mot de passe (authentification)
+- _private_ contient les fichiers uniquement accessible aux utilisateurs authentifié
 
 Le dossier _modules_ contient un dossier pour chaque module activé ainsi que les
 fichiers utiles à la gestion des modules.

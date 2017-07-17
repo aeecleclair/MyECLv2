@@ -42,7 +42,7 @@ exports.myecl = function(context){
     });
 
     app.get('/home', authorise('ecl'), function(req, res){
-        res.sendFile('myecl_base.html', {root : context.ecl_root});
+        res.sendFile('myecl_base.html', {root : context.private_root});
     });
 
 
@@ -64,7 +64,7 @@ exports.myecl = function(context){
     app.post('/create_account', authenticate.create_account);
     // Si rien n'a catché la requete
     app.use(serveStatic(context.public_root, context.default_static_options));
-    app.use(authorise('ecl'), serveStatic(context.ecl_root, context.default_static_options));
+    app.use(authorise('ecl'), serveStatic(context.private_root, context.default_static_options));
 
     // Lancement du serveur
     app.listen(context.port, context.url, function(){
