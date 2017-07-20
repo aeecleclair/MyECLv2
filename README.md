@@ -64,7 +64,7 @@ Cette propriété contient une liste de règles qui décrivent la façon d'accé
 - __middleware__ : identique à proche de __callback__ au détail près que la fonction doit prendre un troisième argument __next__ qui est une fonction à appeler sans argument une fois les traitements terminé.
 
 Il y a trois méthodes pour accéder à ces ressources :
-- __route__ associe de façon directe une route et une ressource. La valeur de la propriété est l'url complète par exemple "/modules/profile/static/*"
+- __route__ associe de façon directe une route et une ressource. La valeur de la propriété est l'url complète par exemple "/modules/profile/static/\*"
 - __body__ permet d'intégrer une page à la page de base de MyECL (qui comprend le header et le menu à droite)
 - __tile__ permet de définir le contenu d'une tuile associé à ce module
 
@@ -83,8 +83,8 @@ Chaque item à en plus une propriété __name__ obligatoire qui contient le text
 
 ### La propriété __header__
 
-Pas encore implémenté.
 L'idée est la même que pour le menu mais cela concerne le header de la page.
+Contrairement au menu le type __sub__ est interdit. De plus c'est la propriété __icon__ qui est obligatoire tandis que la propriété __name__ est facultative.
 
 ### Les autres propriétées
 
@@ -140,6 +140,12 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
             "link" : "https://www.google.com",
             "name" : "Google"
         }
+    ],
+    "header" : [
+        {
+            "icon" : "<span class=\"fa fa-question-circle\"></span>",
+            "body" : "victoire"
+        }
     ]
 }
 ```
@@ -150,11 +156,12 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
 
 ### Ce qui est fait
 
-- Mise en place d'une interface simple pour les modules
-- Mise en place d'un squelette du système de sécurité
-- Design de la page type
-- Implémentation du __menu__
-- Implémentation du __body__
+- [x] Mise en place d'une interface simple pour les modules
+- [x] Mise en place d'un squelette du système de sécurité
+- [x] Design de la page type
+- [x] Implémentation du __menu__
+- [x] Implémentation du __body__
+- [x] Implémentation du __header__
 
 
 
@@ -168,7 +175,6 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
     - Implémentation du système de mot de passe
     - Création d'un système d'autorisations flexible pour définir quel utilisateur a accès à chaque module
     - Implémentation du système d'autorisation
-- Implémentation de la customisation des headers
 - Implémentation du chargement des tiles
 - Implémentation d'un système de gestion des tiles pour l'utilisateur
 - Implémentation des notifications
