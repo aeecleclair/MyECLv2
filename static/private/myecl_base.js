@@ -35,15 +35,21 @@ function handle_header(header, data){
         let item = data[i];
         if(item.body){
             // Liens internes
-            let html = '<div class="icone"><a href='
+            let html = '<div class="icone"><a href=';
             html += '"javascript:insert_body(\'' + item.module + '\', \'' + item.body + '\')">';
             html += item.icon;
+            if(item.name){
+                html += item.name;
+            }
             html += '</a></div>';
             header.append(html);
         } else if(item.link){
-            let html = '<div class="icone"><a href='
+            let html = '<div class="icone"><a href=';
             html += '"' + item.link + '">';
             html += item.icon;
+            if(item.name){
+                html += item.name;
+            }
             html += '</a></div>';
             header.append(html);
         } 

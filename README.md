@@ -162,55 +162,45 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
 - [x] Implémentation du __menu__
 - [x] Implémentation du __body__
 - [x] Implémentation du __header__
-
-
-
-### Ce qui doit être fait
-
-- Mise en place de la base de données
-- Mise en place du système complet de sécurité
-    - Création d'une page de connexion
-    - Création d'une page "Acces interdit"
-    - Conception d'un système de mot de passe sûre
-    - Implémentation du système de mot de passe
-    - Création d'un système d'autorisations flexible pour définir quel utilisateur a accès à chaque module
-    - Implémentation du système d'autorisation
-- Implémentation du chargement des tiles
-- Implémentation d'un système de gestion des tiles pour l'utilisateur
-- Implémentation des notifications
+- [ ] Mise en place de la base de données
+- [ ] Mise en place du système complet de sécurité
+    - [ ] Création d'une page de connexion
+    - [ ] Création d'une page "Acces interdit"
+    - [ ] Conception d'un système de mot de passe sûre
+    - [ ] Implémentation du système de mot de passe
+    - [ ] Création d'un système d'autorisations flexible pour définir quel utilisateur a accès à chaque module
+    - [ ] Implémentation du système d'autorisation
+- [ ] Implémentation du chargement des tiles
+- [ ] Implémentation d'un système de gestion des tiles pour l'utilisateur
+- [ ] Implémentation des notifications
 
 ## Modules
 
-### Modules existants
-
-- Exemple pour montrer les fonctionnalitées de base
-
-### Modules à créer
-
 Ceux que l'on doit faire avant la mise en ligne :
-- PH
-- JE
-- SDeC
-- annonces BDE
-- Club ciné
-- Beat Box
-- Interface Admin
+- [x] Exemple pour montrer les fonctionnalitées de base
+- [ ] PH
+- [ ] JE
+- [ ] SDeC
+- [ ] annonces BDE
+- [ ] Club ciné
+- [ ] Beat Box
+- [ ] Interface Admin
 
 Les autres qu'il faudrait faire rapidement :
-- Emploi du temps
-- Central'isation
-- Réservation BDE
+- [ ] Emploi du temps
+- [ ] Central'isation
+- [ ] Réservation BDE
 - ...
 
 ## Autres projets pour bien plus tard
 
-- Module BDS pour gérer leur materiel
-- Module dBs, pareil
-- Intégration de MediaPiston
-- Module de chat
-- Module fil d'actualité
-- Module de jeux (pour remetre Dodge Malou chez nous et en faire des nouveaux)
-- Module de sondage
-- Module pour se mettre en fil d'attente pour que ECLAIR dévellope un module
-- Module CMB
+- [ ] Module BDS pour gérer leur materiel
+- [ ] Module dBs, pareil
+- [ ] Intégration de MediaPiston
+- [ ] Module de chat
+- [ ] Module fil d'actualité
+- [ ] Module de jeux (pour remetre Dodge Malou chez nous et en faire des nouveaux)
+- [ ] Module de sondage
+- [ ] Module pour se mettre en fil d'attente pour que ECLAIR dévellope un module
+- [ ] Module CMB
 
