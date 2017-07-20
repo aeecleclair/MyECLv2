@@ -30,12 +30,37 @@ function handle_menu(menu, data){
     }
 }
 
-
+function handle_header(header, data){
+    for(let i in data){
+        let item = data[i];
+        if(item.body){
+            // Liens internes
+            let html = '<div class="icone"><a href='
+            html += '"javascript:insert_body(\'' + item.module + '\', \'' + item.body + '\')">';
+            html += item.icon;
+            html += '</a></div>';
+            header.append(html);
+        } else if(item.link){
+            let html = '<div class="icone"><a href='
+            html += '"' + item.link + '">';
+            html += item.icon;
+            html += '</a></div>';
+            header.append(html);
+        } 
+    }
+}
 
 function insert_menu(){
     var menu = $('.main-menu');
     $.getJSON('/menu', function(data){
         handle_menu(menu, data.list);        
+    });
+}
+
+function insert_header(){
+    var header = $('.top-bar-right');
+    $.getJSON('/header', function(data){
+        handle_header(header, data.list);        
     });
 }
 
@@ -47,6 +72,7 @@ function insert_body(module_name, body_name){
 }
 
 insert_menu();
+insert_header();
 insert_body('test', 'main');
 
 
