@@ -17,6 +17,7 @@
         {
             "body" : "daf",
             "static" : "static/daf.html"
+            //"authorisation" : "public"
         }
     ],
     "menu" : [

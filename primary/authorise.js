@@ -10,7 +10,7 @@ module.exports = function(context){
     }
 
     return function (module_auth){
-        var middleware;
+        var middleware;  
         if(module_auth == 'public'){
             middleware = function(req, res, next){
                 next();
@@ -24,7 +24,7 @@ module.exports = function(context){
                 ){
                     next();
                 } else {
-                    console.log('Acces refusé à ' + req.url);
+                    console.log('Vous n\'etes pas autorisé à acceder à ' + req.url);
                     res.status(401);
                     res.sendFile('unauthorized.html', {'root' : context.public_root});
                 }

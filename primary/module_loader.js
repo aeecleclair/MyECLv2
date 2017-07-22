@@ -40,7 +40,7 @@ module.exports = function(context){
             }
         }
 
-        // S'il est valide et que l'utilisateure a les bonds droits (read & execute)
+        // S'il est valide et que l'utilisateur a les bons droits (read & execute)
         if(!err){
             if(stat.isDirectory() && (stat.mode & (fs.constants.R_OK | fs.constants.X_OK))){
                 // Sur linux il faut le droit d'execution et de lecture pour parcourir un dossier
@@ -141,7 +141,7 @@ module.exports = function(context){
                 // appelle une fonction qui va construire la réponse
                 enable_callback(app, modname, rule);
             } else if(rule.middleware) {
-                // ajoute un 'filtre' a la requète
+                // ajoute un middleware (sorte de 'filtre') a la requète
                 enable_middleware(app, modname, rule);
             } else {
                 return false;
