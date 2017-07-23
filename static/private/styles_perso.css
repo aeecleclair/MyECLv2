@@ -37,3 +37,47 @@ ul.main-menu .sub-menu li a{
 .top-bar-right #user{
 	font-size : 150%;
 }
+
+
+/* Définition de la classe tuile */
+
+
+.tuile {
+	margin-bottom : 15px; /* Pour espacer 2 lignes de tuiles */
+	border: solid;
+	border-color : lightgray;
+	border-width: 1px;
+}
+
+.tuile-header {
+	border-bottom : solid;
+	border-bottom-color : lightgray;
+	border-bottom-width : 1px;
+	background-color : #eeeeee;
+	padding-right : 5px;
+	padding-left : 5px;
+	text-align : center;
+	font-size : 110%;
+	color: #555;
+}
+
+.boutons-droite {
+	right : 100%;
+	display : inline-block;
+	float: right;
+}
+
+.boutons-droite a{
+	color : #555
+}
+
+.tuile-body{
+	text-align : center;
+}
+
+
+/* Pour le caroussel de la démo */
+
+.item img {
+	height: 100%;
+}
