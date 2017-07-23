@@ -17,12 +17,11 @@ exports.myecl = function(context){
     // Chargement de la bdd
    
     mongoose.connect("mongodb://localhost/MyECL");
-    const User = require("./models/user");
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'Connection error:'));
     db.once('open', function(){
         console.log('Connection success');
-    }
+        }
     );
 
     // Initialisation de l'application
@@ -70,6 +69,7 @@ exports.myecl = function(context){
 
     //Test BDD
     app.get('/new_user', function(req, res){
+        const User = require("./models/user");
         user = new User({name : req.query.name})
         console.log('Query is' + req.query.name);
         user.save(function(err){
