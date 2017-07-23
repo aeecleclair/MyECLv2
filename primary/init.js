@@ -18,6 +18,7 @@ exports.myecl = function(context){
 
     app.menu_list = new Array();
     app.header_list = new Array();
+    app.tiles_list = new Array();
     app.myecl_map = '';
 
     // Chargement des différents modules
@@ -53,7 +54,15 @@ exports.myecl = function(context){
     app.get('/header', authorise('ecl'), function(req, res){
         res.json({ list : app.header_list });
     });
-
+    
+    app.get('/tiles', authorise('ecl'), function(req, res){
+        res.json({ list : app.tiles_list });
+    });
+    
+    app.get('/body/primary/tiles', authorise('ecl'), function(req, res){
+        res.redirect('/tiles.html');
+    });
+    
     // Utiliser un compte existant
     app.get('/login', authenticate.password);
 

@@ -42,14 +42,15 @@ ul.main-menu .sub-menu li a{
 /* Définition de la classe tuile */
 
 
-.tuile {
+.tile {
 	margin-bottom : 15px; /* Pour espacer 2 lignes de tuiles */
 	border: solid;
 	border-color : lightgray;
 	border-width: 1px;
+	overflow : hidden;
 }
 
-.tuile-header {
+.tile-header {
 	border-bottom : solid;
 	border-bottom-color : lightgray;
 	border-bottom-width : 1px;
@@ -71,7 +72,7 @@ ul.main-menu .sub-menu li a{
 	color : #555
 }
 
-.tuile-body{
+.tile-body{
 	text-align : center;
 }
 

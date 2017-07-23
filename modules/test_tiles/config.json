@@ -1,0 +1,26 @@
+{
+    "authorisation" : "ecl",
+    "description" : "Module de test des tuiles",
+    "rules" : [
+        {
+            "route" : "/modules/test_tiles/static/*",
+            "static" : "static/"
+        },
+        {
+            "tile" : "calendar",
+            "title" : "Calendrier associatif",
+            "static" : "static/calendar.html",
+            "size_class" : "col-xs-12"
+        },
+        {
+            "tile" : "chatons",
+            "title" : "Club chatons",
+            "static" : "static/club_chaton.html"
+        },
+        {
+            "tile" : "photo",
+            "title" : "Club photo",
+            "static" : "static/club_photo.html"
+        }
+    ]
+}

@@ -1,14 +1,14 @@
 const TILE_TEMPLATE = '\
-<li class="tuile-box ##SIZE_CLASS##"> <!-- SIZE -->\
-    <div class="tuile">\
-        <div class="tuile-header">\
+<li class="tile-box ##SIZE_CLASS##"> <!-- SIZE -->\
+    <div class="tile">\
+        <div class="tile-header">\
         ##TITLE##\
             <div class="boutons-droite">\
                 <a href="#"><span class="fa fa-arrows drag"></span></a>\
                 <a href="#"><span class="fa fa-times"></span></a>\
             </div>\
         </div>\
-        <div class="tuile-body">\
+        <div class="tile-body">\
             ##BODY##\
         </div>\
     </div>\
@@ -20,10 +20,11 @@ function handle_tiles(box, tiles){
         let tile = tiles[i];
         if(!tile.size_class){
             tile.size_class = 'col-xs-6';
+        }
         $.get(tile.route, function(data){
-            tile_html = TILE_TEMPLATE
-                .replace('##SIZE_CLASS##', tile.size_class);
-                .replace('##TITLE##', tile.name)
+            var tile_html = TILE_TEMPLATE
+                .replace('##SIZE_CLASS##', tile.size_class)
+                .replace('##TITLE##', tile.title)
                 .replace('##BODY##', data);
             box.append(tile_html);
         });
@@ -40,6 +41,9 @@ $(document).ready(function() {
     //    console.log('Faro c le plu bo');
     var panelList = $('#draggablePanelList');
     insert_tiles(panelList);
+    /*
+    // Provoque une erreur :
+    // sortable is not a function
     panelList.sortable({
         handle: '.drag', 
         update: function() {
@@ -51,4 +55,5 @@ $(document).ready(function() {
             });
         }
     });
+    //*/
 });
