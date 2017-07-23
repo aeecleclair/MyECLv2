@@ -21,6 +21,9 @@ function handle_tiles(box, tiles){
         if(!tile.size_class){
             tile.size_class = 'col-xs-6';
         }
+        if(!tile.title){
+            tile.title = '';
+        }
         $.get(tile.route, function(data){
             var tile_html = TILE_TEMPLATE
                 .replace('##SIZE_CLASS##', tile.size_class)

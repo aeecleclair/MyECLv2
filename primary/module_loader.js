@@ -131,9 +131,6 @@ module.exports = function(context){
             rule.route = '/body/' + modname + '/' + rule.body;
         } else if(rule.tile){
             log.info('Ding dong !');
-            if(!rule.title){
-                rule.title = rule.tile;
-            }
             app.tiles_list.push(rule);
             rule.route = '/tile/' + modname + '/' + rule.tile;
         }

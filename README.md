@@ -66,7 +66,7 @@ Cette propriété contient une liste de règles qui décrivent la façon d'accé
 Il y a trois méthodes pour accéder à ces ressources :
 - __route__ associe de façon directe une route et une ressource. La valeur de la propriété est l'url complète par exemple "/modules/profile/static/\*"
 - __body__ permet d'intégrer une page à la page de base de MyECL (qui comprend le header et le menu à droite)
-- __tile__ permet de définir le contenu d'une tuile associé à ce module
+- __tile__ permet de définir le contenu d'une tuile associé à ce module. La propriété __tile__ contient le nom sous lequel on va pouvoir y accéder. Une règle contenant __tile__ peut prendre deux autres propriétés : __title__ pour définir le titre de la tuile (par défaut le titre est vide) et **size_class** qui permet de définir la classe bootstrap utilisé pour la tile (par défaut `col-xs-6`)
 
 Chaque règle peut avoir des propriétées supplémentaires :
 - __authorisation__ : définit une règle de sécurité spécifique à cette règle
