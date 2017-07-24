@@ -23,6 +23,10 @@ exports.myecl = function(context){
         console.log('Connection success');
         }
     );
+        //Chargement des models propres à la BDD
+
+    const User = require('/media/daniel/Documents/Daniel/Work/Scolaire/ECL 16/Asso/Eclair/MyECL/MyECLv2/primary/models/user');
+
 
     // Initialisation de l'application
     var app = express();
@@ -31,6 +35,9 @@ exports.myecl = function(context){
     app.menu_list = new Array();
     app.header_list = new Array();
     app.myecl_map = '';
+    app.database = {
+        "User" : require('./models/user')
+    };
 
     // Chargement des différents modules
     log.info('Loading modules...');

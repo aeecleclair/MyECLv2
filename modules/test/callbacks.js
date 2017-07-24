@@ -3,16 +3,13 @@ exports.main_cb = function(req, res){
 };
 
 exports.annuaire = function(req, res){
-    console.log(__dirname);
-    console.log(__filename);
-    console.log(context)
-    const User = require('/media/daniel/Documents/Daniel/Work/Scolaire/ECL 16/Asso/Eclair/MyECL/MyECLv2/primary/models/user');
-    user = new User({name : req.query.name})
+    
+    user = new req.app.database.User({name : req.query.name})  //Ici req.app fait reference à l'app Express
     user.save(function(err){
         if(err){
                 console.log('Error while creating new user:' + err);  
         } else {
-            User.find(function(err,result){
+            req.app.database.User.find(function(err,result){
                 res.send(result);
             });
         }
