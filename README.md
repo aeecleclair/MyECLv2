@@ -165,7 +165,7 @@ Ainsi, lors du chargement de MyECL les models du module seront stocker dans l'ob
 
 (Pour se documenter sur la distinction « schema », « model »,  « collection » : http://mongoosejs.com/docs/guide.html )
 
-Voici un exemple de schema : (fichier … /test/models/user.js)
+Voici un exemple de schema : (fichier .../MyECL/modules/test/models/user.js)
 
 ```javascript
 
