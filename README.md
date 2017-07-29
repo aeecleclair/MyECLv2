@@ -91,7 +91,7 @@ Contrairement au menu le type __sub__ est interdit. De plus c'est la propriété
 Pour l'instant aucune autre proproété de la configuration n'est utilisé par le chargeur de module mais ça viendra.
 
 ## B Un exemple de configuration
-```json
+```
 {
     "authorisation" : "ecl",
     "description" : "Module de test",
@@ -163,9 +163,9 @@ Chaque « schema » doit etre définit dans un fichier nom_schema.js contenu d
 
 (Pour se documenter sur la distinction « schema », « model »,  « collection » : http://mongoosejs.com/docs/guide.html )
 
-Voici un exemple de schema : (fichier … /test/models/User.js)
+Voici un exemple de schema : (fichier … /test/models/user.js)
 
-'''json
+```
 
 var mongoose=require("mongoose");
 
@@ -188,7 +188,7 @@ module.exports = mongoose.model("User",UserSchema);  //On exporte le model const
 // Le premier argument doit faire reference au nom de la collection tel qu'il apparait dans le bdd mongoDB
 // Par convention les models seront en majuscule et les instances de models en minuscule
 
-'''
+```
 
 # 3 Avancement du projet
 
