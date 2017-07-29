@@ -165,7 +165,7 @@ Chaque « schema » doit etre définit dans un fichier nom_schema.js contenu d
 
 Voici un exemple de schema : (fichier … /test/models/user.js)
 
-```
+```javascript
 
 var mongoose=require("mongoose");
 
