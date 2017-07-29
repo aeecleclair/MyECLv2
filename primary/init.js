@@ -16,17 +16,14 @@ exports.myecl = function(context){
 
     // Chargement de la bdd
    
-    mongoose.connect("mongodb://localhost/MyECL");
+    // mongoose.connect("mongodb://localhost/MyECL");
+    mongoose.connect("mongodb://eclair:eclair@35.187.85.31:27017/MyECL"); 
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'Connection error:'));
     db.once('open', function(){
         console.log('Connection success');
         }
     );
-        //Chargement des models propres à la BDD
-
-    const User = require('/media/daniel/Documents/Daniel/Work/Scolaire/ECL 16/Asso/Eclair/MyECL/MyECLv2/primary/models/user');
-
 
     // Initialisation de l'application
     var app = express();
@@ -35,7 +32,7 @@ exports.myecl = function(context){
     app.menu_list = new Array();
     app.header_list = new Array();
     app.myecl_map = '';
-    app.database = {
+    app.database = { //C'est ici qu'il faut déclarer les collections à ajouter à la bdd
         "User" : require('./models/user')
     };
 
