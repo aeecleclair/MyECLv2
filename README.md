@@ -95,6 +95,12 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
 {
     "authorisation" : "ecl",
     "description" : "Module de test",
+    "database":[
+        {
+            "model_name":"Film", 
+            "file_name":"Film.js" 
+        }
+    ],
     "rules" : [
         {
             "route" : "/modules/test/static/*",
