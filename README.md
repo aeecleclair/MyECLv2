@@ -218,6 +218,7 @@ module.exports = mongoose.model("User",UserSchema);  //On exporte le model const
 
 Ceux que l'on doit faire avant la mise en ligne :
 - [x] Exemple pour montrer les fonctionnalitées de base
+- [ ] Emploi du temps
 - [ ] PH
 - [ ] JE
 - [ ] SDeC
@@ -227,7 +228,7 @@ Ceux que l'on doit faire avant la mise en ligne :
 - [ ] Interface Admin
 
 Les autres qu'il faudrait faire rapidement :
-- [ ] Emploi du temps
+
 - [ ] Central'isation
 - [ ] Réservation BDE
 - ...
