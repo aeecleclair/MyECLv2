@@ -91,7 +91,7 @@ Contrairement au menu le type __sub__ est interdit. De plus c'est la propriété
 Pour l'instant aucune autre proproété de la configuration n'est utilisé par le chargeur de module mais ça viendra.
 
 ## B Un exemple de configuration
-```
+```json
 {
     "authorisation" : "ecl",
     "description" : "Module de test",
