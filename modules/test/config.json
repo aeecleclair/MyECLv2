@@ -1,6 +1,12 @@
 {
     "authorisation" : "ecl",
     "description" : "Module de test",
+    "database":[
+        {
+            "model_name":"Film", 
+            "file_name":"Film.js" 
+        }
+    ],
     "rules" : [
         {
             "route" : "/modules/test/static/*",

@@ -4,12 +4,12 @@ exports.main_cb = function(req, res){
 
 exports.annuaire = function(req, res){
     
-    user = new req.app.database.User({name : req.query.name})  //Ici req.app fait reference à l'app Express
-    user.save(function(err){
+    film = new req.app.database.test.Film({title : req.query.name})  //Ici req.app fait reference à l'app Express
+    film.save(function(err){
         if(err){
                 console.log('Error while creating new user:' + err);  
         } else {
-            req.app.database.User.find(function(err,result){
+            req.app.database.test.Film.find(function(err,result){
                 res.send(result);
             });
         }
