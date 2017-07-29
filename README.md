@@ -195,9 +195,7 @@ module.exports = mongoose.model("User",UserSchema);  //On exporte le model const
 
 # 3 Avancement du projet
 
-## Serveur de base
-
-### Ce qui est fait
+## Fonctionnalités de base
 
 - [x] Mise en place d'une interface simple pour les modules
 - [x] Mise en place d'un squelette du système de sécurité
@@ -205,7 +203,8 @@ module.exports = mongoose.model("User",UserSchema);  //On exporte le model const
 - [x] Implémentation du __menu__
 - [x] Implémentation du __body__
 - [x] Implémentation du __header__
-- [ ] Mise en place de la base de données
+- [x] Mise en place de la base de données
+- [ ] Considerer les risque de donner acces à toutes les collections à tous les modules
 - [ ] Mise en place du système complet de sécurité
     - [ ] Création d'une page de connexion
     - [ ] Création d'une page "Acces interdit"
