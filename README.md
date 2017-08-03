@@ -163,7 +163,7 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
 MyECL utilise une base de données MongoDB. Cette base de données permet à chaque module de stocker des informations ou de récupérer des données pré-existantes dans des « collections » (Vocabulaire propre à mongoDB) appartenant au module même ou à d’autres modules. Pour utiliser une « collection » MongoDB il est nécessaire d’utiliser un « model » Mongoose (Mongoose est un framework permettant d’utiliser mongoDB sur Node.js).  Les models doivent être déclarés dans le fichier config.json du module que l’on souhaite développer (voir exemple de config.json). Chaque collection utilisée par le module doit etre déclaré en tant que model dans la propriété « database » du fichier config.json qui est une Array. On remarquera que deux propriété sont nécessaires : 
 
 - __model__: definit le nom du model tel qu’il sera référencé dans MyECL pour une utilisation ultérieure
-- __file_name__: désigne le nom du fichier qui definit le « Schema » qui sera utilisé par Mongoose pour construire le model
+- __schema__: désigne le nom du fichier qui definit le « Schema » qui sera utilisé par Mongoose pour construire le model
 
 Chaque « schema » doit etre définit dans un fichier nom_schema.js contenu dans le dossier « models » à placer à la racine du dossier du module que l’on désire développer (Exemple de schema ci-dessous).
 
