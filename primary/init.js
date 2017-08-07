@@ -26,15 +26,14 @@ exports.myecl = function(context){
     
     
     
- // Chargement de la bdd
+    // Chargement de la bdd
    
-    mongoose.connect("mongodb://eclair:eclair@35.187.85.31:27017/MyECL"); 
+    mongoose.connect('mongodb://eclair:eclair@35.187.85.31:27017/MyECL'); 
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'Connection error:'));
     db.once('open', function(){
         console.log('Database connected successfully');
-        }
-    );
+    });
     app.database = {};
 
 
@@ -74,9 +73,10 @@ exports.myecl = function(context){
 
 
     //Test BDD
+    /*
     app.get('/new_user', function(req, res){
-        const User = require("./models/user");
-        user = new User({name : req.query.name})
+        const User = require('./models/user');
+        var user = new User({name : req.query.name});
         console.log('Query is' + req.query.name);
         user.save(function(err){
             if(err){
@@ -86,10 +86,9 @@ exports.myecl = function(context){
                     console.log(result);
                 });
             }
-        })
-       
-    }
-    );
+        });
+    });
+    //*/
 
 
     // Utiliser un compte existant
