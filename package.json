@@ -4,6 +4,7 @@
   "description": "",
   "main": "myecl.js",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "cas-authentication": "0.0.8",
     "dom-to-image": "^2.5.2",

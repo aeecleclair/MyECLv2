@@ -91,6 +91,7 @@ exports.myecl = function(context){
     //*/
 
     // Chargement des models de fonctionnement interne
+    context.models = new Object();
     context.models.user = require('./models/user');
 
 
