@@ -1,1 +1,25 @@
-Creer un nouveau compte
+<html>
+<head>
+
+</head>
+<body>
+    <input id='login' type='entry'></input></br>
+    <input id='password' type='password'></input></br>
+    <input id='nick' type='entry'></input></br>
+    <input id='submit' type='button'>Submit</input>
+</body>
+<script>
+    document.getElementById('submit').onclick = function(){
+        var data = new Object();
+        data.login = document.getElementById('login')innerHTML;
+        data.password = document.getElementById('password').innerHTML;
+        data.surname = document.getElementById('nick').innerHTML;
+        let req = new XMLHttpRequest();
+        req.open("POST", "/create_account");
+        req.setRequestHeader('Cache-Control', 'no-cache');
+        req.send(data);
+
+    };
+</script>
+
+</html>
