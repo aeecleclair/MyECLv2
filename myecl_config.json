@@ -11,6 +11,11 @@
         "saveUninitialized" : true
     },
 
+    "database" : {
+        "uri" : "mongodb://eclair:eclair@35.187.85.31:27017/MyECL",
+        "options" : { "useMongoClient" : true }
+    },
+
     "cas_config" : {
         "cas_url" : "https://cas.ec-lyon.fr/cas",
         "service_url" : "http://localhost:8080",

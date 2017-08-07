@@ -55,7 +55,7 @@ module.exports = function(context){
             req.session.user = user;
             user.save(function(err){
                 if(err){
-                    // TODO appocalypse !
+                    // TODO apocalypse !
                 }
             });
             res.redirect('/home');

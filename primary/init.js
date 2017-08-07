@@ -28,7 +28,7 @@ exports.myecl = function(context){
     
     // Chargement de la bdd
    
-    mongoose.connect('mongodb://eclair:eclair@35.187.85.31:27017/MyECL'); 
+    mongoose.connect(context.database.uri, context.database.options); 
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'Connection error:'));
     db.once('open', function(){
