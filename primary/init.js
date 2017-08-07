@@ -103,7 +103,7 @@ exports.myecl = function(context){
     app.get('/logcas', authenticate.bounce, authenticate.new_account);
 
     app.use('/create_account', bodyParser.json(context.body_json_config));
-    app.post('/create_account', authenticate.create_account);
+    app.post('/create_account', authenticate.bounce, authenticate.create_account);
 
     // Si rien n'a catché la requete
     app.use(serveStatic(context.public_root, context.default_static_options));
