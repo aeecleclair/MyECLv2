@@ -24,7 +24,7 @@ module.exports = function(context){
                 // )
                 if( module_auth == 'ecl' 
                         || check_authorisation(req.session.user, module_auth
-                    )
+                        )
                 ){
                     next();
                 } else {
