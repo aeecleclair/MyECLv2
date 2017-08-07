@@ -90,6 +90,10 @@ exports.myecl = function(context){
     });
     //*/
 
+    // Chargement des models de fonctionnement interne
+    context.models.user = require('./models/user');
+
+
 
     // Utiliser un compte existant
     app.get('/login', authenticate.password);
@@ -97,17 +101,12 @@ exports.myecl = function(context){
     // Passer par le cas puis creer un compte
     app.get('/logcas', authenticate.bounce, authenticate.new_account);
 
-    // app.use('/create_account', bodyParser.json(context.body_json_config));
-    // app.post('/create_account', authenticate.create_account);
+    app.use('/create_account', bodyParser.json(context.body_json_config));
+    app.post('/create_account', authenticate.create_account);
 
     // Si rien n'a catché la requete
     app.use(serveStatic(context.public_root, context.default_static_options));
     app.use(authorise('ecl'), serveStatic(context.private_root, context.default_static_options));
-
-
-
-
-
 
     // Lancement du serveur
     app.listen(context.port, context.url, function(){

@@ -17,14 +17,10 @@ module.exports = function(context){
             };
         } else {
             middleware = function (req, res, next){
-                // if(req.session.user 
-                //     && ( module_auth == 'ecl' 
-                //         || check_authorisation(req.session.user, module_auth)
-                //     )
-                // )
-                if( module_auth == 'ecl' 
-                        || check_authorisation(req.session.user, module_auth
-                        )
+                if(req.session.user 
+                    && ( module_auth == 'ecl' 
+                        || check_authorisation(req.session.user, module_auth)
+                    )
                 ){
                     next();
                 } else {
