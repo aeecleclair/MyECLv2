@@ -4,7 +4,6 @@ const express = require('express');
 const session = require('express-session');
 const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 
 exports.myecl = function(context){
     // Modules nodes locaux
@@ -12,9 +11,6 @@ exports.myecl = function(context){
     const modloader = require('./module_loader')(context);
     const authorise = require('./authorise')(context);
     const authenticate = require('./authenticate')(context);
-    
-
-   
 
     // Initialisation de l'application
     var app = express();
@@ -28,15 +24,9 @@ exports.myecl = function(context){
     
     // Chargement de la bdd
    
-    mongoose.connect(context.database.uri, context.database.options); 
-    var db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'Connection error:'));
-    db.once('open', function(){
-        console.log('Database connected successfully');
-    });
-    app.database = {};
-
-
+    context.database = require('./shortersql')(context);
+    app.database = context.database;
+    
     // Chargement des différents modules
     log.info('Loading modules...');
     modloader.load_enabled(app);

@@ -12,8 +12,10 @@
     },
 
     "database" : {
-        "uri" : "mongodb://eclair:eclair@35.187.85.31:27017/MyECL",
-        "options" : { "useMongoClient" : true }
+      "host"     : "localhost",
+      "user"     : "eclair",
+      "password" : "secret",
+      "database" : "myecl"
     },
 
     "cas_config" : {
