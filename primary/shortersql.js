@@ -5,7 +5,9 @@ module.exports = function(context){
     const pool = mysql.createPool(context.database);
     var db = new Object();
     db.pool = pool; // Juste au cas où
-    db.query = pool.query;
+    db.query = function(){
+        return pool.query.apply(pool, arguments);
+    };
      
     db.create = function(name, schema, override){ // créer une table
         var fields = new Array();
