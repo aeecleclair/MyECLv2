@@ -150,7 +150,7 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
 }
 ```
 
-# 3 Ressources mise à disposition pour les modules
+# 3 Ressources mise à disposition des modules
 
 ## Base de données
 
@@ -167,6 +167,7 @@ L'objet database possede differentes methodes permettent d'interagir avec la bas
 - __.select()__:
 - __.save()__:
 
+Les tables essentielles au fonctionnement de MyECL sont chargées par init.js et sont définies dans le fichier /primary/tables.json 
 
 # 4 Avancement du projet
 
