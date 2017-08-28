@@ -156,49 +156,6 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
 }
 ```
 
-# 3 Ressources mise à disposition pour les modules
-
-## Base de données
-
-MyECL utilise une base de données MongoDB. Cette base de données permet à chaque module de stocker des informations ou de récupérer des données pré-existantes dans des « collections » (Vocabulaire propre à mongoDB) appartenant au module même ou à d’autres modules. Pour utiliser une « collection » MongoDB il est nécessaire d’utiliser un « model » Mongoose (Mongoose est un framework permettant d’utiliser mongoDB sur Node.js).  Les models doivent être déclarés dans le fichier config.json du module que l’on souhaite développer (voir exemple de config.json). Chaque collection utilisée par le module doit etre déclaré en tant que model dans la propriété « database » du fichier config.json qui est une Array. On remarquera que deux propriété sont nécessaires : 
-
-- __model__: definit le nom du model tel qu’il sera référencé dans MyECL pour une utilisation ultérieure
-- __schema__: désigne le nom du fichier qui definit le « Schema » qui sera utilisé par Mongoose pour construire le model
-
-Chaque « schema » doit etre définit dans un fichier nom_schema.js contenu dans le dossier « models » à placer à la racine du dossier du module que l’on désire développer (Exemple de schema ci-dessous).
-
-Ainsi, lors du chargement de MyECL les models du module seront stocker dans l'objet "app.database.nom_module.nom_model" . On remarquera que l'objet "app" est accessible dans n'importe quel callback recevant une requete à travers l'objet "req.app".
-
-(Pour se documenter sur la distinction « schema », « model »,  « collection » : http://mongoosejs.com/docs/guide.html )
-
-Voici un exemple de schema : (fichier .../MyECL/modules/test/models/user.js)
-
-```javascript
-
-var mongoose=require("mongoose");
-
-var UserName= new mongoose.Schema({
-    name: String,
-    firstname: String,
-    surname: String,
-    birth: Date,
-    sex: Boolean,
-    floor: String,
-    sport: String,
-    picture: String,
-    tdgroup: String,
-    asso: [], 
-});  //Ce schema definit la structure de la collection mongoDB "User"
-
-module.exports = mongoose.model("User",UserSchema);  //On exporte le model construit à partir du Schema UserSchema (Qui est une classe)
-// Ainsi le Schema definit la collection et le model permet 
-// d'instancier des objets qui seront ensuite enregistrés dans la collection
-// Le premier argument doit faire reference au nom de la collection tel qu'il apparait dans le bdd mongoDB
-// Par convention les models seront en majuscule et les instances de models en minuscule
-
-```
-
-
 # 3 Avancement du projet
 
 ## Fonctionnalités de base
