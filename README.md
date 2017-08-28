@@ -150,11 +150,27 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
 }
 ```
 
-# 3 Avancement du projet
+# 3 Ressources mise à disposition pour les modules
 
-## Serveur de base
+## Base de données
 
-### Ce qui est fait
+MyECL utilise une base de données MySQL. Cette base de données permet à chaque module de stocker des informations ou de récupérer des données pré-existantes dans des tables appartenant au module même ou à d’autres modules. Un module peut creer ses propres tables. Pour cela il est nescessaire de déclarer les tables du module dans le fichier config.json du module que l’on souhaite développer (voir exemple de config.json). Chaque table crée par le module doit etre déclarée dans la propriété « database » du fichier config.json qui est une Array. On remarquera que deux propriétés sont nécessaires : 
+
+- __table__: Definit le nom de la table tel qu’il apparait dans la bdd
+- __schema__: Désigne la structure de la table. Il est nescessaire de spécifier les types propres à MySQL
+
+Au chargement de MyECL la base de donnée est connectée et referencée dans l'objet "app.database". On remarquera que l'objet "app" est accessible dans n'importe quel callback recevant une requete à travers l'objet "req.app".
+
+L'objet database possede differentes methodes permettent d'interagir avec la base de donées:
+
+- __.query()__:
+- __.select()__:
+- __.save()__:
+
+
+# 4 Avancement du projet
+
+## Fonctionnalités de base
 
 - [x] Mise en place d'une interface simple pour les modules
 - [x] Mise en place d'un squelette du système de sécurité
@@ -162,7 +178,8 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
 - [x] Implémentation du __menu__
 - [x] Implémentation du __body__
 - [x] Implémentation du __header__
-- [ ] Mise en place de la base de données
+- [x] Mise en place de la base de données
+- [ ] Considerer les risque de donner acces à toutes les collections à tous les modules
 - [ ] Mise en place du système complet de sécurité
     - [ ] Création d'une page de connexion
     - [ ] Création d'une page "Acces interdit"
@@ -178,6 +195,7 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
 
 Ceux que l'on doit faire avant la mise en ligne :
 - [x] Exemple pour montrer les fonctionnalitées de base
+- [ ] Emploi du temps
 - [ ] PH
 - [ ] JE
 - [ ] SDeC
@@ -187,7 +205,7 @@ Ceux que l'on doit faire avant la mise en ligne :
 - [ ] Interface Admin
 
 Les autres qu'il faudrait faire rapidement :
-- [ ] Emploi du temps
+
 - [ ] Central'isation
 - [ ] Réservation BDE
 - ...
@@ -203,4 +221,6 @@ Les autres qu'il faudrait faire rapidement :
 - [ ] Module de sondage
 - [ ] Module pour se mettre en fil d'attente pour que ECLAIR dévellope un module
 - [ ] Module CMB
+
+
 

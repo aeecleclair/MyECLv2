@@ -4,14 +4,19 @@ exports.main_cb = function(req, res){
 
 exports.annuaire = function(req, res){
     
-    film = new req.app.database.test.Film({title : req.query.name})  //Ici req.app fait reference à l'app Express
-    film.save(function(err){
+    var db = req.app.database //Ici req.app fait reference à l'app Express
+    db.save('film',{titre:"'lalaland'",realisateur:"'damien chazelle'"},function(err){
         if(err){
-                console.log('Error while creating new user:' + err);  
+            console.log(err);
         } else {
-            req.app.database.test.Film.find(function(err,result){
-                res.send(result);
-            });
+            // console.log(db.select('film'));            
+            db.query('SELECT * FROM film',function(error,result,fields){
+                console.log(error);
+                console.log(result);
+                console.log(fields);
+            }
+            );
+            
         }
-    })
+    });
 };

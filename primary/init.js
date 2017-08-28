@@ -26,6 +26,24 @@ exports.myecl = function(context){
    
     context.database = require('./shortersql')(context);
     app.database = context.database;
+
+        //Creation si besoin des tables principales
+    var tables = require('./tables.json');
+    if(tables.tables){
+            if(Array.isArray(tables.tables)){
+                for(let i in tables.tables){
+
+                    let item = tables.tables[i];
+
+                    app.database.create(item['table'],item['schema']);
+                }
+            } else {
+                log.error(context.module_config_file + ' from module ' + modname + ' contain a non-array database specification. Ignoring database.');
+            }
+        } else {
+            log.warning('tables.json in /primary is empty');
+        }
+
     
     // Chargement des différents modules
     log.info('Loading modules...');
@@ -62,27 +80,11 @@ exports.myecl = function(context){
     });
 
 
-    //Test BDD
-    /*
-    app.get('/new_user', function(req, res){
-        const User = require('./models/user');
-        var user = new User({name : req.query.name});
-        console.log('Query is' + req.query.name);
-        user.save(function(err){
-            if(err){
-                console.log('Error while creating new user:' + err);  
-            } else {
-                User.find(function(err,result){
-                    console.log(result);
-                });
-            }
-        });
-    });
-    //*/
 
     // Chargement des models de fonctionnement interne
-    context.models = new Object();
-    context.models.user = require('./models/user');
+
+    // context.models = new Object();
+    // context.models.user = require('./models/user');
 
 
 

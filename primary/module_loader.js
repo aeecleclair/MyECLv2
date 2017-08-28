@@ -187,19 +187,15 @@ module.exports = function(context){
                 log.warn(context.module_config_file + ' from module ' + modname + ' does not contain a valid rules array.');
             }
         }
-        //Chargement des models de la BDD
+        //Chargement des tables pour la BDD
 
         if(config.database){
             if(Array.isArray(config.database)){
-                app.database[modname] = new Object();
                 for(let i in config.database){
 
                     let item = config.database[i];
-                    let model_path = path.join(context.module_path, modname, 'models', item.file_name);
 
-                    let model = require(model_path); // On charge le model
-
-                    app.database[modname][item.model_name] = model;
+                    app.database.create(item['table'],item['schema']);
                 }
             } else {
                 log.error(context.module_config_file + ' from module ' + modname + ' contain a non-array database specification. Ignoring database.');

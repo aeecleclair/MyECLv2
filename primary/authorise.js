@@ -30,6 +30,10 @@ module.exports = function(context){
                 }
             };
         }
-        return middleware;
+        // return middleware;
+        //Test sans authorise
+        return function(req,res,next){
+            next();
+        };
     };
 };

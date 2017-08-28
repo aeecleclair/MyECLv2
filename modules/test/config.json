@@ -3,8 +3,14 @@
     "description" : "Module de test",
     "database":[
         {
-            "model_name":"Film", 
-            "file_name":"Film.js" 
+            "table":"film", 
+            "schema":{
+                "titre": "VARCHAR(255)",
+                "realisateur": "VARCHAR(255)",
+                "genre": "VARCHAR(255)",
+                "date_sortie": "DATE",
+                "pays": "VARCHAR(255)"
+            }
         }
     ],
     "rules" : [

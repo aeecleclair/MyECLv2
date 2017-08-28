@@ -14,11 +14,12 @@ module.exports = function(context){
         for(var key in schema){
             fields.push(key + ' ' + schema[key]);
         }
+       
         var query;
         if(override){
-            query = 'CREATE OR REPLACE TABLE ' + name + '(' + fields.join(' ') + ');';
+            query = 'CREATE OR REPLACE TABLE ' + name + '(' + fields.join(', ') + ');';
         } else {
-            query = 'CREATE TABLE IF NOT EXISTS ' + name + '(' + fields.join(' ') + ');';
+            query = 'CREATE TABLE IF NOT EXISTS ' + name + '(' + fields.join(', ') + ');';
         }
         pool.query(query, function(err){
             if(err){
@@ -114,9 +115,13 @@ module.exports = function(context){
         var query = 'INSERT INTO ' + table +
             ' (' + fields.join(', ') +
             ') VALUES (' + 
-            values.join(', ') +
-            'ON DUPLICATE KEY UPDATE' +
-            affects.join(' ');
+            values.join(', ')+ ')'
+
+            // Il y a une erreure de synthaxe à corriger sur le on duplicate
+            //  +
+            // 'ON DUPLICATE KEY UPDATE (' +
+            // affects.join(', ') + ')'
+            ;
         pool.query(query, callback);
     };
 
