@@ -1,4 +1,12 @@
 const mysql = require('mysql');
+const bcrypt = require('bcrypt');
+
+/*
+ * En générale les callback ont la forme function(error, results, fields)
+ * Avec error un objet erreur ou null
+ * result une liste d'objets
+ * fields une liste de clées pour les objets result
+ */
 
 module.exports = function(context){
     
@@ -112,18 +120,23 @@ module.exports = function(context){
             values.push(object[key]);
             affects.push(key + ' = ' + object[key]);
         }
+        
         var query = 'INSERT INTO ' + table +
             ' (' + fields.join(', ') +
             ') VALUES (' + 
-            values.join(', ')+ ')'
-
-            // Il y a une erreure de synthaxe à corriger sur le on duplicate
-            //  +
-            // 'ON DUPLICATE KEY UPDATE (' +
-            // affects.join(', ') + ')'
+            values.join(', ')+ ')' +
+            'ON DUPLICATE KEY UPDATE ' +  // fait une erreur sur MySQL car spécifique à MariaDB
+            affects.join(', ') + ';'
             ;
         pool.query(query, callback);
     };
+
+    db.hash = function(password, callback){  // callback = function(err, hash)
+        bcrypt.hash(password, 10, callback);
+    };
+
+    db.compare = function(password, hash, callback);  // calback = function(err, result)
+});
 
     return db;
 };

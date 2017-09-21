@@ -18,6 +18,25 @@
       "database" : "myecl"
     },
 
+    "tables" : [
+        {
+            "table" : "user",
+            "schema" : {
+                "id" : "INT PRIMARY KEY NOT NULL",
+                "login" : "VARCHAR(255)",
+                "password" : "VARCHAR(255)",
+                "name" : "VARCHAR(255)",
+                "firstname" : "VARCHAR(255)",
+                "nick" : "VARCHAR(255)",
+                "birth" : "DATE",
+                "gender" : "VARCHAR(1)",
+                "promo" : "INT",
+                "floor" : "VARCHAR(3)",
+                "groups" : "TEXT"
+            }
+        }
+    ],
+
     "cas_config" : {
         "cas_url" : "https://cas.ec-lyon.fr/cas",
         "service_url" : "http://localhost:8080",

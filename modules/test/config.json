@@ -31,7 +31,7 @@
             "static" : "static/annuaire.html"
         },
         {
-            "route" : "/modules/annuaire",
+            "route" : "/modules/test/annuaire",
             "callback" : "annuaire"
         },
 

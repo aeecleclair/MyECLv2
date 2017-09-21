@@ -19,30 +19,21 @@ exports.myecl = function(context){
     app.menu_list = new Array();
     app.header_list = new Array();
     app.myecl_map = '';
-    
-    
-    
+ 
     // Chargement de la bdd
    
-    context.database = require('./shortersql')(context);
-    app.database = context.database;
+    context.database = require('./shortersql')(context);  // accessible dans le context pour le core
+    app.database = context.database;  // accessible dans l'app pour les modules
 
-        //Creation si besoin des tables principales
-    var tables = require('./tables.json');
-    if(tables.tables){
-            if(Array.isArray(tables.tables)){
-                for(let i in tables.tables){
-
-                    let item = tables.tables[i];
-
-                    app.database.create(item['table'],item['schema']);
-                }
-            } else {
-                log.error(context.module_config_file + ' from module ' + modname + ' contain a non-array database specification. Ignoring database.');
-            }
-        } else {
-            log.warning('tables.json in /primary is empty');
+    
+    if(Array.isArray(context.tables)){
+	    for(let i in context.tables){
+            let item = context.tables[i];
+            app.database.create(item['table'],item['schema']);
         }
+    } else {
+        log.error(context.module_config_file + ' from module ' + modname + ' contain a non-array database specification. Ignoring database.');
+    }
 
     
     // Chargement des différents modules

@@ -184,8 +184,8 @@ Les tables essentielles au fonctionnement de MyECL sont chargées par init.js et
 - [ ] Mise en place du système complet de sécurité
     - [ ] Création d'une page de connexion
     - [ ] Création d'une page "Acces interdit"
-    - [ ] Conception d'un système de mot de passe sûre
-    - [ ] Implémentation du système de mot de passe
+    - [x] Conception d'un système de mot de passe sûre
+    - [x] Implémentation du système de mot de passe
     - [ ] Création d'un système d'autorisations flexible pour définir quel utilisateur a accès à chaque module
     - [ ] Implémentation du système d'autorisation
 - [ ] Implémentation du chargement des tiles
