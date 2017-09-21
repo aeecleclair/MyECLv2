@@ -2,6 +2,7 @@ module.exports = function(context){
 
     function check_authorisation(user, module_auth){
         // Compare les autorisations de user à module_auth et renvoie true sir l'utilisateur peux acceder aux ressources
+        // TODO
         if(module_auth == 'ecl'){
             return true;
         } else {
@@ -30,10 +31,6 @@ module.exports = function(context){
                 }
             };
         }
-        // return middleware;
-        //Test sans authorise
-        return function(req,res,next){
-            next();
-        };
+        return middleware;
     };
 };

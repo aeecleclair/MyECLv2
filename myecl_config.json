@@ -1,7 +1,7 @@
 {
     "port" : 8080,
     "url" : "localhost",
-    "root_path" : "/media/daniel/Documents/Daniel/Work/Scolaire/ECL 16/Asso/Eclair/MyECL/MyECLv2",
+    "root_path" : "/media/eclair/STOCK/brassage/MyECLv2",
 
     "default_route" : "/home",
 
