@@ -3,15 +3,15 @@
 
 </head>
 <body>
-    <input id='login' type='entry'></input></br>
-    <input id='password' type='password'></input></br>
-    <input id='nick' type='entry'></input></br>
-    <input id='submit' type='button'>Submit</input>
+    Login : <input id='login' type='entry'></input></br>
+    Password : <input id='password' type='password'></input></br>
+    Nickname : <input id='nick' type='entry'></input></br>
+    <input id='submit' value='Submit' type='button'/>
 </body>
 <script>
     document.getElementById('submit').onclick = function(){
         var data = new Object();
-        data.login = document.getElementById('login')innerHTML;
+        data.login = document.getElementById('login').innerHTML;
         data.password = document.getElementById('password').innerHTML;
         data.surname = document.getElementById('nick').innerHTML;
         let req = new XMLHttpRequest();

@@ -11,9 +11,11 @@ ask(){
 }
 
 # Renseignelent des paramètres essentiels
+ask "URL d'écoute ?" "localhost" LURL
 ask "URL du service ?" "www.myecl.fr" URL
+ask "Port d'écoute ?" "8080" LPORT
+ask "Port du service ?" "80" PORT
 ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
-ask "Port du service ?" "8080" PORT
 ask "Hôte de base de données" "localhost" DB_HOST
 
 cd $ROOT_PATH
@@ -21,10 +23,10 @@ cd $ROOT_PATH
 npm i
 
 # Génération de la configuration
-cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@PORT?$PORT?g" | sed "s?@DB_HOST?$DB_HOST?g" > $ROOT_PATH/myecl_config.json
+cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@PORT?$PORT?g" | sed "s?@LPORT?$PORT?" | sed "s?@DB_HOST?$DB_HOST?g" > $ROOT_PATH/myecl_config.json
 {
-    "port" : @PORT,
-    "url" : "@URL",
+    "port" : @LPORT,
+    "url" : "@LURL",
     "root_path" : "@ROOT_PATH",
 
     "default_route" : "/home",

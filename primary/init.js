@@ -100,7 +100,12 @@ exports.myecl = function(context){
 
     // Fermeture propre du système en cas d'erreur ou d'interuption volontaire
     process.on('uncaughtException', function(err){
-        log.error('Uncaught exception : ' + err.msg);
+        if(err.msg){
+            log.error('Uncaught exception : ' + err.msg);
+        } else {
+            log.error('Uncaught exception : ');
+            log.error(err);
+        }
         process.exit();
     });
     process.on('SIGINT', () => {
