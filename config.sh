@@ -1,7 +1,31 @@
+#!/bin/bash
+# Initialise la configuration par défaut de MyECLv2
+
+ask(){
+    echo -n "$1 [$2] : "
+    read $3
+    if [[ -z ${!3} ]]
+    then
+        eval $3="$2"
+    fi
+}
+
+# Renseignelent des paramètres essentiels
+ask "URL du service ?" "www.myecl.fr" URL
+ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
+ask "Port du service ?" "8080" PORT
+ask "Hôte de base de données" "localhost" DB_HOST
+
+cd $ROOT_PATH
+# Mise à jour des modules node.js
+npm i
+
+# Génération de la configuration
+cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@PORT?$PORT?g" | sed "s?@DB_HOST?$DB_HOST?g" > $ROOT_PATH/myecl_config.json
 {
-    "port" : 8080,
-    "url" : "localhost",
-    "root_path" : "/media/eclair/STOCK/brassage/MyECLv2",
+    "port" : @PORT,
+    "url" : "@URL",
+    "root_path" : "@ROOT_PATH",
 
     "default_route" : "/home",
 
@@ -12,7 +36,7 @@
     },
 
     "database" : {
-      "host"     : "localhost",
+      "host"     : "@DB_HOST",
       "user"     : "eclair",
       "password" : "secret",
       "database" : "myecl"
@@ -39,7 +63,7 @@
 
     "cas_config" : {
         "cas_url" : "https://cas.ec-lyon.fr/cas",
-        "service_url" : "http://localhost:8080",
+        "service_url" : "http://@URL:@PORT",
         "cas_version" : "2.0",
         "session_name" : "login_dsi",
         "session_info" : "user_data"
@@ -57,3 +81,5 @@
     "module_callbacks_file" : "callbacks.js",
     "module_config_file" : "config.json"
 }
+EOF
+

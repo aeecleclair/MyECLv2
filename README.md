@@ -42,7 +42,14 @@ fichiers utiles à la gestion des modules.
 
 Le dossier *node_modules* contient les modules installés avec npm
 
-# 2 Architecture d'un module
+# 2 Installation
+
+Pour installer le site il faut :
+- Installer node.js
+- Installer un serveur mariadb et y ajouter un utilisateur eclair et une base de données myecl
+- Lancer le script _config.sh_ pour générer la configuration
+
+# 3 Architecture d'un module
 
 ## A Les fichiers essentiels
 
@@ -150,7 +157,7 @@ Pour l'instant aucune autre proproété de la configuration n'est utilisé par l
 }
 ```
 
-# 3 Ressources mise à disposition des modules
+# 4 Ressources mise à disposition des modules
 
 ## Base de données
 
