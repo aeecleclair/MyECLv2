@@ -1,3 +1,7 @@
+/*
+ * Module pour simplifier l'usage de la bdd
+ */
+
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 
@@ -57,7 +61,7 @@ module.exports = function(context){
                 break;
 
             case 3: // table, fields, callback
-                    // table, condition, callback
+                // table, condition, callback
                 if(Array.isArray(arguments[1])){ // fields
                     query = 'SELECT ' + arguments[1].join(', ') + ' FROM ' + arguments[0] + ';';
                 } else if(typeof arguments[1] ===  'string' || arguments[1] instanceof String){ // condition
@@ -70,7 +74,7 @@ module.exports = function(context){
                 break;
 
             case 4: // table, fields, condition, callback
-                    // table, condition, values, callback
+                // table, condition, values, callback
                 if(Array.isArray(arguments[1])){ // fields, condition
                     if(typeof arguments[2] !==  'string' && !(arguments[2] instanceof String)){ // pas une string
                         throw 'Third argument should be a string representing the condition of selection.';
@@ -135,8 +139,8 @@ module.exports = function(context){
         bcrypt.hash(password, 10, callback);
     };
 
-    db.compare = function(password, hash, callback);  // calback = function(err, result)
-});
-
+    db.compare = function(password, hash, callback){  // calback = function(err, result)
+        bcrypt.compare(password, hash, callback);
+    };
     return db;
 };
