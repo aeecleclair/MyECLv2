@@ -4,7 +4,6 @@ const express = require('express');
 const session = require('express-session');
 const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 
 exports.myecl = function(context){
     // Modules nodes locaux
@@ -12,9 +11,6 @@ exports.myecl = function(context){
     const modloader = require('./module_loader')(context);
     const authorise = require('./authorise')(context);
     const authenticate = require('./authenticate')(context);
-    
-
-   
 
     // Initialisation de l'application
     var app = express();
@@ -23,20 +19,23 @@ exports.myecl = function(context){
     app.menu_list = new Array();
     app.header_list = new Array();
     app.myecl_map = '';
-    
-    
-    
+ 
     // Chargement de la bdd
    
-    mongoose.connect('mongodb://eclair:eclair@35.187.85.31:27017/MyECL'); 
-    var db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'Connection error:'));
-    db.once('open', function(){
-        console.log('Database connected successfully');
-    });
-    app.database = {};
+    context.database = require('./shortersql')(context);  // accessible dans le context pour le core
+    app.database = context.database;  // accessible dans l'app pour les modules
 
+    
+    if(Array.isArray(context.tables)){
+	    for(let i in context.tables){
+            let item = context.tables[i];
+            app.database.create(item['table'],item['schema']);
+        }
+    } else {
+        log.error(context.module_config_file + ' from module ' + modname + ' contain a non-array database specification. Ignoring database.');
+    }
 
+    
     // Chargement des différents modules
     log.info('Loading modules...');
     modloader.load_enabled(app);
@@ -72,23 +71,12 @@ exports.myecl = function(context){
     });
 
 
-    //Test BDD
-    /*
-    app.get('/new_user', function(req, res){
-        const User = require('./models/user');
-        var user = new User({name : req.query.name});
-        console.log('Query is' + req.query.name);
-        user.save(function(err){
-            if(err){
-                console.log('Error while creating new user:' + err);  
-            } else {
-                User.find(function(err,result){
-                    console.log(result);
-                });
-            }
-        });
-    });
-    //*/
+
+    // Chargement des models de fonctionnement interne
+
+    // context.models = new Object();
+    // context.models.user = require('./models/user');
+
 
 
     // Utiliser un compte existant
@@ -97,17 +85,12 @@ exports.myecl = function(context){
     // Passer par le cas puis creer un compte
     app.get('/logcas', authenticate.bounce, authenticate.new_account);
 
-    // app.use('/create_account', bodyParser.json(context.body_json_config));
-    // app.post('/create_account', authenticate.create_account);
+    app.use('/create_account', bodyParser.json(context.body_json_config));
+    app.post('/create_account', authenticate.bounce, authenticate.create_account);
 
     // Si rien n'a catché la requete
     app.use(serveStatic(context.public_root, context.default_static_options));
     app.use(authorise('ecl'), serveStatic(context.private_root, context.default_static_options));
-
-
-
-
-
 
     // Lancement du serveur
     app.listen(context.port, context.url, function(){
@@ -117,7 +100,12 @@ exports.myecl = function(context){
 
     // Fermeture propre du système en cas d'erreur ou d'interuption volontaire
     process.on('uncaughtException', function(err){
-        log.error('Uncaught exception : ' + err.msg);
+        if(err.msg){
+            log.error('Uncaught exception : ' + err.msg);
+        } else {
+            log.error('Uncaught exception : ');
+            log.error(err);
+        }
         process.exit();
     });
     process.on('SIGINT', () => {
