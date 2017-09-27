@@ -13,6 +13,7 @@ ask(){
 # Renseignelent des paramètres essentiels
 ask "URL d'écoute ?" "localhost" LURL
 ask "URL du service ?" "www.myecl.fr" URL
+ask "Protocole ?" "https" HTTP
 ask "Port d'écoute ?" "8080" LPORT
 ask "Port du service ?" "80" PORT
 ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
@@ -31,7 +32,7 @@ then
 fi    
 
 # Génération de la configuration
-cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@PORT?$PORT?g" | sed "s?@LPORT?$PORT?" | sed "s?@DB_HOST?$DB_HOST?g" > $ROOT_PATH/myecl_config.json
+cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@PORT?$PORT?g" | sed "s?@LPORT?$LPORT?" | sed "s?@DB_HOST?$DB_HOST?g" | sed "s?@HTTP?$HTTP?g" > $ROOT_PATH/myecl_config.json
 {
     "port" : @LPORT,
     "url" : "@LURL",
@@ -72,7 +73,7 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
     ],
 
     "cas_config" : {
-        "cas_url" : "https://cas.ec-lyon.fr/cas",
+        "cas_url" : "@HTTP://cas.ec-lyon.fr/cas",
         "service_url" : "http://@URL:@PORT",
         "cas_version" : "2.0",
         "session_name" : "login_dsi",
