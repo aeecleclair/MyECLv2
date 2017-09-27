@@ -22,6 +22,14 @@ cd $ROOT_PATH
 # Mise à jour des modules node.js
 npm i
 
+# Initialisation de la BDD
+echo "Créer la base de donnée et l'utilisateur MariaDB ? [o/N] "
+read CREATEDB
+if [[ "x$CREATEDB" == "xo" ]]
+then
+    mysql -u root -p -e "GRANT USAGE ON *.* TO 'eclair'@'localhost' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'localhost';" 
+fi    
+
 # Génération de la configuration
 cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@PORT?$PORT?g" | sed "s?@LPORT?$PORT?" | sed "s?@DB_HOST?$DB_HOST?g" > $ROOT_PATH/myecl_config.json
 {
