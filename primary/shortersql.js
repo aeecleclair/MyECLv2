@@ -118,28 +118,34 @@ module.exports = function(context){
     db.save = function(table, object, callback){ // Enregistre un 'objet' dans une table (l'objet doit correspondre a la table)
         var fields = new Array();
         var values = new Array();
-        var affects = new Array();
+        var qtags_insert = new Array();  // On utilise le systeme de remplacement de mysql
+        var qtags_update = new Array();  // car il evite les injections de SQL et certaines erreures
+
         for(var key in object){
+            qtags_insert.push('?');
+            qtags_update.push(key + ' = ?');
             fields.push(key);
-            values.push(object[key]);
-            affects.push(key + ' = ' + object[key]);
+            values.push(object[key] ? object[key] : 0);  // renvoie 0 à la place de false ou undefined
         }
         
         var query = 'INSERT INTO ' + table +
             ' (' + fields.join(', ') +
             ') VALUES (' + 
-            values.join(', ')+ ')' +
+            qtags_insert.join(', ')+ ')' +
             'ON DUPLICATE KEY UPDATE ' +  // fait une erreur sur MySQL car spécifique à MariaDB
-            affects.join(', ') + ';'
-            ;
-        pool.query(query, callback);
+            qtags_update.join(', ') + ';';
+
+        pool.query({
+            'sql' : query,
+            'values' : values.concat(values)
+        }, callback);
     };
 
     db.hash = function(password, callback){  // callback = function(err, hash)
         bcrypt.hash(password, 10, callback);
     };
 
-    db.compare = function(password, hash, callback){  // calback = function(err, result)
+    db.compare = function(password, hash, callback){  // callback = function(err, result)
         bcrypt.compare(password, hash, callback);
     };
     return db;

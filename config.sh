@@ -57,7 +57,7 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
         {
             "table" : "user",
             "schema" : {
-                "id" : "INT PRIMARY KEY NOT NULL",
+                "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
                 "login" : "VARCHAR(255)",
                 "password" : "VARCHAR(255)",
                 "name" : "VARCHAR(255)",

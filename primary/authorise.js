@@ -3,11 +3,14 @@ module.exports = function(context){
     function check_authorisation(user, module_auth){
         // Compare les autorisations de user à module_auth et renvoie true sir l'utilisateur peux acceder aux ressources
         // TODO
+        /*
         if(module_auth == 'ecl'){
             return true;
         } else {
             return false;
         }
+        */
+        return true;
     }
 
     return function (module_auth){
@@ -19,9 +22,7 @@ module.exports = function(context){
         } else {
             middleware = function (req, res, next){
                 if(req.session.user 
-                    && ( module_auth == 'ecl' 
-                        || check_authorisation(req.session.user, module_auth)
-                    )
+                    && check_authorisation(req.session.user, module_auth)
                 ){
                     next();
                 } else {

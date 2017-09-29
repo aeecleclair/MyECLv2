@@ -11,13 +11,14 @@
 <script>
     document.getElementById('submit').onclick = function(){
         var data = new Object();
-        data.login = document.getElementById('login').innerHTML;
-        data.password = document.getElementById('password').innerHTML;
-        data.surname = document.getElementById('nick').innerHTML;
+        data.login = document.getElementById('login').value;
+        data.password = document.getElementById('password').value;
+        data.surname = document.getElementById('nick').value;
         let req = new XMLHttpRequest();
         req.open("POST", "/create_account");
         req.setRequestHeader('Cache-Control', 'no-cache');
-        req.send(data);
+        req.setRequestHeader('Content-Type', 'application/json');
+        req.send(JSON.stringify(data));
 
     };
 </script>
