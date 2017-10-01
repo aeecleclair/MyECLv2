@@ -69,6 +69,23 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
                 "floor" : "VARCHAR(3)",
                 "groups" : "TEXT"
             }
+        },
+        {
+            "table" : "member",
+            "schema" : {
+                "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "group" : "INT NOT NULL",
+                "position" : "VARCHAR(255)",
+                "term" : "VARCHAR(255)"
+            }
+        },
+        {
+            "table" : "group",
+            "schema" : {
+                "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "name" : "CHAR(255) UNIQUE",
+                "description" : "TEXT"
+            }
         }
     ],
 
