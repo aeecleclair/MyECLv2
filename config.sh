@@ -90,8 +90,8 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
     ],
 
     "cas_config" : {
-        "cas_url" : "@HTTP://cas.ec-lyon.fr/cas",
-        "service_url" : "http://@URL:@PORT",
+        "cas_url" : "https://cas.ec-lyon.fr/cas",
+        "service_url" : "@HTTP://@URL:@PORT",
         "cas_version" : "2.0",
         "session_name" : "login_dsi",
         "session_info" : "user_data"
