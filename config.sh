@@ -38,7 +38,7 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
     "url" : "@LURL",
     "root_path" : "@ROOT_PATH",
 
-    "default_route" : "/home",
+    "default_route" : "/modules/panorama/index.html",
 
     "session_config" : {
         "secret" : "dats a fuckin good secret",

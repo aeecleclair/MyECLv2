@@ -10,6 +10,7 @@ module.exports = function(context){
             return false;
         }
         */
+        module_auth;
         return true;
     }
 
@@ -26,7 +27,7 @@ module.exports = function(context){
                 ){
                     next();
                 } else {
-                    console.log('Accès non autorisé à ' + req.url);
+                    context.log.warning('Accès non autorisé à ' + req.url);
                     res.status(401);
                     res.sendFile('unauthorized.html', {'root' : context.public_root});
                 }
