@@ -71,19 +71,20 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
             }
         },
         {
-            "table" : "member",
+            "table" : "membership",
             "schema" : {
                 "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
-                "group" : "INT NOT NULL",
+                "id_user" : "INT NOT NULL",
+                "id_group" : "INT NOT NULL",
                 "position" : "VARCHAR(255)",
                 "term" : "VARCHAR(255)"
             }
         },
         {
-            "table" : "group",
+            "table" : "user_group",
             "schema" : {
                 "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
-                "name" : "CHAR(255) UNIQUE",
+                "name" : "VARCHAR(255) UNIQUE",
                 "description" : "TEXT"
             }
         }

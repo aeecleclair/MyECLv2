@@ -27,14 +27,13 @@ exports.myecl = function(context){
 
     
     if(Array.isArray(context.tables)){
-	    for(let i in context.tables){
+        for(let i in context.tables){
             let item = context.tables[i];
-            app.database.create(item['table'],item['schema']);
+            app.database.create(item['table'], item['schema']);
         }
     } else {
-        log.error(context.module_config_file + ' from module ' + modname + ' contain a non-array database specification. Ignoring database.');
+        log.warning('No tables have been defined in config file !');
     }
-
     
     // Chargement des différents modules
     log.info('Loading modules...');

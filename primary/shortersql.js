@@ -33,9 +33,11 @@ module.exports = function(context){
         } else {
             query = 'CREATE TABLE IF NOT EXISTS ' + name + '(' + fields.join(', ') + ');';
         }
+        context.log.info('Executing SQL request : ' + query);
         pool.query(query, function(err){
             if(err){
-                throw 'Unable to properly create a table.';
+                context.log.error('Unable to properly create a table');
+                throw err;
             }
         });
     };
