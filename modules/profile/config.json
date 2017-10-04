@@ -1,5 +1,5 @@
 {
-    "authorisation" : "all",
+    "authorisation" : "#ecl",
     "description" : "Module de démonstration",
     "rules" : [
         {

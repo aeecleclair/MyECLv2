@@ -7,7 +7,9 @@ const bodyParser = require('body-parser');
 
 exports.myecl = function(context){
     // Modules nodes locaux
-    const log = require('./logger')(context);
+    require('./logger')(context);
+    require('./crypto')(context);
+
     const modloader = require('./module_loader')(context);
     const authorise = require('./authorise')(context);
     const authenticate = require('./authenticate')(context);
@@ -19,30 +21,40 @@ exports.myecl = function(context){
     app.menu_list = new Array();
     app.header_list = new Array();
     app.myecl_map = '';
+
+    //app.crypto = context.crypto;
+    app.log = context.log;
  
     // Chargement de la bdd
    
     context.database = require('./shortersql')(context);  // accessible dans le context pour le core
     app.database = context.database;  // accessible dans l'app pour les modules
-
     
     if(Array.isArray(context.tables)){
         for(let i in context.tables){
             let item = context.tables[i];
-            app.database.create(item['table'], item['schema']);
+            context.database.create(item['table'], item['schema']);
+            if(item['init']){
+                context.database.query(item['init'], function(err){
+                    if(err){
+                        context.log.error('L\'initialisation n\'as pas fonctionné.');
+                        context.log.error(err, true);
+                    }
+                });
+            }
         }
     } else {
-        log.warning('No tables have been defined in config file !');
+        context.log.warning('No tables have been defined in config file !');
     }
-    
+
     // Chargement des différents modules
-    log.info('Loading modules...');
+    context.log.info('Loading modules...');
     modloader.load_enabled(app);
-    log.info('Modules loaded successfully.');
+    context.log.info('Modules loaded successfully.');
 
     /*
     app.use(function(req, res, next){
-        log.info('Asking for ' + req.url + '.');
+        context.log.info('Asking for ' + req.url + '.');
         next();
     });
     //*/
@@ -93,22 +105,22 @@ exports.myecl = function(context){
 
     // Lancement du serveur
     app.listen(context.port, context.url, function(){
-        log.info('Listening ' + context.url + ' on port ' + context.port.toString() + '.');
-        log.info(app.myecl_map);
+        context.log.info('Listening ' + context.url + ' on port ' + context.port.toString() + '.');
+        context.log.info(app.myecl_map);
     });
 
     // Fermeture propre du système en cas d'erreur ou d'interuption volontaire
     process.on('uncaughtException', function(err){
         if(err.msg){
-            log.error('Uncaught exception : ' + err.msg);
+            context.log.error('Uncaught exception : ' + err.msg);
         } else {
-            log.error('Uncaught exception : ');
-            log.error(err);
+            context.log.error('Uncaught exception : ');
+            context.log.error(err);
         }
         process.exit();
     });
     process.on('SIGINT', () => {
-        log.warning('SIGINT received.');
+        context.log.warning('SIGINT received.');
         process.exit();
     });
 };

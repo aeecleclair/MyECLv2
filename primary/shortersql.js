@@ -3,7 +3,6 @@
  */
 
 const mysql = require('mysql');
-const bcrypt = require('bcrypt');
 
 /*
  * En générale les callback ont la forme function(error, results, fields)
@@ -143,12 +142,5 @@ module.exports = function(context){
         }, callback);
     };
 
-    db.hash = function(password, callback){  // callback = function(err, hash)
-        bcrypt.hash(password, 10, callback);
-    };
-
-    db.compare = function(password, hash, callback){  // callback = function(err, result)
-        bcrypt.compare(password, hash, callback);
-    };
     return db;
 };

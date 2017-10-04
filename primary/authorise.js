@@ -34,11 +34,13 @@ module.exports = function(context){
                 next();
             };
         } else {
-            if(module_auth.substring(0, 6) != 'SELECT'){
+            if(module_auth[0] == '#'){
+                module_auth = context.alias[module_auth];
+            } else if(module_auth.substring(0, 6) != 'SELECT'){
                 // On permet au codeur du module de mettre des autorisations du type :
-                // WHERE member.position = 'prez' AND member.group = 'ECLAIR';
+                // WHERE membership.position = 'prez' AND membership.group = 'ECLAIR';
                 // ou même de rajouter des JOIN avant le WHERE
-                module_auth = 'SELECT login FROM user JOIN member ON member.user = user.id ' + module_auth;
+                module_auth = 'SELECT login FROM user JOIN membership ON member.user = user.id ' + module_auth;
             }
             middleware = function (req, res, next){
                 // middleware qui va permettre les utilisateurs autorisés et refouler les autres

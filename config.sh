@@ -10,18 +10,37 @@ ask(){
     fi
 }
 
-# Renseignelent des paramètres essentiels
-ask "URL d'écoute ?" "localhost" LURL
-ask "URL du service ?" "www.myecl.fr" URL
-ask "Protocole ?" "https" HTTP
-ask "Port d'écoute ?" "8080" LPORT
-ask "Port du service ?" "80" PORT
-ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
-ask "Hôte de base de données" "localhost" DB_HOST
+# Renseignement des paramètres essentiels
+case "$1" in
+    prod)
+        LURL="localhost"
+        URL="www.myecl.fr"
+        HTTP="https"
+        LPORT=8998
+        PORT=443
+        ROOT_PATH=$(pwd)
+        DB_HOST="bases.eclair.ec-lyon.fr"
+        ;;
 
-cd $ROOT_PATH
-# Mise à jour des modules node.js
-npm i
+    dev)
+        LURL="localhost"
+        URL="localhost"
+        HTTP="http"
+        LPORT=8080
+        PORT=8080
+        ROOT_PATH=$(pwd)
+        DB_HOST="localhost"
+        ;;
+    *)
+        ask "URL d'écoute ?" "localhost" LURL
+        ask "URL du service ?" "www.myecl.fr" URL
+        ask "Protocole ?" "https" HTTP
+        ask "Port d'écoute ?" "8080" LPORT
+        ask "Port du service ?" "80" PORT
+        ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
+        ask "Hôte de base de données" "localhost" DB_HOST
+        ;;
+esac
 
 # Initialisation de la BDD
 echo "Créer la base de donnée et l'utilisateur MariaDB ? [o/N] "
@@ -30,6 +49,9 @@ if [[ "x$CREATEDB" == "xo" ]]
 then
     mysql -u root -p -e "GRANT USAGE ON *.* TO 'eclair'@'localhost' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'localhost';" 
 fi    
+
+# Mise à jour des modules node.js
+npm install
 
 # Génération de la configuration
 cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@PORT?$PORT?g" | sed "s?@LPORT?$LPORT?" | sed "s?@DB_HOST?$DB_HOST?g" | sed "s?@HTTP?$HTTP?g" > $ROOT_PATH/myecl_config.json
@@ -58,11 +80,11 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
             "table" : "user",
             "schema" : {
                 "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
-                "login" : "VARCHAR(255)",
-                "password" : "VARCHAR(255)",
-                "name" : "VARCHAR(255)",
-                "firstname" : "VARCHAR(255)",
-                "nick" : "VARCHAR(255)",
+                "login" : "VARCHAR(12)",
+                "password" : "VARCHAR(60)",
+                "name" : "VARCHAR(32)",
+                "firstname" : "VARCHAR(64)",
+                "nick" : "VARCHAR(20)",
                 "birth" : "DATE",
                 "gender" : "VARCHAR(1)",
                 "promo" : "INT",
@@ -76,19 +98,24 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
                 "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
                 "id_user" : "INT NOT NULL",
                 "id_group" : "INT NOT NULL",
-                "position" : "VARCHAR(255)",
-                "term" : "VARCHAR(255)"
+                "position" : "VARCHAR(50)",
+                "term" : "VARCHAR(50)"
             }
         },
         {
             "table" : "user_group",
             "schema" : {
                 "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
-                "name" : "VARCHAR(255) UNIQUE",
+                "name" : "VARCHAR(127) UNIQUE",
                 "description" : "TEXT"
-            }
+            },
+            "init" : "REPLACE INTO user_group (id, name, description) VALUES (0, \"ecl\", \"Centraliens de Lyon\");"
         }
     ],
+
+    "alias" : {
+        "#ecl" : "SELECT login FROM user JOIN membership ON user.id = membership.id_user WHERE membership.id_group = 0;"
+    },
 
     "cas_config" : {
         "cas_url" : "https://cas.ec-lyon.fr/cas",
