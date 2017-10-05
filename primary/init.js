@@ -68,16 +68,16 @@ exports.myecl = function(context){
         res.redirect(context.default_route);
     });
 
-    app.get('/home', authorise('ecl'), function(req, res){
+    app.get('/home', authorise('#ecl'), function(req, res){
         res.sendFile('myecl_base.html', {root : context.private_root});
     });
 
 
-    app.get('/menu', authorise('ecl'), function(req, res){
+    app.get('/menu', authorise('#ecl'), function(req, res){
         res.json({ list : app.menu_list });
     });
 
-    app.get('/header', authorise('ecl'), function(req, res){
+    app.get('/header', authorise('#ecl'), function(req, res){
         res.json({ list : app.header_list });
     });
 
@@ -101,7 +101,7 @@ exports.myecl = function(context){
 
     // Si rien n'a catché la requete
     app.use(serveStatic(context.public_root, context.default_static_options));
-    app.use(authorise('ecl'), serveStatic(context.private_root, context.default_static_options));
+    app.use(authorise('#ecl'), serveStatic(context.private_root, context.default_static_options));
 
     // Lancement du serveur
     app.listen(context.port, context.url, function(){

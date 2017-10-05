@@ -5,7 +5,7 @@ module.exports = function(context){
         // Ici on considère que module_auth est une requete sql qui renvoie une liste d'utilisateurs autorisés :
         // SELECT login FROM user JOIN member ON member.user = user.id ... 
         // callback prend un seul argument booléen 'authorised'
-        context.database.query(module_auth, function(err, res, fields){ // Executer la requete
+        context.database.query(module_auth, function(err, res){ // Executer la requete
             if(err){
                 // Il faut que l'on soit informé des erreurs car elles viennent probablement
                 // du codeur du module
