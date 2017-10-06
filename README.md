@@ -233,8 +233,10 @@ Les tables essentielles au fonctionnement de MyECL sont chargées par init.js et
 - [x] Mise en place d'un squelette du système de sécurité
 - [x] Design de la page type
 - [x] Implémentation du __menu__
+- [ ] Adapter le menu à l'utilisateur
 - [x] Implémentation du __body__
 - [x] Implémentation du __header__
+- [ ] Adapter le header à l'utilisateur
 - [x] Mise en place de la base de données
 - [ ] Isolation des tables des différents modules
 - [ ] Considerer les risque de donner acces à toutes les collections à tous les modules
