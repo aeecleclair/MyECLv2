@@ -65,10 +65,10 @@ Le fichier _config.json_ est la base de la définition d'un module. Il rassemble
 ### La propritété __authorisation__
 Cette propriété définie la règle de sécurité par défaut concernant ce module. Elle peut prendre quatres formes différentes :
 - "public" : les ressources du module sont accessible sans se connecter.
-- un # suivi d'un nom : c'est un alias, les alias sont définis dans le fichier de configuration principale sous la forme "alias" : "requete SQL". Par exemple l'alias "ecl" rend les ressources du module accessible par défaut à tout utilisateur identifié comme un (ancien) élève.
+- un # suivi d'un nom : c'est un alias, les alias sont définis dans le fichier de configuration principale sous la forme "#alias" : "requete SQL". Par exemple l'alias "#ecl" rend les ressources du module accessible par défaut à tout utilisateur identifié comme un (ancien) élève.
 - une requète SQL SELECT qui doit renvoyer une liste de login autorisé à accéder aux ressources (ex : SELECT login FROM user WHERE promo = 2016;)
 - une __fin__ de requète SQL qui sera à en interne collé après le début de requète SELECT login FROM user JOIN membership ON membership.id\_user = user.id (ex : WHERE membership.position = 'prez' AND membership.group = 'ECLAIR';)
-Si la propriété est omise 
+Si la propriété est omise le comportement par défaut est celui de l'alias #ecl.
 
 ### La propriété __rules__
 
