@@ -1,6 +1,18 @@
 {
-    "authorisation" : "ecl",
+    "authorisation" : "#ecl",
     "description" : "Module de test",
+    "database":[
+        {
+            "table":"film", 
+            "schema":{
+                "titre": "VARCHAR(255)",
+                "realisateur": "VARCHAR(255)",
+                "genre": "VARCHAR(255)",
+                "date_sortie": "DATE",
+                "pays": "VARCHAR(255)"
+            }
+        }
+    ],
     "rules" : [
         {
             "route" : "/modules/test/static/*",
@@ -15,6 +27,15 @@
             "static" : "static/boo.html"
         },
         {
+            "body" : "annuaire",
+            "static" : "static/annuaire.html"
+        },
+        {
+            "route" : "/modules/test/annuaire",
+            "callback" : "annuaire"
+        },
+
+        {
             "body" : "daf",
             "static" : "static/daf.html"
         }
@@ -28,6 +49,10 @@
         {
             "body" : "victoire",
             "name" : "Boo Yah !"
+        },
+        {
+            "body" : "annuaire",
+            "name" : "Annuaire"
         },
         {
             "name" : "D'autres trucs",

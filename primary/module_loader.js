@@ -169,7 +169,7 @@ module.exports = function(context){
 
         // Chargement des routes
         if(!config.authorisation){
-            config.authorisation = 'ecl';
+            config.authorisation = '#ecl';
         }
         if(config.rules){
             if(Array.isArray(config.rules)){ // si config.rules est une liste de routes
@@ -185,6 +185,20 @@ module.exports = function(context){
                 }
             } else {
                 log.warn(context.module_config_file + ' from module ' + modname + ' does not contain a valid rules array.');
+            }
+        }
+        //Chargement des tables pour la BDD
+
+        if(config.database){
+            if(Array.isArray(config.database)){
+                for(let i in config.database){
+
+                    let item = config.database[i];
+
+                    app.database.create(item['table'],item['schema']);
+                }
+            } else {
+                log.error(context.module_config_file + ' from module ' + modname + ' contain a non-array database specification. Ignoring database.');
             }
         }
 
