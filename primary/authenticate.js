@@ -12,10 +12,10 @@ module.exports = function(context){
         // Valide ou non le mot de passe de l'utilisateur
         var password = req.query.password;
         var login = req.query.login;
-        get_user(login, function (err, results, fields){
+        get_user(login, function (err, results){
             if(!err && results.length > 0){
                 var user = results[0];
-                context.database.compare(password, user['password'], function(err2, valid){
+                context.crypto.compare(password, user['password'], function(err2, valid){
                     if(err2){
                         context.log.error(err2);
                     }
@@ -53,7 +53,7 @@ module.exports = function(context){
         // TODO Tester la validité des informations fournies
 
         if(req.body.login && req.body.password){
-            context.database.hash(req.body.password, function(err, hash){
+            context.crypto.hash(req.body.password, function(err, hash){
                 if(!err){
                     var user = new Object();
                     user['login'] = req.body.login;
@@ -66,10 +66,31 @@ module.exports = function(context){
                     user['promo'] = req.body.promo;
                     user['floor'] = req.body.floor;
                     user['groups'] = '';  // TODO
-                    context.database.save('user', user, function(err, results, fields){
+                    context.database.save('user', user, function(err){
                         if(!err){
                             req.session.user = user;
                             res.redirect('/home');
+                            context.database.select('user', ['id'], 'login = ?', [user.login], function(err2, res){
+                                if(!err2 && res[0]){
+                                    context.database.save('membership',
+                                        {
+                                            'id_user' : res[0]['id'],
+                                            'id_group' : 0,
+                                            'position' : 'élève', // TODO améliorer avec les infos du CAS
+                                            'term' : ''
+                                        },
+                                        function(err3){
+                                            if(err3){
+                                                context.log.error('Unable to set ' + user.login + ' ecl membership :');
+                                                context.log.error(err3);
+                                            }
+                                        }
+                                    );
+                                } else {
+                                    context.log.error('Unable to get ' + user.login + ' id :');
+                                    context.log.error(err2);
+                                }
+                            });
                         } else {
                             // TODO
                             context.log.error(err);

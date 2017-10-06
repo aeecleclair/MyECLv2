@@ -3,7 +3,6 @@
  */
 
 const mysql = require('mysql');
-const bcrypt = require('bcrypt');
 
 /*
  * En générale les callback ont la forme function(error, results, fields)
@@ -33,9 +32,11 @@ module.exports = function(context){
         } else {
             query = 'CREATE TABLE IF NOT EXISTS ' + name + '(' + fields.join(', ') + ');';
         }
+        context.log.info('Executing SQL request : ' + query);
         pool.query(query, function(err){
             if(err){
-                throw 'Unable to properly create a table.';
+                context.log.error('Unable to properly create a table');
+                throw err;
             }
         });
     };
@@ -141,12 +142,5 @@ module.exports = function(context){
         }, callback);
     };
 
-    db.hash = function(password, callback){  // callback = function(err, hash)
-        bcrypt.hash(password, 10, callback);
-    };
-
-    db.compare = function(password, hash, callback){  // callback = function(err, result)
-        bcrypt.compare(password, hash, callback);
-    };
     return db;
 };

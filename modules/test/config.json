@@ -1,5 +1,5 @@
 {
-    "authorisation" : "ecl",
+    "authorisation" : "#ecl",
     "description" : "Module de test",
     "database":[
         {

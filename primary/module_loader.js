@@ -169,7 +169,7 @@ module.exports = function(context){
 
         // Chargement des routes
         if(!config.authorisation){
-            config.authorisation = 'ecl';
+            config.authorisation = '#ecl';
         }
         if(config.rules){
             if(Array.isArray(config.rules)){ // si config.rules est une liste de routes
