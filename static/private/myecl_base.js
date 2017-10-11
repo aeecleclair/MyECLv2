@@ -74,23 +74,27 @@ function insert_body(module_name, body_name){
     var body = $('#main-content-wrapper');
     var styles = $('head');
     var scripts = $('body');
+    // supprimer les scripts et styles ajout√© pr√cedement
+    $('.dyn-content').remove();
+    // r√cup√©re le body demand√©
     $.get('/body/' + module_name + '/' + body_name, function(data){
         body.html(data);
     });
+    // r√cup√rer les scripts et styles associ√s
     $.getJSON('/heads/' + module_name + '/' + body_name, function(data){
         var styles_html = '';
         var scripts_html = '';
 
         for(let key in data.styles){
             let r = data.styles[key];
-            styles_html += '<link href="' +
+            styles_html += '<link class="dyn-content" href="' +
                 r +
                 '" rel="stylesheet" type="text/css">\n';
         }
 
         for(let key in data.scripts){
             let r = data.scripts[key];
-            scripts_html += '<script src="' +
+            scripts_html += '<script class="dyn-content" src="' +
                 r + '"></script>\n';
         }
         styles.append(styles_html);
