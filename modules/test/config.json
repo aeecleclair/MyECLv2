@@ -1,6 +1,11 @@
 {
     "authorisation" : "#ecl",
     "description" : "Module de test",
+    "heads" : {
+        "styles" : ["/modules/test/static/more_style.css"],
+        "scripts" : ["/modules/test/static/more_script.js"]
+    },
+
     "database":[
         {
             "table":"film", 
@@ -20,11 +25,17 @@
         },
         {
             "body" : "main",
-            "callback" : "main_cb"
+            "callback" : "main_cb",
+            "heads" : {
+                "styles" : ["/modules/test/static/style_again.css"]
+            }
         },
         {
             "body" : "victoire",
-            "static" : "static/boo.html"
+            "static" : "static/boo.html",
+            "heads" : {
+                "styles" : ["/modules/test/static/style_again.css"]
+            }
         },
         {
             "body" : "annuaire",
