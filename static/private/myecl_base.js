@@ -72,8 +72,8 @@ function insert_header(){
 
 function insert_body(module_name, body_name){
     var body = $('#main-content-wrapper');
-    var styles = $('#dyn-styles');
-    var scripts = $('#dyn-scripts');
+    var styles = $('head');
+    var scripts = $('body');
     $.get('/body/' + module_name + '/' + body_name, function(data){
         body.html(data);
     });
@@ -93,8 +93,8 @@ function insert_body(module_name, body_name){
             scripts_html += '<script src="' +
                 r + '"></script>\n';
         }
-        styles.html(styles_html);
-        scripts.html(scripts_html);
+        styles.append(styles_html);
+        scripts.append(scripts_html);
     });
 }
 

@@ -32,7 +32,10 @@
         },
         {
             "body" : "victoire",
-            "static" : "static/boo.html"
+            "static" : "static/boo.html",
+            "heads" : {
+                "styles" : ["/modules/test/static/style_again.css"]
+            }
         },
         {
             "body" : "annuaire",
