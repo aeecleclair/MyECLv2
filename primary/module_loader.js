@@ -129,6 +129,10 @@ module.exports = function(context){
 
         if(rule.body){
             rule.route = '/body/' + modname + '/' + rule.body;
+            app.myecl_map += '/heads/' + modname + '/' + rule.body + '\n';
+            app.get('/heads/' + modname + '/' + rule.body, function(req, res){
+                res.json(rule.heads);
+            });
         } else if(rule.tile){
             rule.route = '/tile/' + modname + '/' + rule.tile;
         }
@@ -172,11 +176,17 @@ module.exports = function(context){
             config.authorisation = '#ecl';
         }
         if(config.rules){
+            config.heads = config.heads && Array.isArray(config.heads) ? config.heads : [];
             if(Array.isArray(config.rules)){ // si config.rules est une liste de routes
                 for(let i in config.rules){
                     let rule = config.rules[i];
                     if(!rule.authorisation){
                         rule.authorisation = config.authorisation;
+                    }
+                    if(rule.body){
+                        rule.heads = rule.heads ? rule.heads : { 'styles' : [], 'scripts' : [] };
+                        rule.heads.scripts = config.heads.script + (rule.heads.scripts && Array.isArray(rule.heads.scripts) ? rule.heads.scripts : []);
+                        rule.heads.styles = config.heads.styles + (rule.heads.styles && Array.isArray(rule.heads.styles) ? rule.heads.styles : []);
                     }
                     let success = handle_rule(app, modname, rule);
                     if(!success){

@@ -72,8 +72,29 @@ function insert_header(){
 
 function insert_body(module_name, body_name){
     var body = $('#main-content-wrapper');
+    var styles = $('#dyn-styles');
+    var scripts = $('#dyn-scripts');
     $.get('/body/' + module_name + '/' + body_name, function(data){
         body.html(data);
+    });
+    $.getJSON('/heads/' + module_name + '/' + body_name, function(data){
+        var styles_html = '';
+        var scripts_html = '';
+
+        for(let key in data.styles){
+            let r = data.styles[key];
+            styles_html += '<link href="' +
+                r +
+                '" rel="stylesheet" type="text/css">\n';
+        }
+
+        for(let key in data.scripts){
+            let r = data.scripts[key];
+            scripts_html += '<script src="' +
+                r + '"></script>\n';
+        }
+        styles.html(styles_html);
+        scripts.html(scripts_html);
     });
 }
 

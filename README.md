@@ -70,6 +70,7 @@ Cette propriété définie la règle de sécurité par défaut concernant ce mod
 - une __fin__ de requète SQL qui sera à en interne collé après le début de requète SELECT login FROM user JOIN membership ON membership.id\_user = user.id (ex : WHERE membership.position = 'prez' AND membership.group = 'ECLAIR';)
 Si la propriété est omise le comportement par défaut est celui de l'alias #ecl.
 
+
 ### La propriété __rules__
 
 Cette propriété contient une liste de règles qui décrivent la façon d'accéder aux ressources du module. Une règle est elle même un objet associatif qui décrit le type de ressource et la façon d'y acceder. Il existe trois types de ressources :
@@ -85,6 +86,13 @@ Il y a trois méthodes pour accéder à ces ressources :
 Chaque règle peut avoir des propriétées supplémentaires :
 - __authorisation__ : définit une règle de sécurité spécifique à cette règle
 - __method__ : définit la méthode HTTP utilisé pour la règle (GET si elle est omise)
+- __heads__ : Cette propriété sert à déclarer les feuilles de styles css et les scripts JavaScript spécifique à un body (elle est ignoré dans le cas d'une route ou d'une tile). Elle contient un objet ayant une ou deux des proprétées suivantes :
+    - __styles__ : une liste de routes vers les fichiers css à ajouter au body
+    - __scripts__ : une liste de routes vers les fichiers JS à ajouter au body
+
+### La propriété __heads__
+
+Cette propriété fonctionne comme son homonyme dans les rules mais s'applique à tout les bodys du module. Son contenu est fusioné avec le contenu de la propriété spécifique au body s'il existe.
 
 ### La propriété __menu__
 
