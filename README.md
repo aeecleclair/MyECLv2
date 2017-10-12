@@ -259,6 +259,7 @@ Les tables essentielles au fonctionnement de MyECL sont chargées par init.js et
     - [ ] Service d'accés au utilisateurs, aux assos... (surcouche à shorter.sql)
 - [x] Permettre aux modules d'ajouter des head aux pages body ()
 - [ ] Implémentation du chargement des tiles
+- [ ] Association de heads (scripts et styles) aux tiles (comme pour les bodys)
 - [ ] Implémentation d'un système de gestion des tiles pour l'utilisateur
 - [ ] Implémentation des notifications
 
