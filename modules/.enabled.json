@@ -1,3 +1,3 @@
 {
-    "enabled" : ["test", "test_tiles"]
+    "enabled" : ["test", "test_tiles", "panorama"]
 }

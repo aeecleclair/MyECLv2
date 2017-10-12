@@ -8,10 +8,15 @@ module.exports = function(context){
         // Affiche des message d'alerte
         console.log('[WARN] ' + msg);
     };
-    exports.error = function(msg){
+    exports.error = function(msg, fatal=false){
         // Signale une erreur
         console.log('[ERR] ' + msg);
+        if(fatal){
+            throw msg;
+        }
     };
+
+    context.log = exports;
     
     return exports;
 };

@@ -3,6 +3,10 @@
     "description" : "Page des assos",
     "rules" : [
         {
+            "route" : "/modules/panorama/login",
+            "callback" : "go_to_login"
+        },
+        {
             "route" : "/modules/panorama/*",
             "static" : "static/"
         }

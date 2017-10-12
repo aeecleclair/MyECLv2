@@ -1,6 +1,23 @@
 {
-    "authorisation" : "ecl",
+    "authorisation" : "#ecl",
     "description" : "Module de test",
+    "heads" : {
+        "styles" : ["/modules/test/static/more_style.css"],
+        "scripts" : ["/modules/test/static/more_script.js"]
+    },
+
+    "database":[
+        {
+            "table":"film", 
+            "schema":{
+                "titre": "VARCHAR(255)",
+                "realisateur": "VARCHAR(255)",
+                "genre": "VARCHAR(255)",
+                "date_sortie": "DATE",
+                "pays": "VARCHAR(255)"
+            }
+        }
+    ],
     "rules" : [
         {
             "route" : "/modules/test/static/*",
@@ -8,12 +25,27 @@
         },
         {
             "body" : "main",
-            "callback" : "main_cb"
+            "callback" : "main_cb",
+            "heads" : {
+                "styles" : ["/modules/test/static/style_again.css"]
+            }
         },
         {
             "body" : "victoire",
-            "static" : "static/boo.html"
+            "static" : "static/boo.html",
+            "heads" : {
+                "styles" : ["/modules/test/static/style_again.css"]
+            }
         },
+        {
+            "body" : "annuaire",
+            "static" : "static/annuaire.html"
+        },
+        {
+            "route" : "/modules/test/annuaire",
+            "callback" : "annuaire"
+        },
+
         {
             "body" : "daf",
             "static" : "static/daf.html"
@@ -28,6 +60,10 @@
         {
             "body" : "victoire",
             "name" : "Boo Yah !"
+        },
+        {
+            "body" : "annuaire",
+            "name" : "Annuaire"
         },
         {
             "name" : "D'autres trucs",

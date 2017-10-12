@@ -55,9 +55,16 @@
  
  <body>
 
- <header> 
+ <header>
 
-    
+    <div class="container-fluid"> <!-- Countainer bootstrap -->
+        <div class=row>
+            <!--<div class="col-xs-1" id="hamburger"><a href="#"><img src="images/hamburger.png" height="40"></a></div>-->
+            <div class="col-xs-10 col-xs-offset-1" id="title-countainer"><h1 id="titre"><b>MyECL</b></h1></div>
+            <div class="col-xs-1" id="authent"><a href="login"><img src="images/authent.png" height="40"></a></div>
+        </div>
+    </div>
+
     <div class="countainer">
 
         <div class="row" id="boutons">
@@ -89,15 +96,10 @@
     <div class="section" id="section1">
 
         <div class="slide active" id="aeecl"> <!-- Slide (horizontale) -->
-            <div class="container-fluid">
-                <div class="texte">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6 col-md-offset-5">
-                            <p class="description">L'Association des Eleves de l'Ecole Centrale de Lyon est constituée des différentes sections qui sont au service des étudiants. Elle regroupe donc de nombreux lourds brasseurs qui ne pensent qu'à rendre la vie des centraliens plus simple, plus animée et pleine d'événements bon style !
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div class="texte">
+                <h2 class="titre_section">AEECL</h2>
+                <p class="description">L'Association des Eleves de l'Ecole Centrale de Lyon est constituée des différentes sections qui sont au service des étudiants. Elle regroupe donc de nombreux lourds brasseurs qui ne pensent qu'à rendre la vie des centraliens plus simple, plus animée et pleine d'événements bon style !
+                </p>
             </div>
         </div>
 
@@ -105,7 +107,9 @@
             <div class="texte">
                 <h2 class="titre_section">BDE</h2>
                 <a href="#" onclick="deplacer_texte('bde')"><p class="lien_description">[Description]</p></a>
-                <p class="description">Le BDE c’est une équipe de 10 Centraliens soudés et surmotivés. Notre mission est de coordonner toutes les associations, d’aider les Centraliens dans leurs projets et de faire le lien avec l’administration. Nous réalisons également pleins de projets pour améliorer ta vie sur le campus.</p>
+                <p class="description">Le BDE c’est une équipe de 10 Centraliens soudés et surmotivés. Notre mission est de coordonner toutes les associations, d’aider les Centraliens dans leurs projets et de faire le lien avec l’administration. Nous réalisons également pleins de projets pour améliorer ta vie sur le campus.<br/><br/>
+                Contacter : bde@ec-lyon.fr
+                </p>
             </div>
         </div>
 
@@ -113,7 +117,9 @@
             <div class="texte">
                 <h2 class="titre_section">BDA</h2>
                 <a href="#" onclick="deplacer_texte('bda')"><p class="lien_description">[Description]</p></a>
-                <p class="description">Le Bureau des Arts (BDA) est l’asso qui promeut l’art et la culture en organisant des évènements à Centrale ou en ouvrant le campus sur la vie lyonnaise. BDA et art ne sont pas toujours synonymes, l’asso veut avant tout réunir les centraliens pour les divertir, leur aérer l’esprit, les faire voyager et rêver.</p>
+                <p class="description">Le Bureau des Arts (BDA) est l’asso qui promeut l’art et la culture en organisant des évènements à Centrale ou en ouvrant le campus sur la vie lyonnaise. BDA et art ne sont pas toujours synonymes, l’asso veut avant tout réunir les centraliens pour les divertir, leur aérer l’esprit, les faire voyager et rêver.<br/><br/>
+                Contacter : asso-bda@listes.ec-lyon.fr
+                </p>
             </div>
         </div>
 
@@ -126,7 +132,8 @@
                 C’est une soirée dans un lieu d’exception, rassemblant plus de centraliens de Lyon que tu n’en verras jamais, avec les étudiants, les diplômés et autres anciens de l’Ecole. <br/>
                 C’est une soirée vivante qui t’entraîne parmi des animations (défilé de centraliens, concours de rock, et autres surprises…), des bars aux thèmes variés, des salles aux diverses et surprenantes ambiances, des DJs notoires. <br/>
                 Mais cette chétive énumération ne saurait résumer une soirée de ce type. <br/>
-                Notre équipe t’attend, pour te faire découvrir et vivre un gala mémorable.
+                Notre équipe t’attend, pour te faire découvrir et vivre un gala mémorable.<br/><br/>
+                Contacter : asso-gala@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -140,7 +147,8 @@
                 Le WEI c’est l’asso qui s’occupe de toi et uniquement de toi, cher futur arrivant. Pendant les deux premières semaines de septembre, notre équipe s’occupe de faire en sorte que tu sois parfaitement intégré à l’école, que tu aies déjà une pleine connaissance des coutumes centraliennes, du campus et des autres assos qui insufflent de la vie à notre école ! <br/>
                 Pour ces deux semaines, on va te proposer des soirées à n’en plus finir, un rallye dans Lyon, une journée sportive, des activités avec les clubs internationaux de Centrale ainsi qu’avec les différents clubs artistiques et bien évidemment l’événement dont tu n’as entendu que des bribes, fables et autres contes, le légendaire Week-End d’Intégration. <br/>
                 Ce week-end, c’est l’aboutissement d’une année de préparation pour notre équipe et c’est le moment qui te marquera à vie, tu t’y forgeras de nouvelles amitiés qui tiendront sur toute ta période à Centrale et même plus encore. Ce sera l’événement que tu attends le plus durant toute ta première année pour pouvoir le revivre en deuxième année et même les années suivantes ! <br/>
-                Alors prépare-toi car tu es très loin d’être prêt pour toutes les activités qu’on a prévu pour toi !
+                Alors prépare-toi car tu es très loin d’être prêt pour toutes les activités qu’on a prévu pour toi !<br/><br/>
+                Contacter : asso-wei@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -149,7 +157,8 @@
             <div class="texte">
                 <h2 class="titre_section">ECLAIR</h2>
                 <a href="#" onclick="deplacer_texte('eclair')"><p class="lien_description">[Description]</p></a>
-                <p class="description">ÉCLAIR, c’est une asso de 13 personnes qui s’occupe de Multipass (le système de paiement utilisé par les Centraliens), qui gère les sites des assos, la connexion internet des résidences et qui commence tout juste à développer une application pour Centrale Lyon ! Ainsi, ÉCLAIR est au coeur de tous les grands événements : le Challenge, le Gala, les Rewass, les HH, ... où nous devons déployer Multipass. Donc si tu veux apprendre en 1 an les bases pour dévélopper un site ou coder une appli (et avoir un super local associatif !), c’est ÉCLAIR qu’il faut choisir !
+                <p class="description">ÉCLAIR, c’est une asso de 13 personnes qui s’occupe de Multipass (le système de paiement utilisé par les Centraliens), qui gère les sites des assos, la connexion internet des résidences et qui commence tout juste à développer une application pour Centrale Lyon ! Ainsi, ÉCLAIR est au coeur de tous les grands événements : le Challenge, le Gala, les Rewass, les HH, ... où nous devons déployer Multipass. Donc si tu veux apprendre en 1 an les bases pour dévélopper un site ou coder une appli (et avoir un super local associatif !), c’est ÉCLAIR qu’il faut choisir !<br/><br/>
+                Contacter : bureau-eclair@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -158,10 +167,10 @@
             <div class="texte">
                 <h2 class="titre_section">CTN</h2>
                 <a href="#" onclick="deplacer_texte('ctn')"><p class="lien_description">[Description]</p></a>
-                <p class="description">
-                	Silence, Moteur et Action ! CTN c’est l’asso qui te permettra de revoir tous tes exploits et toutes tes prouesses lors des soirées centraliennes ! En effet, nous serons présents lors de toutes les soirées et tous les événements de l’école pour ensuite rediffuser les meilleurs moments sur le grand écran du foyer.<br/>
-                	Mais CTN c’est aussi une asso pro qui filme pour des particuliers et des entreprises différentes vidéos promotionnelles où tu pourras apprendre à gérer des contrats professionnels et aussi à manier des logiciels de montage et de motion design.<br/> 
-                	Et enfin c’est aussi l’association qui te permettra de réveiller le Scorsese qui est en toi, alors si tu te sens l’âme d’un Alejandro Inarritù ou d’un Michael Bay, il est temps pour toi de démontrer l’étendue de tes talents !
+                <p class="description">Silence, Moteur et Action ! CTN c’est l’asso qui te permettra de revoir tous tes exploits et toutes tes prouesses lors des soirées centraliennes ! En effet, nous serons présents lors de toutes les soirées et tous les événements de l’école pour ensuite rediffuser les meilleurs moments sur le grand écran du foyer.<br/>
+                Mais CTN c’est aussi une asso pro qui filme pour des particuliers et des entreprises différentes vidéos promotionnelles où tu pourras apprendre à gérer des contrats professionnels et aussi à manier des logiciels de montage et de motion design.<br/>
+                Et enfin c’est aussi l’association qui te permettra de réveiller le Scorsese qui est en toi, alors si tu te sens l’âme d’un Alejandro Inarritù ou d’un Michael Bay, il est temps pour toi de démontrer l’étendue de tes talents !<br/><br/>
+                Contacter : club-ctn@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -172,7 +181,8 @@
                 <a href="#" onclick="deplacer_texte('bi')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
                 Marre de l’aspect scolaire des cours de langues vivantes ? ou de manger toujours la même chose ? ou encore de ne connaître que les clichés des étrangers ? Change d’air et viens te débarrasser de tout ça grâce à l’association Bureau International (BI) ! Chinois, Brésilien, Français ou autres, cette équipe de 10 personnes venant des quatre coins du monde saura te faire découvrir les autres cultures et surtout te permettra de partager la tienne !!<br/>
-                Don’t wait and join us !!!
+                Don’t wait and join us !!!<br/><br/>
+                Contacter : asso-bi@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -182,7 +192,9 @@
                 <h2 class="titre_section">DECIBELS</h2>
                 <a href="#" onclick="deplacer_texte('dbs')"><p class="lien_description">[Description]</p></a>
                 <p class="description">Décibels c’est quoi?<br/> 
-                Prends une personne. Cette personne aime la bonne musique, elle a découvert les platines à Centrale Lyon et est régulièrement au foyer pour mettre l’ambiance en Happy Hour et en Soirée jusqu’à 5h du mat (attention, on te parle ici de vraies soirées). <br/>Maintenant t’en prends 18 comme ça et tu as l’équipe Décibels. <br/> A Décibels (dBs pour les intimes) tu organiseras les soirées centraliennes avec plein d’autres écoles lyonnaises invitées. Et plus la peine de se plaindre du DJ puisque ce sera toi !! </p>
+                Prends une personne. Cette personne aime la bonne musique, elle a découvert les platines à Centrale Lyon et est régulièrement au foyer pour mettre l’ambiance en Happy Hour et en Soirée jusqu’à 5h du mat (attention, on te parle ici de vraies soirées). <br/>Maintenant t’en prends 18 comme ça et tu as l’équipe Décibels. <br/> A Décibels (dBs pour les intimes) tu organiseras les soirées centraliennes avec plein d’autres écoles lyonnaises invitées. Et plus la peine de se plaindre du DJ puisque ce sera toi !! <br/><br/>
+                Contacter : asso-decibels@listes.ec-lyon.fr
+                </p>
             </div>
         </div>
 
@@ -192,7 +204,8 @@
                 <a href="#" onclick="deplacer_texte('bar')"><p class="lien_description">[Description]</p></a>
                 <p class="description">Au milieu de l’immense foyer de Centrale Lyon, il y a un magnifique bar. Dans ce bar il y a une équipe de 8 gars sûrs, prêts à tout pour te casser la fringale le jour et irriguer ton gosier de bière pression en période nocturne. Mais comme le témoigne Bastien du 40 : Le bar, avant tout, «c’est les copaings avec qui on déclangche». Ce qu’il faut retenir: Le Bar, c’est l’asso la plus proche des centraliens, et ton principal fournisseur de plaisir en Happy Hours et en Soirée.<br/>
                 Passion & Pression,<br/>
-                Le Bar
+                Le Bar<br/><br/>
+                Contacter : asso-bar@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -204,7 +217,8 @@
                 <p class="description">
                 Mais qu’est-ce que le Bar Parallèle ? Vous n’êtes pas prêt pour découvrir cette folie ! Le Bar Pa c’est avant tout une famille, neuf personnes qui sont là pour vous organiser des pures soirées qui ambiancent tout Centrale. Avec plus de trente bières a la carte (véridique), et une équipe surmotivée, personne ne rate une soirée Bar Pa. Alors si tu es fan de bière, ou si tu veux juste faire partie d’une vraie famille, n’hésite plus !<br/> 
                 Ni barbots, ni Sodebo,<br/> 
-                Le Bar //
+                Le Bar //<br/><br/>
+                Contacter : asso-barpa@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -214,7 +228,8 @@
                 <h2 class="titre_section">PAO</h2>
                 <a href="#" onclick="deplacer_texte('pao')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Tu es un dieu de Photoshop ou un débutant qui ne jure que par Paint mais qui a plein d’idées en tête ? Alors rejoins la PAO, une asso soudée et polyvalente qui te permet de faire le lien avec tous les événements, sections et clubs de Centrale Lyon ! Viens apprendre à faire des montages de tes potes mais aussi à réaliser de magnifiques affiches de soirées, créer des logos stylés et contribuer à valoriser l’ECL à travers une superbe plaquette alpha !
+                Tu es un dieu de Photoshop ou un débutant qui ne jure que par Paint mais qui a plein d’idées en tête ? Alors rejoins la PAO, une asso soudée et polyvalente qui te permet de faire le lien avec tous les événements, sections et clubs de Centrale Lyon ! Viens apprendre à faire des montages de tes potes mais aussi à réaliser de magnifiques affiches de soirées, créer des logos stylés et contribuer à valoriser l’ECL à travers une superbe plaquette alpha !<br/><br/>
+                Contacter : asso-pao@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -223,7 +238,8 @@
             <div class="texte">
                 <h2 class="titre_section">SDEC</h2>
                 <a href="#" onclick="deplacer_texte('sdec')"><p class="lien_description">[Description]</p></a>
-                <p class="description">Tu aimes les imprimantes ? Hum, voilà une approche déconcertante! Cherchons encore : un service quotidien, des polycopiés et des imprimantes, voici comment décrire le SDeC. Attends... Mais non, le SDeC c’est bien plus ! Une équipe de 9 personnes tient, tous les midis, dans la bonne humeur et au son d’une musique déjantée, un service destiné à tous les Centraliens. Cette association propose de réaliser toutes tes impressions et vend une grande palette d’objets du quotidien : timbres, fournitures, tickets de bus, ... N’hésite pas à venir nous voir dans le plus grand local associatif (doté du seul canapé en libre accès).
+                <p class="description">Tu aimes les imprimantes ? Hum, voilà une approche déconcertante! Cherchons encore : un service quotidien, des polycopiés et des imprimantes, voici comment décrire le SDeC. Attends... Mais non, le SDeC c’est bien plus ! Une équipe de 9 personnes tient, tous les midis, dans la bonne humeur et au son d’une musique déjantée, un service destiné à tous les Centraliens. Cette association propose de réaliser toutes tes impressions et vend une grande palette d’objets du quotidien : timbres, fournitures, tickets de bus, ... N’hésite pas à venir nous voir dans le plus grand local associatif (doté du seul canapé en libre accès).<br/><br/>
+                Contacter : asso-imprimerie@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -232,7 +248,9 @@
             <div class="texte">
                 <h2 class="titre_section">PH</h2>
                 <a href="#" onclick="deplacer_texte('ph')"><p class="lien_description">[Description]</p></a>
-                <p class="description">Qu’est-ce que le PH ? C’est le Piston Hebdo, le journal le plus populaire sur le campus de Centrale Lyon, un mélange savant d’information et d’humour qui égaye le mardi de tous les centraliens avec des rubriques hautes en couleurs. On se réunit tous les lundis soir pour écrire ces quelques pages et pour donner vie au PH. On fait participer régulièrement les étudiants en leur proposant d’écrire des articles ou de publier des annonces pour les assos et les clubs qui animent le campus. Et en plus, on mange du saucisson en rédac’ !</p>
+                <p class="description">Qu’est-ce que le PH ? C’est le Piston Hebdo, le journal le plus populaire sur le campus de Centrale Lyon, un mélange savant d’information et d’humour qui égaye le mardi de tous les centraliens avec des rubriques hautes en couleurs. On se réunit tous les lundis soir pour écrire ces quelques pages et pour donner vie au PH. On fait participer régulièrement les étudiants en leur proposant d’écrire des articles ou de publier des annonces pour les assos et les clubs qui animent le campus. Et en plus, on mange du saucisson en rédac’ !<br/><br/>
+                Contacter : piston-hebdo@listes.ec-lyon.fr
+                </p>
             </div>
         </div>
 
@@ -244,14 +262,9 @@
     <div class="section" id="section2">
 
         <div class="slide active" id="useecl"> <!-- Slide (horizontale) -->
-            <div class="container-fluid">
-                <div class="texte">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6 col-md-offset-5">
-                            <p class="description">L'USEECL pour Union des Sports de l'Ecole Centrale de Lyon regroupe l'ensemble des associations et clubs de l'Ecole. Son rôle est donc de superviser la pratique du sport au quotidien mais également l'organisation des événements sportifs tels le Challenge ou le raid.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="texte">
+                <h2 class="titre_section">USEECL</h2>
+                <p class="description">L'USEECL pour Union Sportive de l'Ecole Centrale de Lyon regroupe l'ensemble des associations et clubs de l'Ecole. Son rôle est donc de superviser la pratique du sport au quotidien mais également l'organisation des événements sportifs tels le Challenge ou le raid.<br/>
             </div>
         </div>
 
@@ -260,7 +273,9 @@
             <div class="texte">
                 <h2 class="titre_section">BDS</h2>
                 <a href="#" onclick="deplacer_texte('bds')"><p class="lien_description">[Description]</p></a>
-                <p class="description">Le BDS c'est l'association indispensable à tout Centralien pour se dépenser et s'éclater sur le campus. Du mur d’escalade au boulodrome, en passant par le stade ou les terrains de tennis, le campus est suréquipé : ouverts toute la semaine et le samedi, le gymnase et la salle de musculation t’aideront à parfaire tes formes peut-être malmenées ces dernières années. Un plan d’eau, un dojo et une piscine à proximité viennent compléter la liste des infrastructures à ta disposition ici !
+                <p class="description">Le BDS c'est l'association indispensable à tout Centralien pour se dépenser et s'éclater sur le campus. Du mur d’escalade au boulodrome, en passant par le stade ou les terrains de tennis, le campus est suréquipé : ouverts toute la semaine et le samedi, le gymnase et la salle de musculation t’aideront à parfaire tes formes peut-être malmenées ces dernières années. Un plan d’eau, un dojo et une piscine à proximité viennent compléter la liste des infrastructures à ta disposition ici !<br/><br/>
+                Contacter : asso-bds@listes.ec-lyon.fr
+                </p>
             </div>
         </div>
 
@@ -271,7 +286,8 @@
                 <p class="description">
                 Le Challenge c’est LE week-end sportif de l’année. C’est tous les ans en mars, avec plus de 3000 étudiants d’écoles d'ingénieurs de toute la France qui viennent sur le campus pour l’occasion.<br/>
                 Que tu sois skieur ou pongiste, il y en a pour tous les goûts avec les 18 sports possibles. Et bien sûr, pour accompagner tout cela, il y a aussi une belle soirée avec DJ professionnels, show pompom, show fanfare, … <br/>
-                Si tu aimes le sport et l’événementiel, si tu as envie de rejoindre une véritable famille pour monter ensemble un projet de folie, le Challenge est fait pour toi !
+                Si tu aimes le sport et l’événementiel, si tu as envie de rejoindre une véritable famille pour monter ensemble un projet de folie, le Challenge est fait pour toi !<br/><br/>
+                Contacter : asso-challenge@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -283,7 +299,8 @@
                 <p class="description">
                 Les 21 et 22 octobre, le Raid Centrale Lyon vous invite à un week-end sportif pendant lequel se succèderont différentes épreuves telles que trail, VTT, course d’orientation et bien d’autres surprises !<br/>
                 Dans le décor du massif des Bauges, vous aurez le plaisir de repousser vos limites durant deux journées, sur plus de 100 km. Ce seront 280 participants, étudiants et professionnels, qui se dépasseront pendant 48 heures intenses, aiguillés par plus de 100 bénévoles, le tout organisé par une équipe de 17 Centraliens surmotivés pour vous faire passer un week-end de folie ! <br/>
-                Le Raid c’est aussi d’autres événements dans l’année, comme un Raid d’un jour pendant le Challenge ou un Bike&Run entre étudiants et entreprises.
+                Le Raid c’est aussi d’autres événements dans l’année, comme un Raid d’un jour pendant le Challenge ou un Bike&Run entre étudiants et entreprises.<br/><br/>
+                Contacter : club-raid-membres@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -293,7 +310,8 @@
                 <h2 class="titre_section">CMECL</h2>
                 <a href="#" onclick="deplacer_texte('cmecl')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Une autre raison de venir à Lyon ? Les montagnes bien entendu ! Les Alpes sont juste à côté et n’attendent que vous ! Entre les sorties raquette, escalade, randonnée, alpinisme, ski de rando... On vous jure que vous n’aurez pas le temps de rester bêtement en plaine ! Le Club Montagne (CMECL) vous prépare des événements de folie tout au long de l’année, pour découvrir de nouvelles disciplines ou juste vous éclater !
+                Une autre raison de venir à Lyon ? Les montagnes bien entendu ! Les Alpes sont juste à côté et n’attendent que vous ! Entre les sorties raquette, escalade, randonnée, alpinisme, ski de rando... On vous jure que vous n’aurez pas le temps de rester bêtement en plaine ! Le Club Montagne (CMECL) vous prépare des événements de folie tout au long de l’année, pour découvrir de nouvelles disciplines ou juste vous éclater !<br/><br/>
+                Contacter : club-montagne@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -303,7 +321,8 @@
                 <h2 class="titre_section">CLUB TENNIS</h2>
                 <a href="#" onclick="deplacer_texte('tennis')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Tu es frustré(e) d’avoir perdu ton classement en prépa ? Tu as peur de ne jamais retrouver ta volée Federienne ou ton lift Nadalien ? Tu as toujours eu envie de découvrir la sensation de taper dans la petite balle jaune ? Le Centrale Tennis Club est là pour toi ! Avec 4 courts, des séances hebdomadaires encadrées, un tournoi interne et en point d’orgue l’Open Centrale de Lyon, tu pourras rattraper le temps perdu. Alors on t’attend dès Septembre 2017, en espérant t’entendre crier «Come on !» avec nous.
+                Tu es frustré(e) d’avoir perdu ton classement en prépa ? Tu as peur de ne jamais retrouver ta volée Federienne ou ton lift Nadalien ? Tu as toujours eu envie de découvrir la sensation de taper dans la petite balle jaune ? Le Centrale Tennis Club est là pour toi ! Avec 4 courts, des séances hebdomadaires encadrées, un tournoi interne et en point d’orgue l’Open Centrale de Lyon, tu pourras rattraper le temps perdu. Alors on t’attend dès Septembre 2017, en espérant t’entendre crier «Come on !» avec nous.<br/><br/>
+                Contacter : club-tennis@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -313,7 +332,8 @@
                 <h2 class="titre_section">CLUB ESCRIME</h2>
                 <a href="#" onclick="deplacer_texte('escrime')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                En garde... Prêts ? ALLEZ ! Rejoins-nous l’an prochain sur les pistes de Centrale Lyon. Choisis ton arme (Sabre, Fleuret ou Épée) et viens (re)découvrir un sport qui fait la renommée française depuis des siècles. Notre maître d’arme t’apprendra toutes ses feintes, tu deviendras un vrai guerrier avec un corps de rêve... et corrigeras tes adversaires en toute légalité. N’attends plus, redresse ta lame, enfile ton masque et prépare-toi à combattre !
+                En garde... Prêts ? ALLEZ ! Rejoins-nous l’an prochain sur les pistes de Centrale Lyon. Choisis ton arme (Sabre, Fleuret ou Épée) et viens (re)découvrir un sport qui fait la renommée française depuis des siècles. Notre maître d’arme t’apprendra toutes ses feintes, tu deviendras un vrai guerrier avec un corps de rêve... et corrigeras tes adversaires en toute légalité. N’attends plus, redresse ta lame, enfile ton masque et prépare-toi à combattre !<br/><br/>
+                Contacter : club-escrime@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -323,7 +343,9 @@
                 <h2 class="titre_section">CLUB FOOT</h2>
                 <a href="#" onclick="deplacer_texte('foot')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Footeux dans l’âme ? Compétiteur ou juste footix ? Le foot t’a manqué, taupin ? Ne t’inquiète pas, ce temps est révolu ! Deuxième au Challenge après avoir gagné contre l’actuel champion de France en demi-finale, le football (re)devient le sport à suivre à Centrale Lyon. Rechausse tes crampons et viens rejoindre nos équipes de foot pour nous aider à remettre ça ou simplement profiter des soirées entre footeux !
+                Footeux dans l’âme ? Compétiteur ou juste footix ? Le foot t’a manqué, taupin ? Ne t’inquiète pas, ce temps est révolu ! Deuxième au Challenge après avoir gagné contre l’actuel champion de France en demi-finale, le football (re)devient le sport à suivre à Centrale Lyon. Rechausse tes crampons et viens rejoindre nos équipes de foot pour nous aider à remettre ça ou simplement profiter des soirées entre footeux !<br/><br/>
+                Contacter : footeux@listes.ec-lyon.fr
+                </p>
             </div>
         </div>
 
@@ -332,7 +354,8 @@
                 <h2 class="titre_section">CLUB BADMINTON</h2>
                 <a href="#" onclick="deplacer_texte('bad')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Pendant 2 ans, tu n’as utilisé ta raquette que pour taper des mouches et tu veux changer ça ? Que tu sois débutant N1, viens te défouler avec nous ! 2 entraînements par semaine, 2 groupes de niveaux pour que chacun progresse à son rythme, 2 supers coachs, des compétitions académiques tout au long de l’année et en prime les championnats de France des écoles. Et en plus, c’est un des rares sports mixte…
+                Pendant 2 ans, tu n’as utilisé ta raquette que pour taper des mouches et tu veux changer ça ? Que tu sois débutant ou N1, viens te défouler avec nous ! 2 entraînements par semaine, 2 groupes de niveaux pour que chacun progresse à son rythme, 2 supers coachs, des compétitions académiques tout au long de l’année et en prime les championnats de France des écoles. Et en plus, c’est un des rares sports mixte…<br/><br/>
+                Contacter : club-badminton@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -342,7 +365,8 @@
                 <h2 class="titre_section">CLUB VOLLEY</h2>
                 <a href="#" onclick="deplacer_texte('volley')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Tu veux pratiquer un sport fun ? En équipe ? En compétition ? Et qui, en prime, te donneras un corps de rêve pour l’été prochain ? Alors le volley est le sport qu’il te faut ! Prépare-toi à rejoindre une des équipes de notre école pour passer une année de folie à base de gros smashs et de beaux plongeons, sans oublier les fameuses “bouffes volley” qui créent un lien fort entre les membres de nos équipes !
+                Tu veux pratiquer un sport fun ? En équipe ? En compétition ? Et qui, en prime, te donneras un corps de rêve pour l’été prochain ? Alors le volley est le sport qu’il te faut ! Prépare-toi à rejoindre une des équipes de notre école pour passer une année de folie à base de gros smashs et de beaux plongeons, sans oublier les fameuses “bouffes volley” qui créent un lien fort entre les membres de nos équipes !<br/><br/>
+                Contacter : club-volley@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -352,7 +376,8 @@
                 <h2 class="titre_section">CLUB RUGBY</h2>
                 <a href="#" onclick="deplacer_texte('rugby')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Rugbeux à tes heures perdues, l’odeur du vestiaire te manque ? Viens nous rejoindre ! Débutant n’ayant jamais touché le ballon ovale, ce sport te tente ? Viens nous rejoindre ! Cette année encore de grands tournois nous attendent, avec dès Octobre les Inter-Centrales ! Alors n’hésite pas une seconde et rejoins nous dès Septembre pour attaquer cette rentrée ballon en main !
+                Rugbeux à tes heures perdues, l’odeur du vestiaire te manque ? Viens nous rejoindre ! Débutant n’ayant jamais touché le ballon ovale, ce sport te tente ? Viens nous rejoindre ! Cette année encore de grands tournois nous attendent, avec dès Octobre les Inter-Centrales ! Alors n’hésite pas une seconde et rejoins nous dès Septembre pour attaquer cette rentrée ballon en main !<br/><br/>
+                Contacter : rugby-ecl@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -363,7 +388,8 @@
                 <a href="#" onclick="deplacer_texte('basket')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
                 Le Basket à Centrale Lyon c'est une grande famille. Il y a 3 équipes de garçons d'un côté, qui permet de jouer à tous les niveaux, et une équipe fille, puis il y a Papi Jean... Mais tu le découvrira bien assez tôt ! <br/>
-                L’année est rythmée par de nombreux événements (InterCentrale, TRAMS, Challenge, TOSS), par les matchs de championnat tous les jeudis après-midi, et par les entraînements, au nombre de 2 par semaine. Et honnêtement, c’est vraiment bon style !
+                L’année est rythmée par de nombreux événements (InterCentrale, TRAMS, Challenge, TOSS), par les matchs de championnat tous les jeudis après-midi, et par les entraînements, au nombre de 2 par semaine. Et honnêtement, c’est vraiment bon style !<br/><br/>
+                Contacter : asso-basketm2@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -375,25 +401,9 @@
     <div class="section" id="section3">
         
         <div class="slide active" id="indepdt"> <!-- Slide (horizontale) -->
-            <div class="container-fluid">
-                <div class="texte">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6 col-md-offset-5">
-                            <p class="description">Toutes les associations présentées ici sont indépendantes de l'Ecole Centrale de Lyon. Ce statut leur permet plus de liberté, mais également de travailler main dans la main avec d'autres écoles, comme nos voisins de l'EM Lyon par exemple.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" id="commuz"> <!-- Slide (horizontale) -->
             <div class="texte">
-                <h2 class="titre_section">COMMUZ</h2>
-                <a href="#" onclick="deplacer_texte('commuz')"><p class="lien_description">[Description]</p></a>
-                <p class="description">
-                De l’élaboration du scénario jusqu’au spectacle fi nal, en passant par l’écritur des dialogues, le choix des chansons et leur composition, la chorégraphie des danses, les réglages son et lumière, la création des costumes et des décors, et bien évidemment les répétitions… il y a forcément une place pour toi au sein de notre grande famille, qui compte aujourd’hui plus de 80 étudiants de Centrale Lyon et de l’EM Lyon ! <br/>
-                Les applaudissements et les rires d’une salle à guichet fermé (plus de 1000 spectateurs au total) sont la meilleure des reconnaissances pour ce spectacle fun et au rendu quasi-professionnel. Ne manque pas les castings fin octobre !
-                </p>
+                <h2 class="titre_section">Associations indépendantes</h2>
+                <p class="description">Toutes les associations présentées ici sont indépendantes de l'Ecole Centrale de Lyon. Ce statut leur permet plus de liberté, mais également de travailler main dans la main avec d'autres écoles, comme nos voisins de l'EM Lyon par exemple.</p>
             </div>
         </div>
 
@@ -402,7 +412,8 @@
                 <h2 class="titre_section">JE</h2>
                 <a href="#" onclick="deplacer_texte('je')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Centrale Conseil est la Junior-Entreprise de l’école, l’unique asso qui peux te faire gagner de l’argent ! Plus sérieusement, si tu veux t’investir dans la vie associative tout en te professionnalisant, n’hésite plus, c’est l’asso qu’il te faut ! Intermédiaire entre les entreprises et les Centraliens, la J.E. s’occupe de recruter des étudiants pour réaliser des études rémunérées (ingénierie, informatique, traduction, etc.). Au sein de la JE, tu pourras gérer des projets voire même en réaliser, tout ça au sein d’une équipe soudée et bon style qui n’attend que toi !
+                Centrale Conseil est la Junior-Entreprise de l’école, l’unique asso qui peux te faire gagner de l’argent ! Plus sérieusement, si tu veux t’investir dans la vie associative tout en te professionnalisant, n’hésite plus, c’est l’asso qu’il te faut ! Intermédiaire entre les entreprises et les Centraliens, la J.E. s’occupe de recruter des étudiants pour réaliser des études rémunérées (ingénierie, informatique, traduction, etc.). Au sein de la JE, tu pourras gérer des projets voire même en réaliser, tout ça au sein d’une équipe soudée et bon style qui n’attend que toi !<br/><br/>
+                Contacter : contact@centrale-conseil.fr
                 </p>
             </div>
         </div>
@@ -412,7 +423,8 @@
                 <h2 class="titre_section">FORUM</h2>
                 <a href="#" onclick="deplacer_texte('forum')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Tu as envie de te lancer dans la conception d’un évènement de grande ampleur ? Alors viens tenter l’aventure Forum Perspectives qui rassemble chaque année plus de 2000 étudiants et 100 entreprises ! Viens aider tous ces étudiants à se créer un réseau, trouver un stage et même un premier emploi ! Ça demande une organisation intensive, mais ne t’inquiète pas, le Forum c’est aussi une équipe soudée au sein de laquelle on s’amuse bien !
+                Tu as envie de te lancer dans la conception d’un évènement de grande ampleur ? Alors viens tenter l’aventure Forum Perspectives qui rassemble chaque année plus de 2000 étudiants et 100 entreprises ! Viens aider tous ces étudiants à se créer un réseau, trouver un stage et même un premier emploi ! Ça demande une organisation intensive, mais ne t’inquiète pas, le Forum c’est aussi une équipe soudée au sein de laquelle on s’amuse bien !<br/><br/>
+                Contacter : contact@forum-perspectives.fr
                 </p>
             </div>
         </div>
@@ -422,7 +434,8 @@
                 <h2 class="titre_section">SMART'UP</h2>
                 <a href="#" onclick="deplacer_texte('smartup')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Le TEDxEcoleCentraleLyon ça te dit quelque chose ? Start-up week-end et Hackatons ? Non ? Alors l’entrepreneuriat peut être ? SmartUP est lʼassociation dʼentrepreneuriat et d’innovation, portée par une team d’étudiants de lʼECL, de l’EMLyon et du programme IDEA (oui oui, des 3 parcours !). Notre mission est d’inspirer à entreprendre, de développer les idées en donnant des moyens dʼactions concrets, et enfin de connecter les mondes étudiant et entrepreneur au travers de vraies opportunités tremplins.
+                Le TEDxEcoleCentraleLyon ça te dit quelque chose ? Start-up week-end et Hackatons ? Non ? Alors l’entrepreneuriat peut être ? SmartUP est lʼassociation dʼentrepreneuriat et d’innovation, portée par une team d’étudiants de lʼECL, de l’EMLyon et du programme IDEA (oui oui, des 3 parcours !). Notre mission est d’inspirer à entreprendre, de développer les idées en donnant des moyens dʼactions concrets, et enfin de connecter les mondes étudiant et entrepreneur au travers de vraies opportunités tremplins.<br/><br/>
+                Contacter : smartup@em-lyon.com
                 </p>
             </div>
         </div>
@@ -432,7 +445,8 @@
                 <h2 class="titre_section">CLC</h2>
                 <a href="#" onclick="deplacer_texte('clc')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Le club Centrale Lyon Cosmos (CLC), c’est l’occasion pour toi de pouvoir participer à des projets de conception et de fabrication de fusées supersoniques, sous l’autorité du CNES ou simplement entre potes. Systèmes embarqués, mécanique du vol… Tout est là ! Alors, que tu sois passionné par l’aérospatial ou bien juste curieux, et que tu rêves de lancer ta propre fusée comme les pros, le CLC te veut dans ses rangs pour aller encore plus haut.
+                Le club Centrale Lyon Cosmos (CLC), c’est l’occasion pour toi de pouvoir participer à des projets de conception et de fabrication de fusées supersoniques, sous l’autorité du CNES ou simplement entre potes. Systèmes embarqués, mécanique du vol… Tout est là ! Alors, que tu sois passionné par l’aérospatial ou bien juste curieux, et que tu rêves de lancer ta propre fusée comme les pros, le CLC te veut dans ses rangs pour aller encore plus haut.<br/><br/>
+                Contacter : club-fusee@sympa.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -442,7 +456,8 @@
                 <h2 class="titre_section">EPSA</h2>
                 <a href="#" onclick="deplacer_texte('epsa')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                L’EPSA, c’est l’écurie automobile de l’école : on conçoit et on fabrique notre prototype de course à partir de rien ! Rejoindre l’écurie, c’est l’occasion de participer à un projet d’envergure et d’apprendre plein de choses. Pour couronner le tout, tu pourras participer au Formula Student, compétition étudiante internationale et piloter ton prototype sur les circuits les plus prestigieux comme Silverstone ! Passionnés par l’automobile ou néophytes, il y a de la place pour tout le monde !
+                L’EPSA, c’est l’écurie automobile de l’école : on conçoit et on fabrique notre prototype de course à partir de rien ! Rejoindre l’écurie, c’est l’occasion de participer à un projet d’envergure et d’apprendre plein de choses. Pour couronner le tout, tu pourras participer au Formula Student, compétition étudiante internationale et piloter ton prototype sur les circuits les plus prestigieux comme Silverstone ! Passionnés par l’automobile ou néophytes, il y a de la place pour tout le monde !<br/><br/>
+                Contacter : contact@epsa-team.com
                 </p>
             </div>
         </div>
@@ -452,17 +467,8 @@
                 <h2 class="titre_section">CHEER UP</h2>
                 <a href="#" onclick="deplacer_texte('cheerup')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Cheer Up est une association visant à soutenir des adolescents/jeunes adultes atteints de cancer, en allant leur rendre visite directement à l'hôpital, en les aidant à réaliser leurs projets, et en organisant des événements pour eux et pour les centraliens. Si tu veux apporter ta contribution à une cause qui en vaut la peine, n'hésite plus, Cheer Up est fait pour toi! Nous t'attendons tous à la rentrée pour continuer à donner le sourire àces jeunes.
-                </p>
-            </div>
-        </div>
-
-        <div class="slide" id="planetandco"> <!-- Slide (horizontale) -->
-            <div class="texte">
-                <h2 class="titre_section">PLANET&CO</h2>
-                <a href="#" onclick="deplacer_texte('planetandco')"><p class="lien_description">[Description]</p></a>
-                <p class="description">
-                Les ours polaires qui se meurent te font de la peine ? Tu as envie d’aider la nature à ton niveau ? Planet&Co est fait pour toi ! À Planet&Co, on s’occupe de plein de projets qui aident au respect de Dame Nature. Création d’un potager, distribution de fruits et légumes locaux, location de vélos, sensibilisation et d’autres projets sont au rendez-vous à Planet&Co. Donc plus d’hésitation maintenant. A bientôt, pour nous aider à verdir ce campus !
+                Cheer Up est une association visant à soutenir des adolescents/jeunes adultes atteints de cancer, en allant leur rendre visite directement à l'hôpital, en les aidant à réaliser leurs projets, et en organisant des événements pour eux et pour les centraliens. Si tu veux apporter ta contribution à une cause qui en vaut la peine, n'hésite plus, Cheer Up est fait pour toi! Nous t'attendons tous à la rentrée pour continuer à donner le sourire àces jeunes.<br/><br/>
+                Contacter : centrale-lyon@cheer-up.fr
                 </p>
             </div>
         </div>
@@ -472,7 +478,8 @@
                 <h2 class="titre_section">FABLAB</h2>
                 <a href="#" onclick="deplacer_texte('fablab')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Toute nouvelle dans le paysage Centralien, l’asso FabLab est assurément bon style, il suffit de voir le lion que tu as reçu ! Elle est jeune, certes, mais son potentiel est énorme. Découpeuses laser, imprimantes 3D, Arduino, quoi que tu veuilles faire, au FabLab tu en as les moyens ! Hacker, maker, bricoleur ou néophyte, cette asso est faite pour toi ! L’épopée FabLab est là, elle n’attend plus que toi !
+                Toute nouvelle dans le paysage Centralien, l’asso FabLab est assurément bon style, il suffit de voir le lion que tu as reçu ! Elle est jeune, certes, mais son potentiel est énorme. Découpeuses laser, imprimantes 3D, Arduino, quoi que tu veuilles faire, au FabLab tu en as les moyens ! Hacker, maker, bricoleur ou néophyte, cette asso est faite pour toi ! L’épopée FabLab est là, elle n’attend plus que toi !<br/><br/>
+                Contacter : asso-fablab@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -484,7 +491,8 @@
                 <p class="description">
                 Voici Solidari’terre, une équipe de 12 personnes soucieuses d’apporter une aide concrète et durable aux communautés en difficulté. Asso commune avec l’EMLyon, on possède 15 projets sur 4 continents ! Alors si tu veux organiser des évènements comme la semaine Sidaction ou Téléthon sur le campus, donne de ton énergie aux Camions du Coeur ou aux jeunes de centres sociaux, ou encore partir à l’étranger (Bulgarie, Pérou, Madagascar, Indonésie, Togo…) pour aider les populations locales, tu sais ce qu’il te reste à faire ! Nous t’attendons avec impatience !<br/>
                 Entraide & Découvertes <br/>
-                L’équipe de Soli
+                L’équipe de Soli<br/><br/>
+                Contacter : asso-solidari-terre@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -497,14 +505,32 @@
     <div class="section" id="section4">
         
         <div class="slide active" id="club"> <!-- Slide (horizontale) -->
-            <div class="container-fluid">
-                <div class="texte">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6 col-md-offset-5">
-                            <p class="description">Les clubs sont le meilleur moyen pour les centraliens de mettre en avant leur passion, leur culture et de passer du bon temps ensemble ! Tout cela est possible grace à des responsabilités plus faibles et un acommpagnement important du BDE.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="texte">
+                <h2 class="titre_section">Les clubs</h2>
+                <p class="description">Les clubs sont le meilleur moyen pour les centraliens de mettre en avant leur passion, leur culture et de passer du bon temps ensemble ! Tout cela est possible grace à des responsabilités plus faibles et un acommpagnement important du BDE.</p>
+            </div>
+        </div>
+
+        <div class="slide" id="commuz"> <!-- Slide (horizontale) -->
+            <div class="texte">
+                <h2 class="titre_section">COMMUZ</h2>
+                <a href="#" onclick="deplacer_texte('commuz')"><p class="lien_description">[Description]</p></a>
+                <p class="description">
+                De l’élaboration du scénario jusqu’au spectacle final, en passant par l’écritur des dialogues, le choix des chansons et leur composition, la chorégraphie des danses, les réglages son et lumière, la création des costumes et des décors, et bien évidemment les répétitions… il y a forcément une place pour toi au sein de notre grande famille, qui compte aujourd’hui plus de 80 étudiants de Centrale Lyon et de l’EM Lyon ! <br/>
+                Les applaudissements et les rires d’une salle à guichet fermé (plus de 1000 spectateurs au total) sont la meilleure des reconnaissances pour ce spectacle fun et au rendu quasi-professionnel. Ne manque pas les castings fin octobre !<br/><br/>
+                Contacter : club-commuz@listes.ec-lyon.fr
+                </p>
+            </div>
+        </div>
+
+        <div class="slide" id="planetandco"> <!-- Slide (horizontale) -->
+            <div class="texte">
+                <h2 class="titre_section">PLANET&CO</h2>
+                <a href="#" onclick="deplacer_texte('planetandco')"><p class="lien_description">[Description]</p></a>
+                <p class="description">
+                Les ours polaires qui se meurent te font de la peine ? Tu as envie d’aider la nature à ton niveau ? Planet&Co est fait pour toi ! À Planet&Co, on s’occupe de plein de projets qui aident au respect de Dame Nature. Création d’un potager, distribution de fruits et légumes locaux, location de vélos, sensibilisation et d’autres projets sont au rendez-vous à Planet&Co. Donc plus d’hésitation maintenant. A bientôt, pour nous aider à verdir ce campus !<br/><br/>
+                Contacter : planet-and-co@listes.ec-lyon.fr
+                </p>
             </div>
         </div>
 
@@ -513,7 +539,8 @@
                 <h2 class="titre_section">CLUB PHOTO</h2>
                 <a href="#" onclick="deplacer_texte('photo')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Le Club Photo, c’est la couverture de tous les instants de la vie centralienne : les soirées, les évènements sportifs et culturels, le studi et l’associatif dans son ensemble. Mais le plus intéressant, c’est quand on libère notr âme d’artiste et qu’on se lance dans le tirage argentique en chambre noire, quand on part en ballade dans les endroits les plus insolites de Lyon, quand on organise des expositions à l’école et quand on joue avec les couleurs grâce au lightpainting ! Photographe confirmé ou novice motivé, tu trouveras forcement ta place chez nous !
+                Le Club Photo, c’est la couverture de tous les instants de la vie centralienne : les soirées, les évènements sportifs et culturels, le studi et l’associatif dans son ensemble. Mais le plus intéressant, c’est quand on libère notre âme d’artiste et qu’on se lance dans le tirage argentique en chambre noire, quand on part en ballade dans les endroits les plus insolites de Lyon, quand on organise des expositions à l’école et quand on joue avec les couleurs grâce au lightpainting ! Photographe confirmé ou novice motivé, tu trouveras forcement ta place chez nous !<br/><br/>
+                Contacter : club-photo@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -536,7 +563,8 @@
                 <h2 class="titre_section">BREIZH KLEUB</h2>
                 <a href="#" onclick="deplacer_texte('bzh')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Même à 643,76km de leur terre, les bretons de Centrale Lyon n’oublient pas d’où ils viennent ! Tous les amoureux de la Bretagne, bretons ou non, sont invités à venir cidre-ater au chouchen, manger des crêpes derrière le « bar breton » de l’école, arpenter le foyer en marinière et organiser des soirées bon style dans une ambiance magique. Quelle que soit ton origine, rejoins notre équipe incroyable, le Breizh Kleub peizh !
+                Même à 643,76km de leur terre, les bretons de Centrale Lyon n’oublient pas d’où ils viennent ! Tous les amoureux de la Bretagne, bretons ou non, sont invités à venir cidre-ater au chouchen, manger des crêpes derrière le « bar breton » de l’école, arpenter le foyer en marinière et organiser des soirées bon style dans une ambiance magique. Quelle que soit ton origine, rejoins notre équipe incroyable, le Breizh Kleub peizh !<br/><br/>
+                Contacter : breizh-noz@listes.ec-lyon.fr
                 </p>
             </div>
         </div>       
@@ -546,7 +574,8 @@
                 <h2 class="titre_section">PISTON IN THE SKY</h2>
                 <a href="#" onclick="deplacer_texte('pits')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Que tu sois pilote chevronné, champion de planeur, modéliste du dimanche, ou passionné d’aéronautique... on sera ravis de t’acceullir au sein du club aéro de Centrale Lyon : Piston In The Sky (le PITS !). Grâce à des partenariats avec différents aéroclubs de la région, on propose des baptêmes de l’air, et même des formations de pilotage, le tout à prix réduit ! Tu pourras alors découvrir le monde vu d’en haut, et vivre de supers expériences !
+                Que tu sois pilote chevronné, champion de planeur, modéliste du dimanche, ou passionné d’aéronautique... on sera ravis de t’acceullir au sein du club aéro de Centrale Lyon : Piston In The Sky (le PITS !). Grâce à des partenariats avec différents aéroclubs de la région, on propose des baptêmes de l’air, et même des formations de pilotage, le tout à prix réduit ! Tu pourras alors découvrir le monde vu d’en haut, et vivre de supers expériences !<br/><br/>
+                Contacter : club-aero@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -556,7 +585,8 @@
                 <h2 class="titre_section">STUDIO ROCK</h2>
                 <a href="#" onclick="deplacer_texte('str')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Le StR c’est le studio de musique de l’école. On te met à disposition des instruments de musique et du matériel d’enregistrement. C’est la pépinière de groupes de l’école, on y fait un peu de tout: du rock, du jazz, de la pop etc... Que tu aies un groupe ou que tu veuilles juste jouer seul pour le plaisir, le StR c’est l’endroit où tu viens chiller. On t’offre aussi des opportunités de concerts pour animer des soirées. N’hésite pas à faire un tour sur notre page facebook : StR Centrale Lyon.
+                Le StR c’est le studio de musique de l’école. On te met à disposition des instruments de musique et du matériel d’enregistrement. C’est la pépinière de groupes de l’école, on y fait un peu de tout: du rock, du jazz, de la pop etc... Que tu aies un groupe ou que tu veuilles juste jouer seul pour le plaisir, le StR c’est l’endroit où tu viens chiller. On t’offre aussi des opportunités de concerts pour animer des soirées. N’hésite pas à faire un tour sur notre page facebook : StR Centrale Lyon.<br/><br/>
+                Contacter : club-studio-rock@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -566,7 +596,8 @@
                 <h2 class="titre_section">CLUB THEATRE</h2>
                 <a href="#" onclick="deplacer_texte('theatre')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Tu es devenu fou en prépa n’est-ce pas ? Nous aussi ! Gnié ! Pandapandapandapanda ! Deux ou trois ans sans pouvoir te lâcher vraiment, Du classique au moderne, le choix est dément. Tu rêves de monologuer pendant des heures, De t’interroger sur le pourquoi du bonheur Devant un public qui n’en a rien à barre, Ô futur centralien, rejoins le club théâtre !
+                Tu es devenu fou en prépa n’est-ce pas ? Nous aussi ! Gnié ! Pandapandapandapanda ! Deux ou trois ans sans pouvoir te lâcher vraiment, Du classique au moderne, le choix est dément. Tu rêves de monologuer pendant des heures, De t’interroger sur le pourquoi du bonheur Devant un public qui n’en a rien à barre, Ô futur centralien, rejoins le club théâtre !<br/><br/>
+                Contacter : club-theatre@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -576,7 +607,8 @@
                 <h2 class="titre_section">CLUB CINE</h2>
                 <a href="#" onclick="deplacer_texte('cine')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Cinéphile ou tout simplement curieux ? Le club ciné c’est avant tout 5 films par semaine dans notre belle salle de cinéma, le partage d’une passion commune et du pop-corn gratuit ! La programmation, méticuleusement choisie par les membres du club, touche à tous les genres. Des semaines à thèmes en collaboration avec les autres clubs de centrale ainsi que des soirées à thème sont aussi programmées et si vous avez d’autres projets, n’hésitez pas !
+                Cinéphile ou tout simplement curieux ? Le club ciné c’est avant tout 5 films par semaine dans notre belle salle de cinéma, le partage d’une passion commune et du pop-corn gratuit ! La programmation, méticuleusement choisie par les membres du club, touche à tous les genres. Des semaines à thèmes en collaboration avec les autres clubs de centrale ainsi que des soirées à thème sont aussi programmées et si vous avez d’autres projets, n’hésitez pas !<br/><br/>
+                Contacter : club-cinema@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -586,7 +618,8 @@
                 <h2 class="titre_section">CLUB JAPON</h2>
                 <a href="#" onclick="deplacer_texte('japon')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Tu trouves que les sushis c’est bon ? Que les films ( L’animation ou pas) japonais c’est cool ? Que les traditions asiatiques c’est bon style ? Ça nous fait au moins un point commun alors ! Le Club Japon s’occupe de l’accueil des étudiants japonais à l’École et organise des activités en lien avec la culture japonaise : sorties restaurant, projections en salle ciné et la Semaine Japon en janvier; un condensé d’activités avec plein d’intervenants !
+                Tu trouves que les sushis c’est bon ? Que les films ( L’animation ou pas) japonais c’est cool ? Que les traditions asiatiques c’est bon style ? Ça nous fait au moins un point commun alors ! Le Club Japon s’occupe de l’accueil des étudiants japonais à l’École et organise des activités en lien avec la culture japonaise : sorties restaurant, projections en salle ciné et la Semaine Japon en janvier; un condensé d’activités avec plein d’intervenants !<br/><br/>
+                Contacter : club-japon@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -596,17 +629,19 @@
                 <h2 class="titre_section">CLUB DANSE</h2>
                 <a href="#" onclick="deplacer_texte('danse')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Le club danse, c’est avant tout de l’amour. Et puis c’est quand même aussi des professionnels qui vont t’apprendre à shake ton body sur de la salsa, du rock 4 temps ou 6 temps, du rock acrobatique, mais aussi des danses de salon aussi stylées que le quickstep, le tango ou le charleston. Aucun prérequis, juste l’envie de danser et de s’amuser !
+                Le club danse, c’est avant tout de l’amour. Et puis c’est quand même aussi des professionnels qui vont t’apprendre à shake ton body sur de la salsa, du rock 4 temps ou 6 temps, du rock acrobatique, mais aussi des danses de salon aussi stylées que le quickstep, le tango ou le charleston. Aucun prérequis, juste l’envie de danser et de s’amuser !<br/><br/>
+                Contacter : club-danse@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
 
-        <div class="slide" id="raimbow"> <!-- Slide (horizontale) -->
+        <div class="slide" id="rainbow"> <!-- Slide (horizontale) -->
             <div class="texte">
-                <h2 class="titre_section">CENTRALE RAIMBOW</h2>
+                <h2 class="titre_section">CENTRALE RAINBOW</h2>
                 <a href="#" onclick="deplacer_texte('rainbow')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Accueil, entraide, prévention et lutte contre les discriminations sont les plus importantes des missions de Centrale Rainbow. Peu importe ton orientation sexuelle, tu pourras y discuter de te doutes, de tes choix et de tes craintes, mais aussi tout simplement rencontrer de nouvelles personnes autour d'un verre, nous t'attendons!
+                Accueil, entraide, prévention et lutte contre les discriminations sont les plus importantes des missions de Centrale Rainbow. Peu importe ton orientation sexuelle, tu pourras y discuter de te doutes, de tes choix et de tes craintes, mais aussi tout simplement rencontrer de nouvelles personnes autour d'un verre, nous t'attendons!<br/><br/>
+                Contacter : centrale-rainbow@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -616,7 +651,7 @@
                 <h2 class="titre_section">CLUB TAI-CHI</h2>
                 <a href="#" onclick="deplacer_texte('tai-chi')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
-                Le Tai-chi est l’art martial chinois le plus pratiqué dans le monde. Connu pour sa tranquilité et son élégance, il est enseigné par des élèves chinois compétents. Venez apprendre à contrôler votre force et à harmoniser corps et esprit dans une ambiance reine ! Ne craignez pas la difficulté, vous apprendrez très vite :). Nous faisons des représentations au Gala du Nouvel An Chinois et aux grands évènements sportifs centraliens : Rallye, Challenge...
+                Le Tai-chi est l’art martial chinois le plus pratiqué dans le monde. Connu pour sa tranquilité et son élégance, il est enseigné par des élèves chinois compétents. Venez apprendre à contrôler votre force et à harmoniser corps et esprit dans une ambiance reine ! Ne craignez pas la difficulté, vous apprendrez très vite :). Nous faisons des représentations au Gala du Nouvel An Chinois et aux grands évènements sportifs centraliens : Rallye, Challenge...<br/>
                 </p>
             </div>
         </div>
@@ -627,7 +662,8 @@
                 <a href="#" onclick="deplacer_texte('cirque')"><p class="lien_description">[Description]</p></a>
                 <p class="description">
                 Que tu sois dingue de jongle et d’équilibre ou un(e) novice ayant soif d’apprendre, le club Cirque est fait pour toi ! <br/> 
-                Balles, massues, diabolo, monocycle, slack-line, matos feu et j’en passe, nous avons tout ce qu’il faut pour te permettre d’apprendre, de t’amuser et d’en mettre plein la vue aux petits comme aux grands lors de spectacles endiablés !
+                Balles, massues, diabolo, monocycle, slack-line, matos feu et j’en passe, nous avons tout ce qu’il faut pour te permettre d’apprendre, de t’amuser et d’en mettre plein la vue aux petits comme aux grands lors de spectacles endiablés !<br/><br/>
+                Contacter : club-cirque@listes.ec-lyon.fr
                 </p>
             </div>
         </div>
@@ -639,7 +675,7 @@
 </body>
 
 <script type="text/javascript">
-    function deplacer_texte(id) {
+    function deplacer_texte(id) { // Cette fonction permet d'afficher et de maquer les descriptions à l'aide de classes CSS
         var slide=document.getElementById(id).firstChild;
         var titre=slide.getElementsByClassName('titre_section')[0];
         var description=slide.getElementsByClassName('description')[0];

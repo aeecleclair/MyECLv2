@@ -58,6 +58,7 @@
 }
 
 .titre_section{ /* Titre des assos/clubs */
+	text-align : center;
 	display: inline-block;
 	font-family: impact;
 	color : white;
@@ -83,6 +84,7 @@
 	-webkit-transition : 0.5s;
 }
 
+
 /* Même chose mais avec la desciption visible et le titre décallé vers le haut : */
 
 .titre_section.decalle{ /* Titre des assos/clubs */
@@ -101,6 +103,7 @@
 	visibility : visible;
 	background-color: rgba(0,0,0,0.4);
 }
+
 
 /* Classes fullpage gérant les slides et les background */
 
@@ -144,14 +147,15 @@ Dans cette section on place le background ainsi que le texte des différentes sl
 /* AEECL */
 
 #aeecl{
-	background-image: url(images/AEECL/aeecl.png);
-	background-position: 0 0;
+	background-image: url(images/background.jpg);
+	background-position: center 20%;
+}
+#aeecl .titre_section{
+	padding-top : 0;
 }
 #aeecl .description{
-	padding-top : 45%;
-	color : black;
-	text-shadow: 0 0 5px white;
-	visibility: visible;
+	color : white;
+	text-shadow: 0 0 5px black;
 }
 
 
@@ -244,14 +248,15 @@ Dans cette section on place le background ainsi que le texte des différentes sl
 /* USEECL */
 
 #useecl{
-	background-image: url(images/USEECL/useecl.png);
-	background-position: 0 0;
+	background-image: url(images/background.jpg);
+	background-position: center 20%;
+}
+#useecl .titre_section{
+	padding-top: 0;
 }
 #useecl .description{
-	padding-top : 45%;
-	color : black;
-	text-shadow: 0 0 5px white;
-	visibility: visible;
+	color : white;
+	text-shadow: 0 0 5px black;
 }
 
 
@@ -320,23 +325,15 @@ Dans cette section on place le background ainsi que le texte des différentes sl
 
 
 #indepdt{
-	background-image: url(images/Indep/indep.png);
-	background-position: 0 0;
+	background-image: url(images/background.jpg);
+	background-position: center 20%;
+}
+#indepdt .titre_section{
+	padding-top: 0;
 }
 #indepdt .description{
-	padding-top : 45%;
-	color : black;
-	text-shadow: 0 0 5px white;
-	visibility: visible;
-}
-
-
-#commuz{
-	background-image: url(images/Indep/commuz.jpg);
-	background-position: center 35%;
-}
-#commuz .titre_section{
-	padding-top: 0;
+	color : white;
+	text-shadow: 0 0 5px black;
 }
 
 
@@ -389,24 +386,34 @@ Dans cette section on place le background ainsi que le texte des différentes sl
 }
 
 
-#soli{
-	background-image: url(images/Indep/soli.jpg);
-	background-position: center 30%;
-}
-
-
 /* Clubs */
 
 
 #club {
-	background-image: url(images/Clubs/clubs.png);
-	background-position: 0 0;
+	background-image: url(images/background.jpg);
+	background-position: center 20%;
+}
+#club .titre_section{
+	padding-top : 0;
 }
 #club .description{
-	padding-top : 45%;
-	color : black;
-	text-shadow: 0 0 5px white;
-	visibility: visible;
+	color : white;
+	text-shadow: 0 0 5px black;
+}
+
+
+#commuz{
+	background-image: url(images/Indep/commuz.jpg);
+	background-position: center 35%;
+}
+#commuz .titre_section{
+	padding-top: 0;
+}
+
+
+#soli{
+	background-image: url(images/Indep/soli.jpg);
+	background-position: center 30%;
 }
 
 
@@ -470,8 +477,8 @@ Dans cette section on place le background ainsi que le texte des différentes sl
 }
 
 
-#raimbow{
-	background-image: url(images/Clubs/raimbow.png);
+#rainbow{
+	background-image: url(images/Clubs/rainbow.png);
 }
 
 

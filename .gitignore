@@ -1,1 +1,3 @@
-myecl_config.json
+./node_modules/
+./node_modules/*
+./myecl_config.js
