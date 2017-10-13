@@ -1,4 +1,5 @@
 exports.main_cb = function(req, res){
-    res.send(req.srv);
+    req.serv.test_serv.say_hello();
+    res.send(req.serv.test_serv.value);
 };
 

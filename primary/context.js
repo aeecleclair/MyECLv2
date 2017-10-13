@@ -1,22 +1,23 @@
 // Configuration générale
 
 const fs = require('fs');
+const path = require('path');
 //const path = require('path');
 
 // exports est un alias de module.exports
 module.exports = function(config_file){
-    var conf;
+    var ctx;
     try{
-        conf = JSON.parse(fs.readFileSync(config_file));
+        ctx = JSON.parse(fs.readFileSync(config_file));
     } catch(err) {
         console.log('Unable to load or parse global config file ' + config_file);
         throw err;
     }
     
-    conf.public_root = conf.root_path + '/static/public';
-    conf.private_root = conf.root_path + '/static/private';
-    conf.module_path = conf.root_path + '/modules';
+    ctx.public_root = path.join(ctx.root_path, '/static/public');
+    ctx.private_root = path.join(ctx.root_path, '/static/private');
+    ctx.module_path = path.join(ctx.root_path, '/modules');
+    ctx.service_path = path.join(ctx.root_path, '/services');
 
-
-    return conf;
+    return ctx;
 };

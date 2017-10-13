@@ -10,7 +10,8 @@ exports.myecl = function(context){
     require('./logger')(context);
     require('./crypto')(context);
 
-    const modloader = require('./module_loader')(context);
+    const load_serv = require('./service_loader')(context);
+    const load_mod = require('./module_loader')(context);
     const authorise = require('./authorise')(context);
     const authenticate = require('./authenticate')(context);
 
@@ -18,18 +19,13 @@ exports.myecl = function(context){
     var app = express();
     app.use(session(context.session_config));
 
-    app.menu_list = new Array();
-    app.header_list = new Array();
-    app.myecl_map = '';
-
-    // TODO deplacer les elements chargé dans app dans req
-    //app.crypto = context.crypto;
-    app.log = context.log;
+    context.menu_list = new Array();
+    context.header_list = new Array();
+    context.myecl_map = '';
  
     // Chargement de la bdd
    
     context.database = require('./shortersql')(context);  // accessible dans le context pour le core
-    app.database = context.database;  // accessible dans l'app pour les modules
     
     if(Array.isArray(context.tables)){
         for(let i in context.tables){
@@ -49,29 +45,26 @@ exports.myecl = function(context){
     }
 
     // Chargement des services
-    // TODO Remplir context.srv
-    context.srv = {};
-    // Mise a disposition des services
-    app.use(function(req, res, next){
-        req.srv = context.srv;
-        next();
-    });
-    // Chargement des différents modules
-    context.log.info('Loading modules...');
-    modloader.load_enabled(app);
-    context.log.info('Modules loaded successfully.');
+    context.log.info('Loading services...');
+    load_serv();  // créer context.serv et le remplie
+    context.log.info('Services loaded successfully.');
 
-    /*
-    app.use(function(req, res, next){
-        context.log.info('Asking for ' + req.url + '.');
-        next();
-    });
-    //*/
-    
-    app.use(function(req, res, next){
+
+    // Premier middleware pour toutes les routes
+    app.use('/*', function(req, res, next){
+        // Log des requetes
+        //context.log.info('Asking for ' + req.url + '.');
+
+        // Surcharge de la requete
+        req.database = context.database;
+        req.log = context.log;
+        req.serv = context.serv;
+
+        // Surcharge de la réponse
         res.setHeader('x-powered-by', 'MyECL');
         next();
     });
+
 
     app.get('/', function(req, res){
         res.redirect(context.default_route);
@@ -81,7 +74,6 @@ exports.myecl = function(context){
         res.sendFile('myecl_base.html', {root : context.private_root});
     });
 
-
     app.get('/menu', authorise('#ecl'), function(req, res){
         res.json({ list : app.menu_list });
     });
@@ -90,14 +82,7 @@ exports.myecl = function(context){
         res.json({ list : app.header_list });
     });
 
-
-
-    // Chargement des models de fonctionnement interne
-
-    // context.models = new Object();
-    // context.models.user = require('./models/user');
-
-
+    // Mise en places des routes de fonctionnement interne
 
     // Utiliser un compte existant
     app.get('/login', authenticate.password);
@@ -107,6 +92,10 @@ exports.myecl = function(context){
 
     app.post('/create_account', bodyParser.json(context.body_json_config), authenticate.bounce, authenticate.create_account);
 
+    // Chargement des différents modules
+    context.log.info('Loading modules...');
+    load_mod(app);
+    context.log.info('Modules loaded successfully.');
 
     // Si rien n'a catché la requete
     app.use(serveStatic(context.public_root, context.default_static_options));
@@ -115,7 +104,7 @@ exports.myecl = function(context){
     // Lancement du serveur
     app.listen(context.port, context.url, function(){
         context.log.info('Listening ' + context.url + ' on port ' + context.port.toString() + '.');
-        context.log.info(app.myecl_map);
+        context.log.info(context.myecl_map);
     });
 
     // Fermeture propre du système en cas d'erreur ou d'interuption volontaire

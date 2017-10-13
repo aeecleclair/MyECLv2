@@ -32,7 +32,7 @@ module.exports = function(context){
         } else {
             query = 'CREATE TABLE IF NOT EXISTS ' + name + '(' + fields.join(', ') + ');';
         }
-        context.log.info('Executing SQL request : ' + query);
+        //context.log.info('Executing SQL request : ' + query);
         pool.query(query, function(err){
             if(err){
                 context.log.error('Unable to properly create a table');

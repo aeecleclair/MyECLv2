@@ -22,7 +22,8 @@ A la racine du site se trouvent :
 - le point d'entrée de l'application myecl.js
 - le dossier _primary_
 - le dossier _static_
-- le dossier _module_
+- le dossier _modules_
+- le dossier _services_
 - le dossier *node_modules*
 
 Le dossier _primary_ contient les différents fichiers JS qui rassemblent les fonctionnalitées primaires du serveur :
@@ -38,8 +39,9 @@ Le dossier _static_ contient les fichiers statiques (ressources envoyées tel qu
 - _public_ contient les fichiers accessible même sans être passer par la conexion par mot de passe (authentification)
 - _private_ contient les fichiers uniquement accessible aux utilisateurs authentifié
 
-Le dossier _modules_ contient un dossier pour chaque module activé ainsi que les
-fichiers utiles à la gestion des modules.
+Le dossier _modules_ contient un dossier pour chaque module ainsi que le fichier _modules.json_ qui liste les modules actifs.
+
+Le dossier _services_ contient un dossier pour chaque service ainsi que le fichier _services.json_ qui liste les services actifs.
 
 Le dossier *node_modules* contient les modules installés avec npm
 
@@ -55,7 +57,7 @@ Pour installer le site il faut :
 
 ## A Les fichiers essentiels
 
-Un module est entierement contenu dans le dossier qui porte sont nom dans le répertoire _modules_
+Un module est entierement contenu dans le dossier qui porte sont nom dans le répertoire _modules_. Il n'est actif que si son nom apparait dans le fichier _modules/modules.json_. Les modules seront chargé dans l'ordre d'apparition dans ce fichier.
 Un module n'a qu'un ou deux fichiers absolument indispensable. S'il ne contient que des fichiers statiques il ne nécessite que le fichier _config.json_. S'il contient en plus des routes dynamiques (la réponse est créer par du code JS) alors il aura en plus un fichier _callbacks.js_. Le reste du contenu du dossier est gérer comme bon lui semble par l'auteur du module.
 
 ## B Structure de _config.json_
@@ -116,7 +118,7 @@ Cette propriété permet de créer des tables dans le base de donnée à l'usage
 
 Pour l'instant aucune autre propriété de la configuration n'est utilisé par le chargeur de module mais ça viendra.
 
-## B Un exemple de configuration
+## C Un exemple de configuration
 ```json
 {
     "authorisation" : "ecl",
@@ -190,11 +192,11 @@ Pour l'instant aucune autre propriété de la configuration n'est utilisé par l
 
 # 4 Ressources mise à disposition des modules
 
-Plusieurs objets sont mis à la disposition des modules au chargement du système. Ces objets sont rassemblé dans l'objet __app__ accessible dans les callbacks et middlewares en sous le nom __req.app__.
+Plusieurs objets sont mis à la disposition des modules au chargement du système. Ces objets sont rassemblé dans l'objet requète (habituellement appelé __req__).
  
 ## Logs
 
-Pour fournir des informations à l'administrateur sur le bon fonctionnement du module on utilise l'objet __app.log__. Il contient trois fonctions :
+Pour fournir des informations à l'administrateur sur le bon fonctionnement du module on utilise l'objet __req.log__. Il contient trois fonctions :
 - __info(msg)__ : pour des messages d'information.
 - __warning(msg)__ : pour avertir d'un problème potentiel ou d'un situation anormale.
 - __error(msg, fatal)__ : pour avertir d'une erreur importante. __fatal__ est optionel et vaut __false__ par défaut. S'il vaut __true__ l'appel de __error__ met fin au processus (tue le site). Si __msg__ est un objet erreur, sa description est affichée.
@@ -203,7 +205,7 @@ Pour fournir des informations à l'administrateur sur le bon fonctionnement du m
 
 MyECL utilise une base de données MariaDB. Cette base de données permet à chaque module de stocker des informations ou de récupérer des données pré-existantes dans des tables appartenant au module même ou à d’autres modules. Un module peut creer ses propres tables dans sa configuration. Chaque table crée par le module doit etre déclarée dans la propriété __database__ du fichier config.json. 
 
-Au chargement de MyECL la base de donnée est connectée et referencée dans l'objet __app.database__.
+Au chargement de MyECL la base de donnée est connectée et referencée dans l'objet __req.database__.
 
 L'objet database possede differentes methodes permettent d'interagir avec la base de donées:
 
@@ -232,6 +234,32 @@ __.save(table, object, callback)__ sert a enregistrer des infos dans la table __
 __.query()__ est un binding vers la fonction pool.query du module mysql. Elle répond donc exactement à la documentation disponible sur internet. Comme __.select__ elle peux être appelé de multiple façon. Cette fonction permet de faire n'importe quel requete SQL et servira pour des requetes plus complexes que ce qui peut être fait avec les autres méthodes.
 
 Les tables essentielles au fonctionnement de MyECL sont chargées par init.js et sont définies dans le fichier de configuration principal.
+
+## Les services
+
+Les services sont des objets disponible dans l'objet __req.serv__. Ils permettent de proposer des fonctionnalitées qui n'existent pas dans le code principale aux auteurs des modules. Pour créer un service il faut créer un dossier dans le dossier _services_ dont le nom sera le nom du service (si le dossier s'appel mon_service, le service sera accessible comme **req.serv.mon_service**). Le nom du dossier ne doit donc pas contenir d'espaces ou de caractères exotiques. Dans ce dossier devra se trouver un fichier _main.js_ dont la structure est la suivante :
+
+```JS
+/*
+ * Description
+ */
+
+// Imports de fonctionnalitées
+const une_dependance = require('undep');
+
+module.exports = function(context){
+    var serv = new Object();
+    
+    // Ici on ajoute des propriétées et des fonctions à serv
+
+    return serv;
+};
+```
+
+L'argument context est un objet qui contient l'ensemble des propriétées définies dans le fichier de configuration ainsi que les objets __log__ et __database__ et __serv__ et quelques autres informations sur l'état global du site (liste des routes, liste des menus, liste des headers...).
+
+Pour permettre l'utilisation d'un service il faut l'activer en ajoutant son nom dans le fichier _services/services.json_. L'ordre de chargement des services correspond à leur ordre d'apparition dans ce fichier. Il est donc possible d'utiliser dans un service un autre service qui apparait plus haut dans la liste.
+
 
 # 5 Avancement du projet
 
