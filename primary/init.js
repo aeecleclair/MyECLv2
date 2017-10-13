@@ -22,6 +22,7 @@ exports.myecl = function(context){
     app.header_list = new Array();
     app.myecl_map = '';
 
+    // TODO deplacer les elements chargé dans app dans req
     //app.crypto = context.crypto;
     app.log = context.log;
  
@@ -47,6 +48,14 @@ exports.myecl = function(context){
         context.log.warning('No tables have been defined in config file !');
     }
 
+    // Chargement des services
+    // TODO Remplir context.srv
+    context.srv = {};
+    // Mise a disposition des services
+    app.use(function(req, res, next){
+        req.srv = context.srv;
+        next();
+    });
     // Chargement des différents modules
     context.log.info('Loading modules...');
     modloader.load_enabled(app);
