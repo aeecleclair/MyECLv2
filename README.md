@@ -269,13 +269,14 @@ Pour permettre l'utilisation d'un service il faut l'activer en ajoutant son nom 
 - [x] Mise en place d'un squelette du système de sécurité
 - [x] Design de la page type
 - [x] Implémentation du __menu__
-- [ ] Adapter le menu à l'utilisateur
 - [x] Implémentation du __body__
 - [x] Implémentation du __header__
-- [ ] Adapter le header à l'utilisateur
+- [ ] Implémentation du chargement des tiles
+- [ ] Implémentation des notifications
 - [x] Mise en place de la base de données
-- [ ] Isolation des tables des différents modules
-- [ ] Considerer les risque de donner acces à toutes les collections à tous les modules
+- [ ] Adapter le menu à l'utilisateur
+- [ ] Adapter le header à l'utilisateur
+- [ ] Implémentation d'un système de gestion des tiles pour l'utilisateur
 - [ ] Mise en place du système complet de sécurité
     - [x] Création d'une page de connexion
     - [ ] Création d'une page "Acces interdit"
@@ -283,12 +284,9 @@ Pour permettre l'utilisation d'un service il faut l'activer en ajoutant son nom 
     - [x] Implémentation du système de mot de passe
     - [x] Création d'un système d'autorisations flexible pour définir quel utilisateur a accès à chaque module
     - [x] Implémentation du système d'autorisation
-- [ ] Ajout d'un système de "service"àl'usage des modules qui offre des fonctionnalitées interne supplémentaire
-    - [ ] Service d'accés au utilisateurs, aux assos... (surcouche à shorter.sql)
-- [x] Permettre aux modules d'ajouter des head aux pages body ()
-- [ ] Implémentation du chargement des tiles
-- [ ] Implémentation d'un système de gestion des tiles pour l'utilisateur
-- [ ] Implémentation des notifications
+- [x] Ajout d'un système de "service" à l'usage des auteurs des modules qui offre des fonctionnalitées interne supplémentaire
+- [ ] Service d'accés aux utilisateurs, aux assos... (surcouche à shorter.sql)
+- [x] Permettre aux modules d'ajouter des head aux pages body (script JS et styles CSS)
 
 ## Modules
 
