@@ -98,12 +98,12 @@ Cette propriété fonctionne comme son homonyme dans les rules mais s'applique �
 
 ### La propriété __menu__
 
-Cette propriété permet à chaque module d'ajouter des éléments qui lui sont spécifique dans le menu de gauche. C'est une liste d'items qui peuvent être de trois types :
-- __body__ : permet d'afficher un body définit dans __rules__, la valeure est le nom du body
-- __link__ : un lien classique vers une URL quelquonque (qui peut être interne au site ou non), la valeure est l'URL cible
-- __sub__ : un sous menu, la valeures est une nouvelle liste contenant des items. On peut imbriquer autant de menu que l'on veut (en théorie, mais le résultat esthétique n'est pas garanti)
+Cette propriété permet à chaque module d'ajouter des éléments qui lui sont spécifiques dans le menu de gauche. C'est une liste d'items qui peuvent être de trois types :
+- __body__ : permet d'afficher un body défini dans __rules__, la valeur est le nom du body
+- __link__ : un lien classique vers une URL quelconque (qui peut être interne au site ou non), la valeur est l'URL cible
+- __sub__ : un sous menu, la valeur est une nouvelle liste contenant des items. On peut imbriquer autant de menus que l'on veut (en théorie, mais le résultat esthétique n'est pas garanti)
 
-Chaque item à en plus une propriété __name__ obligatoire qui contient le texte à afficher.  et peut avoir une propriété __icon__ qui contient du code HTML à ajouter juste avant le nom du lien.
+Chaque item a en plus une propriété __name__ obligatoire qui contient le texte à afficher et peut avoir une propriété __icon__ qui contient du code HTML à ajouter juste avant le nom du lien.
 
 ### La propriété __header__
 
