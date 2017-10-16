@@ -5,15 +5,15 @@ Ce document a pour objectif de permettre à une personne maitrisant les concepts
 ## A Motivations
 
 Le site est basé sur Express et Node.js. Le code coté serveur est donc en
-JavaScript. Le concept fondamentale de ce site est l'aspect modulaire qui a
-pour objectif de permettre l'extension des fonctionnalitées par des
-générations d'ÉCLAIRmen sans que ceux-ci ai besoin de comprendre le code des
-dévellopeurs précédents. La compréhension de l'interface proposé doit être
+JavaScript. Le concept fondamental de ce site est l'aspect modulaire qui a
+pour objectif de permettre l'extension des fonctionnalités par des
+générations d'ÉCLAIRmen sans que ceux-ci aient besoin de comprendre le code des
+dévelopeurs précédents. La compréhension de l'interface proposée doit être
 suffisante pour dévelloper un nouveau module.
 
 ## B Architecture d'une page classique du site
 
-Une page classique de MyECL se décompose en trois grandes parties. En haut on à un __header__ qui donne accès à des liens essentiels. À gauche on a un __menu__ qui peut être plier et qui rassemble des liens vers les différentes pages disponibles. Enfin au centre on a le __body__ qui affiche les pages du site.
+Une page classique de MyECL se décompose en trois grandes parties. En haut on a un __header__ qui donne accès à des liens essentiels. À gauche on a un __menu__ qui peut être plié et qui rassemble des liens vers les différentes pages disponibles. Enfin au centre on a le __body__ qui affiche les pages du site.
 
 ## C Organisation des fichiers
 
@@ -26,50 +26,50 @@ A la racine du site se trouvent :
 - le dossier _services_
 - le dossier *node_modules*
 
-Le dossier _primary_ contient les différents fichiers JS qui rassemblent les fonctionnalitées primaires du serveur :
+Le dossier _primary_ contient les différents fichiers JS qui rassemblent les fonctionnalités primaires du serveur :
 - _init.js_ permet d'initialiser l'application Express, créer les routes minimales et exploite les autres fichiers
-- _context.js_ lit la configuration, ajoute quelques propriétées et retourne un objet context qui va servir dans la plupart des autres fichiers comme source de parametres.
-- _logger.js_ fournie des méthodes pour afficher des informations
+- _context.js_ lit la configuration, ajoute quelques propriétés et retourne un objet context qui va servir dans la plupart des autres fichiers comme source de paramètres.
+- _logger.js_ fournit des méthodes pour afficher des informations
 - *module_loader.js* charge chaque module activé
 - _authenticate.js_ met en place l'aspect authentification, l'interface de connexion et la communication avec le CAS
-- _authorise.js_ met en place l'aspect autorisation : il vérifie que l'utilisateur n'accède qu'au ressources qui lui sont permisent
-- _shortersql.js_ propose une interface avec la base de données exposant des fonctions simple à utiliser pour faire les taches les plus courantes
+- _authorise.js_ met en place l'aspect autorisation : il vérifie que l'utilisateur n'accède qu'aux ressources qui lui sont permisent
+- _shortersql.js_ propose une interface avec la base de données exposant des fonctions simples à utiliser pour faire les taches les plus courantes
 
-Le dossier _static_ contient les fichiers statiques (ressources envoyées tel quel au client) séparé dans deux dossiers :
-- _public_ contient les fichiers accessible même sans être passer par la conexion par mot de passe (authentification)
-- _private_ contient les fichiers uniquement accessible aux utilisateurs authentifié
+Le dossier _static_ contient les fichiers statiques (ressources envoyées telles quelles au client) séparés dans deux dossiers :
+- _public_ contient les fichiers accessibles même sans être passé par la conexion par mot de passe (authentification)
+- _private_ contient les fichiers uniquement accessibles aux utilisateurs authentifiés
 
 Le dossier _modules_ contient un dossier pour chaque module ainsi que le fichier _modules.json_ qui liste les modules actifs.
 
 Le dossier _services_ contient un dossier pour chaque service ainsi que le fichier _services.json_ qui liste les services actifs.
 
-Le dossier *node_modules* contient les modules installés avec npm
+Le dossier *node_modules* contient les modules installés avec npm.
 
 # 2 Installation
 
 Pour installer le site il faut :
 - Installer node.js
 - Installer un serveur mariadb et y ajouter un utilisateur eclair et une base de données myecl
-- Lancer le script _config.sh_ pour générer la configuration. Ce script peut prendre comme argument optionel "dev" et "prod" qui donne des valeures par défaut adaptées aux différents paramètres du script. En l'abcence d'argument le script demande à l'utilisateur de renseigner les paramètres à la main. Les valeures entre crochets sont les valeures prisent si le champ reste vide.
+- Lancer le script _config.sh_ pour générer la configuration. Ce script peut prendre comme argument optionel "dev" et "prod" qui donne des valeures par défaut adaptées aux différents paramètres du script. En l'absence d'argument le script demande à l'utilisateur de renseigner les paramètres à la main. Les valeures entre crochets sont les valeures prisent si le champ reste vide.
 
 
 # 3 Architecture d'un module
 
 ## A Les fichiers essentiels
 
-Un module est entierement contenu dans le dossier qui porte sont nom dans le répertoire _modules_. Il n'est actif que si son nom apparait dans le fichier _modules/modules.json_. Les modules seront chargé dans l'ordre d'apparition dans ce fichier.
-Un module n'a qu'un ou deux fichiers absolument indispensable. S'il ne contient que des fichiers statiques il ne nécessite que le fichier _config.json_. S'il contient en plus des routes dynamiques (la réponse est créer par du code JS) alors il aura en plus un fichier _callbacks.js_. Le reste du contenu du dossier est gérer comme bon lui semble par l'auteur du module.
+Un module est entierement contenu dans le dossier qui porte son nom dans le répertoire _modules_. Il n'est actif que si son nom apparait dans le fichier _modules/modules.json_. Les modules seront chargés dans l'ordre d'apparition dans ce fichier.
+Un module n'a qu'un ou deux fichiers absolument indispensables. S'il ne contient que des fichiers statiques il ne nécessite que le fichier _config.json_. S'il contient en plus des routes dynamiques (la réponse est crée par du code JS) alors il aura en plus un fichier _callbacks.js_. Le reste du contenu du dossier est géré comme bon lui semble par l'auteur du module.
 
 ## B Structure de _config.json_
 
 Le fichier _config.json_ est la base de la définition d'un module. Il rassemble toute les informations nécessaires pour mettre en place le module.
 
 ### La propritété __authorisation__
-Cette propriété définie la règle de sécurité par défaut concernant ce module. Elle peut prendre quatres formes différentes :
-- "public" : les ressources du module sont accessible sans se connecter.
+Cette propriété définit la règle de sécurité par défaut concernant ce module. Elle peut prendre quatres formes différentes :
+- "public" : les ressources du module sont accessibles sans se connecter.
 - un # suivi d'un nom : c'est un alias, les alias sont définis dans le fichier de configuration principale sous la forme "#alias" : "requete SQL". Par exemple l'alias "#ecl" rend les ressources du module accessible par défaut à tout utilisateur identifié comme un (ancien) élève.
-- une requète SQL SELECT qui doit renvoyer une liste de login autorisé à accéder aux ressources (ex : SELECT login FROM user WHERE promo = 2016;)
-- une __fin__ de requète SQL qui sera à en interne collé après le début de requète SELECT login FROM user JOIN membership ON membership.id\_user = user.id (ex : WHERE membership.position = 'prez' AND membership.group = 'ECLAIR';)
+- une requête SQL SELECT qui doit renvoyer une liste de login autorisés à accéder aux ressources (ex : SELECT login FROM user WHERE promo = 2016;)
+- une __fin__ de requête SQL qui sera en interne collée après le début de requête SELECT login FROM user JOIN membership ON membership.id\_user = user.id (ex : WHERE membership.position = 'prez' AND membership.group = 'ECLAIR';)
 Si la propriété est omise le comportement par défaut est celui de l'alias #ecl.
 
 
@@ -77,13 +77,13 @@ Si la propriété est omise le comportement par défaut est celui de l'alias #ec
 
 Cette propriété contient une liste de règles qui décrivent la façon d'accéder aux ressources du module. Une règle est elle même un objet associatif qui décrit le type de ressource et la façon d'y acceder. Il existe trois types de ressources :
 - __static__ : un fichier ou un dossier contenant des fichiers statiques, la valeure est le chemin relatif au dossier du module
-- __callback__ : un callback comme on en utilise avec Express. C'est une fonction javascript qui prend en argument un objet représentant la requète et un représentant la réponse. La valeure est le nom de la fonction tel qu'il est déclaré dans le fichier _callback.js_
-- __middleware__ : identique à proche de __callback__ au détail près que la fonction doit prendre un troisième argument __next__ qui est une fonction à appeler sans argument une fois les traitements terminé.
+- __callback__ : un callback comme on en utilise avec Express. C'est une fonction javascript qui prend en argument un objet représentant la requête et un représentant la réponse. La valeur est le nom de la fonction tel qu'il est déclaré dans le fichier _callback.js_
+- __middleware__ : identique à proche de __callback__ au détail près que la fonction doit prendre un troisième argument __next__ qui est une fonction à appeler sans argument une fois les traitements terminés.
 
 Il y a trois méthodes pour accéder à ces ressources :
 - __route__ associe de façon directe une route et une ressource. La valeur de la propriété est l'url complète par exemple "/modules/profile/static/\*"
 - __body__ permet d'intégrer une page à la page de base de MyECL (qui comprend le header et le menu à droite)
-- __tile__ permet de définir le contenu d'une tuile associé à ce module
+- __tile__ permet de définir le contenu d'une tuile associée à ce module
 
 Chaque règle peut avoir des propriétées supplémentaires :
 - __authorisation__ : définit une règle de sécurité spécifique à cette règle
