@@ -1,0 +1,33 @@
+{
+    "authorisation" : "#ecl",
+    "description" : "Module d'annonces d'offres de colocation",
+    "rules" : [
+        {
+            "route" : "/module/map/static/*",
+            "static" : "static/"
+        },
+        {
+            "route": "/module/map/loadAds",
+            "callback" : "load_Ads"
+        },
+        {
+            "route" : "/module/map/addAd",
+            "callback" : "add_ad",
+            "method" : "POST"
+        },
+        {
+            "route" : "/module/map/removeAd",
+            "callback" : "remove_ad",
+            "method" : "DELETE"
+        },
+        {
+            "route" : "/module/map/modifyAd",
+            "callback" : "modify_ad",
+            "method" : "POST"
+        },
+        {
+            "body" : "main",
+            "static" : "/module/map/static/body.html"
+        },
+    ]
+}
