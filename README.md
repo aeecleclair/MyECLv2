@@ -291,7 +291,8 @@ Pour permettre l'utilisation d'un service il faut l'activer en ajoutant son nom 
 ## Modules
 
 Ceux que l'on doit faire avant la mise en ligne :
-- [x] Exemple pour montrer les fonctionnalitées de base
+- [x] Exemple pour montrer les fonctionnalitées de 
+- [ ] Interface Admin
 - [ ] Emploi du temps
 - [ ] PH
 - [ ] JE
@@ -299,7 +300,7 @@ Ceux que l'on doit faire avant la mise en ligne :
 - [ ] annonces BDE
 - [ ] Club ciné
 - [ ] Beat Box
-- [ ] Interface Admin
+
 
 Les autres qu'il faudrait faire rapidement :
 
