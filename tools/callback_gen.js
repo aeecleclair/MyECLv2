@@ -40,21 +40,23 @@ try {
     const filename = path.join('../', 'modules', dirname, cb_filename);
     cb = require(filename);
 } catch(err) {
-    console.log(err);
+    if(err.code != 'MODULE_NOT_FOUND'){
+        throw err;
+    }
 }
 
 var src = '';
 
 const template_cb = 
     '\n// %s\n' + // route
-    '// %s\n' + // description
+    '%s' + // description
     'exports.%s = function(req, res){\n' +
     '    // res.send(\'ok\');\n' +
     '};\n'
 ;
 const template_md = 
     '\n// %s\n' + // route
-    '// %s\n' + // description
+    '%s' + // description
     'exports.%s = function(req, res, next){\n' +
     '    next();\n' +
     '};\n'
@@ -65,7 +67,7 @@ for(let key in mod_conf.rules){
     let rule = mod_conf.rules[key];
     if(rule.callback && ! cb[rule.callback]){
         let route = rule.body || rule.tile || rule.route;
-        let comment = rule.description ? rule.description : 'no description';
+        let comment = rule.description ? '// ' + rule.description + '/n' : '';
         let name = rule.callback;
         src += util.format(template_cb, route, comment, name);
     } else if(rule.middleware && ! cb[rule.middleware]){
