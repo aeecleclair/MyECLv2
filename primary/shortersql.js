@@ -13,7 +13,7 @@ const mysql = require('mysql');
 
 module.exports = function(context){
     
-    const pool = mysql.createPool(context.database);
+    const pool = mysql.createPool(context.database_config);
     var db = new Object();
     db.pool = pool; // Juste au cas où
     db.query = function(){

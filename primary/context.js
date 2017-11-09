@@ -19,5 +19,7 @@ module.exports = function(config_file){
     ctx.module_path = path.join(ctx.root_path, '/modules');
     ctx.service_path = path.join(ctx.root_path, '/services');
 
+    ctx.database_config = ctx.database;
+
     return ctx;
 };
