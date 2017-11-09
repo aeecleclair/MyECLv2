@@ -28,6 +28,6 @@
         {
             "body" : "main",
             "static" : "/module/map/static/body.html"
-        },
+        }
     ]
 }
