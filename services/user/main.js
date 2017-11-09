@@ -54,5 +54,10 @@ module.exports = function(context){
         });
     };
 
+    user_tools.getForm = function(){
+        // renvoie le code HTML d'un formulaire de recherche d'utilisateur
+
+    };
+
     return user_tools;
 };
