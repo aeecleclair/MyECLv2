@@ -1,3 +1,9 @@
+/*
+ * module_loader.js
+ * Definie les fonctions qui vont charger tout les modules
+ * dans le site
+ *
+ */
 var fs = require('fs');
 var path = require('path');
 
@@ -6,7 +12,12 @@ module.exports = function(context){
 
     function load_callback(modname, cbname){
         // retourne le callback cbname du module modname
-        var callbacks_path = path.join(context.module_path, modname, context.module_callbacks_file); // on recupere le chemin du fichier rassemblant les callbacks
+        // on recupere le chemin du fichier rassemblant les callbacks
+        var callbacks_path = path.join(
+            context.module_path,
+            modname,
+            context.module_callbacks_file
+        );
         var cb;
         try{ // on essaie de recuperer la fonction
             cb = require(callbacks_path)[cbname];
@@ -97,7 +108,7 @@ module.exports = function(context){
                     try{
                         cb(req, res);
                     } catch(err) {
-                        context.log.warning('Error from callback ' + rule.callback + '.');
+                        context.log.warning(`Error from callback ${rule.callback}.`);
                         context.log.warning(err);
                     }
                 } else {
@@ -107,7 +118,7 @@ module.exports = function(context){
             });
             context.myecl_map += route + '\n';
         } catch(err) {
-            context.log.warning('Unable to enable callback ' + rule.callback);
+            context.log.warning(`Unable to enable callback ${rule.callback}`);
         }
     }
 
@@ -115,7 +126,7 @@ module.exports = function(context){
         // active un regle de middleware
         var cb = load_callback(rule.middleware);
         if(!cb){
-            context.log.warning('Unable to load ' + rule.middleware + ' middleware. This rule is ignored');
+            context.log.warning(`Unable to load ${rule.middleware} middleware. This rule is ignored`);
             return;
         }
         // Le middleware doit gérer lui même les methodes et le passage 
@@ -179,10 +190,11 @@ module.exports = function(context){
         // Comment verifier qu'elles sont présentes
         // Quel type de dépendances
 
-        // Chargement des routes
         if(!config.authorisation){
             config.authorisation = '#ecl';
         }
+
+        // Chargement des routes
         if(config.rules){
             config.heads = config.heads ? config.heads : { 'styles' : [], 'scripts' : [] };
             config.heads.scripts = config.heads.scripts && Array.isArray(config.heads.scripts) ? config.heads.scripts : [];
@@ -259,6 +271,7 @@ module.exports = function(context){
                     let item = config.menu[i];
                     // TODO test ? traitements ?
                     item.module = modname;
+                    item.authorisation = item.authorisation ? item.authorisation : config.authorisation;
                     context.menu_list.push(item);
                 }
             } else {

@@ -1,3 +1,9 @@
+/*
+ * init.js
+ * Fichier d'initialisation du site
+ * Prépare les routes, les modules etc
+ *
+ */
 // Modules nodes officiels
 //var http = require('http');
 const express = require('express');
@@ -10,6 +16,7 @@ exports.myecl = function(context){
     require('./logger')(context);
     require('./crypto')(context);
 
+    const myUtils = require('./utils')(context);
     const load_serv = require('./service_loader')(context);
     const load_mod = require('./module_loader')(context);
     const authorise = require('./authorise')(context);
@@ -75,7 +82,33 @@ exports.myecl = function(context){
     });
 
     app.get('/menu', authorise('#ecl'), function(req, res){
-        res.json({ list : app.menu_list });
+
+        var menus = new Array();
+        var pool = new myUtils.CallPool();
+        for(let key in context.menu_list){
+            let menu = context.menu_list[key];
+            if(menu.authorisation == '#ecl'){
+                menus.push(menu);
+            } else {
+                // On met ces appels dans un pool
+                pool.add(authorise.simple_check, [
+                    req.session.user,
+                    menu.authorisation,
+                    function(is_auth){
+                        if(is_auth){
+                            menus.push(menu);
+                        }
+                        pool.finish();
+                    }
+                ]);
+            }
+        }
+        // On lance les appels et quand ils seront finit
+        // on appelera le callback
+        pool.call(function(call_nb){
+            console.log('Pool call count :', call_nb);
+            res.json({ list : menus });
+        });
     });
 
     app.get('/header', authorise('#ecl'), function(req, res){

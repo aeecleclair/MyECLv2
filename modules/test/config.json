@@ -62,6 +62,7 @@
             "name" : "Boo Yah !"
         },
         {
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = \"catin\";",
             "body" : "annuaire",
             "name" : "Annuaire"
         },
