@@ -102,6 +102,7 @@ Cette propriété permet à chaque module d'ajouter des éléments qui lui sont 
 - __body__ : permet d'afficher un body défini dans __rules__, la valeur est le nom du body
 - __link__ : un lien classique vers une URL quelconque (qui peut être interne au site ou non), la valeur est l'URL cible
 - __sub__ : un sous menu, la valeur est une nouvelle liste contenant des items. On peut imbriquer autant de menus que l'on veut (en théorie, mais le résultat esthétique n'est pas garanti)
+- __authorisation__ : même fonctionnement que pour les __rules__, les autorisations permettent de définir qui peut voir un menu. Les items de sous menus ne peuvent pas porter d'authorisation spécifique et hérite de celle du menu principale. Si cette propriété est ommise la valeure par défaut est celle du module entier.
 
 Chaque item a en plus une propriété __name__ obligatoire qui contient le texte à afficher et peut avoir une propriété __icon__ qui contient du code HTML à ajouter juste avant le nom du lien.
 
