@@ -81,8 +81,10 @@ module.exports = function(context){
     };
 
     main_func.simple_check = function(user, module_auth, callback){
-        if(module_auth == 'public' || module_auth == 'user' && user){
+        if(module_auth == 'public'){
             callback(true);
+        } else if(module_auth == 'user'){
+            callback(user != null && user != undefined);
         } else {
             if(module_auth[0] == '#'){
                 module_auth = context.alias[module_auth];
