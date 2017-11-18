@@ -13,7 +13,7 @@ const mysql = require('mysql');
 
 module.exports = function(context){
     
-    const pool = mysql.createPool(context.database);
+    const pool = mysql.createPool(context.database_config);
     var db = new Object();
     db.pool = pool; // Juste au cas où
     db.query = function(){
@@ -32,7 +32,7 @@ module.exports = function(context){
         } else {
             query = 'CREATE TABLE IF NOT EXISTS ' + name + '(' + fields.join(', ') + ');';
         }
-        context.log.info('Executing SQL request : ' + query);
+        //context.log.info('Executing SQL request : ' + query);
         pool.query(query, function(err){
             if(err){
                 context.log.error('Unable to properly create a table');

@@ -1,13 +1,23 @@
+/*
+ * module_loader.js
+ * Definie les fonctions qui vont charger tout les modules
+ * dans le site
+ *
+ */
 var fs = require('fs');
 var path = require('path');
 
 module.exports = function(context){
-    
     var authorise = require('./authorise')(context);
 
     function load_callback(modname, cbname){
         // retourne le callback cbname du module modname
-        var callbacks_path = path.join(context.module_path, modname, context.module_callbacks_file); // on recupere le chemin du fichier rassemblant les callbacks
+        // on recupere le chemin du fichier rassemblant les callbacks
+        var callbacks_path = path.join(
+            context.module_path,
+            modname,
+            context.module_callbacks_file
+        );
         var cb;
         try{ // on essaie de recuperer la fonction
             cb = require(callbacks_path)[cbname];
@@ -52,7 +62,7 @@ module.exports = function(context){
                             next();
                         }
                     });
-                    app.myecl_map += route + '\n';
+                    context.myecl_map += route + '\n';
                 } catch(err) {
                     context.log.info('Il y a un catch trop large ici');
                     throw err;
@@ -68,7 +78,7 @@ module.exports = function(context){
                             context.log.warning('Unable to send static file ' + static_path);
                         }
                     });
-                    app.myecl_map += route + '\n';
+                    context.myecl_map += route + '\n';
                 } catch(err) {
                     context.log.info('Il y a un catch trop large ici');
                     throw err;
@@ -98,7 +108,7 @@ module.exports = function(context){
                     try{
                         cb(req, res);
                     } catch(err) {
-                        context.log.warning('Error from callback ' + rule.callback + '.');
+                        context.log.warning(`Error from callback ${rule.callback}.`);
                         context.log.warning(err);
                     }
                 } else {
@@ -106,9 +116,9 @@ module.exports = function(context){
                     next();
                 }
             });
-            app.myecl_map += route + '\n';
+            context.myecl_map += route + '\n';
         } catch(err) {
-            context.log.warning('Unable to enable callback ' + rule.callback);
+            context.log.warning(`Unable to enable callback ${rule.callback}`);
         }
     }
 
@@ -116,19 +126,19 @@ module.exports = function(context){
         // active un regle de middleware
         var cb = load_callback(rule.middleware);
         if(!cb){
-            context.log.warning('Unable to load ' + rule.middleware + ' middleware. This rule is ignored');
+            context.log.warning(`Unable to load ${rule.middleware} middleware. This rule is ignored`);
             return;
         }
         // Le middleware doit gérer lui même les methodes et le passage 
         // au callback suivant
         app.use(rule.route, authorise(rule.authorisation), cb);
-        app.myecl_map += rule.route + '\n';
+        context.myecl_map += rule.route + '\n';
     }
     function handle_rule(app, modname, rule){
 
         if(rule.body){
             rule.route = '/body/' + modname + '/' + rule.body;
-            app.myecl_map += '/heads/' + modname + '/' + rule.body + '\n';
+            context.myecl_map += '/heads/' + modname + '/' + rule.body + '\n';
             app.get('/heads/' + modname + '/' + rule.body,
                 authorise(rule.authorisation),
                 function(req, res){
@@ -139,6 +149,13 @@ module.exports = function(context){
             log.info('Ding dong !');
             app.tiles_list.push(rule);
             rule.route = '/tile/' + modname + '/' + rule.tile;
+            context.myecl_map += '/heads/' + modname + '/' + rule.tile + '\n';
+            app.get('/heads/' + modname + '/' + rule.tile,
+                authorise(rule.authorisation),
+                function(req, res){
+                    res.json(rule.heads);
+                }
+            );
         }
 
         if(rule.route){
@@ -175,21 +192,24 @@ module.exports = function(context){
         // Comment verifier qu'elles sont présentes
         // Quel type de dépendances
 
-        // Chargement des routes
         if(!config.authorisation){
             config.authorisation = '#ecl';
         }
+
+        // Chargement des routes
         if(config.rules){
             config.heads = config.heads ? config.heads : { 'styles' : [], 'scripts' : [] };
             config.heads.scripts = config.heads.scripts && Array.isArray(config.heads.scripts) ? config.heads.scripts : [];
             config.heads.styles = config.heads.styles && Array.isArray(config.heads.styles) ? config.heads.styles : [];
             if(Array.isArray(config.rules)){ // si config.rules est une liste de routes
                 for(let i in config.rules){
+
                     let rule = config.rules[i];
                     if(!rule.authorisation){
                         rule.authorisation = config.authorisation;
                     }
-                    if(rule.body){
+
+                    if(rule.body || rule.tile){
                         rule.heads = rule.heads ? rule.heads : { 'styles' : [], 'scripts' : [] };
                         rule.heads.scripts = config.heads.scripts.concat(rule.heads.scripts && Array.isArray(rule.heads.scripts) ? rule.heads.scripts : []);
                         rule.heads.styles = config.heads.styles.concat(rule.heads.styles && Array.isArray(rule.heads.styles) ? rule.heads.styles : []);
@@ -212,8 +232,7 @@ module.exports = function(context){
                 for(let i in config.database){
 
                     let item = config.database[i];
-
-                    app.database.create(item['table'],item['schema']);
+                    context.database.create(item['table'],item['schema']);
                 }
             } else {
                 context.log.error(context.module_config_file + ' from module ' + modname + ' contain a non-array database specification. Ignoring database.');
@@ -228,7 +247,7 @@ module.exports = function(context){
                     let item = config.header[i];
                     // TODO test ? traitements ? quid des autorisations ?
                     item.module = modname;
-                    app.header_list.push(item);
+                    context.header_list.push(item);
                 }
             } else {
                 context.log.error(context.module_config_file + ' from module ' + modname + ' contain a non-array header. Ignoring header.');
@@ -254,7 +273,8 @@ module.exports = function(context){
                     let item = config.menu[i];
                     // TODO test ? traitements ?
                     item.module = modname;
-                    app.menu_list.push(item);
+                    item.authorisation = item.authorisation ? item.authorisation : config.authorisation;
+                    context.menu_list.push(item);
                 }
             } else {
                 context.log.error(context.module_config_file + ' from module ' + modname + ' contain a non-array menu. Ignoring menu.');
@@ -264,17 +284,14 @@ module.exports = function(context){
      
     }
 
-    function load_enabled(app){
-        // Charge l'ensemble des modules dont le nom est dans le fichier .enabled.json
+    return function(app){
+        // Charge l'ensemble des modules dont le nom est dans le fichier modules.json
         
         context.log.info('Listing modules.');
-        var enabled = JSON.parse(fs.readFileSync(path.join(context.module_path, '.enabled.json'))).enabled;
+        var enabled = JSON.parse(fs.readFileSync(path.join(context.module_path, 'modules.json'))).enabled;
         for(let i in enabled){
             context.log.info('Loading ' + enabled[i] + '...');
             load_module(app, enabled[i]);
         }
-    }
-
-    exports.load_enabled = load_enabled;
-    return exports;
+    };
 };

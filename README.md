@@ -5,15 +5,15 @@ Ce document a pour objectif de permettre à une personne maitrisant les concepts
 ## A Motivations
 
 Le site est basé sur Express et Node.js. Le code coté serveur est donc en
-JavaScript. Le concept fondamentale de ce site est l'aspect modulaire qui a
-pour objectif de permettre l'extension des fonctionnalitées par des
-générations d'ÉCLAIRmen sans que ceux-ci ai besoin de comprendre le code des
-dévellopeurs précédents. La compréhension de l'interface proposé doit être
+JavaScript. Le concept fondamental de ce site est l'aspect modulaire qui a
+pour objectif de permettre l'extension des fonctionnalités par des
+générations d'ÉCLAIRmen sans que ceux-ci aient besoin de comprendre le code des
+dévelopeurs précédents. La compréhension de l'interface proposée doit être
 suffisante pour dévelloper un nouveau module.
 
 ## B Architecture d'une page classique du site
 
-Une page classique de MyECL se décompose en trois grandes parties. En haut on à un __header__ qui donne accès à des liens essentiels. À gauche on a un __menu__ qui peut être plier et qui rassemble des liens vers les différentes pages disponibles. Enfin au centre on a le __body__ qui affiche les pages du site.
+Une page classique de MyECL se décompose en trois grandes parties. En haut on a un __header__ qui donne accès à des liens essentiels. À gauche on a un __menu__ qui peut être plié et qui rassemble des liens vers les différentes pages disponibles. Enfin au centre on a le __body__ qui affiche les pages du site.
 
 ## C Organisation des fichiers
 
@@ -22,52 +22,54 @@ A la racine du site se trouvent :
 - le point d'entrée de l'application myecl.js
 - le dossier _primary_
 - le dossier _static_
-- le dossier _module_
+- le dossier _modules_
+- le dossier _services_
 - le dossier *node_modules*
 
-Le dossier _primary_ contient les différents fichiers JS qui rassemblent les fonctionnalitées primaires du serveur :
+Le dossier _primary_ contient les différents fichiers JS qui rassemblent les fonctionnalités primaires du serveur :
 - _init.js_ permet d'initialiser l'application Express, créer les routes minimales et exploite les autres fichiers
-- _context.js_ lit la configuration, ajoute quelques propriétées et retourne un objet context qui va servir dans la plupart des autres fichiers comme source de parametres.
-- _logger.js_ fournie des méthodes pour afficher des informations
+- _context.js_ lit la configuration, ajoute quelques propriétés et retourne un objet context qui va servir dans la plupart des autres fichiers comme source de paramètres.
+- _logger.js_ fournit des méthodes pour afficher des informations
 - *module_loader.js* charge chaque module activé
 - _authenticate.js_ met en place l'aspect authentification, l'interface de connexion et la communication avec le CAS
-- _authorise.js_ met en place l'aspect autorisation : il vérifie que l'utilisateur n'accède qu'au ressources qui lui sont permisent
-- _shortersql.js_ propose une interface avec la base de données exposant des fonctions simple à utiliser pour faire les taches les plus courantes
+- _authorise.js_ met en place l'aspect autorisation : il vérifie que l'utilisateur n'accède qu'aux ressources qui lui sont permisent
+- _shortersql.js_ propose une interface avec la base de données exposant des fonctions simples à utiliser pour faire les taches les plus courantes
 
-Le dossier _static_ contient les fichiers statiques (ressources envoyées tel quel au client) séparé dans deux dossiers :
-- _public_ contient les fichiers accessible même sans être passer par la conexion par mot de passe (authentification)
-- _private_ contient les fichiers uniquement accessible aux utilisateurs authentifié
+Le dossier _static_ contient les fichiers statiques (ressources envoyées telles quelles au client) séparés dans deux dossiers :
+- _public_ contient les fichiers accessibles même sans être passé par la conexion par mot de passe (authentification)
+- _private_ contient les fichiers uniquement accessibles aux utilisateurs authentifiés
 
-Le dossier _modules_ contient un dossier pour chaque module activé ainsi que les
-fichiers utiles à la gestion des modules.
+Le dossier _modules_ contient un dossier pour chaque module ainsi que le fichier _modules.json_ qui liste les modules actifs.
 
-Le dossier *node_modules* contient les modules installés avec npm
+Le dossier _services_ contient un dossier pour chaque service ainsi que le fichier _services.json_ qui liste les services actifs.
+
+Le dossier *node_modules* contient les modules installés avec npm.
 
 # 2 Installation
 
 Pour installer le site il faut :
 - Installer node.js
 - Installer un serveur mariadb et y ajouter un utilisateur eclair et une base de données myecl
-- Lancer le script _config.sh_ pour générer la configuration. Ce script peut prendre comme argument optionel "dev" et "prod" qui donne des valeures par défaut adaptées aux différents paramètres du script. En l'abcence d'argument le script demande à l'utilisateur de renseigner les paramètres à la main. Les valeures entre crochets sont les valeures prisent si le champ reste vide.
+- Lancer le script _config.sh_ pour générer la configuration. Ce script peut prendre comme argument optionel "dev" et "prod" qui donne des valeures par défaut adaptées aux différents paramètres du script. En l'absence d'argument le script demande à l'utilisateur de renseigner les paramètres à la main. Les valeures entre crochets sont les valeures prisent si le champ reste vide.
 
 
 # 3 Architecture d'un module
 
 ## A Les fichiers essentiels
 
-Un module est entierement contenu dans le dossier qui porte sont nom dans le répertoire _modules_
-Un module n'a qu'un ou deux fichiers absolument indispensable. S'il ne contient que des fichiers statiques il ne nécessite que le fichier _config.json_. S'il contient en plus des routes dynamiques (la réponse est créer par du code JS) alors il aura en plus un fichier _callbacks.js_. Le reste du contenu du dossier est gérer comme bon lui semble par l'auteur du module.
+Un module est entierement contenu dans le dossier qui porte son nom dans le répertoire _modules_. Il n'est actif que si son nom apparait dans le fichier _modules/modules.json_. Les modules seront chargés dans l'ordre d'apparition dans ce fichier.
+Un module n'a qu'un ou deux fichiers absolument indispensables. S'il ne contient que des fichiers statiques il ne nécessite que le fichier _config.json_. S'il contient en plus des routes dynamiques (la réponse est crée par du code JS) alors il aura en plus un fichier _callbacks.js_. Le reste du contenu du dossier est géré comme bon lui semble par l'auteur du module.
 
 ## B Structure de _config.json_
 
 Le fichier _config.json_ est la base de la définition d'un module. Il rassemble toute les informations nécessaires pour mettre en place le module.
 
 ### La propritété __authorisation__
-Cette propriété définie la règle de sécurité par défaut concernant ce module. Elle peut prendre quatres formes différentes :
-- "public" : les ressources du module sont accessible sans se connecter.
+Cette propriété définit la règle de sécurité par défaut concernant ce module. Elle peut prendre quatres formes différentes :
+- "public" : les ressources du module sont accessibles sans se connecter.
 - un # suivi d'un nom : c'est un alias, les alias sont définis dans le fichier de configuration principale sous la forme "#alias" : "requete SQL". Par exemple l'alias "#ecl" rend les ressources du module accessible par défaut à tout utilisateur identifié comme un (ancien) élève.
-- une requète SQL SELECT qui doit renvoyer une liste de login autorisé à accéder aux ressources (ex : SELECT login FROM user WHERE promo = 2016;)
-- une __fin__ de requète SQL qui sera à en interne collé après le début de requète SELECT login FROM user JOIN membership ON membership.id\_user = user.id (ex : WHERE membership.position = 'prez' AND membership.group = 'ECLAIR';)
+- une requête SQL SELECT qui doit renvoyer une liste de login autorisés à accéder aux ressources (ex : SELECT login FROM user WHERE promo = 2016;)
+- une __fin__ de requête SQL qui sera en interne collée après le début de requête SELECT login FROM user JOIN membership ON membership.id\_user = user.id (ex : WHERE membership.position = 'prez' AND membership.group = 'ECLAIR';)
 Si la propriété est omise le comportement par défaut est celui de l'alias #ecl.
 
 
@@ -75,13 +77,13 @@ Si la propriété est omise le comportement par défaut est celui de l'alias #ec
 
 Cette propriété contient une liste de règles qui décrivent la façon d'accéder aux ressources du module. Une règle est elle même un objet associatif qui décrit le type de ressource et la façon d'y acceder. Il existe trois types de ressources :
 - __static__ : un fichier ou un dossier contenant des fichiers statiques, la valeure est le chemin relatif au dossier du module
-- __callback__ : un callback comme on en utilise avec Express. C'est une fonction javascript qui prend en argument un objet représentant la requète et un représentant la réponse. La valeure est le nom de la fonction tel qu'il est déclaré dans le fichier _callback.js_
-- __middleware__ : identique à proche de __callback__ au détail près que la fonction doit prendre un troisième argument __next__ qui est une fonction à appeler sans argument une fois les traitements terminé.
+- __callback__ : un callback comme on en utilise avec Express. C'est une fonction javascript qui prend en argument un objet représentant la requête et un représentant la réponse. La valeur est le nom de la fonction tel qu'il est déclaré dans le fichier _callback.js_
+- __middleware__ : identique à __callback__ au détail près que la fonction doit prendre un troisième argument __next__ qui est une fonction à appeler sans argument une fois les traitements terminés. Le middleware en question peut eventuellement être un router express.
 
 Il y a trois méthodes pour accéder à ces ressources :
 - __route__ associe de façon directe une route et une ressource. La valeur de la propriété est l'url complète par exemple "/modules/profile/static/\*"
 - __body__ permet d'intégrer une page à la page de base de MyECL (qui comprend le header et le menu à droite)
-- __tile__ permet de définir le contenu d'une tuile associé à ce module. La propriété __tile__ contient le nom sous lequel on va pouvoir y accéder. Une règle contenant __tile__ peut prendre deux autres propriétés : __title__ pour définir le titre de la tuile (par défaut le titre est vide) et **size_class** qui permet de définir la classe bootstrap utilisé pour la tile (par défaut `col-xs-6`)
+- __tile__ permet de définir le contenu d'une tuile associé à ce module. La propriété __tile__ contient le nom sous lequel on va pouvoir y accéder. Une règle contenant __tile__ peut prendre une autre propriété : __title__ pour définir le titre de la tuile (par défaut le titre est vide) 
 
 Chaque règle peut avoir des propriétées supplémentaires :
 - __authorisation__ : définit une règle de sécurité spécifique à cette règle
@@ -96,12 +98,13 @@ Cette propriété fonctionne comme son homonyme dans les rules mais s'applique �
 
 ### La propriété __menu__
 
-Cette propriété permet à chaque module d'ajouter des éléments qui lui sont spécifique dans le menu de gauche. C'est une liste d'items qui peuvent être de trois types :
-- __body__ : permet d'afficher un body définit dans __rules__, la valeure est le nom du body
-- __link__ : un lien classique vers une URL quelquonque (qui peut être interne au site ou non), la valeure est l'URL cible
-- __sub__ : un sous menu, la valeures est une nouvelle liste contenant des items. On peut imbriquer autant de menu que l'on veut (en théorie, mais le résultat esthétique n'est pas garanti)
+Cette propriété permet à chaque module d'ajouter des éléments qui lui sont spécifiques dans le menu de gauche. C'est une liste d'items qui peuvent être de trois types :
+- __body__ : permet d'afficher un body défini dans __rules__, la valeur est le nom du body
+- __link__ : un lien classique vers une URL quelconque (qui peut être interne au site ou non), la valeur est l'URL cible
+- __sub__ : un sous menu, la valeur est une nouvelle liste contenant des items. On peut imbriquer autant de menus que l'on veut (en théorie, mais le résultat esthétique n'est pas garanti)
+- __authorisation__ : même fonctionnement que pour les __rules__, les autorisations permettent de définir qui peut voir un menu. Les items de sous menus ne peuvent pas porter d'authorisation spécifique et hérite de celle du menu principale. Si cette propriété est ommise la valeure par défaut est celle du module entier.
 
-Chaque item à en plus une propriété __name__ obligatoire qui contient le texte à afficher.  et peut avoir une propriété __icon__ qui contient du code HTML à ajouter juste avant le nom du lien.
+Chaque item a en plus une propriété __name__ obligatoire qui contient le texte à afficher et peut avoir une propriété __icon__ qui contient du code HTML à ajouter juste avant le nom du lien.
 
 ### La propriété __header__
 
@@ -116,7 +119,7 @@ Cette propriété permet de créer des tables dans le base de donnée à l'usage
 
 Pour l'instant aucune autre propriété de la configuration n'est utilisé par le chargeur de module mais ça viendra.
 
-## B Un exemple de configuration
+## C Un exemple de configuration
 ```json
 {
     "authorisation" : "ecl",
@@ -190,11 +193,11 @@ Pour l'instant aucune autre propriété de la configuration n'est utilisé par l
 
 # 4 Ressources mise à disposition des modules
 
-Plusieurs objets sont mis à la disposition des modules au chargement du système. Ces objets sont rassemblé dans l'objet __app__ accessible dans les callbacks et middlewares en sous le nom __req.app__.
+Plusieurs objets sont mis à la disposition des modules au chargement du système. Ces objets sont rassemblé dans l'objet requète (habituellement appelé __req__).
  
 ## Logs
 
-Pour fournir des informations à l'administrateur sur le bon fonctionnement du module on utilise l'objet __app.log__. Il contient trois fonctions :
+Pour fournir des informations à l'administrateur sur le bon fonctionnement du module on utilise l'objet __req.log__. Il contient trois fonctions :
 - __info(msg)__ : pour des messages d'information.
 - __warning(msg)__ : pour avertir d'un problème potentiel ou d'un situation anormale.
 - __error(msg, fatal)__ : pour avertir d'une erreur importante. __fatal__ est optionel et vaut __false__ par défaut. S'il vaut __true__ l'appel de __error__ met fin au processus (tue le site). Si __msg__ est un objet erreur, sa description est affichée.
@@ -203,7 +206,7 @@ Pour fournir des informations à l'administrateur sur le bon fonctionnement du m
 
 MyECL utilise une base de données MariaDB. Cette base de données permet à chaque module de stocker des informations ou de récupérer des données pré-existantes dans des tables appartenant au module même ou à d’autres modules. Un module peut creer ses propres tables dans sa configuration. Chaque table crée par le module doit etre déclarée dans la propriété __database__ du fichier config.json. 
 
-Au chargement de MyECL la base de donnée est connectée et referencée dans l'objet __app.database__.
+Au chargement de MyECL la base de donnée est connectée et referencée dans l'objet __req.database__.
 
 L'objet database possede differentes methodes permettent d'interagir avec la base de donées:
 
@@ -233,6 +236,32 @@ __.query()__ est un binding vers la fonction pool.query du module mysql. Elle r�
 
 Les tables essentielles au fonctionnement de MyECL sont chargées par init.js et sont définies dans le fichier de configuration principal.
 
+## Les services
+
+Les services sont des objets disponible dans l'objet __req.serv__. Ils permettent de proposer des fonctionnalitées qui n'existent pas dans le code principale aux auteurs des modules. Pour créer un service il faut créer un dossier dans le dossier _services_ dont le nom sera le nom du service (si le dossier s'appel mon_service, le service sera accessible comme **req.serv.mon_service**). Le nom du dossier ne doit donc pas contenir d'espaces ou de caractères exotiques. Dans ce dossier devra se trouver un fichier _main.js_ dont la structure est la suivante :
+
+```JS
+/*
+ * Description
+ */
+
+// Imports de fonctionnalitées
+const une_dependance = require('undep');
+
+module.exports = function(context){
+    var serv = new Object();
+    
+    // Ici on ajoute des propriétées et des fonctions à serv
+
+    return serv;
+};
+```
+
+L'argument context est un objet qui contient l'ensemble des propriétées définies dans le fichier de configuration ainsi que les objets __log__ et __database__ et __serv__ et quelques autres informations sur l'état global du site (liste des routes, liste des menus, liste des headers...).
+
+Pour permettre l'utilisation d'un service il faut l'activer en ajoutant son nom dans le fichier _services/services.json_. L'ordre de chargement des services correspond à leur ordre d'apparition dans ce fichier. Il est donc possible d'utiliser dans un service un autre service qui apparait plus haut dans la liste.
+
+
 # 5 Avancement du projet
 
 ## Fonctionnalités de base
@@ -241,13 +270,14 @@ Les tables essentielles au fonctionnement de MyECL sont chargées par init.js et
 - [x] Mise en place d'un squelette du système de sécurité
 - [x] Design de la page type
 - [x] Implémentation du __menu__
-- [ ] Adapter le menu à l'utilisateur
 - [x] Implémentation du __body__
 - [x] Implémentation du __header__
-- [ ] Adapter le header à l'utilisateur
+- [ ] Implémentation du chargement des tiles
+- [ ] Implémentation des notifications
 - [x] Mise en place de la base de données
-- [ ] Isolation des tables des différents modules
-- [ ] Considerer les risque de donner acces à toutes les collections à tous les modules
+- [ ] Adapter le menu à l'utilisateur
+- [ ] Adapter le header à l'utilisateur
+- [ ] Implémentation d'un système de gestion des tiles pour l'utilisateur
 - [ ] Mise en place du système complet de sécurité
     - [x] Création d'une page de connexion
     - [ ] Création d'une page "Acces interdit"
@@ -255,7 +285,7 @@ Les tables essentielles au fonctionnement de MyECL sont chargées par init.js et
     - [x] Implémentation du système de mot de passe
     - [x] Création d'un système d'autorisations flexible pour définir quel utilisateur a accès à chaque module
     - [x] Implémentation du système d'autorisation
-- [ ] Ajout d'un système de "service"àl'usage des modules qui offre des fonctionnalitées interne supplémentaire
+- [ ] Ajout d'un système de "service" à l'usage des modules qui offre des fonctionnalitées interne supplémentaire
     - [ ] Service d'accés au utilisateurs, aux assos... (surcouche à shorter.sql)
 - [x] Permettre aux modules d'ajouter des head aux pages body ()
 - [ ] Implémentation du chargement des tiles
@@ -266,7 +296,8 @@ Les tables essentielles au fonctionnement de MyECL sont chargées par init.js et
 ## Modules
 
 Ceux que l'on doit faire avant la mise en ligne :
-- [x] Exemple pour montrer les fonctionnalitées de base
+- [x] Exemple pour montrer les fonctionnalitées de 
+- [ ] Interface Admin
 - [ ] Emploi du temps
 - [ ] PH
 - [ ] JE
@@ -274,7 +305,7 @@ Ceux que l'on doit faire avant la mise en ligne :
 - [ ] annonces BDE
 - [ ] Club ciné
 - [ ] Beat Box
-- [ ] Interface Admin
+
 
 Les autres qu'il faudrait faire rapidement :
 
