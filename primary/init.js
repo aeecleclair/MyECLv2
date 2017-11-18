@@ -119,7 +119,7 @@ exports.myecl = function(context){
     // Utiliser un compte existant
     
     app.use('/login.html', function(req, res, next){
-        authenticate.simple_check(req.session.user, 'user', function(connected){
+        authorise.simple_check(req.session.user, 'user', function(connected){
             if(connected){  // si l'utilisateur est déjà connecté
                 res.redirect('/home');  // on le renvoie vers la page principale
             } else {
