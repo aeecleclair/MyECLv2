@@ -78,7 +78,7 @@ Si la propriété est omise le comportement par défaut est celui de l'alias #ec
 Cette propriété contient une liste de règles qui décrivent la façon d'accéder aux ressources du module. Une règle est elle même un objet associatif qui décrit le type de ressource et la façon d'y acceder. Il existe trois types de ressources :
 - __static__ : un fichier ou un dossier contenant des fichiers statiques, la valeure est le chemin relatif au dossier du module
 - __callback__ : un callback comme on en utilise avec Express. C'est une fonction javascript qui prend en argument un objet représentant la requête et un représentant la réponse. La valeur est le nom de la fonction tel qu'il est déclaré dans le fichier _callback.js_
-- __middleware__ : identique à proche de __callback__ au détail près que la fonction doit prendre un troisième argument __next__ qui est une fonction à appeler sans argument une fois les traitements terminés.
+- __middleware__ : identique à __callback__ au détail près que la fonction doit prendre un troisième argument __next__ qui est une fonction à appeler sans argument une fois les traitements terminés. Le middleware en question peut eventuellement être un router express.
 
 Il y a trois méthodes pour accéder à ces ressources :
 - __route__ associe de façon directe une route et une ressource. La valeur de la propriété est l'url complète par exemple "/modules/profile/static/\*"
