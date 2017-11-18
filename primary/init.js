@@ -118,6 +118,17 @@ exports.myecl = function(context){
     // Mise en places des routes de fonctionnement interne
 
     // Utiliser un compte existant
+    
+    app.use('/login.html', function(req, res, next){
+        authenticate.simple_check(req.session.user, 'user', function(connected){
+            if(connected){  // si l'utilisateur est déjà connecté
+                res.redirect('/home');  // on le renvoie vers la page principale
+            } else {
+                next();
+            }
+        });
+    });
+
     app.get('/login', authenticate.password);
 
     // Passer par le cas puis creer un compte
