@@ -60,6 +60,14 @@ Pour installer le site il faut :
 Un module est entierement contenu dans le dossier qui porte son nom dans le répertoire _modules_. Il n'est actif que si son nom apparait dans le fichier _modules/modules.json_. Les modules seront chargés dans l'ordre d'apparition dans ce fichier.
 Un module n'a qu'un ou deux fichiers absolument indispensables. S'il ne contient que des fichiers statiques il ne nécessite que le fichier _config.json_. S'il contient en plus des routes dynamiques (la réponse est crée par du code JS) alors il aura en plus un fichier _callbacks.js_. Le reste du contenu du dossier est géré comme bon lui semble par l'auteur du module.
 
+Du point de vue du client un module est composé de pages web. Pour accéder à ces pages il utilise des url qui sont définies par le fichier de config dans la propriété __rules__ du fichier de configuration et qui peuvent être misent à disposition dans le menu latérale du site grace à la propriété __menu__ ou bien dans le header (bagnère supérieur) grace à la propriété __header__.
+
+Certaines pages ne sont pas accessible à tout les clients. Pour définir qui a accés à chaque page on utilise la propriété __authorisation__.
+
+Un module propose au client deux types de pages : la première est la page classique, constitué de fichiers HTML et CSS normaux, la deuxième est ce qu'on désigne ici sous le nom de body. Les bodies sont des pages qui s'intègre à au header et au menu de MyECL. Le HTML qui les définie n'est pas "normal" dans le sens ou il ne contient pas les balises <head> et <body>. En effet ces balises sont déjà dans une autre page (myecl_base.html) qui sert de base aux pages body. En conséquance le body se limite au contenu effectivement affiché. D'autre part comme le contenu du body est ce qui est affiché, il ne doit pas déclarer de liens vers des fichiers JS ou CSS. Pour importer ces fichiers dans la page il faut les déclarer avec la propriété __head__ du fichier de configuration.
+
+Pour produire les pages on peut utiliser soit des fichiers existant, soit créer du contenu dynamiquement avec du code Node.js. Souvent ce contenu dynamique nécessite l'utilisation de tables d'une base de données. Pour assurer l'existence de ces tables, la configuration du module déclare les tables avec la propriété __database__.
+
 ## B Structure de _config.json_
 
 Le fichier _config.json_ est la base de la définition d'un module. Il rassemble toute les informations nécessaires pour mettre en place le module.
