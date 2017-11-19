@@ -78,17 +78,17 @@ exports.myecl = function(context){
         res.redirect(context.default_route);
     });
 
-    app.get('/home', authorise('#ecl'), function(req, res){
+    app.get('/home', authorise('user'), function(req, res){
         res.sendFile('myecl_base.html', {root : context.private_root});
     });
 
-    app.get('/menu', authorise('#ecl'), function(req, res){
+    app.get('/menu', authorise('user'), function(req, res){
 
         var menus = new Array();
         var pool = new myUtils.CallPool();
         for(let key in context.menu_list){
             let menu = context.menu_list[key];
-            if(menu.authorisation == '#ecl'){
+            if(menu.authorisation == 'user'){
                 menus.push(menu);
             } else {
                 // On met ces appels dans un pool
@@ -107,12 +107,11 @@ exports.myecl = function(context){
         // On lance les appels et quand ils seront finit
         // on appelera le callback
         pool.call(function(call_nb){
-            console.log('Pool call count :', call_nb);
             res.json({ list : menus });
         });
     });
 
-    app.get('/header', authorise('#ecl'), function(req, res){
+    app.get('/header', authorise('user'), function(req, res){
         res.json({ list : app.header_list });
     });
     
@@ -160,6 +159,17 @@ exports.myecl = function(context){
     });
     
     // Utiliser un compte existant
+    
+    app.use('/login.html', function(req, res, next){
+        authorise.simple_check(req.session.user, 'user', function(connected){
+            if(connected){  // si l'utilisateur est déjà connecté
+                res.redirect('/home');  // on le renvoie vers la page principale
+            } else {
+                next();
+            }
+        });
+    });
+
     app.get('/login', authenticate.password);
 
     // Passer par le cas puis creer un compte
@@ -174,7 +184,7 @@ exports.myecl = function(context){
 
     // Si rien n'a catché la requete
     app.use(serveStatic(context.public_root, context.default_static_options));
-    app.use(authorise('#ecl'), serveStatic(context.private_root, context.default_static_options));
+    app.use(authorise('user'), serveStatic(context.private_root, context.default_static_options));
 
     // Lancement du serveur
     app.listen(context.port, context.url, function(){

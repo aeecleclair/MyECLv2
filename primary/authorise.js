@@ -35,6 +35,16 @@ module.exports = function(context){
         var middleware;
         if(module_auth == 'public'){
             middleware = function(req, res, next){ next(); };
+        } else if(module_auth == 'user'){
+            middleware = function(req, res, next){
+                if(req.session.user){
+                    next();
+                } else {
+                    context.log.warning('Accès non autorisé à ' + req.url);
+                    res.status(401);
+                    res.sendFile('unauthorized.html', {'root' : context.public_root});
+                }
+            };
         } else {
             if(module_auth[0] == '#'){
                 module_auth = context.alias[module_auth];
@@ -69,9 +79,12 @@ module.exports = function(context){
         }
         return middleware;
     };
-    main_func.simple_check = function (user, module_auth, callback){
+
+    main_func.simple_check = function(user, module_auth, callback){
         if(module_auth == 'public'){
             callback(true);
+        } else if(module_auth == 'user'){
+            callback(user != null && user != undefined);
         } else {
             if(module_auth[0] == '#'){
                 module_auth = context.alias[module_auth];
