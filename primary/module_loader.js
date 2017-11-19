@@ -146,9 +146,9 @@ module.exports = function(context){
                 }
             );
         } else if(rule.tile){
-            log.info('Ding dong !');
-            app.tiles_list.push(rule);
+            context.tiles_list.push(rule);
             rule.route = '/tile/' + modname + '/' + rule.tile;
+
             context.myecl_map += '/heads/' + modname + '/' + rule.tile + '\n';
             app.get('/heads/' + modname + '/' + rule.tile,
                 authorise(rule.authorisation),

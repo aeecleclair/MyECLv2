@@ -117,10 +117,44 @@ exports.myecl = function(context){
     });
     
     // acces aux tiles
+    
     app.get('/tiles', authorise('#ecl'), function(req, res){
-        res.json({ list : app.tiles_list });
+
+        var tiles = new Array();
+        var pool = new myUtils.CallPool();
+        for(let key in context.tiles_list){
+            let tile = context.tiles_list[key];
+            if(tile.authorisation == '#ecl'){
+                tiles.push(tile);
+            } else {
+                // On met ces appels dans un pool
+                pool.add(authorise.simple_check, [
+                    req.session.user,
+                    tile.authorisation,
+                    function(is_auth){
+                        if(is_auth){
+                            tiles.push(tile);
+                        }
+                        pool.finish();
+                    }
+                ]);
+            }
+        }
+        // On lance les appels et quand ils seront finit
+        // on appelera le callback
+        pool.call(function(call_nb){
+            console.log('Pool call count :', call_nb);
+            res.json({ list : tiles });
+        });
     });
     
+    app.get('/heads/primary/tiles', function(req, res){
+        res.json({'script' : ['/tiles.js'], 'style' : ['/tiles.css']});
+    });
+    // app.get('/user/tiles', authorise('user'), function(req, res){
+    //      res.send(GET USER TILES PREFERENCES)
+    // });
+
     app.get('/body/primary/tiles', authorise('#ecl'), function(req, res){
         res.redirect('/tiles.html');
     });
