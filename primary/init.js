@@ -61,7 +61,7 @@ exports.myecl = function(context){
     // Premier middleware pour toutes les routes
     app.use('/*', function(req, res, next){
         // Log des requetes
-        //context.log.info('Asking for ' + req.url + '.');
+        context.log.info('Asking for ' + req.url + '.');
 
         // Surcharge de la requete
         req.database = context.database;
@@ -148,7 +148,7 @@ exports.myecl = function(context){
     });
     
     app.get('/heads/primary/tiles', function(req, res){
-        res.json({'script' : ['/tiles.js'], 'style' : ['/tiles.css']});
+        res.json({'scripts' : ['/tiles.js'], 'styles' : ['/tiles.css']});
     });
     // app.get('/user/tiles', authorise('user'), function(req, res){
     //      res.send(GET USER TILES PREFERENCES)

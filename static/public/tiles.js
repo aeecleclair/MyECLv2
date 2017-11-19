@@ -31,10 +31,10 @@ function handle_tiles(box, tiles){
         tile.index = i;
         $.get(tile.route, function(data){
             var tile_html = TILE_TEMPLATE
-                .replace('##SIZE##', tile.size_class)
-                .replace('##ID##', tile.tile)
-                .replace('##TITLE##', tile.title)
-                .replace('##BODY##', data);
+                .replace(/##SIZE##/g, tile.size)
+                .replace(/##ID##/g, tile.tile)
+                .replace(/##TITLE##/g, tile.title)
+                .replace(/##BODY##/g, data);
             box.append(tile_html);
         });
     }

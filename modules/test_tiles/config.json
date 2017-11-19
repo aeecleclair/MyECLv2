@@ -1,5 +1,5 @@
 {
-    "authorisation" : "ecl",
+    "authorisation" : "user",
     "description" : "Module de test des tuiles",
     "rules" : [
         {
@@ -10,12 +10,13 @@
             "tile" : "calendar",
             "title" : "Calendrier associatif",
             "static" : "static/calendar.html",
-            "size" : "12"
+            "size" : 12
         },
         {
             "tile" : "chatons",
             "title" : "Club chatons",
-            "static" : "static/club_chaton.html"
+            "static" : "static/club_chaton.html",
+            "size" : 8
         },
         {
             "tile" : "photo",
