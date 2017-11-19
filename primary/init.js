@@ -117,13 +117,13 @@ exports.myecl = function(context){
     
     // acces aux tiles
     
-    app.get('/tiles', authorise('#ecl'), function(req, res){
+    app.get('/tiles', authorise('user'), function(req, res){
 
         var tiles = new Array();
         var pool = new myUtils.CallPool();
         for(let key in context.tiles_list){
             let tile = context.tiles_list[key];
-            if(tile.authorisation == '#ecl'){
+            if(tile.authorisation == 'user'){
                 tiles.push(tile);
             } else {
                 // On met ces appels dans un pool
@@ -154,7 +154,7 @@ exports.myecl = function(context){
     //      res.send(GET USER TILES PREFERENCES)
     // });
 
-    app.get('/body/primary/tiles', authorise('#ecl'), function(req, res){
+    app.get('/body/primary/tiles', authorise('user'), function(req, res){
         res.redirect('/tiles.html');
     });
     
