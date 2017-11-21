@@ -33,10 +33,10 @@ case "$1" in
         ;;
     *)
         ask "URL d'écoute ?" "localhost" LURL
-        ask "URL du service ?" "www.myecl.fr" URL
-        ask "Protocole ?" "https" HTTP
+        ask "URL du service ?" "localhost" URL
+        ask "Protocole ?" "http" HTTP
         ask "Port d'écoute ?" "8080" LPORT
-        ask "Port du service ?" "80" PORT
+        ask "Port du service ?" "8080" PORT
         ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
         ask "Hôte de base de données" "localhost" DB_HOST
         ;;
@@ -47,7 +47,7 @@ echo "Créer la base de donnée et l'utilisateur MariaDB ? [o/N] "
 read CREATEDB
 if [[ "x$CREATEDB" == "xo" ]]
 then
-    mysql -u root -p -e "GRANT USAGE ON *.* TO 'eclair'@'localhost' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'localhost';" 
+    mysql -u root -p -e "CREATE DATABASE myecl; GRANT USAGE ON *.* TO 'eclair'@'localhost' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'localhost';" 
 fi    
 
 # Mise à jour des modules node.js
