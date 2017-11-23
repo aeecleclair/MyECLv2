@@ -12,6 +12,7 @@
     "enabled" : [
         "test",
         "panorama",
-        "serv"
+        "serv",
+        "asso"
     ]
 }
