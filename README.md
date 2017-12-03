@@ -123,7 +123,7 @@ Pour l'instant aucune autre propriété de la configuration n'est utilisé par l
 ## C Un exemple de configuration
 ```json
 {
-    "authorisation" : "ecl",
+    "authorisation" : "#ecl",
     "description" : "Module de test",
     "database" : [
         {
@@ -289,6 +289,7 @@ Pour permettre l'utilisation d'un service il faut l'activer en ajoutant son nom 
 - [x] Ajout d'un système de "service" à l'usage des auteurs des modules qui offre des fonctionnalitées interne supplémentaire
 - [ ] Service d'accés aux utilisateurs, aux assos... (surcouche à shorter.sql)
 - [x] Permettre aux modules d'ajouter des head aux pages body (script JS et styles CSS)
+- [ ] Permettre l'utilisation de templates (si possible donner du choix sur le moteur)
 
 ## Modules
 
