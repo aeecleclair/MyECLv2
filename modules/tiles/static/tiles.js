@@ -64,7 +64,7 @@ function insert_tiles(tiles_box, tiles){
             });
         },
         stop: function(event, ui) {
-            var id = ui.item.attr("id");
+            var tile = ui.item.attr('id');
             var index_new = ui.item.index();
             var index_old = 0; // Pour récupérer l'ancien indice de l'élément déplacé
             for(i = 0; i < tiles.length; i++){
