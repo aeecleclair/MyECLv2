@@ -1,81 +1,112 @@
-var tuiles = [
-    {"id" : "calendrier", "html" : '<div class="panel-box panel-box-12 col-xs-12" id="calendrier"><div class="panel panel-default"><div class="panel-heading">Calendrier associatif<div class="boutons-droite"><a href="#" onclick="suppr()"><span class="fa fa-times"></span></a></div></div><div class="panel-body"></div></div></div>', "index" : 2},
-    {"id" : "photo", "html" : '<div class="panel-box panel-box-4 col-xs-4" id="photo"><div class="panel panel-default"><div class="panel-heading">Club photo<div class="boutons-droite"><a href="#"><span class="fa fa-times"></span></a></div></div><div class="panel-body"></div></div></div>', "index" : 0},
-    {"id" : "chatons", "html" : '<div class="panel-box panel-box-4 col-xs-4" id="chatons"><div class="panel panel-default"><div class="panel-heading">Club chatons<div class="boutons-droite"><a href="#"><span class="fa fa-times"></span></a></div></div><div class="panel-body"></div></div></div>', "index" : 3},
-    {"id" : "eclair", "html" : '<div class="panel-box panel-box-4 col-xs-4" id="eclair"><div class="panel panel-default"><div class="panel-heading">Eclair<div class="boutons-droite"><a href="#"><span class="fa fa-times"></span></a></div></div><div class="panel-body"></div></div></div>', "index" : 4},
-    {"id" : "bled", "html" : '<div class="panel-box panel-box-8 col-xs-8" id="bled"><div class="panel panel-default"><div class="panel-heading">B.L.E.D<div class="boutons-droite"><a href="#"><span class="fa fa-times"></span></a></div></div><div class="panel-body"></div></div></div>', "index" : 1},
-    {"id" : "piscine", "html" : '<div class="panel-box panel-box-4 col-xs-4" id="piscine"><div class="panel panel-default"><div class="panel-heading">Club piscine<div class="boutons-droite"><a href="#"><span class="fa fa-times"></span></a></div></div><div class="panel-body"></div></div></div>', "index" : 5},
-    ];
+const TILE_TEMPLATE = '\
+<div class="panel-box panel-box-##SIZE## col-xs-##SIZE##" id="##ID##">\
+    <div class="panel panel-default">\
+        <div class="panel-heading">\
+            ##TITLE##\
+            <div class="boutons-droite">\
+                <a href="#" onclick="suppr()">\
+                    <span class="fa fa-times"></span>\
+                </a>\
+            </div>\
+        </div>\
+        <div class="panel-body">\
+            ##BODY##\
+        </div>\
+    </div>\
+</div>\
+';
 
-var panelList = $('#draggablePanelList');
-
-function init(){
-
-    tuiles.sort(function(a,b){ // On trie en fonction de l'index
-        return a.index-b.index
-    })
-
-    var html = "";
-
-    for (i=0;i<tuiles.length;i++){
-        html += tuiles[i].html;
-    }
-
-    panelList.html(html);
-}
 
 function suppr(e){
     console.log(e);
 }
 
-$(document).ready(function() {
+function handle_tiles(box, tiles){
+    tiles.sort(function(a,b){ // On trie en fonction de l'index
+        return a.index - b.index
+    }); 
+     
+    // TODO Faire un meilleur système pour initiliser les indices
+    // $.getJSON('/user/get_tiles');
+    for(let i in tiles){
+        let tile = tiles[i];
+        if(!tile.size){
+            tile.size = '4';
+        }
+        if(!tile.title){
+            tile.title = '';
+        }
 
-    init();
+        tile.index = i;
 
-    jQuery(function($) {
-
-        panelList.sortable({
-            handle: '.panel-heading', // Partie à saisir pour drag
-            update: function() {
-                $('.panel', panelList).each(function(index, elem) {
-                    var $listItem = $(elem),
-                        newIndex = $listItem.index();
-
-                    // Persist the new indices.
-                });
-            },
-            stop: function(event, ui) {
-                var id = ui.item.attr("id");
-                var index_new = ui.item.index();
-                var index_old = 0; // Pour récupérer l'ancien indice de l'élément déplacé
-                for (i=0;i<tuiles.length;i++){
-                    if (tuiles[i].id == id){
-                        index_old = tuiles[i].index;
-                    }
-                }
-
-                //On met à jour les indices
-
-                if (index_old<index_new){
-                    for (i=0;i<tuiles.length;i++){
-                        var index_old_el = tuiles[i].index;
-                        if (index_old<index_old_el && index_old_el<=index_new){
-                            tuiles[i].index -= 1;
-                        }
-                    }
-                }
-
-                if (index_new<index_old){
-                    for (i=0;i<tuiles.length;i++){
-                        var index_old_el = tuiles[i].index;
-                        if (index_new<=index_old_el && index_old_el<index_old){
-                            tuiles[i].index += 1;
-                        }
-                    }
-                }
-
-                tuiles[index_old].index = index_new; // On met à jour l'index
-            }
+        $.get(tile.route, function(data){
+            var tile_html = TILE_TEMPLATE
+                .replace(/##SIZE##/g, tile.size)
+                .replace(/##ID##/g, tile.tile)
+                .replace(/##TITLE##/g, tile.title)
+                .replace(/##BODY##/g, data);
+            panelList.append(tile_html);
         });
+    }
+}
+
+function insert_tiles(tiles_box, tiles){
+
+    tiles_box.sortable({
+        handle: '.panel-heading', // Partie à saisir pour drag
+        update: function() {
+            $('.panel', tiles_box).each(function(index, elem) {
+                var listItem = $(elem),
+                    newIndex = listItem.index();
+                // TODO
+                // $.post('/user/save_tiles');
+
+            });
+        },
+        stop: function(event, ui) {
+            var id = ui.item.attr("id");
+            var index_new = ui.item.index();
+            var index_old = 0; // Pour récupérer l'ancien indice de l'élément déplacé
+            for(i = 0; i < tiles.length; i++){
+                if(tiles[i].tile == tile){
+                    index_old = tiles[i].index;
+                    i = tiles.length; // break
+                }
+            }
+
+            //On met à jour les indices
+
+            if(index_old < index_new){
+                for(i = 0; i < tiles.length; i++){
+                    var index_old_el = tiles[i].index;
+                    if(index_old < index_old_el <= index_new){
+                        tiles[i].index -= 1;
+                    }
+                }
+            }
+
+            if(index_new < index_old){
+                for(i = 0; i < tiles.length; i++){
+                    var index_old_el = tiles[i].index;
+                    if(index_new <= index_old_el < index_old){
+                        tiles[i].index += 1;
+                    }
+                }
+            }
+
+            tiles[index_old].index = index_new; // On met à jour l'index
+        }
+    });
+}
+
+$(document).ready(function() {
+    var panelList = $('#draggablePanelList');
+    $.getJSON('/tiles', function(data){
+        var tiles = data.list;
+        // TODO traitement sur tiles
+        // Les deux fonctions agissent directement sur les objets
+        // donc pas besoin de valeures de retour
+        handle_tiles(panelList, tiles);
+        insert_tiles(panelList, tiles);
     });
 });
