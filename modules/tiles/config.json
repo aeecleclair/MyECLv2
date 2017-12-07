@@ -1,0 +1,18 @@
+{
+	"description" : "Module permettant l'affichage des tuiles.",
+	"authorisation" : "#ecl",
+	"rules" : [
+		{
+			"body" : "main",
+			"static" : "tiles.html",
+			"heads" : {
+				"styles" : ["/modules/tiles/static/tiles.css"],
+				"scripts" : ["/modules/tiles/static/tiles.js"]
+			}
+		},
+		{
+			"route" : "/modules/tiles/static/*",
+			"static" : "static"
+		}
+	]
+}

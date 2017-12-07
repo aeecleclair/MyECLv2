@@ -105,7 +105,7 @@ function insert_body(module_name, body_name){
 $(document).ready(function(){
     insert_menu();
     insert_header();
-    insert_body('primary', 'tiles');
+    insert_body('tiles', 'main');
 });
 
 

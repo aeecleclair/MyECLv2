@@ -10,6 +10,7 @@
         "syntaxe car le site ne se lancera pas dans ce cas là."
     ],
     "enabled" : [
+        "tiles",
         "test",
         "test_tiles",
         "panorama",
