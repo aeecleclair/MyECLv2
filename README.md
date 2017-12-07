@@ -281,7 +281,8 @@ Pour permettre l'utilisation d'un service il faut l'activer en ajoutant son nom 
 - [x] Implémentation du __menu__
 - [x] Implémentation du __body__
 - [x] Implémentation du __header__
-- [ ] Implémentation du chargement des tiles
+- [x] Implémentation du chargement des tiles
+- [ ] Implémentation d'un système de gestion des tiles pour l'utilisateur
 - [ ] Implémentation des notifications
 - [x] Mise en place de la base de données
 - [ ] Adapter le menu à l'utilisateur
@@ -297,10 +298,7 @@ Pour permettre l'utilisation d'un service il faut l'activer en ajoutant son nom 
 - [ ] Ajout d'un système de "service" à l'usage des modules qui offre des fonctionnalitées interne supplémentaire
     - [ ] Service d'accés au utilisateurs, aux assos... (surcouche à shorter.sql)
 - [x] Permettre aux modules d'ajouter des head aux pages body ()
-- [ ] Implémentation du chargement des tiles
 - [ ] Association de heads (scripts et styles) aux tiles (comme pour les bodys)
-- [ ] Implémentation d'un système de gestion des tiles pour l'utilisateur
-- [ ] Implémentation des notifications
 
 ## Modules
 
