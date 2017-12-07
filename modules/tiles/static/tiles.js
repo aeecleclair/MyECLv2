@@ -45,7 +45,7 @@ function handle_tiles(box, tiles){
                 .replace(/##ID##/g, tile.tile)
                 .replace(/##TITLE##/g, tile.title)
                 .replace(/##BODY##/g, data);
-            panelList.append(tile_html);
+            box.append(tile_html);
         });
     }
 }
