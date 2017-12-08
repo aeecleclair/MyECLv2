@@ -21,83 +21,107 @@ function suppr(e){
     console.log(e);
 }
 
-function handle_tiles(box, tiles){
-    tiles.sort(function(a,b){ // On trie en fonction de l'index
-        return a.index - b.index
-    }); 
-     
-    // TODO Faire un meilleur système pour initiliser les indices
-    // $.getJSON('/user/get_tiles');
-    for(let i in tiles){
-        let tile = tiles[i];
-        if(!tile.size){
-            tile.size = '4';
-        }
-        if(!tile.title){
-            tile.title = '';
-        }
-
-        tile.index = i;
-
-        $.get(tile.route, function(data){
-            var tile_html = TILE_TEMPLATE
-                .replace(/##SIZE##/g, tile.size)
-                .replace(/##ID##/g, tile.tile)
-                .replace(/##TITLE##/g, tile.title)
-                .replace(/##BODY##/g, data);
-            box.append(tile_html);
-        });
+function is_empty(obj){
+    // renvoie rtue si obj n'as aucune propriétés
+    for(let prop in obj){
+        return false;
     }
+    return true;
 }
 
 function insert_tiles(tiles_box, tiles){
 
     tiles_box.sortable({
-        handle: '.panel-heading', // Partie à saisir pour drag
-        update: function() {
+        'handle' : '.panel-heading', // Partie à saisir pour drag
+        'update' : function() {
             $('.panel', tiles_box).each(function(index, elem) {
                 var listItem = $(elem),
                     newIndex = listItem.index();
-                // TODO
-                // $.post('/user/save_tiles');
-
             });
         },
-        stop: function(event, ui) {
+        'stop' : function(event, ui) {
             var tile = ui.item.attr('id');
             var index_new = ui.item.index();
             var index_old = 0; // Pour récupérer l'ancien indice de l'élément déplacé
-            for(i = 0; i < tiles.length; i++){
-                if(tiles[i].tile == tile){
+            var I = 0; // Pour récupérer la position dans la liste de l'élément déplacé
+            
+            for(let i in tiles){
+                if(tiles[i].tile = tile){
+                    I = i;
                     index_old = tiles[i].index;
-                    i = tiles.length; // break
+                    break;
                 }
             }
-
-            //On met à jour les indices
-
+            
             if(index_old < index_new){
-                for(i = 0; i < tiles.length; i++){
-                    var index_old_el = tiles[i].index;
-                    if(index_old < index_old_el <= index_new){
+                for(let i in tiles){
+                    if(index_old < tiles[i].index <= index_new){
                         tiles[i].index -= 1;
                     }
                 }
-            }
-
-            if(index_new < index_old){
-                for(i = 0; i < tiles.length; i++){
-                    var index_old_el = tiles[i].index;
-                    if(index_new <= index_old_el < index_old){
+            } else if(index_old != index_new){
+                for(let i in tiles){
+                    if(index_new <= tiles[i].index < index_old){
                         tiles[i].index += 1;
                     }
                 }
             }
-
-            tiles[index_old].index = index_new; // On met à jour l'index
+            tiles[I].index = index_new;
+            
+            indexList = {};
+            for(i = 0; i < tiles.length; i++){
+                indexList[tiles[i].tile] = tiles[i].index;
+            }
+            $.ajax('/modules/tiles/save', {
+                data : JSON.stringify(indexList),
+                contentType : 'application/json',
+                type : 'POST',
+            });
         }
     });
 }
+
+function handle_tiles(box, tiles){
+    tiles.sort(function(a,b){ // On trie en fonction de l'index
+        return a.index - b.index
+    }); 
+    
+    $.getJSON('/modules/tiles/get', function(data){
+        var default_conf = is_empty(data);
+        for(let i in tiles){
+            let tile = tiles[i];
+            if(!tile.size){
+                tile.size = '4';
+            }
+            if(!tile.title){
+                tile.title = '';
+            }
+            
+            if(default_conf){
+                tile.index = parseInt(i);
+            } else {
+                if(!data.hasOwnProperty(tile.tile)){
+                    tiles.pop(i);
+                    continue;
+                } else {
+                    tile.index = parseInt(data[tile.tile]);
+                }
+            }
+
+            $.get(tile.route, function(data){
+                var tile_html = TILE_TEMPLATE
+                    .replace(/##SIZE##/g, tile.size)
+                    .replace(/##ID##/g, tile.tile)
+                    .replace(/##TITLE##/g, tile.title)
+                    .replace(/##BODY##/g, data);
+                box.append(tile_html);
+            });
+        }
+        insert_tiles(box, tiles);
+    });
+}
+
+
 
 $(document).ready(function() {
     var panelList = $('#draggablePanelList');
@@ -107,6 +131,5 @@ $(document).ready(function() {
         // Les deux fonctions agissent directement sur les objets
         // donc pas besoin de valeures de retour
         handle_tiles(panelList, tiles);
-        insert_tiles(panelList, tiles);
     });
 });

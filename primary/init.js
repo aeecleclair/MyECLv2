@@ -61,7 +61,7 @@ exports.myecl = function(context){
     // Premier middleware pour toutes les routes
     app.use('/*', function(req, res, next){
         // Log des requetes
-        context.log.info('Asking for ' + req.url + '.');
+        // context.log.info('Asking for ' + req.url + '.');
 
         // Surcharge de la requete
         req.database = context.database;
@@ -106,7 +106,7 @@ exports.myecl = function(context){
         }
         // On lance les appels et quand ils seront finit
         // on appelera le callback
-        pool.call(function(call_nb){
+        pool.call(function(/*call_nb*/){
             res.json({ list : menus });
         });
     });
@@ -141,8 +141,8 @@ exports.myecl = function(context){
         }
         // On lance les appels et quand ils seront finit
         // on appelera le callback
-        pool.call(function(call_nb){
-            console.log('Pool call count :', call_nb);
+        pool.call(function(/*call_nb*/){
+            // console.log('Pool call count :', call_nb);
             res.json({ list : tiles });
         });
     });

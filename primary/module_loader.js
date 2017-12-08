@@ -102,7 +102,7 @@ module.exports = function(context){
         }
         try{
             app.all(route, authorise(rule.authorisation), function (req, res, next){
-                if(rule.method.toUpperCase() == req.method){
+                if(rule.method.toUpperCase() == req.method.toUpperCase()){
                     // Si la methode de la règle correspond à la methode
                     // utilisé par le client on utilise la callback
                     try{
@@ -122,9 +122,9 @@ module.exports = function(context){
         }
     }
 
-    function enable_middleware(app, rule){
+    function enable_middleware(app, modname, rule){
         // active un regle de middleware
-        var cb = load_callback(rule.middleware);
+        var cb = load_callback(modname, rule.middleware);
         if(!cb){
             context.log.warning(`Unable to load ${rule.middleware} middleware. This rule is ignored`);
             return;
@@ -156,6 +156,7 @@ module.exports = function(context){
                     res.json(rule.heads);
                 }
             );
+            rule.tile = modname + '.' + rule.tile;
         }
 
         if(rule.route){
