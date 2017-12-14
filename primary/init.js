@@ -28,6 +28,7 @@ exports.myecl = function(context){
 
     context.menu_list = new Array();
     context.header_list = new Array();
+    context.tiles_list = new Array();
     context.myecl_map = '';
  
     // Chargement de la bdd
@@ -60,7 +61,7 @@ exports.myecl = function(context){
     // Premier middleware pour toutes les routes
     app.use('/*', function(req, res, next){
         // Log des requetes
-        //context.log.info('Asking for ' + req.url + '.');
+        // context.log.info('Asking for ' + req.url + '.');
 
         // Surcharge de la requete
         req.database = context.database;
@@ -105,7 +106,7 @@ exports.myecl = function(context){
         }
         // On lance les appels et quand ils seront finit
         // on appelera le callback
-        pool.call(function(call_nb){
+        pool.call(function(/*call_nb*/){
             res.json({ list : menus });
         });
     });
@@ -113,9 +114,50 @@ exports.myecl = function(context){
     app.get('/header', authorise('user'), function(req, res){
         res.json({ list : app.header_list });
     });
+    
+    // acces aux tiles
+    
+    app.get('/tiles', authorise('user'), function(req, res){
 
-    // Mise en places des routes de fonctionnement interne
+        var tiles = new Array();
+        var pool = new myUtils.CallPool();
+        for(let key in context.tiles_list){
+            let tile = context.tiles_list[key];
+            if(tile.authorisation == 'user'){
+                tiles.push(tile);
+            } else {
+                // On met ces appels dans un pool
+                pool.add(authorise.simple_check, [
+                    req.session.user,
+                    tile.authorisation,
+                    function(is_auth){
+                        if(is_auth){
+                            tiles.push(tile);
+                        }
+                        pool.finish();
+                    }
+                ]);
+            }
+        }
+        // On lance les appels et quand ils seront finit
+        // on appelera le callback
+        pool.call(function(/*call_nb*/){
+            // console.log('Pool call count :', call_nb);
+            res.json({ list : tiles });
+        });
+    });
+    
+    app.get('/heads/primary/tiles', function(req, res){
+        res.json({'scripts' : ['/tiles.js'], 'styles' : ['/tiles.css']});
+    });
+    // app.get('/user/tiles', authorise('user'), function(req, res){
+    //      res.send(GET USER TILES PREFERENCES)
+    // });
 
+    app.get('/body/primary/tiles', authorise('user'), function(req, res){
+        res.redirect('/tiles.html');
+    });
+    
     // Utiliser un compte existant
     
     app.use('/login.html', function(req, res, next){

@@ -8,7 +8,7 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
-        "no-console": false,
+        "no-console": 0,
         "indent": [
             "error",
             4,
