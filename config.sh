@@ -22,6 +22,16 @@ case "$1" in
         DB_HOST="bases.eclair.ec-lyon.fr"
         ;;
 
+    ether)
+        LURL="ether.eclair.ec-lyon.fr"
+        URL="ether.eclair.ec-lyon.fr"
+        HTTP="http"
+        LPORT=80
+        PORT=80
+        ROOT_PATH=/srv/MyECL
+        DB_HOST="localhost"
+        ;;
+
     dev)
         LURL="localhost"
         URL="localhost"
@@ -42,13 +52,17 @@ case "$1" in
         ;;
 esac
 
-# Initialisation de la BDD
-echo "Créer la base de donnée et l'utilisateur MariaDB ? [o/N] "
-read CREATEDB
-if [[ "x$CREATEDB" == "xo" ]]
+shift
+if [[ "x$1" != "xremote" ]]
 then
-    mysql -u root -p -e "CREATE DATABASE myecl; GRANT USAGE ON *.* TO 'eclair'@'localhost' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'localhost';" 
-fi    
+    # Initialisation de la BDD
+    echo "Créer la base de donnée et l'utilisateur MariaDB ? [o/N] "
+    read CREATEDB
+    if [[ "x$CREATEDB" == "xo" ]]
+    then
+        mysql -u root -p -e "CREATE DATABASE myecl; GRANT USAGE ON *.* TO 'eclair'@'localhost' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'localhost';" 
+    fi    
+fi
 
 # Mise à jour des modules node.js
 npm install
