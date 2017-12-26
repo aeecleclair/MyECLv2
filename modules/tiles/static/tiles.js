@@ -59,7 +59,6 @@ function insert_tiles(tiles_box, tiles){
             } else if(index_old > index_new){
                 for(let i in tiles){
                     if(i != I && index_new <= tiles[i].sortable_index && tiles[i].sortable_index < index_old){
-                        console.log(index_new, i,  tiles[i]);
                         tiles[i].sortable_index += 1;
                     }
                 }
@@ -70,7 +69,6 @@ function insert_tiles(tiles_box, tiles){
             for(let i = 0; i < tiles.length; i++){
                 indexList[tiles[i].tile] = tiles[i].sortable_index;
             }
-            console.log(indexList);
             $.ajax('/modules/tiles/save', {
                 data : JSON.stringify(indexList),
                 contentType : 'application/json',

@@ -283,14 +283,16 @@ Pour permettre l'utilisation d'un service il faut l'activer en ajoutant son nom 
 - [x] Implémentation du __header__
 - [x] Implémentation du chargement des tiles
 - [ ] Implémentation d'un système de gestion des tiles pour l'utilisateur
+    - [ ] Création de nouvelles tuiles
+    - [x] Placement personalisé des tuiles
+    - [ ] Suppression d'une tuile
 - [ ] Implémentation des notifications
 - [x] Mise en place de la base de données
-- [ ] Adapter le menu à l'utilisateur
-- [ ] Adapter le header à l'utilisateur
-- [ ] Implémentation d'un système de gestion des tiles pour l'utilisateur
+- [x] Adapter le menu au autorisations de l'utilisateur
+- [x] Adapter le header au autorisations de l'utilisateur
 - [ ] Mise en place du système complet de sécurité
     - [x] Création d'une page de connexion
-    - [ ] Création d'une page "Acces interdit"
+    - [x] Création d'une page "Acces interdit"
     - [x] Conception d'un système de mot de passe sûre
     - [x] Implémentation du système de mot de passe
     - [x] Création d'un système d'autorisations flexible pour définir quel utilisateur a accès à chaque module
