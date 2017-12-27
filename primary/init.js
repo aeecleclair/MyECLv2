@@ -16,7 +16,6 @@ exports.myecl = function(context){
     require('./logger')(context);
     require('./crypto')(context);
 
-    const myUtils = require('./utils')(context);
     const load_serv = require('./service_loader')(context);
     const load_mod = require('./module_loader')(context);
     const authorise = require('./authorise')(context);
@@ -85,28 +84,23 @@ exports.myecl = function(context){
     app.get('/menu', authorise('user'), function(req, res){
 
         var menus = new Array();
-        var pool = new myUtils.CallPool();
+        var promises = new Array();
         for(let key in context.menu_list){
             let menu = context.menu_list[key];
             if(menu.authorisation == 'user'){
                 menus.push(menu);
             } else {
-                // On met ces appels dans un pool
-                pool.add(authorise.simple_check, [
-                    req.session.user,
-                    menu.authorisation,
-                    function(is_auth){
+                promises.push(new Promise(function(resolve){
+                    authorise.simple_check(req.session.user, menu.authorisation, function(is_auth){
                         if(is_auth){
                             menus.push(menu);
                         }
-                        pool.finish();
-                    }
-                ]);
+                        resolve();
+                    });
+                }));
             }
         }
-        // On lance les appels et quand ils seront finit
-        // on appelera le callback
-        pool.call(function(/*call_nb*/){
+        Promise.all(promises).then(function(){
             res.json({ list : menus });
         });
     });
@@ -120,28 +114,30 @@ exports.myecl = function(context){
     app.get('/tiles', authorise('user'), function(req, res){
 
         var tiles = new Array();
-        var pool = new myUtils.CallPool();
+        var promises = new Array();
         for(let key in context.tiles_list){
             let tile = context.tiles_list[key];
             if(tile.authorisation == 'user'){
                 tiles.push(tile);
             } else {
                 // On met ces appels dans un pool
-                pool.add(authorise.simple_check, [
-                    req.session.user,
-                    tile.authorisation,
-                    function(is_auth){
-                        if(is_auth){
-                            tiles.push(tile);
+                promises.push(new Promise(function(resolve){
+                    authorise.simple_check(
+                        req.session.user,
+                        tile.authorisation,
+                        function(is_auth){
+                            if(is_auth){
+                                tiles.push(tile);
+                            }
+                            resolve();
                         }
-                        pool.finish();
-                    }
-                ]);
+                    );
+                }));
             }
         }
         // On lance les appels et quand ils seront finit
         // on appelera le callback
-        pool.call(function(/*call_nb*/){
+        Promise.all(promises).then(function(){
             // console.log('Pool call count :', call_nb);
             res.json({ list : tiles });
         });
