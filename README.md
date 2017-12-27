@@ -285,7 +285,7 @@ Pour permettre l'utilisation d'un service il faut l'activer en ajoutant son nom 
 - [ ] Implémentation d'un système de gestion des tiles pour l'utilisateur
     - [ ] Création de nouvelles tuiles
     - [x] Placement personalisé des tuiles
-    - [ ] Suppression d'une tuile
+    - [x] Suppression d'une tuile
 - [ ] Implémentation des notifications
 - [x] Mise en place de la base de données
 - [x] Adapter le menu au autorisations de l'utilisateur
