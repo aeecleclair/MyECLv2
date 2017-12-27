@@ -5,8 +5,8 @@ const TILE_TEMPLATE = '\
         <div class="panel-heading">\
             ##TITLE##\
             <div class="boutons-droite">\
-                <a href="#" onclick="suppr()">\
-                    <span class="fa fa-times"></span>\
+                <a href="#" onclick="suppr(\'##ID##\')">\
+                    <span class="fa fa-times "></span>\
                 </a>\
             </div>\
         </div>\
@@ -18,8 +18,28 @@ const TILE_TEMPLATE = '\
 ';
 
 /* eslint-disable no-unused-vars */
-function suppr(e){
-    console.log(e);
+function suppr(id){
+
+    $('#' + id).remove();
+
+    var tiles = window.tiles_data;
+
+    for(let i = tiles.length - 1; i >= 0; i--){
+        if(tiles[i].tile == id){
+            tiles.splice(i, 1);
+            break;
+        }
+    }
+
+    var indexList = {};
+    for(let i = 0; i < tiles.length; i++){
+        indexList[tiles[i].tile] = tiles[i].sortable_index;
+    }
+    $.ajax('/modules/tiles/save', {
+        data : JSON.stringify(indexList),
+        contentType : 'application/json',
+        type : 'POST',
+    });
 }
 /* eslint-enable no-unused-vars */
 
@@ -31,7 +51,9 @@ function is_empty(obj){
     return true;
 }
 
-function insert_tiles(tiles_box, tiles){
+function config_tiles_box(tiles_box){
+
+    var tiles = window.tiles_data;
 
     tiles_box.sortable({
         'handle' : '.panel-heading', // Partie à saisir pour drag
@@ -78,13 +100,28 @@ function insert_tiles(tiles_box, tiles){
     });
 }
 
-function handle_tiles(box, tiles){
+function handle_tiles(box){
+
+    var tiles = window.tiles_data;
     
     $.getJSON('/modules/tiles/get', function(data){
         var default_conf = is_empty(data);
         var promises = new Array();
-        for(let i = 0; i < tiles.length; i++){ // préparation de la liste des tiles
-            // parametre par defaut
+        for(let i = tiles.length - 1; i >= 0; i--){ // préparation de la liste des tiles
+            // le décompte se fait depuis la fin pour ne pas être perturbé par d'éventuels retraits d'éléments
+
+            if(default_conf){ // si l'utilisateur n'a pas de config enregistré
+                tiles[i].sortable_index = i; // on utilise l'indice par défaut
+            } else { // sinon
+                if(!data.hasOwnProperty(tiles[i].tile)){ // si la tuile n'apparait pas dans les préférences utilisateur
+                    tiles.splice(i, 1); // on retire l'élément de la liste
+                    continue;
+                } else { // sinon on lui donne l'indice utilisateur
+                    tiles[i].sortable_index = parseInt(data[tiles[i].tile]);
+                }
+            }
+
+            // parametres par defaut
             if(!tiles[i].size){ 
                 tiles[i].size = 4;
             }
@@ -92,17 +129,6 @@ function handle_tiles(box, tiles){
                 tiles[i].title = '';
             }
             
-            // utilisation de l'indice utilisateur ou création d'un indice par défaut
-            if(default_conf){
-                tiles[i].sortable_index = i;
-            } else {
-                if(!data.hasOwnProperty(tiles[i].tile)){
-                    tiles.pop(i);
-                    continue;
-                } else {
-                    tiles[i].sortable_index = parseInt(data[tiles[i].tile]);
-                }
-            }
         }
 
         tiles.sort(function(a,b){ // On trie en fonction de l'indice
@@ -132,7 +158,7 @@ function handle_tiles(box, tiles){
         }, function(err){
             console.log('error', err);
         });
-        insert_tiles(box, tiles);
+        config_tiles_box(box);
     });
 }
 
@@ -141,7 +167,8 @@ function handle_tiles(box, tiles){
 $(document).ready(function() {
     var panelList = $('#draggablePanelList');
     $.getJSON('/tiles', function(data){
-        var tiles = data.list;
-        handle_tiles(panelList, tiles);
+        window.tiles_data = data.list;
+        handle_tiles(panelList);
     });
+
 });

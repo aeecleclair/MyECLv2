@@ -156,7 +156,7 @@ module.exports = function(context){
                     res.json(rule.heads);
                 }
             );
-            rule.tile = modname + '.' + rule.tile;
+            rule.tile = modname + '__' + rule.tile;
         }
 
         if(rule.route){
