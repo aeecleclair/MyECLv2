@@ -1,78 +1,7 @@
-#!/bin/bash
-# Initialise la configuration par défaut de MyECLv2
-
-ask(){
-    echo -n "$1 [$2] : "
-    read $3
-    if [[ -z ${!3} ]]
-    then
-        eval $3="$2"
-    fi
-}
-
-# Renseignement des paramètres essentiels
-case "$1" in
-    prod)
-        LURL="localhost"
-        URL="www.myecl.fr"
-        HTTP="https"
-        LPORT=8998
-        PORT=443
-        ROOT_PATH=$(pwd)
-        DB_HOST="bases.eclair.ec-lyon.fr"
-        ;;
-
-    ether)
-        LURL="ether.eclair.ec-lyon.fr"
-        URL="ether.eclair.ec-lyon.fr"
-        HTTP="http"
-        LPORT=80
-        PORT=80
-        ROOT_PATH=/srv/MyECL
-        DB_HOST="localhost"
-        ;;
-
-    dev)
-        LURL="localhost"
-        URL="localhost"
-        HTTP="http"
-        LPORT=8080
-        PORT=8080
-        ROOT_PATH=$(pwd)
-        DB_HOST="localhost"
-        ;;
-    *)
-        ask "URL d'écoute ?" "localhost" LURL
-        ask "URL du service ?" "localhost" URL
-        ask "Protocole ?" "http" HTTP
-        ask "Port d'écoute ?" "8080" LPORT
-        ask "Port du service ?" "8080" PORT
-        ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
-        ask "Hôte de base de données" "localhost" DB_HOST
-        ;;
-esac
-
-shift
-if [[ "x$1" != "xremote" ]]
-then
-    # Initialisation de la BDD
-    echo "Créer la base de donnée et l'utilisateur MariaDB ? [o/N] "
-    read CREATEDB
-    if [[ "x$CREATEDB" == "xo" ]]
-    then
-        mysql -u root -p -e "CREATE DATABASE myecl; GRANT USAGE ON *.* TO 'eclair'@'localhost' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'localhost';" 
-    fi    
-fi
-
-# Mise à jour des modules node.js
-npm install
-
-# Génération de la configuration
-cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@PORT?$PORT?g" | sed "s?@LPORT?$LPORT?" | sed "s?@DB_HOST?$DB_HOST?g" | sed "s?@HTTP?$HTTP?g" > $ROOT_PATH/myecl_config.json
 {
-    "port" : @LPORT,
-    "url" : "@LURL",
-    "root_path" : "@ROOT_PATH",
+    "port" : 8080,
+    "url" : "localhost",
+    "root_path" : "/home/eclair/MyECLv2",
 
     "default_route" : "/modules/panorama/index.html",
 
@@ -83,7 +12,7 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
     },
 
     "database" : {
-      "host"     : "@DB_HOST",
+      "host"     : "localhost",
       "user"     : "eclair",
       "password" : "secret",
       "database" : "myecl"
@@ -133,7 +62,7 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
 
     "cas_config" : {
         "cas_url" : "https://cas.ec-lyon.fr/cas",
-        "service_url" : "@HTTP://@URL:@PORT",
+        "service_url" : "http://localhost:8080",
         "cas_version" : "2.0",
         "session_name" : "login_dsi",
         "session_info" : "user_data"
@@ -151,5 +80,3 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
     "module_callbacks_file" : "callbacks.js",
     "module_config_file" : "config.json"
 }
-EOF
-

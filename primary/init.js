@@ -16,7 +16,6 @@ exports.myecl = function(context){
     require('./logger')(context);
     require('./crypto')(context);
 
-    const myUtils = require('./utils')(context);
     const load_serv = require('./service_loader')(context);
     const load_mod = require('./module_loader')(context);
     const authorise = require('./authorise')(context);
@@ -28,6 +27,7 @@ exports.myecl = function(context){
 
     context.menu_list = new Array();
     context.header_list = new Array();
+    context.tiles_list = new Array();
     context.myecl_map = '';
  
     // Chargement de la bdd
@@ -60,7 +60,7 @@ exports.myecl = function(context){
     // Premier middleware pour toutes les routes
     app.use('/*', function(req, res, next){
         // Log des requetes
-        //context.log.info('Asking for ' + req.url + '.');
+        // context.log.info('Asking for ' + req.url + '.');
 
         // Surcharge de la requete
         req.database = context.database;
@@ -77,47 +77,95 @@ exports.myecl = function(context){
         res.redirect(context.default_route);
     });
 
-    app.get('/home', authorise('#ecl'), function(req, res){
+    app.get('/home', authorise('user'), function(req, res){
         res.sendFile('myecl_base.html', {root : context.private_root});
     });
 
-    app.get('/menu', authorise('#ecl'), function(req, res){
+    app.get('/menu', authorise('user'), function(req, res){
 
         var menus = new Array();
-        var pool = new myUtils.CallPool();
+        var promises = new Array();
         for(let key in context.menu_list){
             let menu = context.menu_list[key];
-            if(menu.authorisation == '#ecl'){
+            if(menu.authorisation == 'user'){
                 menus.push(menu);
             } else {
-                // On met ces appels dans un pool
-                pool.add(authorise.simple_check, [
-                    req.session.user,
-                    menu.authorisation,
-                    function(is_auth){
+                promises.push(new Promise(function(resolve){
+                    authorise.simple_check(req.session.user, menu.authorisation, function(is_auth){
                         if(is_auth){
                             menus.push(menu);
                         }
-                        pool.finish();
-                    }
-                ]);
+                        resolve();
+                    });
+                }));
             }
         }
-        // On lance les appels et quand ils seront finit
-        // on appelera le callback
-        pool.call(function(call_nb){
-            console.log('Pool call count :', call_nb);
+        Promise.all(promises).then(function(){
             res.json({ list : menus });
         });
     });
 
-    app.get('/header', authorise('#ecl'), function(req, res){
+    app.get('/header', authorise('user'), function(req, res){
         res.json({ list : app.header_list });
     });
+    
+    // acces aux tiles
+    
+    app.get('/tiles', authorise('user'), function(req, res){
 
-    // Mise en places des routes de fonctionnement interne
+        var tiles = new Array();
+        var promises = new Array();
+        for(let key in context.tiles_list){
+            let tile = context.tiles_list[key];
+            if(tile.authorisation == 'user'){
+                tiles.push(tile);
+            } else {
+                // On met ces appels dans un pool
+                promises.push(new Promise(function(resolve){
+                    authorise.simple_check(
+                        req.session.user,
+                        tile.authorisation,
+                        function(is_auth){
+                            if(is_auth){
+                                tiles.push(tile);
+                            }
+                            resolve();
+                        }
+                    );
+                }));
+            }
+        }
+        // On lance les appels et quand ils seront finit
+        // on appelera le callback
+        Promise.all(promises).then(function(){
+            // console.log('Pool call count :', call_nb);
+            res.json({ list : tiles });
+        });
+    });
+    
+    app.get('/heads/primary/tiles', function(req, res){
+        res.json({'scripts' : ['/tiles.js'], 'styles' : ['/tiles.css']});
+    });
+    // app.get('/user/tiles', authorise('user'), function(req, res){
+    //      res.send(GET USER TILES PREFERENCES)
+    // });
 
+    app.get('/body/primary/tiles', authorise('user'), function(req, res){
+        res.redirect('/tiles.html');
+    });
+    
     // Utiliser un compte existant
+    
+    app.use('/login.html', function(req, res, next){
+        authorise.simple_check(req.session.user, 'user', function(connected){
+            if(connected){  // si l'utilisateur est déjà connecté
+                res.redirect('/home');  // on le renvoie vers la page principale
+            } else {
+                next();
+            }
+        });
+    });
+
     app.get('/login', authenticate.password);
 
     // Passer par le cas puis creer un compte
@@ -132,7 +180,7 @@ exports.myecl = function(context){
 
     // Si rien n'a catché la requete
     app.use(serveStatic(context.public_root, context.default_static_options));
-    app.use(authorise('#ecl'), serveStatic(context.private_root, context.default_static_options));
+    app.use(authorise('user'), serveStatic(context.private_root, context.default_static_options));
 
     // Lancement du serveur
     app.listen(context.port, context.url, function(){

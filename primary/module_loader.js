@@ -102,7 +102,7 @@ module.exports = function(context){
         }
         try{
             app.all(route, authorise(rule.authorisation), function (req, res, next){
-                if(rule.method.toUpperCase() == req.method){
+                if(rule.method.toUpperCase() == req.method.toUpperCase()){
                     // Si la methode de la règle correspond à la methode
                     // utilisé par le client on utilise la callback
                     try{
@@ -122,9 +122,9 @@ module.exports = function(context){
         }
     }
 
-    function enable_middleware(app, rule){
+    function enable_middleware(app, modname, rule){
         // active un regle de middleware
-        var cb = load_callback(rule.middleware);
+        var cb = load_callback(modname, rule.middleware);
         if(!cb){
             context.log.warning(`Unable to load ${rule.middleware} middleware. This rule is ignored`);
             return;
@@ -146,7 +146,9 @@ module.exports = function(context){
                 }
             );
         } else if(rule.tile){
+            context.tiles_list.push(rule);
             rule.route = '/tile/' + modname + '/' + rule.tile;
+
             context.myecl_map += '/heads/' + modname + '/' + rule.tile + '\n';
             app.get('/heads/' + modname + '/' + rule.tile,
                 authorise(rule.authorisation),
@@ -154,6 +156,7 @@ module.exports = function(context){
                     res.json(rule.heads);
                 }
             );
+            rule.tile = modname + '__' + rule.tile;
         }
 
         if(rule.route){

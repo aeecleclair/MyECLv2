@@ -102,8 +102,10 @@ function insert_body(module_name, body_name){
     });
 }
 
-insert_menu();
-insert_header();
-insert_body('test', 'main');
+$(document).ready(function(){
+    insert_menu();
+    insert_header();
+    insert_body('tiles', 'main');
+});
 
 
