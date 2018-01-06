@@ -1,0 +1,48 @@
+{
+    "authorisation" : "#ecl",
+    "description" : "Module d'asso",
+    "heads" : {
+		"styles" : [
+			"static/asso.css"
+		],
+		"scripts" : [
+			"static/asso.js"		
+		]
+	},
+	"database" : [
+        {
+            "table" : "asso", 
+            "schema" : {
+                "id" : "INT PRIMARY KEY",
+				"nom" : "VARCHAR(255)",
+				"photo" : "VARCHAR(255)",
+				"group" : "INT",
+				"galerie" : "VARCHAR(255)",
+				
+            }
+        },
+		{
+			"table" : "photos",
+			"schema" : {
+				"id" : "INT",
+				"path" : "VARCHAR(255)",
+				"selected" : "VARCHAR(1)"
+			}
+		}
+    ],
+    "rules" : [
+        {
+            "route" : "/modules/asso/static/*",
+            "static" : "static/"
+        },
+        {
+            "body" : "main",
+            "static" : "asso.html"
+        },
+		{
+			"route" : "/module/asso/data",
+			"callback" : "main_cb"
+		}
+    ]
+}
+
