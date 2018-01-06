@@ -1,3 +1,6 @@
+/!\ Devellopement migré sur [https://github.com/aeecleclair/MyECLv2]
+
+
 Ce document a pour objectif de permettre à une personne maitrisant les concepts de bases de Node.js et Express d'appréhender l'architecture de MyECL et de comprendre la marche à suivre pour réaliser un module.
 
 # 1 Architecture globale du site
