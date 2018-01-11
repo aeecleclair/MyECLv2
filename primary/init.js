@@ -174,7 +174,7 @@ exports.myecl = function(context){
 
     // on utilise multer pour charger 
     const upload = multer({'dest': context.user_upload});
-    app.post('/create_account', upload.single('picture'), authenticate.bounce, authenticate.create_account);
+    app.post('/create_account', /*authenticate.bounce,*/ upload.single('picture'), authenticate.create_account);
 
     // Chargement des différents modules
     context.log.info('Loading modules...');
