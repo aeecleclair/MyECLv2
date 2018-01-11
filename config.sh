@@ -103,7 +103,9 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
                 "gender" : "VARCHAR(1)",
                 "promo" : "INT",
                 "floor" : "VARCHAR(3)",
-                "groups" : "TEXT"
+                "email" : "TEXT"
+                "picture_path" : "TEXT",
+                "picture_url" : "TEXT"
             }
         },
         {

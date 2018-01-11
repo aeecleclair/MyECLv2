@@ -10,6 +10,7 @@ const express = require('express');
 const session = require('express-session');
 const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
+const multer = require('multer');
 
 exports.myecl = function(context){
     // Modules nodes locaux
@@ -171,7 +172,9 @@ exports.myecl = function(context){
     // Passer par le cas puis creer un compte
     app.get('/logcas', authenticate.bounce, authenticate.new_account);
 
-    app.post('/create_account', bodyParser.json(context.body_json_config), authenticate.bounce, authenticate.create_account);
+    // on utilise multer pour charger 
+    const upload = multer({'dest': context.user_upload});
+    app.post('/create_account', upload.single('picture'), authenticate.bounce, authenticate.create_account);
 
     // Chargement des différents modules
     context.log.info('Loading modules...');

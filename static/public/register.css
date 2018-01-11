@@ -1,0 +1,78 @@
+#connexion{
+	margin-top : 100px;
+	padding : 0;
+	border : solid;
+	border-color : #a00034;
+	border-width: 1px;
+	background-color : white;
+}
+
+#connexion-header{
+	background-color : #a00034;
+	color : white;
+	font-family: Tahoma;
+	font-size: 200%;
+	text-align : center;
+}
+
+#connexion-body{
+	padding : 15px;
+	text-align : justify;
+}
+
+form.registration-form fieldset {
+    display: none;
+    margin-bottom: 0;
+}
+
+.form-top-left{
+	float : left;
+	width : 75%;
+}
+
+.form-top-left h3{
+	margin : 0;
+}
+
+.form-top-right{
+	float : right;
+	width : 25%;
+	font-size: 66px;
+	color: #ddd;
+	line-height: 66px;
+	text-align: right;
+	margin-bottom: 10px;
+}
+
+/* Image picker */
+
+.image-picker{
+	display : none;
+}
+
+ul.thumbnails.image_picker_selector{
+	width : 100%;
+}
+
+ul.thumbnails.image_picker_selector li{
+	margin : 0;
+	padding: 5px;
+    width: 33.33%;
+}
+
+/* Croppie */
+
+.croppie-container{
+	margin-top: 20px;
+}
+
+/* Fin croppie */
+
+.row{
+	overflow : auto;
+	width : 100%;
+}
+
+#info-ecl{
+	margin-bottom: 15px;
+}
