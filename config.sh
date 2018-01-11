@@ -60,6 +60,7 @@ then
     read CREATEDB
     if [[ "x$CREATEDB" == "xo" ]]
     then
+        echo "Utiliser le mot de passe root de mysql/mariadb"
         mysql -u root -p -e "CREATE DATABASE myecl; GRANT USAGE ON *.* TO 'eclair'@'localhost' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'localhost';" 
     fi    
 fi
@@ -103,7 +104,9 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
                 "gender" : "VARCHAR(1)",
                 "promo" : "INT",
                 "floor" : "VARCHAR(3)",
-                "groups" : "TEXT"
+                "email" : "TEXT",
+                "picture_path" : "TEXT",
+                "picture_url" : "TEXT"
             }
         },
         {
