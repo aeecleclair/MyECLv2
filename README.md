@@ -291,12 +291,14 @@ Pour permettre l'utilisation d'un service il faut l'activer en ajoutant son nom 
 - [x] Adapter le menu au autorisations de l'utilisateur
 - [x] Adapter le header au autorisations de l'utilisateur
 - [ ] Mise en place du système complet de sécurité
+    - [x] Mise en place d'un vrai formulaire d'inscription
     - [x] Création d'une page de connexion
     - [x] Création d'une page "Acces interdit"
     - [x] Conception d'un système de mot de passe sûre
     - [x] Implémentation du système de mot de passe
     - [x] Création d'un système d'autorisations flexible pour définir quel utilisateur a accès à chaque module
     - [x] Implémentation du système d'autorisation
+    - [ ] Création d'un serveur oAuth2 pour d'autres services ECLAIR (mediapiston notament)
 - [x] Ajout d'un système de "service" à l'usage des auteurs des modules qui offre des fonctionnalitées interne supplémentaire
 - [ ] Service d'accés aux utilisateurs, aux assos... (surcouche à shorter.sql)
 - [x] Permettre aux modules d'ajouter des head aux pages body (script JS et styles CSS)
