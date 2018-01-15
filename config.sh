@@ -61,7 +61,7 @@ then
     if [[ "x$CREATEDB" == "xo" ]]
     then
         echo "Utiliser le mot de passe root de mysql/mariadb"
-        mysql -u root -p -e "CREATE DATABASE myecl; GRANT USAGE ON *.* TO 'eclair'@'localhost' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'localhost';" 
+        mysql -h $DB_HOST -u root -p -e "CREATE DATABASE myecl; GRANT USAGE ON *.* TO 'eclair'@'localhost' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'localhost';" 
     fi    
 fi
 
