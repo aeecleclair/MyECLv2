@@ -19,7 +19,8 @@ case "$1" in
         LPORT=8998
         PORT=443
         ROOT_PATH=$(pwd)
-        DB_HOST="bases.eclair.ec-lyon.fr"
+        DB_HOST="172.18.24.169"
+        DB_CLIENT="172.18.24.170"
         ;;
 
     ether)
@@ -30,6 +31,7 @@ case "$1" in
         PORT=80
         ROOT_PATH=/srv/MyECL
         DB_HOST="localhost"
+        DB_CLIENT="localhost"
         ;;
 
     dev)
@@ -40,6 +42,7 @@ case "$1" in
         PORT=8080
         ROOT_PATH=$(pwd)
         DB_HOST="localhost"
+        DB_CLIENT="localhost"
         ;;
     *)
         ask "URL d'écoute ?" "localhost" LURL
@@ -49,6 +52,7 @@ case "$1" in
         ask "Port du service ?" "8080" PORT
         ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
         ask "Hôte de base de données" "localhost" DB_HOST
+        ask "IP du client de bdd" "localhost" DB_CLIENT
         ;;
 esac
 
@@ -61,7 +65,7 @@ then
     if [[ "x$CREATEDB" == "xo" ]]
     then
         echo "Utiliser le mot de passe root de mysql/mariadb"
-        mysql -u root -p -e "CREATE DATABASE myecl; GRANT USAGE ON *.* TO 'eclair'@'localhost' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'localhost';" 
+        mysql -h $DB_HOST -u root -p -e "CREATE DATABASE myecl; GRANT USAGE ON *.* TO 'eclair'@'$DB_CLIENT' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'$DB_CLIENT';" 
     fi    
 fi
 
