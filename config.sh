@@ -19,7 +19,8 @@ case "$1" in
         LPORT=8998
         PORT=443
         ROOT_PATH=$(pwd)
-        DB_HOST="bases.eclair.ec-lyon.fr"
+        DB_HOST="172.18.24.169"
+        DB_CLIENT="172.18.24.170"
         ;;
 
     ether)
@@ -29,8 +30,8 @@ case "$1" in
         LPORT=80
         PORT=80
         ROOT_PATH=/srv/MyECL
-        DB_HOST="172.18.24.169"
-        DB_CLIENT="172.18.24.170"
+        DB_HOST="localhost"
+        DB_CLIENT="localhost"
         ;;
 
     dev)
