@@ -72,8 +72,9 @@ module.exports = function(context){
                     });
                 } else {
                     context.log.warning('Accès non autorisé à ' + req.url);
+                    req.session.rejected_on = req.originalUrl;
                     res.status(401);
-                    res.sendFile('unauthorized.html', {'root' : context.public_root});
+                    res.sendFile('not_connected.html', {'root' : context.public_root});
                 }
             };
         }

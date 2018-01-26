@@ -24,7 +24,12 @@ module.exports = function(context){
                         res.redirect('/login.html?wrong=1');
                     } else {
                         req.session.user = user;
-                        res.redirect('/home');
+                        if(req.session.rejected_on){
+                            res.session.rejected_on = undefined;
+                            res.redirect(req.session.rejected_on);
+                        } else {
+                            res.redirect('/home');
+                        }
                     }
                 });
             } else {
