@@ -40,9 +40,10 @@ module.exports = function(context){
                 if(req.session.user){
                     next();
                 } else {
-                    context.log.warning('Accès non autorisé à ' + req.url);
+                    req.session.rejected_on = req.originalUrl;
                     res.status(401);
-                    res.sendFile('unauthorized.html', {'root' : context.public_root});
+                    res.sendFile('not_connected.html', {'root' : context.public_root});
+                    context.log.warning('Accès non autorisé à ' + req.url);
                 }
             };
         } else {
@@ -65,16 +66,16 @@ module.exports = function(context){
                         if(authorised){
                             next();
                         } else {
-                            context.log.warning('Accès non autorisé à ' + req.url);
+                            context.log.warning('[CON] Accès non autorisé à ' + req.url);
                             res.status(401);
                             res.sendFile('unauthorized.html', {'root' : context.public_root});
                         }
                     });
                 } else {
-                    context.log.warning('Accès non autorisé à ' + req.url);
                     req.session.rejected_on = req.originalUrl;
                     res.status(401);
                     res.sendFile('not_connected.html', {'root' : context.public_root});
+                    context.log.warning('[NOT_CON] Accès non autorisé à ' + req.url);
                 }
             };
         }

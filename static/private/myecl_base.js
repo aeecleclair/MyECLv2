@@ -105,7 +105,7 @@ function insert_body(module_name, body_name){
 $(document).ready(function(){
     insert_menu();
     insert_header();
-    var url = window.location.split('/');
+    var url = window.location.href.split('/');
     while(url[0] != '/home'){
         url.shift();
     }

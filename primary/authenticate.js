@@ -8,10 +8,11 @@ module.exports = function(context){
         context.database.select('user', 'login = "' + login + '"', callback);
     }
 
-    exports.password = function(req, res){
+    exports.check_password = function(req, res){
         // Valide ou non le mot de passe de l'utilisateur
-        var password = req.query.password;
-        var login = req.query.login;
+        console.log(req.body);
+        var password = req.body.password;
+        var login = req.body.login;
         get_user(login, function (err, results){
             if(!err && results.length > 0){
                 var user = results[0];
@@ -25,8 +26,8 @@ module.exports = function(context){
                     } else {
                         req.session.user = user;
                         if(req.session.rejected_on){
-                            res.session.rejected_on = undefined;
                             res.redirect(req.session.rejected_on);
+                            req.session.rejected_on = undefined;
                         } else {
                             res.redirect('/home');
                         }

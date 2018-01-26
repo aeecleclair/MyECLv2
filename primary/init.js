@@ -9,7 +9,7 @@
 const express = require('express');
 const session = require('express-session');
 const serveStatic = require('serve-static');
-//const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const multer = require('multer');
 
 exports.myecl = function(context){
@@ -167,12 +167,12 @@ exports.myecl = function(context){
         });
     });
 
-    app.get('/login', authenticate.password);
+    app.post('/login', bodyParser.urlencoded(), authenticate.check_password);
 
     // Passer par le cas puis creer un compte
     app.get('/logcas', authenticate.bounce, authenticate.new_account);
 
-    // on utilise multer pour charger 
+    // on utilise multer pour charger l'image
     const upload = multer({'dest': context.user_upload});
     app.post('/create_account', /*authenticate.bounce,*/ upload.single('picture'), authenticate.create_account);
 
