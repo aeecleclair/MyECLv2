@@ -105,7 +105,17 @@ function insert_body(module_name, body_name){
 $(document).ready(function(){
     insert_menu();
     insert_header();
-    insert_body('tiles', 'main');
+    var url = window.location.split('/');
+    while(url[0] != '/home'){
+        url.shift();
+    }
+    url.shift();
+    if(url.length < 2){
+        // Adresse mal formé
+        insert_body('tiles', 'main');
+    } else {
+        insert_body(url[0], url[1].split('&')[0]);
+    }
 });
 
 

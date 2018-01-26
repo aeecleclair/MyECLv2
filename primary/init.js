@@ -9,7 +9,7 @@
 const express = require('express');
 const session = require('express-session');
 const serveStatic = require('serve-static');
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 const multer = require('multer');
 
 exports.myecl = function(context){
@@ -78,7 +78,7 @@ exports.myecl = function(context){
         res.redirect(context.default_route);
     });
 
-    app.get('/home', authorise('user'), function(req, res){
+    app.get('/home/*', authorise('user'), function(req, res){
         res.sendFile('myecl_base.html', {root : context.private_root});
     });
 
