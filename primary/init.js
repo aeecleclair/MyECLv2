@@ -180,6 +180,12 @@ exports.myecl = function(context){
     load_mod(app);
     context.log.info('Modules loaded successfully.');
 
+    // si aucun body ne match on renvoie une 404
+    app.use('/body/*', function(req, res){
+        res.status(404);
+        res.send('erreur 404');
+    });
+
     // Si rien n'a catché la requete on cherche un fichier statique
     app.use(serveStatic(context.public_root, context.default_static_options));
     // si on ne trouve pas de fichier statique publique qui match on cherche dans
@@ -190,6 +196,7 @@ exports.myecl = function(context){
         res.status(404);
         res.sendFile('error_404.html', {root : context.public_root});
     };
+
 
     app.use(
         authorise('user', error_404),
