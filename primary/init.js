@@ -188,7 +188,7 @@ exports.myecl = function(context){
 
     var error_404 = function(req, res){
         res.status(404);
-        res.sendFile('error_404.html', {root : context.private_root});
+        res.sendFile('error_404.html', {root : context.public_root});
     };
 
     app.use(
