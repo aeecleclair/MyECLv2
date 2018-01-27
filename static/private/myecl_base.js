@@ -1,3 +1,18 @@
+const body_404 = '\
+<div class="row">\
+    <div id="connexion" class="col-xs-4 col-xs-offset-4">\
+        <div id="connexion-header">\
+            MyECL\
+        </div>\
+        <div>\
+            <center>\
+            Erreur 404</br>La page demandÈ n\'existe pas.\
+            </center>\
+        </div>\
+    </div>\
+</div>';
+
+
 function handle_menu(menu, data){
     for(let i in data){
         let item = data[i];
@@ -77,9 +92,17 @@ function insert_body(module_name, body_name){
     // supprimer les scripts et styles ajout√© pr√cedement
     $('.dyn-content').remove();
     // r√cup√©re le body demand√©
-    $.get('/body/' + module_name + '/' + body_name, function(data){
-        body.html(data);
+    $.ajax({
+        url : '/body/' + module_name + '/' + body_name,
+        type : 'get',
+        success : function(data){
+            body.html(data);
+        },
+        error : function(){
+            body.html(body_404);
+        }
     });
+
     // r√cup√rer les scripts et styles associ√s
     $.getJSON('/heads/' + module_name + '/' + body_name, function(data){
         var styles_html = '';
