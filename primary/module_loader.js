@@ -242,12 +242,16 @@ module.exports = function(context){
 
 
         // Chargement du header
+        console.log('Hey');
         if(config.header){
+            console.log('Ho');
             if(Array.isArray(config.header)){
+                console.log('Ha');
                 for(let i in config.header){
                     let item = config.header[i];
                     // TODO test ? traitements ? quid des autorisations ?
                     item.module = modname;
+                    item.authorisation = item.authorisation ? item.authorisation : config.authorisation;
                     context.header_list.push(item);
                 }
             } else {

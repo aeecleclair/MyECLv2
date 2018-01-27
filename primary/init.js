@@ -78,7 +78,7 @@ exports.myecl = function(context){
         res.redirect(context.default_route);
     });
 
-    app.get('/home/*', authorise('user'), function(req, res){
+    app.get(['/home', '/home/*'], authorise('user'), function(req, res){
         res.sendFile('myecl_base.html', {root : context.private_root});
     });
 
@@ -108,7 +108,28 @@ exports.myecl = function(context){
     });
 
     app.get('/header', authorise('user'), function(req, res){
-        res.json({ list : app.header_list });
+
+        var headers = new Array();
+        var promises = new Array();
+        for(let key in context.header_list){
+            let header = context.header_list[key];
+            if(header.authorisation == 'user' || header.authorisation == 'public'){
+                headers.push(header);
+            } else {
+                let checker = authorise.authorisation_checker(header.authorisation);
+                promises.push(new Promise(function(resolve){
+                    checker(req.session.user, function(is_auth){
+                        if(is_auth){
+                            headers.push(header);
+                        }
+                        resolve();
+                    });
+                }));
+            }
+        }
+        Promise.all(promises).then(function(){
+            res.json({ list : headers });
+        });
     });
     
     // acces aux tiles
