@@ -1,12 +1,9 @@
 const body_404 = '\
 <div class="row">\
     <div id="connexion" class="col-xs-4 col-xs-offset-4">\
-        <div id="connexion-header">\
-            MyECL\
-        </div>\
         <div>\
             <center>\
-            Erreur 404</br>La page demand� n\'existe pas.\
+            Erreur 404</br>La page demandé n\'existe pas.\
             </center>\
         </div>\
     </div>\
@@ -89,9 +86,9 @@ function insert_body(module_name, body_name){
     var body = $('#main-content-wrapper');
     var styles = $('head');
     var scripts = $('body');
-    // supprimer les scripts et styles ajouté pr�cedement
+    // supprimer les scripts et styles ajoutÃ© prÃcedement
     $('.dyn-content').remove();
-    // r�cupére le body demandé
+    // rÃcupÃ©re le body demandÃ©
     $.ajax({
         url : '/body/' + module_name + '/' + body_name,
         type : 'get',
@@ -103,7 +100,7 @@ function insert_body(module_name, body_name){
         }
     });
 
-    // r�cup�rer les scripts et styles associ�s
+    // rÃcupÃrer les scripts et styles associÃs
     $.getJSON('/heads/' + module_name + '/' + body_name, function(data){
         var styles_html = '';
         var scripts_html = '';
@@ -134,7 +131,7 @@ $(document).ready(function(){
     }
     url.shift();
     if(url.length < 2){
-        // Adresse mal form�
+        // Adresse mal formé
         insert_body('tiles', 'main');
     } else {
         insert_body(url[0], url[1].split('&')[0]);
