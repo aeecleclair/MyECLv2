@@ -119,6 +119,10 @@ module.exports = function(context){
                 rule.enctype = 'urlencoded';
             }
 
+            if(!rule.post_options){
+                rule.post_options = context.body_json_config;
+            }
+
             switch(rule.enctype){
                 case 'urlencoded':
                     app.post(rule.route, context.bodyParser.urlencoded(rule.post_options));
@@ -132,9 +136,11 @@ module.exports = function(context){
                 /* eslint-disable no-case-declarations */
                 case 'multipart':
                     let multer_method = rule.multer_method ? rule.multer_method.name || 'single' : 'single';
-                    let multer_options = rule.multer_method ? rule.multer_method.options || 'file' : 'file';
+                    let multer_field = rule.multer_method ? rule.multer_method.field || 'file' : 'file';
+                    let multer_max_count = rule.multer_method ? rule.multer_method.max : null;
                     rule.post_options.dest = context.user_upload;
-                    app.post(rule.route, context.multer(rule.post_options)[multer_method](multer_options));
+                    app.post(rule.route,
+                        context.multer(rule.post_options)[multer_method](multer_field, multer_max_count));
                     break;
                 /* eslint-enable no-case-declarations */
             }
