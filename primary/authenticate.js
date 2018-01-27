@@ -10,7 +10,6 @@ module.exports = function(context){
 
     exports.check_password = function(req, res){
         // Valide ou non le mot de passe de l'utilisateur
-        console.log(req.body);
         var password = req.body.password;
         var login = req.body.login;
         get_user(login, function (err, results){
