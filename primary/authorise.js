@@ -60,7 +60,7 @@ module.exports = function(context){
         // passe a la suite en cas de succes et appel reject (optionel) en cas
         // d'echec
         if(!reject){
-            reject = function(res, req){
+            reject = function(req, res){
                 if(req.session.user){  // utilisateur connecté
                     res.sendFile('unauthorized.html', {'root' : context.public_root});
                     context.log.warning('[CON] Accès non autorisé à ' + req.url);
