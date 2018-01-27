@@ -141,15 +141,20 @@ Pour l'instant aucune autre propriété de la configuration n'est utilisé par l
 {
     "authorisation" : "#ecl",
     "description" : "Module de test",
-    "database" : [
+    "heads" : {
+        "styles" : ["/modules/test/static/more_style.css"],
+        "scripts" : ["/modules/test/static/more_script.js"]
+    },
+
+    "database":[
         {
-            "table" : "film", 
-            "schema" : {
-                "titre" : "VARCHAR(255)",
-                "realisateur" : "VARCHAR(255)",
-                "genre" : "VARCHAR(255)",
-                "date_sortie" : "DATE",
-                "pays" : "VARCHAR(255)"
+            "table":"film", 
+            "schema":{
+                "titre": "VARCHAR(255)",
+                "realisateur": "VARCHAR(255)",
+                "genre": "VARCHAR(255)",
+                "date_sortie": "DATE",
+                "pays": "VARCHAR(255)"
             }
         }
     ],
@@ -160,15 +165,40 @@ Pour l'instant aucune autre propriété de la configuration n'est utilisé par l
         },
         {
             "body" : "main",
-            "callback" : "main_cb"
+            "callback" : "main_cb",
+            "heads" : {
+                "styles" : ["/modules/test/static/style_again.css"]
+            }
         },
         {
             "body" : "victoire",
-            "static" : "static/boo.html"
+            "static" : "static/boo.html",
+            "heads" : {
+                "styles" : ["/modules/test/static/style_again.css"]
+            }
         },
         {
             "body" : "daf",
             "static" : "static/daf.html"
+        },
+        {
+            "body" : "post",
+            "static" : "static/post.html"
+        },
+        {
+            "route" : "/modules/test/rien",
+            "callback" : "log",
+            "method" : "POST"
+        },
+        {
+            "route" : "/modules/test/post",
+            "callback" : "load_file",
+            "method" : "POST",
+            "enctype" : "multipart",
+            "multer_method" : {
+                "name" : "single",
+                "field" : "photo"
+            }
         }
     ],
     "menu" : [
@@ -180,6 +210,15 @@ Pour l'instant aucune autre propriété de la configuration n'est utilisé par l
         {
             "body" : "victoire",
             "name" : "Boo Yah !"
+        },
+        {
+            "body" : "post",
+            "name" : "Test post"
+        },
+        {
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = \"catin\";",
+            "body" : "annuaire",
+            "name" : "Annuaire"
         },
         {
             "name" : "D'autres trucs",
