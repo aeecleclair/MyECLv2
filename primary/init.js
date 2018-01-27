@@ -30,6 +30,8 @@ exports.myecl = function(context){
     context.header_list = new Array();
     context.tiles_list = new Array();
     context.myecl_map = '';
+    context.bodyParser = bodyParser;
+    context.multer = multer;
  
     // Chargement de la bdd
    

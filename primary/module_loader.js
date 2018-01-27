@@ -7,6 +7,11 @@
 var fs = require('fs');
 var path = require('path');
 
+function is_element_of(value, array){
+    return array.indexOf(value) >= 0;
+}
+
+
 module.exports = function(context){
     var authorise = require('./authorise')(context);
 
@@ -97,23 +102,57 @@ module.exports = function(context){
             return;
         }
         var route = rule.route;
+
         if(!rule.method){
             rule.method = 'get'; // get est la methode par defaut
+        } else {
+            rule.method = rule.method.toLowerCase();
+            if(!is_element_of(rule.method, ['get', 'head', 'post', 'delete', 'put', 'all'])){
+                rule.method = 'get';
+            }
         }
+
+        // Traitements particuliers
+        
+        if(rule.method == 'post' && !rule.no_parse){
+            if(!rule.enctype){
+                rule.enctype = 'urlencoded';
+            }
+
+            if(!rule.post_options){
+                rule.post_options = context.body_json_config;
+            }
+
+            switch(rule.enctype){
+                case 'urlencoded':
+                    app.post(rule.route, context.bodyParser.urlencoded(rule.post_options));
+                    break;
+                case 'json':
+                    app.post(rule.route, context.bodyParser.json(rule.post_options));
+                    break;
+                case 'raw':
+                    app.post(rule.route, context.bodyParser.raw(rule.post_options));
+                    break;
+                /* eslint-disable no-case-declarations */
+                case 'multipart':
+                    let multer_method = rule.multer_method ? rule.multer_method.name || 'single' : 'single';
+                    let multer_field = rule.multer_method ? rule.multer_method.field || 'file' : 'file';
+                    let multer_max_count = rule.multer_method ? rule.multer_method.max : null;
+                    rule.post_options.dest = context.user_upload;
+                    app.post(rule.route,
+                        context.multer(rule.post_options)[multer_method](multer_field, multer_max_count));
+                    break;
+                /* eslint-enable no-case-declarations */
+            }
+        }
+
         try{
-            app.all(route, authorise(rule.authorisation), function (req, res, next){
-                if(rule.method.toUpperCase() == req.method.toUpperCase()){
-                    // Si la methode de la règle correspond à la methode
-                    // utilisé par le client on utilise la callback
-                    try{
-                        cb(req, res);
-                    } catch(err) {
-                        context.log.warning(`Error from callback ${rule.callback}.`);
-                        context.log.warning(err);
-                    }
-                } else {
-                    // Sinon on passe la main au callback suivant
-                    next();
+            app[rule.method](route, authorise(rule.authorisation), function (req, res){
+                try{
+                    cb(req, res);
+                } catch(err) {
+                    context.log.warning(`Error from callback ${rule.callback}.`);
+                    context.log.warning(err);
                 }
             });
             context.myecl_map += route + '\n';
@@ -134,6 +173,7 @@ module.exports = function(context){
         app.use(rule.route, authorise(rule.authorisation), cb);
         context.myecl_map += rule.route + '\n';
     }
+
     function handle_rule(app, modname, rule){
 
         if(rule.body){
