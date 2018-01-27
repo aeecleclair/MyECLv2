@@ -99,10 +99,18 @@ Il y a trois méthodes pour accéder à ces ressources :
 
 Chaque règle peut avoir des propriétées supplémentaires :
 - __authorisation__ : définit une règle de sécurité spécifique à cette règle
-- __method__ : définit la méthode HTTP utilisé pour la règle (GET si elle est omise)
+- __method__ : définit la méthode HTTP utilisé pour la règle (GET si elle est omise), les options possibles sont GET, POST, DELETE, HEAD, PUT et ALL (répond quelque soit la méthode). Cette option n'est prise en compte que pour les callbacks, les middleware doivent gérer eux même les méthodes et les fichiers statiques sont toujours accessible par toute les méthodes.
 - __heads__ : Cette propriété sert à déclarer les feuilles de styles css et les scripts JavaScript spécifique à un body (elle est ignoré dans le cas d'une route ou d'une tile). Elle contient un objet ayant une ou deux des proprétées suivantes :
     - __styles__ : une liste de routes vers les fichiers css à ajouter au body
     - __scripts__ : une liste de routes vers les fichiers JS à ajouter au body
+
+La méthode POST est un cas particulier car des données sont envoyées dans le corp de la requete. Pour accéder à ces données il faut les parser. Il existe plusieures options pour parser les données selon coment elles sont encodées. Le parsing est gérer par le moteur mais des réglages peuvent être fait avec les proprétées optionnelles suivantes :
+- __enctype__ : dans le cas des POST, permet de choisir la façon dont sont envoyé les données. Les options possibles sont 'urlencoded', 'json', 'raw' et 'multipart'. multipart est le seul mode qui permet d'envoyer des fichiers qui ne sont pas en texte. Par défaut urlencoded est utilisé.
+- **post_options** : options passés au middleware qui s'occupe de parser le corps d'un POST. Les propriétées sont décrites [https://github.com/expressjs/body-parser#api|ici] pour body-parser qui est utilisé pour urlencoded, raw et json, et [https://github.com/expressjs/multer#api|ici] pour multer qui est utilisé pour multipart (l'option dest est écrasé par le chargeur de module)
+- **multer_method** : permet de choisir la methode utilisé par multer (**multer_method.name** : 'single' (par défaut) ou 'fields' ou 'array') et de spécifier les options nécessaires (**multer_method.field** et **multer_method.max** cf [https://github.com/expressjs/multer#api|l'API multer]) (par défaut 'file')
+- **no_parse** : désactive le parsing du corp des requetes post si évalué à true
+
+Les données parsé sont accéssible dans __req.body__. Quand on utilise multpart elles sont accessible dans __req.body__ aussi sauf les fichiers qui sont accéssibles par __req.file__ (pour la méthode single) ou __req.files__ (pour les méthodes array et fields).
 
 ### La propriété __heads__
 
@@ -136,15 +144,20 @@ Pour l'instant aucune autre propriété de la configuration n'est utilisé par l
 {
     "authorisation" : "#ecl",
     "description" : "Module de test",
-    "database" : [
+    "heads" : {
+        "styles" : ["/modules/test/static/more_style.css"],
+        "scripts" : ["/modules/test/static/more_script.js"]
+    },
+
+    "database":[
         {
-            "table" : "film", 
-            "schema" : {
-                "titre" : "VARCHAR(255)",
-                "realisateur" : "VARCHAR(255)",
-                "genre" : "VARCHAR(255)",
-                "date_sortie" : "DATE",
-                "pays" : "VARCHAR(255)"
+            "table":"film", 
+            "schema":{
+                "titre": "VARCHAR(255)",
+                "realisateur": "VARCHAR(255)",
+                "genre": "VARCHAR(255)",
+                "date_sortie": "DATE",
+                "pays": "VARCHAR(255)"
             }
         }
     ],
@@ -155,15 +168,40 @@ Pour l'instant aucune autre propriété de la configuration n'est utilisé par l
         },
         {
             "body" : "main",
-            "callback" : "main_cb"
+            "callback" : "main_cb",
+            "heads" : {
+                "styles" : ["/modules/test/static/style_again.css"]
+            }
         },
         {
             "body" : "victoire",
-            "static" : "static/boo.html"
+            "static" : "static/boo.html",
+            "heads" : {
+                "styles" : ["/modules/test/static/style_again.css"]
+            }
         },
         {
             "body" : "daf",
             "static" : "static/daf.html"
+        },
+        {
+            "body" : "post",
+            "static" : "static/post.html"
+        },
+        {
+            "route" : "/modules/test/rien",
+            "callback" : "log",
+            "method" : "POST"
+        },
+        {
+            "route" : "/modules/test/post",
+            "callback" : "load_file",
+            "method" : "POST",
+            "enctype" : "multipart",
+            "multer_method" : {
+                "name" : "single",
+                "field" : "photo"
+            }
         }
     ],
     "menu" : [
@@ -175,6 +213,15 @@ Pour l'instant aucune autre propriété de la configuration n'est utilisé par l
         {
             "body" : "victoire",
             "name" : "Boo Yah !"
+        },
+        {
+            "body" : "post",
+            "name" : "Test post"
+        },
+        {
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = \"catin\";",
+            "body" : "annuaire",
+            "name" : "Annuaire"
         },
         {
             "name" : "D'autres trucs",
@@ -294,12 +341,14 @@ Pour permettre l'utilisation d'un service il faut l'activer en ajoutant son nom 
 - [x] Adapter le menu au autorisations de l'utilisateur
 - [x] Adapter le header au autorisations de l'utilisateur
 - [ ] Mise en place du système complet de sécurité
+    - [x] Mise en place d'un vrai formulaire d'inscription
     - [x] Création d'une page de connexion
     - [x] Création d'une page "Acces interdit"
     - [x] Conception d'un système de mot de passe sûre
     - [x] Implémentation du système de mot de passe
     - [x] Création d'un système d'autorisations flexible pour définir quel utilisateur a accès à chaque module
     - [x] Implémentation du système d'autorisation
+    - [ ] Création d'un serveur oAuth2 pour d'autres services ECLAIR (mediapiston notament)
 - [x] Ajout d'un système de "service" à l'usage des auteurs des modules qui offre des fonctionnalitées interne supplémentaire
 - [ ] Service d'accés aux utilisateurs, aux assos... (surcouche à shorter.sql)
 - [x] Permettre aux modules d'ajouter des head aux pages body (script JS et styles CSS)

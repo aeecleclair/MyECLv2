@@ -38,17 +38,27 @@
             }
         },
         {
-            "body" : "annuaire",
-            "static" : "static/annuaire.html"
-        },
-        {
-            "route" : "/modules/test/annuaire",
-            "callback" : "annuaire"
-        },
-
-        {
             "body" : "daf",
             "static" : "static/daf.html"
+        },
+        {
+            "body" : "post",
+            "static" : "static/post.html"
+        },
+        {
+            "route" : "/modules/test/rien",
+            "callback" : "log",
+            "method" : "POST"
+        },
+        {
+            "route" : "/modules/test/post",
+            "callback" : "load_file",
+            "method" : "POST",
+            "enctype" : "multipart",
+            "multer_method" : {
+                "name" : "single",
+                "field" : "photo"
+            }
         }
     ],
     "menu" : [
@@ -60,6 +70,10 @@
         {
             "body" : "victoire",
             "name" : "Boo Yah !"
+        },
+        {
+            "body" : "post",
+            "name" : "Test post"
         },
         {
             "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = \"catin\";",

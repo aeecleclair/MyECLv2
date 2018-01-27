@@ -16,6 +16,7 @@ module.exports = function(config_file){
     
     ctx.public_root = path.join(ctx.root_path, '/static/public');
     ctx.private_root = path.join(ctx.root_path, '/static/private');
+    ctx.user_upload = path.join(ctx.private_root, '/user_upload');
     ctx.module_path = path.join(ctx.root_path, '/modules');
     ctx.service_path = path.join(ctx.root_path, '/services');
 
