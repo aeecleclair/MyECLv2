@@ -1,101 +1,114 @@
+/*
+ * Propose un générateur de middleware pour filtrer les utilisateurs
+ * en fonction de leurs droits personnels et d'une règle fournie
+ *
+ */
+
 module.exports = function(context){
 
-    function check_authorisation(user, module_auth, callback){
-        // Compare les autorisations de user à module_auth et renvoie true si 
-        // l'utilisateur peux acceder aux ressources
-        // Ici on considère que module_auth est une requete sql qui renvoie une 
-        // liste d'utilisateurs autorisés :
-        // SELECT login FROM user JOIN member ON member.user = user.id ... 
-        // callback prend un seul argument booléen 'authorised'
-        context.database.query(module_auth, function(err, res){
-            // Executer la requete
-            if(err){
-                // Il faut que l'on soit informé des erreurs car elles viennent 
-                // probablement du codeur du module
-                context.log.error('Unable to check authorisation with this request : ' + module_auth);
-                context.log.error(err);
-            } else {
-                // On cherche l'id de notre user dans la resultat
-                for(var i in res){
-                    if(res[i].login == user.login){
-                        callback(true);
-                        return;
-                    }
-                }
+
+    function authorisation_checker(module_auth){
+        // Génère la fonction minimale pour comparer les
+        // authorisations de user à la règle module_auth
+        // La fonction retourné appel callback(true) si l'utilisateur
+        // est authorisé
+        
+        if(module_auth == 'public'){
+            return function(user, callback){
+                callback(true);
+            };
+        } else if(module_auth == 'user'){
+            return function(user, callback){
+                callback(user != null);
+            };
+        } else {
+            // Cas par défaut :
+            // Requete SQL (ou alias de requete ou requete partielle)
+            if(module_auth[0] == '#'){
+                module_auth = context.alias[module_auth];
+            } else if(module_auth.substring(0, 6) != 'SELECT'){
+                module_auth = 'SELECT user.login FROM user JOIN membership ' +
+                    'ON membership.id_user = user.id ' + module_auth;
             }
-            callback(false);
-            return;
-        });
+            return function(user, callback){
+                // Ici on considère que module_auth est une requete sql qui renvoie une 
+                // liste d'utilisateurs autorisés :
+                // SELECT login FROM user JOIN membership ON membership.id_user = user.id ... 
+                context.database.query(module_auth, function(err, res){
+                    // Executer la requete
+                    if(err){
+                        context.log.error('Unable to check authorisation with this request : ' + module_auth);
+                        context.log.error(err);
+                    } else {
+                        // On cherche l'id de notre user dans le resultat
+                        for(var i in res){
+                            if(res[i].login == user.login){
+                                callback(true);
+                                return;
+                            }
+                        }
+                    }
+                    callback(false);
+                    return;
+                });
+            };
+        }
     }
 
-    var main_func = function (module_auth){
-        // fonction principale du module
-        // renvoie un middleware qui test si l'utilisateur peut accéder à 
-        // une ressource
+    var main_func = function(module_auth, reject){
+        // créer un middleware qui verifie l'autorisation de l'utilisateur
+        // passe a la suite en cas de succes et appel reject (optionel) en cas
+        // d'echec
+        if(!reject){
+            reject = function(res, req){
+                if(req.session.user){  // utilisateur connecté
+                    res.sendFile('unauthorized.html', {'root' : context.public_root});
+                    context.log.warning('[CON] Accès non autorisé à ' + req.url);
+                } else {
+                    if(!req.session.rejected_on){
+                        req.session.rejected_on = req.originalUrl;
+                    }
+                    res.sendFile('not_connected.html', {'root' : context.public_root});
+                    context.log.warning('Accès non autorisé à ' + req.url);
+                }
+            };
+        }
         var middleware;
+        // On teste les cas public et user a l'avance pour
+        // produire un middleware minimale
         if(module_auth == 'public'){
-            middleware = function(req, res, next){ next(); };
+            middleware = function(req, res, next){
+                next();
+            };
         } else if(module_auth == 'user'){
             middleware = function(req, res, next){
                 if(req.session.user){
                     next();
                 } else {
-                    req.session.rejected_on = req.originalUrl;
                     res.status(401);
-                    res.sendFile('not_connected.html', {'root' : context.public_root});
-                    context.log.warning('Accès non autorisé à ' + req.url);
+                    reject(req, res);
                 }
             };
+
         } else {
-            if(module_auth[0] == '#'){
-                module_auth = context.alias[module_auth];
-            } else if(module_auth.substring(0, 6) != 'SELECT'){
-                // On permet au codeur du module de mettre des autorisations du 
-                // type : 
-                // WHERE membership.position = 'prez' 
-                // AND membership.group = 'ECLAIR';
-                // ou même de rajouter des JOIN avant le WHERE
-                module_auth = 'SELECT user.login FROM user JOIN membership ' +
-                    'ON membership.id_user = user.id ' + module_auth;
-            }
-            middleware = function (req, res, next){
-                // middleware qui va permettre les utilisateurs autorisés et 
-                // refouler les autres
-                if(req.session.user){
-                    check_authorisation(req.session.user, module_auth, function(authorised){
-                        if(authorised){
-                            next();
-                        } else {
-                            context.log.warning('[CON] Accès non autorisé à ' + req.url);
-                            res.status(401);
-                            res.sendFile('unauthorized.html', {'root' : context.public_root});
-                        }
-                    });
-                } else {
-                    req.session.rejected_on = req.originalUrl;
-                    res.status(401);
-                    res.sendFile('not_connected.html', {'root' : context.public_root});
-                    context.log.warning('[NOT_CON] Accès non autorisé à ' + req.url);
-                }
+            // On créer le checker une fois et il est réutilisé a chaque requete
+            var checker = authorisation_checker(module_auth);
+            middleware = function(req, res, next){
+                checker(req.session.user, function(valid){
+                    if(valid){
+                        next();
+                    } else {
+                        res.status(401);
+                        reject(req, res);
+                    }
+                });
             };
         }
-        return middleware;
+        return middleware;        
     };
 
-    main_func.simple_check = function(user, module_auth, callback){
-        if(module_auth == 'public'){
-            callback(true);
-        } else if(module_auth == 'user'){
-            callback(user != null && user != undefined);
-        } else {
-            if(module_auth[0] == '#'){
-                module_auth = context.alias[module_auth];
-            } else if(module_auth.substring(0, 6) != 'SELECT'){
-                module_auth = 'SELECT user.login FROM user JOIN membership ' +
-                    'ON membership.id_user = user.id ' + module_auth;
-            }
-            check_authorisation(user, module_auth, callback);
-        }
-    };
+    main_func.authorisation_checker = authorisation_checker;
+    
     return main_func;
 };
+
