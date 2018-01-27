@@ -106,7 +106,7 @@ $(document).ready(function(){
     insert_menu();
     insert_header();
     var url = window.location.href.split('/');
-    while(url[0] != '/home'){
+    while(url.length > 0 && url[0] != 'home'){
         url.shift();
     }
     url.shift();
