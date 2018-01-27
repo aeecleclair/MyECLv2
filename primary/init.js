@@ -88,11 +88,12 @@ exports.myecl = function(context){
         var promises = new Array();
         for(let key in context.menu_list){
             let menu = context.menu_list[key];
-            if(menu.authorisation == 'user'){
+            if(menu.authorisation == 'user' || menu.authorisation == 'public'){
                 menus.push(menu);
             } else {
+                let checker = authorise.authorisation_checker(menu.authorisation);
                 promises.push(new Promise(function(resolve){
-                    authorise.simple_check(req.session.user, menu.authorisation, function(is_auth){
+                    checker(req.session.user, function(is_auth){
                         if(is_auth){
                             menus.push(menu);
                         }
@@ -122,17 +123,14 @@ exports.myecl = function(context){
                 tiles.push(tile);
             } else {
                 // On met ces appels dans un pool
+                let checker = authorise.authorisation_checker(tile.authorisation);
                 promises.push(new Promise(function(resolve){
-                    authorise.simple_check(
-                        req.session.user,
-                        tile.authorisation,
-                        function(is_auth){
-                            if(is_auth){
-                                tiles.push(tile);
-                            }
-                            resolve();
+                    checker(req.session.user, function(is_auth){
+                        if(is_auth){
+                            tiles.push(tile);
                         }
-                    );
+                        resolve();
+                    });
                 }));
             }
         }
@@ -157,8 +155,9 @@ exports.myecl = function(context){
     
     // Utiliser un compte existant
     
+    var simple_user_check = authorise.authorisation_checker('user');
     app.use('/login.html', function(req, res, next){
-        authorise.simple_check(req.session.user, 'user', function(connected){
+        simple_user_check(req.session.user, function(connected){
             if(connected){  // si l'utilisateur est déjà connecté
                 res.redirect('/home');  // on le renvoie vers la page principale
             } else {
@@ -181,9 +180,24 @@ exports.myecl = function(context){
     load_mod(app);
     context.log.info('Modules loaded successfully.');
 
-    // Si rien n'a catché la requete
+    // Si rien n'a catché la requete on cherche un fichier statique
     app.use(serveStatic(context.public_root, context.default_static_options));
-    app.use(authorise('user'), serveStatic(context.private_root, context.default_static_options));
+    // si on ne trouve pas de fichier statique publique qui match on cherche dans
+    // les fichiers privé a condition que l'utilisateur soit connecté
+    // sinon on renvoie une 404
+
+    var error_404 = function(req, res){
+        res.status(404);
+        res.sendFile('error_404.html', {root : context.private_root});
+    };
+
+    app.use(
+        authorise('user', error_404),
+        serveStatic(context.private_root, context.default_static_options)
+    );
+    
+    // En dernière option on envoie une 404
+    app.use(error_404);
 
     // Lancement du serveur
     app.listen(context.port, context.url, function(){
