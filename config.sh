@@ -13,11 +13,11 @@ ask(){
 # Renseignement des paramètres essentiels
 case "$1" in
     prod)
-        LURL="localhost"
-        URL="www.myecl.fr"
-        HTTP="https"
-        LPORT=8998
-        PORT=443
+        LURL="172.18.24.170"
+        URL="156.18.24.171"
+        HTTP="http"
+        LPORT=80
+        PORT=80
         ROOT_PATH=$(pwd)
         DB_HOST="172.18.24.169"
         DB_CLIENT="172.18.24.170"
