@@ -18,6 +18,17 @@
 //// renderFile
 //var html = pug.renderFile('filename.pug', merge(options, locals));<Paste>
 
+//var template = ejs.compile(str, options);
+//template(data);
+//// => Rendered HTML string
+//
+//ejs.render(str, data, options);
+//// => Rendered HTML string
+//
+//ejs.renderFile(filename, data, options, function(err, str){
+//    // str => Rendered HTML string
+//});
+
 // Fonctions utilisées :
 // render : template string, values -> html string
 // renderFile : template file, values -> html string
