@@ -18,7 +18,7 @@ case "$1" in
         HTTP="http"
         LPORT=80
         PORT=80
-        ROOT_PATH=$(pwd)
+        ROOT_PATH=/srv/web/myecl
         DB_HOST="172.18.24.169"
         DB_CLIENT="172.18.24.170"
         ;;
@@ -57,7 +57,7 @@ case "$1" in
 esac
 
 shift
-if [[ "x$1" != "xremote" ]]
+if [[ "x$1" != "xremote" ] && [ "$1" != "prod" ]]
 then
     # Initialisation de la BDD
     echo "Créer la base de donnée et l'utilisateur MariaDB ? [o/N] "
@@ -66,7 +66,7 @@ then
     then
         echo "Utiliser le mot de passe root de mysql/mariadb"
         mysql -h $DB_HOST -u root -p -e "CREATE DATABASE myecl; GRANT USAGE ON *.* TO 'eclair'@'$DB_CLIENT' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'$DB_CLIENT';" 
-    fi    
+    fi
 fi
 
 # Mise à jour des modules node.js
