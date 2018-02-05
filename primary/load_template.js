@@ -5,32 +5,36 @@
  * déclare en créant un ensemble de fonctions que l'on retrouvera a chaque fois
  */
 
-// Exemple de syntaxes
-// var pug = require('pug');
+const fs = require('fs');
+const path = require('path');
 
-// compile
-//var fn = pug.compile('string of pug', options);
-//var html = fn(locals);
-//
-//// render
-//var html = pug.render('string of pug', merge(options, locals));
-//
-//// renderFile
-//var html = pug.renderFile('filename.pug', merge(options, locals));<Paste>
-
-//var template = ejs.compile(str, options);
-//template(data);
-//// => Rendered HTML string
-//
-//ejs.render(str, data, options);
-//// => Rendered HTML string
-//
-//ejs.renderFile(filename, data, options, function(err, str){
-//    // str => Rendered HTML string
-//});
-
-// Fonctions utilisées :
 // render : template string, values -> html string
-// renderFile : template file, values -> html string
+// renderFile : template file, values, (err, html string -> 0) -> 0
 // compile : template string -> (values -> html string)
-// compileFile : template file -> (values -> html string)
+// compileFile : template file, (err, (values -> html string) -> 0) -> 0
+
+module.exports = function(context){
+    context.engine = new Object();
+
+    context.engine.init = function(){
+        fs.readdirSync(context.template_engine_path, function(engines){
+            var promises = new Array();
+            for(let key in engines){
+                let file_name = path.join(context.template_engine_path, engines[key]);
+                if(file_name.slice(-3) == '.js'){
+                    let prom = new Promise(function(res){
+                        var engine = require(file_name);
+                        context.engine[engine.name] = engine;
+                        res();
+                    });
+                    promises.push(prom);
+                }
+            } 
+            Promise.all(promises).then(function(){
+                context.log('Loading all template engines done.');
+            });
+        });
+    };
+    return context.engine;
+};
+
