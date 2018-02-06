@@ -53,12 +53,12 @@ case "$1" in
         ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
         ask "Hôte de base de données" "localhost" DB_HOST
         ask "IP du client de bdd" "localhost" DB_CLIENT
+	shift
         ;;
 esac
 
-shift
-if [[ "x$1" != "xremote" ] && [ "$1" != "prod" ]]
-then
+#shift
+if [ "x$1" != "xremote" ] && [ "$1" != "prod" ]; then
     # Initialisation de la BDD
     echo "Créer la base de donnée et l'utilisateur MariaDB ? [o/N] "
     read CREATEDB
