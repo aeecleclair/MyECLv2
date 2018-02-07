@@ -18,30 +18,34 @@ Une page classique de MyECL se décompose en trois grandes parties. En haut on a
 ## C Organisation des fichiers
 
 A la racine du site se trouvent :
-- le fichier de configuration générale de l'application *myecl_config.json*
-- le point d'entrée de l'application myecl.js
+- le fichier de configuration initiale _config.sh_
+- le point d'entrée de l'application _myecl.js_
 - le dossier _primary_
 - le dossier _static_
 - le dossier _modules_
 - le dossier _services_
-- le dossier *node_modules*
+- le dossier _tools_
 
 Le dossier _primary_ contient les différents fichiers JS qui rassemblent les fonctionnalités primaires du serveur :
 - _init.js_ permet d'initialiser l'application Express, créer les routes minimales et exploite les autres fichiers
 - _context.js_ lit la configuration, ajoute quelques propriétés et retourne un objet context qui va servir dans la plupart des autres fichiers comme source de paramètres.
 - _logger.js_ fournit des méthodes pour afficher des informations
 - *module_loader.js* charge chaque module activé
+- *service_loader.js* charge chaque service activé
 - _authenticate.js_ met en place l'aspect authentification, l'interface de connexion et la communication avec le CAS
 - _authorise.js_ met en place l'aspect autorisation : il vérifie que l'utilisateur n'accède qu'aux ressources qui lui sont permisent
 - _shortersql.js_ propose une interface avec la base de données exposant des fonctions simples à utiliser pour faire les taches les plus courantes
+- _crypto.js_ propose une interface simple pour crypter et vérifier les mot de passes
 
 Le dossier _static_ contient les fichiers statiques (ressources envoyées telles quelles au client) séparés dans deux dossiers :
-- _public_ contient les fichiers accessibles même sans être passé par la conexion par mot de passe (authentification)
+- _public_ contient les fichiers accessibles même sans être passé par la connexion par mot de passe (authentification)
 - _private_ contient les fichiers uniquement accessibles aux utilisateurs authentifiés
 
 Le dossier _modules_ contient un dossier pour chaque module ainsi que le fichier _modules.json_ qui liste les modules actifs.
 
 Le dossier _services_ contient un dossier pour chaque service ainsi que le fichier _services.json_ qui liste les services actifs.
+
+Le dossier _tools_ contient des scripts utiles en dehors de l'exécution du site comme par exemple *callback_gen.js* qui permet de générer un squelette de fichier _callbacks.js_ d'un module à partir du fichier _config.json_.
 
 Le dossier *node_modules* contient les modules installés avec npm.
 
