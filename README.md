@@ -11,7 +11,7 @@ suffisante pour dévelloper un nouveau module.
 
 # Documentation
 
-La documentation à été déplacé dans la partie [wiki](https://github.com/aeecleclair/MyECLv2/wiki) du [dépot github](https://github.com/aeecleclair/MyECLv2) du projet.
+La documentation a été déplacé dans la partie [wiki](https://github.com/aeecleclair/MyECLv2/wiki) du [dépot github](https://github.com/aeecleclair/MyECLv2) du projet.
 
 # Politique lié aux contributions
 
