@@ -23,6 +23,17 @@ case "$1" in
         DB_CLIENT="172.18.24.170"
         ;;
 
+    dev_docker)
+        LURL="172.18.24.173"
+        URL="156.18.24.171"
+        HTTP="http"
+        LPORT=80
+        PORT=8080
+        ROOT_PATH=/srv/web/myecl
+        DB_HOST="172.18.24.172"
+        DB_CLIENT="172.18.24.173"
+        ;;
+
     ether)
         LURL="ether.eclair.ec-lyon.fr"
         URL="ether.eclair.ec-lyon.fr"
