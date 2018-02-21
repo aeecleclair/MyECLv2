@@ -17,15 +17,19 @@
 				"nom" : "VARCHAR(255)",
 				"photo" : "VARCHAR(255)",
 				"group" : "INT",
-				"galerie" : "VARCHAR(255)",
-				
+				"galerie" : "INT",
+                "description" : "TEXT",
+                "facebook" : "TEXT",
+                "mail" : "TEXT"
             }
         },
 		{
-			"table" : "photos",
+			"table" : "asso_photos",
 			"schema" : {
 				"id" : "INT",
-				"path" : "VARCHAR(255)",
+                "galerie_id" : "INT",
+				"path" : "TEXT",
+				"url" : "TEXT",
 				"selected" : "VARCHAR(1)"
 			}
 		}
@@ -43,6 +47,12 @@
 			"route" : "/module/asso/data",
 			"callback" : "main_cb"
 		}
+    ],
+    "menu" : [
+        {
+            "name" : "Annuaire associatif",
+            "body" : "main"
+        }
     ]
 }
 
