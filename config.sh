@@ -69,7 +69,7 @@ case "$1" in
 esac
 
 #shift
-if [ "x$1" != "xremote" ] && [ "$1" != "prod" ]; then
+if [ "x$1" != "xremote" ] && [ "$1" != "prod" ] && [ "$1" != "dev_docker" ]; then
     # Initialisation de la BDD
     echo "Créer la base de donnée et l'utilisateur MariaDB ? [o/N] "
     read CREATEDB
