@@ -42,12 +42,27 @@ exports.myecl = function(context){
             let item = context.tables[i];
             context.database.create(item['table'], item['schema']);
             if(item['init']){
-                context.database.query(item['init'], function(err){
-                    if(err){
-                        context.log.error('L\'initialisation n\'as pas fonctionné.');
-                        context.log.error(err, true);
+                let init = item['init'];
+
+                if(Array.isArray(init)){ // fields
+                    for(let key in init){
+                        context.database.query(init[key], function(err){
+                            if(err){
+                                context.log.error('L\'initialisation n\'as pas fonctionné.');
+                                context.log.error(err, true);
+                            }
+                        });
                     }
-                });
+                } else if(typeof init ===  'string' || init instanceof String){ // condition
+                    context.database.query(init, function(err){
+                        if(err){
+                            context.log.error('L\'initialisation n\'as pas fonctionné.');
+                            context.log.error(err, true);
+                        }
+                    });
+                } else {
+                    // Ignorer
+                }
             }
         }
     } else {
