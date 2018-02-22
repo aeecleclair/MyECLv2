@@ -19,7 +19,14 @@ exports.show = function(req, res){
                     'position' : row['position']
                 });
             }
-            res.send(req.engine['ejs'].renderFile('ejs/show.ejs', values));
+            req.engine['ejs'].renderFile(req.rel_path('ejs/show.ejs'), values, function(err, template){
+                if(err){
+                    req.log.error(err);
+                    res.status(500).send('Server error');
+                } else {
+                    res.send(template);
+                }
+            });
         }
     });
 };
@@ -31,7 +38,14 @@ exports.list = function(req, res){
             req.log.warning(err);
             res.error('500');
         } else {
-            res.send(req.engine['ejs'].renderFile('ejs/list.ejs', rows));
+            req.engine['ejs'].renderFile(req.rel_path('ejs/list.ejs'), {'groups' : rows}, function(err, result){
+                if(err){
+                    req.log.error(err);
+                    res.status(500).send('Server error');
+                } else {
+                    res.send(result);
+                }
+            });
         }
     });
 };
