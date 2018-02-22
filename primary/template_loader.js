@@ -16,26 +16,19 @@ const path = require('path');
 module.exports = function(context){
     context.engine = new Object();
 
-    fs.readdirSync(context.template_engine_path, function(engines){
-        var promises = new Array();
-        for(let key in engines){
-            let file_name = path.join(context.template_engine_path, engines[key]);
-            if(file_name.slice(-3) == '.js'){
-                let prom = new Promise(function(res){
-                    console.log('Template Loading ' + file_name);
-                    var engine = require(file_name);
-                    console.log(engine);
-                    context.engine[engine.name] = engine;
-                    res();
-                });
-                promises.push(prom);
-            }
-        } 
-        Promise.all(promises).then(function(){
-            context.log('Loading all template engines done.');
-        });
-    });
-
-    return context.engine;
+    var engines = fs.readdirSync(context.template_engine_path);
+    var promises = new Array();
+    for(let key in engines){
+        let file_name = path.join(context.template_engine_path, engines[key]);
+        if(file_name.slice(-3) == '.js'){
+            let prom = new Promise(function(res){
+                var engine = require(file_name);
+                context.engine[engine.name] = engine;
+                res();
+            });
+            promises.push(prom);
+        }
+    } 
+    return Promise.all(promises);
 };
 

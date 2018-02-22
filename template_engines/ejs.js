@@ -4,12 +4,12 @@ const fs = require('fs');
 exports.name = 'ejs';
 
 exports.render = function(template, values){
-    return ejs.render(template, values);
+    return ejs.render(template, values, {});
 };
 
 
 exports.renderFile = function(template_file, values, cb){
-    ejs.renderFile(template_file, values, function(err, template){
+    ejs.renderFile(template_file, values, {}, function(err, template){
         if(err){
             cb(err);
         } else {
@@ -23,12 +23,8 @@ exports.compile = function(template){
 };
 
 exports.compileFile = function(template_file, cb){
-    fs.readFile(template_file, function(err, template){
-        if(err){
-            cb(err);
-        } else {
-            cb(null, template);
-        }
+    fs.readFile(template_file, function(template){
+        cb(null, ejs.compile(template));
     });
 };
 

@@ -79,7 +79,7 @@ module.exports = function(context){
                         try{
                             res.sendFile(path.join(modname, rule.static), {'root' : context.module_path});
                         } catch(err) {
-                            res.error(500);
+                            res.status(500).send('Server error');
                             context.log.warning('Unable to send static file ' + static_path);
                         }
                     });
@@ -148,6 +148,11 @@ module.exports = function(context){
 
         try{
             app[rule.method](route, authorise(rule.authorisation), function (req, res){
+                req.module_name = modname;
+                req.rel_path = function(relpath){
+                    return path.join(context.module_path, modname, relpath);
+                };
+
                 try{
                     cb(req, res);
                 } catch(err) {
@@ -170,7 +175,13 @@ module.exports = function(context){
         }
         // Le middleware doit gérer lui même les methodes et le passage 
         // au callback suivant
-        app.use(rule.route, authorise(rule.authorisation), cb);
+        app.use(rule.route, authorise(rule.authorisation),function(req, res, next){
+            req.module_name = modname;
+            req.rel_path = function(relpath){
+                return path.join(context.module_path, modname, relpath);
+            };
+            next();
+        }, cb);
         context.myecl_map += rule.route + '\n';
     }
 
