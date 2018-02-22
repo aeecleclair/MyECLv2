@@ -2,7 +2,7 @@ module.exports = function(context){
     var user_tools = new Object();
 
     user_tools.getUser = function(login, callback){
-        context.database.select('user', function(err, res){
+        context.database.select('user', 'login = ?', [login], function(err, res){
             var user_datas = res;
             if(!err){
                 context.database.query(
@@ -33,6 +33,7 @@ module.exports = function(context){
     };
 
     user_tools.saveUser = function(login, user_datas, callback){
+        // /!\ Ne sauve pas les modifs au niveau des groupes
         var tables = context.tables;
         var keys;
         for(let key in tables){
@@ -54,10 +55,15 @@ module.exports = function(context){
         });
     };
 
-    user_tools.getForm = function(){
-        // renvoie le code HTML d'un formulaire de recherche d'utilisateur
-
+    user_tools.searchUser = function(input, callback){
+        context.database.select(
+            'user',
+            ['id', 'login', 'name', 'firstname', 'nick'],
+            'login LIKE "%' + input + '%" OR name LIKE "%' + input + '%" OR firstname LIKE "%' + input + '%" OR nick LIKE "%' + input + '%"',
+            callback  // callback(error, rows)
+        );
     };
+
 
     return user_tools;
 };
