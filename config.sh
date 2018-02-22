@@ -141,7 +141,10 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
                 "name" : "VARCHAR(127) UNIQUE",
                 "description" : "TEXT"
             },
-            "init" : "REPLACE INTO user_group (id, name, description) VALUES (0, \"ecl\", \"Centraliens de Lyon\"); REPLACE INTO user_group (id, name, description) VALUES (1, \"admin\", \"Administrateurs du site\");"
+            "init" : [
+                "REPLACE INTO user_group (id, name, description) VALUES (0, \"ecl\", \"Centraliens de Lyon\");",
+                "REPLACE INTO user_group (id, name, description) VALUES (1, \"admin\", \"Administrateurs du site\");"
+            ]
         }
     ],
 
