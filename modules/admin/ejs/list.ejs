@@ -1,0 +1,11 @@
+<div class="content">
+    <div class="main-content">
+        <% for(let i in groups){ %>
+            <div>
+                <a href="/home/admin/show?id=<%=groups[i].id%>">
+                    <%=groups[i].name%> <%=groups[i].description.slice(15)%>...
+                </a>
+            </div>
+        <% } %>
+    </div>
+</div>

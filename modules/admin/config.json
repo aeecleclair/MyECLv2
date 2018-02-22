@@ -15,14 +15,23 @@
             "static" : "static/"
         },
         {
-            "body" : "main",
-            "callback" : "main"
+            "body" : "list_group",
+            "callback" : "list"
+        },
+        {
+            "body" : "show_group",
+            "callback" : "show"
         }
     ],
     "menu" : [
         {
             "name" : "Administration",
-            "body" : "main"
+            "sub" : [
+                {
+                    "name" : "Liste",
+                    "body" : "list_group"
+                }
+            ]
         }
     ]
 }
