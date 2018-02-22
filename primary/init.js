@@ -16,6 +16,7 @@ exports.myecl = function(context){
     // Modules nodes locaux
     require('./logger')(context);
     require('./crypto')(context);
+    require('./template_loader')(context);
 
     const load_serv = require('./service_loader')(context);
     const load_mod = require('./module_loader')(context);
