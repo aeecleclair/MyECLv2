@@ -1,5 +1,16 @@
+/*
+ *
+ * Service user
+ * Fournit divers fonctions pour intéroger la base dedonnées des utilisateurs
+ *
+ */
 module.exports = function(context){
     var user_tools = new Object();
+
+    user_tools.getAllUsers = function(login, callback){
+        // Renvoie des infos minimums sur l'ensemble des utilisateurs
+        context.database.select('user', ['login', 'nick', 'firstname', 'name'], callback);
+    };
 
     user_tools.getUser = function(login, callback){
         context.database.select('user', 'login = ?', [login], function(err, res){
