@@ -13,14 +13,25 @@ ask(){
 # Renseignement des paramètres essentiels
 case "$1" in
     prod)
-        LURL="localhost"
-        URL="www.myecl.fr"
-        HTTP="https"
-        LPORT=8998
-        PORT=443
-        ROOT_PATH=$(pwd)
+        LURL="172.18.24.170"
+        URL="156.18.24.171"
+        HTTP="http"
+        LPORT=80
+        PORT=80
+        ROOT_PATH=/srv/web/myecl
         DB_HOST="172.18.24.169"
         DB_CLIENT="172.18.24.170"
+        ;;
+
+    dev_docker)
+        LURL="172.18.24.173"
+        URL="156.18.24.171"
+        HTTP="http"
+        LPORT=80
+        PORT=8080
+        ROOT_PATH=/srv/web/myecl
+        DB_HOST="172.18.24.172"
+        DB_CLIENT="172.18.24.173"
         ;;
 
     ether)
@@ -53,12 +64,12 @@ case "$1" in
         ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
         ask "Hôte de base de données" "localhost" DB_HOST
         ask "IP du client de bdd" "localhost" DB_CLIENT
+	shift
         ;;
 esac
 
-shift
-if [[ "x$1" != "xremote" ]]
-then
+#shift
+if [ "x$1" != "xremote" ] && [ "$1" != "prod" ]; then
     # Initialisation de la BDD
     echo "Créer la base de donnée et l'utilisateur MariaDB ? [o/N] "
     read CREATEDB
@@ -66,7 +77,7 @@ then
     then
         echo "Utiliser le mot de passe root de mysql/mariadb"
         mysql -h $DB_HOST -u root -p -e "CREATE DATABASE myecl; GRANT USAGE ON *.* TO 'eclair'@'$DB_CLIENT' IDENTIFIED BY 'secret'; GRANT ALL PRIVILEGES ON myecl.* TO 'eclair'@'$DB_CLIENT';" 
-    fi    
+    fi
 fi
 
 # Mise à jour des modules node.js
