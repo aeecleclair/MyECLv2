@@ -16,7 +16,7 @@
                 "id" : "INT PRIMARY KEY",
 				"nom" : "VARCHAR(255)",
 				"photo" : "VARCHAR(255)",
-				"group" : "INT",
+				"group_id" : "INT",
 				"galerie" : "INT",
                 "description" : "TEXT",
                 "facebook" : "TEXT",
