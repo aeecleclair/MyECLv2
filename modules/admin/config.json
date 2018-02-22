@@ -1,0 +1,29 @@
+{
+    "authorisation" : "#admin",
+    "description" : "Module d'administration",
+    "heads" : {
+		"styles" : [
+			"static/admin.css"
+		],
+		"scripts" : [
+			"static/admin.js"		
+		]
+	},
+    "rules" : [
+        {
+            "route" : "/modules/admin/static/*",
+            "static" : "static/"
+        },
+        {
+            "body" : "main",
+            "callback" : "main"
+        }
+    ],
+    "menu" : [
+        {
+            "name" : "Administration",
+            "body" : "main"
+        }
+    ]
+}
+
