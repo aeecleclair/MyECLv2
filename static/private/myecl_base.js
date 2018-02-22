@@ -1,3 +1,15 @@
+const body_404 = '\
+<div class="row">\
+    <div id="connexion" class="col-xs-4 col-xs-offset-4">\
+        <div>\
+            <center>\
+            Erreur 404</br>La page demandﾃｩ n\'existe pas.\
+            </center>\
+        </div>\
+    </div>\
+</div>';
+
+
 function handle_menu(menu, data){
     for(let i in data){
         let item = data[i];
@@ -74,13 +86,21 @@ function insert_body(module_name, body_name){
     var body = $('#main-content-wrapper');
     var styles = $('head');
     var scripts = $('body');
-    // supprimer les scripts et styles ajoutﾃｩ prﾃcedement
+    // supprimer les scripts et styles ajoutﾃδｩ prﾃツedement
     $('.dyn-content').remove();
-    // rﾃcupﾃｩre le body demandﾃｩ
-    $.get('/body/' + module_name + '/' + body_name, function(data){
-        body.html(data);
+    // rﾃツupﾃδｩre le body demandﾃδｩ
+    $.ajax({
+        url : '/body/' + module_name + '/' + body_name,
+        type : 'get',
+        success : function(data){
+            body.html(data);
+        },
+        error : function(){
+            body.html(body_404);
+        }
     });
-    // rﾃcupﾃrer les scripts et styles associﾃs
+
+    // rﾃツupﾃビer les scripts et styles associﾃピ
     $.getJSON('/heads/' + module_name + '/' + body_name, function(data){
         var styles_html = '';
         var scripts_html = '';
@@ -105,7 +125,17 @@ function insert_body(module_name, body_name){
 $(document).ready(function(){
     insert_menu();
     insert_header();
-    insert_body('tiles', 'main');
+    var url = window.location.href.split('/');
+    while(url.length > 0 && url[0] != 'home'){
+        url.shift();
+    }
+    url.shift();
+    if(url.length < 2){
+        // Adresse mal formﾃｩ
+        insert_body('tiles', 'main');
+    } else {
+        insert_body(url[0], url[1].split('&')[0]);
+    }
 });
 
 

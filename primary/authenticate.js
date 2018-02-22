@@ -8,10 +8,10 @@ module.exports = function(context){
         context.database.select('user', 'login = "' + login + '"', callback);
     }
 
-    exports.password = function(req, res){
+    exports.check_password = function(req, res){
         // Valide ou non le mot de passe de l'utilisateur
-        var password = req.query.password;
-        var login = req.query.login;
+        var password = req.body.password;
+        var login = req.body.login;
         get_user(login, function (err, results){
             if(!err && results.length > 0){
                 var user = results[0];
@@ -24,7 +24,12 @@ module.exports = function(context){
                         res.redirect('/login.html?wrong=1');
                     } else {
                         req.session.user = user;
-                        res.redirect('/home');
+                        if(req.session.rejected_on){
+                            res.redirect(req.session.rejected_on);
+                            req.session.rejected_on = undefined;
+                        } else {
+                            res.redirect('/home');
+                        }
                     }
                 });
             } else {
@@ -45,7 +50,7 @@ module.exports = function(context){
     exports.new_account = function(req, res){
         // TODO utiliser les infos contenues dans req.session.user_data si elles existent
         // pour préremplir autant que possible le formulaire
-        res.redirect('/new_account.html');
+        res.redirect('/register.html');
     };
     exports.create_account = function(req, res){
         // doit être utilisé avec POST
@@ -65,7 +70,17 @@ module.exports = function(context){
                     user['gender'] = req.body.gender == 'Femme' ? 'F' : 'H';
                     user['promo'] = req.body.promo;
                     user['floor'] = req.body.floor;
-                    user['groups'] = '';  // TODO
+
+                    if(req.body.picselector == '3'){
+                        user['picture_path'] = req.file.path;
+                        user['picture_url'] = '/user_upload/' + req.file.filename;
+                    } else {
+                        // TODO ameliorer le choix les photos par defaut
+                        user['picture_path'] = '';
+                        user['picture_url'] = '/picture/default_pic_' + req.body.picselector + '.png';
+                    }
+
+                    // user['email'] = req.session.user_data.email; // TODO verifier que req.session.user_data.email existe
                     context.database.save('user', user, function(err){
                         if(!err){
                             req.session.user = user;
