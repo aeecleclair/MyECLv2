@@ -21,6 +21,19 @@ case "$1" in
         ROOT_PATH=/srv/web/myecl
         DB_HOST="172.18.24.169"
         DB_CLIENT="172.18.24.170"
+        CREATEDB="no"
+        ;;
+
+    dev_docker)
+        LURL="172.18.24.173"
+        URL="156.18.24.171"
+        HTTP="http"
+        LPORT=80
+        PORT=8080
+        ROOT_PATH=/srv/web/myecl
+        DB_HOST="172.18.24.172"
+        DB_CLIENT="172.18.24.173"
+        CREATEDB="no"
         ;;
 
     ether)
@@ -53,12 +66,11 @@ case "$1" in
         ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
         ask "Hôte de base de données" "localhost" DB_HOST
         ask "IP du client de bdd" "localhost" DB_CLIENT
-	shift
         ;;
 esac
 
-#shift
-if [ "x$1" != "xremote" ] && [ "$1" != "prod" ]; then
+if [ -z "$CREATEDB"  ]
+then
     # Initialisation de la BDD
     echo "Créer la base de donnée et l'utilisateur MariaDB ? [o/N] "
     read CREATEDB
@@ -141,7 +153,7 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
     "cas_config" : {
         "cas_url" : "https://cas.ec-lyon.fr/cas",
         "service_url" : "@HTTP://@URL:@PORT",
-        "cas_version" : "2.0",
+        "cas_version" : "3.0",
         "session_name" : "login_dsi",
         "session_info" : "user_data"
     },
