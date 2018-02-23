@@ -1,19 +1,20 @@
 
 // show_group
 exports.show = function(req, res){
-    req.database.query('SELECT user_group.name, description, user.name, firstname, nick, position FROM membership JOIN user_group ON user_group.id = membership.id_group JOIN user ON user.id = membership.id_user WHERE user_group.id = ?;', [req.query.id], function(err, rows){
+    req.database.query('SELECT user_group.name AS gname, description, user.name AS uname, firstname, nick, position FROM membership JOIN user_group ON user_group.id = membership.id_group JOIN user ON user.id = membership.id_user WHERE user_group.id = ?;', [req.query.id], function(err, rows){
         if(err){
             req.log.warning(err);
             res.error('500');
         } else {
+            console.log(JSON.stringify(rows));
             var values = new Object();
-            values.name = rows[0]['user_group.name'];
+            values.name = rows[0]['gname'];
             values.description = rows[0]['description'];
             values.members = new Array();
             for(let key in rows){
                 let row = rows[key];
                 values.members.push({
-                    'name' : row['user.name'],
+                    'name' : row['uname'],
                     'firstname' : row['firstname'],
                     'nick' : row['nick'],
                     'position' : row['position']

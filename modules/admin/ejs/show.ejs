@@ -1,11 +1,12 @@
 <div class="content">
     <div class="main-content">
-        Nom : <%= name %>
-        Description : <%= description %>
+        Nom : <%= name %><br/>
+        Description : <%= description %><br/>
         Membres :
         <% for(let i in members){ %>
             <div>
-                <%=members[i].name%> <%=members[i].firstname%> (<%=members[i].nick%>), <%=members[i].position%>
+            <%= JSON.stringify(members) %>
+                <%=members[i].name%> <%=members[i].firstname%> (<%=members[i].nick%>), <%=members[i].position%><br/>
             </div>
         <% } %>
         <button>Ajouter un membre</button>
