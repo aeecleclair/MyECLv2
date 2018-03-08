@@ -15,7 +15,7 @@
             "schema" : {
                 "id" : "INT PRIMARY KEY",
 				"nom" : "VARCHAR(255)",
-				"photo" : "VARCHAR(255)",
+				"photo" : "TEXT",
 				"group_id" : "INT",
 				"galerie" : "INT",
                 "description" : "TEXT",
@@ -41,7 +41,12 @@
         },
         {
             "body" : "main",
-            "static" : "asso.html"
+            "static" : "body/asso.html"
+        },
+        {
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = ?;",
+            "body" : "edit_asso",
+            "static" : "body/edit_asso.html"
         },
 		{
 			"route" : "/module/asso/data",
@@ -55,4 +60,3 @@
         }
     ]
 }
-
