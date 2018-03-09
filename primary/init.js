@@ -13,14 +13,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 
 exports.myecl = function(context){
-    // Modules nodes locaux
-    require('./logger')(context);
-    require('./crypto')(context);
 
-    const load_serv = require('./service_loader')(context);
-    const load_mod = require('./module_loader')(context);
-    const authorise = require('./authorise')(context);
-    const authenticate = require('./authenticate')(context);
 
     // Initialisation de l'application
     var app = express();
@@ -33,6 +26,14 @@ exports.myecl = function(context){
     context.bodyParser = bodyParser;
     context.multer = multer;
  
+    // Modules nodes locaux
+    require('./logger')(context);
+    require('./crypto')(context);
+
+    const load_serv = require('./service_loader')(context);
+    const load_mod = require('./module_loader')(context);
+    const authorise = require('./authorise')(context);
+    const authenticate = require('./authenticate')(context);
     // Chargement de la bdd
    
     context.database = require('./shortersql')(context);  // accessible dans le context pour le core
@@ -196,6 +197,7 @@ exports.myecl = function(context){
 
     // on utilise multer pour charger l'image
     const upload = multer({'dest': context.user_upload});
+    // TODO Est-ce qu'on a pas une grosse faille de sécurité là ?
     app.post('/create_account', /*authenticate.bounce,*/ upload.single('picture'), authenticate.create_account);
 
     // Chargement des différents modules

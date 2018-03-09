@@ -11,9 +11,15 @@ function is_element_of(value, array){
     return array.indexOf(value) >= 0;
 }
 
-
 module.exports = function(context){
     var authorise = require('./authorise')(context);
+
+    var diskStorage = context.multer.diskStorage({
+        destination : context.user_upload,
+        filename: function (req, file, cb) {
+            cb(null, file.fieldname + Date.now().toString(16) + path.extname(file.originalname));
+        }
+    });
 
     function load_callback(modname, cbname){
         // retourne le callback cbname du module modname
@@ -138,7 +144,7 @@ module.exports = function(context){
                     let multer_method = rule.multer_method ? rule.multer_method.name || 'single' : 'single';
                     let multer_field = rule.multer_method ? rule.multer_method.field || 'file' : 'file';
                     let multer_max_count = rule.multer_method ? rule.multer_method.max : null;
-                    rule.post_options.dest = context.user_upload;
+                    rule.post_options.storage = diskStorage;
                     app.post(rule.route,
                         context.multer(rule.post_options)[multer_method](multer_field, multer_max_count));
                     break;
