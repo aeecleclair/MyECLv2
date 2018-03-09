@@ -4,6 +4,10 @@
  *
  */
 
+/*
+ * TODO Ce module a vraiment besoin d'etre refactorisé !
+ */
+
 module.exports = function(context){
 
 
@@ -89,7 +93,26 @@ module.exports = function(context){
                     reject(req, res);
                 }
             };
-
+        } else if(module_auth instanceof Function){
+            middleware = function(req, res, next){
+                var query = module_auth(req);
+                context.database.query(query, function(err, dbres){
+                    // Executer la requete
+                    if(err){
+                        context.log.error('Unable to check authorisation with this request : ' + query);
+                        context.log.error(err);
+                    } else {
+                        // On cherche l'id de notre user dans le resultat
+                        for(var i in res){
+                            if(dbres[i].login == req.user.login){
+                                next();
+                                return;
+                            }
+                        }
+                    }
+                    reject(req, res);
+                });
+            };
         } else {
             // On créer le checker une fois et il est réutilisé a chaque requete
             var checker = authorisation_checker(module_auth);

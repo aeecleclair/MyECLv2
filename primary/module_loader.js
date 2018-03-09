@@ -257,7 +257,9 @@ module.exports = function(context){
                 for(let i in config.rules){
 
                     let rule = config.rules[i];
-                    if(!rule.authorisation){
+                    if(rule.dyn_authorisation){
+                        rule.authorisation = load_callback(modname, rule.dyn_authorisation);
+                    } else if(!rule.authorisation){
                         rule.authorisation = config.authorisation;
                     }
 
