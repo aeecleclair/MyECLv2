@@ -40,17 +40,31 @@
             "static" : "static/"
         },
         {
-            "body" : "main",
+            "body" : "main/:id",
             "static" : "body/asso.html"
         },
         {
-            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = ?;",
-            "body" : "edit_asso",
+            "dyn_authorisation" : "authorise_edit",
+            "body" : "edit_asso/:id",
             "static" : "body/edit_asso.html"
         },
+        {
+            "dyn_authorisation" : "authorise_edit",
+            "route" : "/module/asso/edit/:id",
+            "callback" : "edit",
+            "method" : "POST",
+            "enctype" : "multipart",
+            "multer_method" : {
+                "name" : "fields",
+                "fields" : [
+                    { "name" : "main", "maxCount" : 1 },
+                    { "name" : "gallery"}
+                ]
+            }
+        },
 		{
-			"route" : "/module/asso/data",
-			"callback" : "main_cb"
+			"route" : "/module/asso/data/:id",
+			"callback" : "get_data"
 		}
     ],
     "menu" : [

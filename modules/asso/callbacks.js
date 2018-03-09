@@ -1,11 +1,19 @@
 
+// Y a encore beaucoup de taff sur ce module !
+// TODO :
+// - Finir le callback d'édition
+// - Remplacer les selection par id de groupe par une selection par nom d'asso
+// - Faire correspondre les test de sécurité avec ce changement
+// - Permettre la création d'une nouvelle asso par les admins
+
+
 // /module/asso/data
-exports.main_cb = function(req, res){
+exports.get_data = function(req, res){
     req.database.select(
         'asso',
         ['nom', 'photo', 'galerie', 'description', 'group'],
         'id = ?',
-        [req.query.id],
+        [req.params['id']],
         function(err, rows){
             if(err){
                 req.log.warning('Error loading asso data.');
@@ -85,3 +93,26 @@ exports.main_cb = function(req, res){
         }
     );
 };
+
+
+// /body/asso/edit_asso/:id
+// /module/asso/edit/:id
+module.exports.authorise_edit = function(req){
+    var id = req.params['id'];
+    return `\
+    SELECT user.login \
+    FROM user \
+    JOIN membership \
+        ON user.id = membership.id_user \
+    WHERE membership.id_group = '${id}';`;
+};
+
+
+// POST /module/asso/edit/:id
+module.exports.edit = function(req, res){
+    var id = req.params['id'];
+    var files = req.files;
+
+    res.redirect(`/home/asso/main/${id}`);
+};
+
