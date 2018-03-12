@@ -1,3 +1,5 @@
+/!\ Devellopement migré sur [https://github.com/aeecleclair/MyECLv2]
+
 Le projet MyECLv2 vise à refondre le site des élèves de l'école Centrale Lyon [www.myecl.fr](www.myecl.fr) pour le moderniser et l'adapter aux contraintes propres à ÉCLAIR, en particulier le renouvellement annuel de l'équipe de dévellopeurs.
 
 # Motivations
