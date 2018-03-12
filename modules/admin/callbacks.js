@@ -50,3 +50,28 @@ exports.list = function(req, res){
         }
     });
 };
+
+// /modules/admin/create_group
+exports.create_group = function(req, res){
+    res.send('ok');
+};
+
+// /modules/admin/delete_group/:id
+exports.delete_group = function(req, res){
+    res.send('ok');
+};
+
+// /modules/admin/add_members/:id
+exports.add_members = function(req, res){
+    res.send('ok');
+};
+
+// /modules/admin/remove_members/:id
+exports.remove_members = function(req, res){
+    res.send('ok');
+};
+
+// /modules/admin/alter_group/:id
+exports.alter_group = function(req, res){
+    res.send('ok');
+};

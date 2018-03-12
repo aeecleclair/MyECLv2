@@ -21,6 +21,32 @@
         {
             "body" : "show_group",
             "callback" : "show"
+        },
+        {
+
+            "route" : "/modules/admin/create_group",
+            "method" : "POST",
+            "callback" : "create_group"
+        },
+        {
+            "route" : "/modules/admin/delete_group/:id",
+            "method" : "DELETE",
+            "callback" : "delete_group"
+        },
+        {
+            "route" : "/modules/admin/add_members/:id",
+            "method" : "POST",
+            "callback" : "add_members"
+        },
+        {
+            "route" : "/modules/admin/remove_members/:id",
+            "method" : "POST",
+            "callback" : "remove_members"
+        },
+        {
+            "route" : "/modules/admin/alter_group/:id",
+            "method" : "POST",
+            "callback" : "alter_group"
         }
     ],
     "menu" : [
@@ -28,7 +54,7 @@
             "name" : "Administration",
             "sub" : [
                 {
-                    "name" : "Liste",
+                    "name" : "Liste des groupes",
                     "body" : "list_group"
                 }
             ]
