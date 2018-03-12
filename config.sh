@@ -141,12 +141,12 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
                 "name" : "VARCHAR(127) UNIQUE",
                 "description" : "TEXT"
             },
-            "init" : "REPLACE INTO user_group (id, name, description) VALUES (0, \"ecl\", \"Centraliens de Lyon\");"
+            "init" : "REPLACE INTO user_group (id, name, description) VALUES (2, \"ecl\", \"Centraliens de Lyon\");"
         }
     ],
 
     "alias" : {
-        "#ecl" : "SELECT login FROM user JOIN membership ON user.id = membership.id_user WHERE membership.id_group = 0;"
+        "#ecl" : "SELECT login FROM user JOIN membership ON user.id = membership.id_user WHERE membership.id_group = 2;"
     },
 
     "cas_config" : {
