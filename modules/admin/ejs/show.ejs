@@ -1,14 +1,15 @@
 <div class="content">
     <div class="main-content">
-        Nom : <%= name %><br/>
-        Description : <%= description %><br/>
+        Nom : <input id="input_name" type="text" name="name" value="<%=name%>"><br/>
+        Description : <textarea id="input_desc"><%=description%></textarea><br/>
+        <button id="save_fields">Enregistrer les champs</button></br>
         Membres :
         <% for(let i in members){ %>
             <div>
-            <%= JSON.stringify(members) %>
                 <%=members[i].name%> <%=members[i].firstname%> (<%=members[i].nick%>), <%=members[i].position%><br/>
             </div>
         <% } %>
         <button>Ajouter un membre</button>
+        <input hidden id="hidden_id" value="<%=id%>">
     </div>
 </div>

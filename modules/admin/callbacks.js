@@ -1,13 +1,13 @@
 
 // show_group
 exports.show = function(req, res){
-    req.database.query('SELECT user_group.name AS gname, description, user.name AS uname, firstname, nick, position FROM membership JOIN user_group ON user_group.id = membership.id_group JOIN user ON user.id = membership.id_user WHERE user_group.id = ?;', [req.query.id], function(err, rows){
+    req.database.query('SELECT user_group.name AS gname, description, user.name AS uname, firstname, nick, position FROM membership JOIN user_group ON user_group.id = membership.id_group JOIN user ON user.id = membership.id_user WHERE user_group.id = ?;', [req.params.id], function(err, rows){
         if(err){
             req.log.warning(err);
             res.error('500');
         } else {
-            console.log(JSON.stringify(rows));
             var values = new Object();
+            values.id = req.params.id;
             values.name = rows[0]['gname'];
             values.description = rows[0]['description'];
             values.members = new Array();
@@ -73,5 +73,7 @@ exports.remove_members = function(req, res){
 
 // /modules/admin/alter_group/:id
 exports.alter_group = function(req, res){
+    console.log(req.params);
+    console.log(req.body);
     res.send('ok');
 };

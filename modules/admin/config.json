@@ -3,10 +3,10 @@
     "description" : "Module d'administration",
     "heads" : {
 		"styles" : [
-			"static/admin.css"
+			"/modules/admin/static/admin.css"
 		],
 		"scripts" : [
-			"static/admin.js"		
+			"/modules/admin/static/admin.js"		
 		]
 	},
     "rules" : [
@@ -19,14 +19,18 @@
             "callback" : "list"
         },
         {
-            "body" : "show_group",
-            "callback" : "show"
+            "body" : "show_group/:id",
+            "callback" : "show",
+            "heads" : {
+                "scripts" : ["/modules/admin/static/show.js"]
+            }
         },
         {
 
             "route" : "/modules/admin/create_group",
             "method" : "POST",
-            "callback" : "create_group"
+            "callback" : "create_group",
+            "enctype" : "json"
         },
         {
             "route" : "/modules/admin/delete_group/:id",
