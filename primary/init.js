@@ -17,6 +17,7 @@ exports.myecl = function(context){
     require('./logger')(context);
     require('./crypto')(context);
 
+    context.multer = multer;
     // Je suis pas fier de devoir tout mettre dans cette fonction, j'aimerais trouver une solution plus élégante
     const wait_for_engines = require('./template_loader')(context);
 
