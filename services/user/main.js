@@ -67,6 +67,8 @@ module.exports = function(context){
     };
 
     user_tools.searchUser = function(input, callback){
+        // Renvoie des infos minimums sur l'ensemble des utilisateurs pour lequel input
+        // match tout ou partie de leur login, nom, prenom ou surnom
         context.database.select(
             'user',
             ['id', 'login', 'name', 'firstname', 'nick'],
