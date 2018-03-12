@@ -19,6 +19,7 @@ module.exports = function(config_file){
     ctx.user_upload = path.join(ctx.private_root, '/user_upload');
     ctx.module_path = path.join(ctx.root_path, '/modules');
     ctx.service_path = path.join(ctx.root_path, '/services');
+    ctx.template_engine_path = path.join(ctx.root_path, '/template_engines');
 
     ctx.database_config = ctx.database;
 
