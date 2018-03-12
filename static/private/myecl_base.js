@@ -85,10 +85,9 @@ function insert_header(){
 function insert_body(module_name, body_name){
     var body = $('#main-content-wrapper');
     var styles = $('head');
-    var scripts = $('body');
     // supprimer les scripts et styles ajoutÃ© prÃcedement
     $('.dyn-content').remove();
-    // rÃcupÃ©re le body demandÃ©
+    // récupérer le body demandé
     $.ajax({
         url : '/body/' + module_name + '/' + body_name,
         type : 'get',
@@ -100,10 +99,9 @@ function insert_body(module_name, body_name){
         }
     });
 
-    // rÃcupÃrer les scripts et styles associÃs
+    // récupérer les scripts et styles associÃs
     $.getJSON('/heads/' + module_name + '/' + body_name, function(data){
         var styles_html = '';
-        var scripts_html = '';
 
         for(let key in data.styles){
             let r = data.styles[key];
@@ -113,12 +111,14 @@ function insert_body(module_name, body_name){
         }
 
         for(let key in data.scripts){
-            let r = data.scripts[key];
-            scripts_html += '<script class="dyn-content" src="' +
-                r + '"></script>\n';
+            var script   = document.createElement('script');
+            script.type  = 'text/javascript';
+            script.src   = data.scripts[key];
+            script.class  = 'dyn-content';
+            document.body.appendChild(script);  // On est obligé d'utiliser directement le DOM
+            // pour les scripts a cause d'un comportement spéciale de jQuery avec les scripts
         }
         styles.append(styles_html);
-        scripts.append(scripts_html);
     });
 }
 
@@ -134,7 +134,9 @@ $(document).ready(function(){
         // Adresse mal formé
         insert_body('tiles', 'main');
     } else {
-        insert_body(url[0], url[1].split('&')[0]);
+        var module = url[0];
+        url.shift();
+        insert_body(module, url.join('/'));
     }
 });
 
