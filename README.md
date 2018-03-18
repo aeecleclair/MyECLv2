@@ -53,6 +53,7 @@ Quelques recommendations importantes sont présente [ici](/wiki/Recommendations-
     - [x] Création d'un système d'autorisations flexible pour définir quel utilisateur a accès à chaque module
     - [x] Implémentation du système d'autorisation
     - [ ] Création d'un serveur oAuth2 pour d'autres services ECLAIR (mediapiston notament)
+    - [ ] Sécuriser completement le site (empécher le brute force de mot de passe, les injections de script...)
 - [x] Ajout d'un système de "service" à l'usage des auteurs des modules qui offre des fonctionnalitées interne supplémentaire
 - [ ] Service d'accés aux utilisateurs, aux assos... (surcouche à shorter.sql)
 - [x] Permettre aux modules d'ajouter des head aux pages body (script JS et styles CSS)
