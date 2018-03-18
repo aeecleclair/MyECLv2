@@ -6,16 +6,23 @@
  */
 // Modules nodes officiels
 //var http = require('http');
+const helmet = require('helmet'); // modifications des headers http pour la sécurité
 const express = require('express');
-const session = require('express-session');
-const serveStatic = require('serve-static');
-const bodyParser = require('body-parser');
-const multer = require('multer');
+const session = require('express-session'); // creation de session
+const MemoryStore = require('memorystore')(session); // moteur de stockage des sessions en RAM
+const serveStatic = require('serve-static'); // sert les fichiers statiques
+const bodyParser = require('body-parser'); // parsing de body JSON, text ou urlencoded
+const multer = require('multer'); // parsing de body multipart/formdata
 
 exports.myecl = function(context){
 
     // Initialisation de l'application
     var app = express();
+    app.use(helmet());
+
+    context.session_config.store = new MemoryStore({
+        checkPeriod : 86400000
+    });
     app.use(session(context.session_config));
 
     context.menu_list = new Array();
@@ -41,7 +48,9 @@ exports.myecl = function(context){
     if(Array.isArray(context.tables)){
         for(let i in context.tables){
             let item = context.tables[i];
+            // creation des tables de la base de données
             context.database.create(item['table'], item['schema']);
+            // initialisation des tables
             if(item['init']){
                 context.database.query(item['init'], function(err){
                     if(err){
