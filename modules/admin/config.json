@@ -40,11 +40,12 @@
         {
             "route" : "/modules/admin/add_members/:id",
             "method" : "POST",
-            "callback" : "add_members"
+            "callback" : "add_members",
+            "enctype" : "json"
         },
         {
             "route" : "/modules/admin/remove_members/:id",
-            "method" : "POST",
+            "method" : "DELETE",
             "callback" : "remove_members"
         },
         {
