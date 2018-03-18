@@ -13,13 +13,17 @@ suffisante pour dévelloper un nouveau module.
 
 La documentation a été déplacé dans la partie [wiki](https://github.com/aeecleclair/MyECLv2/wiki) du [dépot github](https://github.com/aeecleclair/MyECLv2) du projet.
 
-# Politique lié aux contributions
+# Politique lié aux contributions exterieures
 
-Ce projet à été publié sous licence MIT (licence libre parmi les plus permissives) dans le but de s'ouvrir aux participations exterieures. N'hésitées pas à proposer vos modifications, remarques et critiques (contructives) à l'équipe de devellopement.
+Ce projet a été publié sous licence MIT (licence libre parmi les plus permissives) dans le but de s'ouvrir aux participations exterieures. N'hésitez pas à proposer vos modifications, remarques et critiques (contructives) à l'équipe de devellopement.
 
 ## Utilisation de github
 
 Les commits sur github ne doivement pas être fait directement sur la branche master sauf pour modifier le README. Il est préférable de faire les commits sur une branche dédié ou a défaut sur main_dev. Les merge des branches avec master ne doivement se faire qu'après consultation des principaux dévellopeurs.
+
+## Pratiques de dévellopement
+
+Quelques recommendations importantes sont présente [ici](/wiki/Recommendations-de-d%C3%A9vellopement).
 
 # Avancement du projet
 
