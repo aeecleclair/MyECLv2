@@ -64,12 +64,37 @@ exports.list = function(req, res){
 
 // /modules/admin/create_group
 exports.create_group = function(req, res){
-    res.send('ok');
+    if(!req.validator.isAlpha(req.body.name)){
+        res.send('invalid');
+        return;
+    }
+    var group = {
+        'name' : req.body.name,
+        'description' : req.validator.escape(req.body.description)
+    };
+    req.database.save('user_group', group, function(err){
+        if(err){
+            res.status(500).send('database error');
+        } else {
+            res.send('ok');
+        }
+    });
 };
 
 // /modules/admin/delete_group/:id
 exports.delete_group = function(req, res){
-    res.send('ok');
+    if(!req.validator.isNumeric(req.params.id)){
+        res.send('invalid');
+        return;
+    }
+
+    req.database.delete('user_group', 'id = ?', [req.params.id], function(err){
+        if(err){
+            res.status(500).send('database error');
+        } else {
+            res.send('ok');
+        }
+    });
 };
 
 // /modules/admin/add_members/:id
