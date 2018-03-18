@@ -5,7 +5,7 @@
 module.exports = function(context){
     function get_user(login, callback){
         // interroge la bdd pour savoir si le couple login, password est vallable
-        context.database.select('user', 'login = "' + login + '"', callback);
+        context.database.select('user', 'login = ?', [login], callback);
     }
 
     exports.check_password = function(req, res){
