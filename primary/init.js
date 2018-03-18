@@ -13,6 +13,7 @@ const MemoryStore = require('memorystore')(session); // moteur de stockage des s
 const serveStatic = require('serve-static'); // sert les fichiers statiques
 const bodyParser = require('body-parser'); // parsing de body JSON, text ou urlencoded
 const multer = require('multer'); // parsing de body multipart/formdata
+const validator = require('validator'); // un ensemble de fonction de test de validité
 
 exports.myecl = function(context){
 
@@ -31,6 +32,7 @@ exports.myecl = function(context){
     context.myecl_map = '';
     context.bodyParser = bodyParser;
     context.multer = multer;
+    context.validator = validator;
  
     // Modules nodes locaux
     require('./logger')(context);
@@ -78,6 +80,7 @@ exports.myecl = function(context){
         // Surcharge de la requete
         req.database = context.database;
         req.log = context.log;
+        req.validator = validator;
         req.serv = context.serv;
 
         // Surcharge de la réponse

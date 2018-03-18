@@ -61,6 +61,21 @@ module.exports = function(context){
             context.crypto.hash(req.body.password, function(err, hash){
                 if(!err){
                     var user = new Object();
+
+                    // validation
+                    if(
+                        !context.validator.isAlpha(req.body.login) ||
+                        !context.validator.matches(req.body.promo, '[0-9]+[Ee]?') ||
+                        !context.validator.matches(req.body.floor, '[A-Z][0-9]+') ||
+                        !context.validator.isNumeric(req.body.picselector)
+                    ){
+                        return res.redirect('/register.html?invalid=1');
+                    }
+                    // sanitization
+                    context.validator.escape(req.body.name);
+                    context.validator.escape(req.body.firstname);
+                    context.validator.escape(req.body.nick);
+
                     user['login'] = req.body.login;
                     user['password'] = hash;
                     user['name'] = req.body.name;
@@ -90,7 +105,7 @@ module.exports = function(context){
                                     context.database.save('membership',
                                         {
                                             'id_user' : res[0]['id'],
-                                            'id_group' : 0,
+                                            'id_group' : 2, // ecl
                                             'position' : 'élève', // TODO améliorer avec les infos du CAS
                                             'term' : ''
                                         },
