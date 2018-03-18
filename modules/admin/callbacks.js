@@ -84,10 +84,13 @@ exports.remove_members = function(req, res){
 
 // /modules/admin/alter_group/:id
 exports.alter_group = function(req, res){
+    if(!req.validator.isAlpha(req.body.name)){
+        res.send('invalid');
+    }
     var group = {
         'id' : req.params['id'],
         'name' : req.body.name,
-        'description' : req.body.description
+        'description' : req.validator.escape(req.body.description)
     };
     req.database.save('user_group', group, function(err){
         if(err){
