@@ -142,6 +142,14 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
                 "description" : "TEXT"
             },
             "init" : "REPLACE INTO user_group (id, name, description) VALUES (2, \"ecl\", \"Centraliens de Lyon\");"
+        },
+        {
+            "table" : "csrfToken",
+            "schema" : {
+                "token" : "VARCHAR(512)",
+                "login" : "VARCHAR(12)",
+                "time" : "INT"
+            }
         }
     ],
 
