@@ -128,6 +128,9 @@ module.exports = function(context){
             if(!rule.post_options){
                 rule.post_options = context.body_json_config;
             }
+            if(rule.post_options.extended == undefined){ // undefined ou null
+                rule.post_options.extended = false;
+            }
 
             switch(rule.enctype){
                 case 'urlencoded':
@@ -290,11 +293,8 @@ module.exports = function(context){
 
 
         // Chargement du header
-        console.log('Hey');
         if(config.header){
-            console.log('Ho');
             if(Array.isArray(config.header)){
-                console.log('Ha');
                 for(let i in config.header){
                     let item = config.header[i];
                     // TODO test ? traitements ? quid des autorisations ?

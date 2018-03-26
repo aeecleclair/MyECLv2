@@ -202,7 +202,7 @@ exports.myecl = function(context){
         });
     });
 
-    app.post('/login', bodyParser.urlencoded(), authenticate.check_password);
+    app.post('/login', bodyParser.urlencoded({'extended':false}), authenticate.check_password);
 
     // Passer par le cas puis creer un compte
     app.get('/logcas', authenticate.bounce, authenticate.new_account);
