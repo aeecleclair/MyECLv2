@@ -45,5 +45,5 @@ module.exports = function(context){
             }
         });
     };
-    return csrf
+    return csrf;
 };
