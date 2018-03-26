@@ -51,7 +51,7 @@ module.exports = function(context){
 
     exports.bounce = cas.bounce;
     exports.new_account = function(req, res){
-        const login = req.session.user_data.login;
+        const login = req.session.login_dsi;
         context.csrf.newToken(login, function(err, token){
             if(err){
                 context.log.error('Unable to generate a CSRF token');
@@ -161,7 +161,7 @@ module.exports = function(context){
                                     context.log.info(user);
                                     context.log.error(err);
                                     res.status(500);
-                                    res.send('DB Fail');
+                                    res.send('<meta http-equiv="refresh" content="5; URL=/login.html"> DB Fail');
                                 }
                             });
                         } else {
@@ -169,7 +169,7 @@ module.exports = function(context){
                             context.log.error('Unable to hash password');
                             context.log.error(err);
                             res.status(500);
-                            res.send('Hash Fail');
+                            res.send('<meta http-equiv="refresh" content="5; URL=/login.html"> Hash Fail');
                         }
                     });
                     /*
@@ -189,7 +189,7 @@ module.exports = function(context){
                     // TODO faire une page pour signaler a l'utilisateur qu'il a mal remplie le formulaire
                     // res.redirect('/wrong_datas.html');
                     res.status(400);
-                    res.send('User Fail');
+                    res.send('<meta http-equiv="refresh" content="5; URL=/login.html"> User Fail');
                 }
             } 
         });
