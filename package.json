@@ -1,0 +1,27 @@
+{
+  "name": "MyECL",
+  "version": "1.0.0",
+  "description": "",
+  "main": "myecl.js",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cas-authentication": "0.0.8",
+    "dom-to-image": "^2.5.2",
+    "express": "^4.15.5",
+    "express-session": "^1.15.6",
+    "helmet": "^3.12.0",
+    "memorystore": "^1.6.0",
+    "multer": "^1.3.0",
+    "mysql": "^2.14.1",
+    "serve-static": "^1.13.1",
+    "validator": "^9.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node myecl.js"
+  },
+  "author": "ÉCLAIR",
+  "license": "MIT"
+}
