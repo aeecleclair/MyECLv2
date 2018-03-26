@@ -6,11 +6,14 @@
  */
 // Modules nodes officiels
 //var http = require('http');
+const helmet = require('helmet'); // modifications des headers http pour la sécurité
 const express = require('express');
 const session = require('express-session');
+const MemoryStore = require('memorystore')(session); // moteur de stockage des sessions en RAM
 const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const validator = require('validator'); // un ensemble de fonction de test de validité
 
 exports.myecl = function(context){
     // Modules nodes locaux
@@ -18,15 +21,15 @@ exports.myecl = function(context){
     require('./crypto')(context);
 
     context.multer = multer;
+    var app = express();
+    app.use(helmet());
     // Je suis pas fier de devoir tout mettre dans cette fonction, j'aimerais trouver une solution plus élégante
+    context.session_config.store = new MemoryStore({
+        checkPeriod : 86400000
+    });
     const wait_for_engines = require('./template_loader')(context);
 
     wait_for_engines.then(function(){
-
-        const load_serv = require('./service_loader')(context);
-        const load_mod = require('./module_loader')(context);
-        const authorise = require('./authorise')(context);
-        const authenticate = require('./authenticate')(context);
 
         // Initialisation de l'application
         var app = express();
@@ -38,6 +41,11 @@ exports.myecl = function(context){
         context.myecl_map = '';
         context.bodyParser = bodyParser;
         context.multer = multer;
+        context.validator = validator;
+     
+        // Modules nodes locaux
+        require('./logger')(context);
+        require('./crypto')(context);
      
         // Chargement de la bdd
        
@@ -46,7 +54,9 @@ exports.myecl = function(context){
         if(Array.isArray(context.tables)){
             for(let i in context.tables){
                 let item = context.tables[i];
+                // creation des tables de la base de données
                 context.database.create(item['table'], item['schema']);
+                // initialisation des tables
                 if(item['init']){
                     let init = item['init'];
 
@@ -67,13 +77,21 @@ exports.myecl = function(context){
                             }
                         });
                     } else {
-                        // Ignorer
+                        context.log.error('No tables have been defined in config file !');
+                        process.exit();
                     }
                 }
             }
         } else {
             context.log.warning('No tables have been defined in config file !');
         }
+
+        context.csrf = require('./csrf')(context);
+
+        const load_serv = require('./service_loader')(context);
+        const load_mod = require('./module_loader')(context);
+        const authorise = require('./authorise')(context);
+        const authenticate = require('./authenticate')(context);
 
         // Chargement des services
         context.log.info('Loading services...');
@@ -90,7 +108,9 @@ exports.myecl = function(context){
             req.database = context.database;
             req.log = context.log;
             req.engine = context.engine;
+            req.validator = validator;
             req.serv = context.serv;
+            req.csrf = context.csrf;
 
             // Surcharge de la réponse
             res.setHeader('x-powered-by', 'MyECL');
@@ -211,13 +231,14 @@ exports.myecl = function(context){
             });
         });
 
-        app.post('/login', bodyParser.urlencoded(), authenticate.check_password);
+        app.post('/login', bodyParser.urlencoded({'extended':false}), authenticate.check_password);
 
         // Passer par le cas puis creer un compte
         app.get('/logcas', authenticate.bounce, authenticate.new_account);
 
         // on utilise multer pour charger l'image
         const upload = multer({'dest': context.user_upload});
+        // TODO Est-ce qu'on a pas une grosse faille de sécurité là ?
         app.post('/create_account', /*authenticate.bounce,*/ upload.single('picture'), authenticate.create_account);
 
         // Chargement des différents modules
