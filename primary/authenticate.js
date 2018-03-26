@@ -74,6 +74,11 @@ module.exports = function(context){
                 // token invalide
             } else {
                 // token valide
+                context.database.delete('csrfToken', 'token = ? AND login = ?', [req.body['__token'], req.body.login], function(err){
+                    if(err){
+                        context.logger.error('Unable to delete CSRF token.');
+                    }
+                });
                 if(req.body.login && req.body.password){
                     context.crypto.hash(req.body.password, function(err, hash){
                         if(!err){
