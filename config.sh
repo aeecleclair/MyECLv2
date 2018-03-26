@@ -98,6 +98,8 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
         "saveUninitialized" : true
     },
 
+    "token_life" : 600,
+
     "database" : {
       "host"     : "@DB_HOST",
       "user"     : "eclair",
@@ -145,12 +147,20 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
                 "REPLACE INTO user_group (id, name, description) VALUES (0, \"ecl\", \"Centraliens de Lyon\");",
                 "REPLACE INTO user_group (id, name, description) VALUES (1, \"admin\", \"Administrateurs du site\");"
             ]
+        },
+        {
+            "table" : "csrfToken",
+            "schema" : {
+                "token" : "VARCHAR(512)",
+                "login" : "VARCHAR(12)",
+                "time" : "INT"
+            }
         }
     ],
 
     "alias" : {
-        "#ecl" : "SELECT login FROM user JOIN membership ON user.id = membership.id_user WHERE membership.id_group = 0;",
         "#admin" : "SELECT login FROM user JOIN membership ON user.id = membership.id_user WHERE membership.id_group = 1;"
+        "#ecl" : "SELECT login FROM user JOIN membership ON user.id = membership.id_user WHERE membership.id_group = 2;"
     },
 
     "cas_config" : {

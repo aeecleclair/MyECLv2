@@ -98,7 +98,6 @@ exports.myecl = function(context){
         load_serv();  // créer context.serv et le remplie
         context.log.info('Services loaded successfully.');
 
-
         // Premier middleware pour toutes les routes
         app.use('/*', function(req, res, next){
             // Log des requetes
