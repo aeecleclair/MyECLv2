@@ -8,6 +8,7 @@
     "body-parser": "^1.18.2",
     "cas-authentication": "0.0.8",
     "dom-to-image": "^2.5.2",
+    "ejs": "^2.5.8",
     "express": "^4.15.5",
     "express-session": "^1.15.6",
     "helmet": "^3.12.0",

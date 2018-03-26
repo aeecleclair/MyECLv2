@@ -39,10 +39,6 @@ exports.myecl = function(context){
     require('./crypto')(context);
     require('./template_loader')(context);
 
-    const load_serv = require('./service_loader')(context);
-    const load_mod = require('./module_loader')(context);
-    const authorise = require('./authorise')(context);
-    const authenticate = require('./authenticate')(context);
     // Chargement de la bdd
    
     context.database = require('./shortersql')(context);  // accessible dans le context pour le core
@@ -63,8 +59,16 @@ exports.myecl = function(context){
             }
         }
     } else {
-        context.log.warning('No tables have been defined in config file !');
+        context.log.error('No tables have been defined in config file !');
+        process.exit();
     }
+
+    context.csrf = require('./csrf')(context);
+
+    const load_serv = require('./service_loader')(context);
+    const load_mod = require('./module_loader')(context);
+    const authorise = require('./authorise')(context);
+    const authenticate = require('./authenticate')(context);
 
     // Chargement des services
     context.log.info('Loading services...');
@@ -82,6 +86,7 @@ exports.myecl = function(context){
         req.log = context.log;
         req.validator = validator;
         req.serv = context.serv;
+        req.csrf = context.csrf;
 
         // Surcharge de la réponse
         res.setHeader('x-powered-by', 'MyECL');
