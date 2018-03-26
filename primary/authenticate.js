@@ -19,6 +19,7 @@ module.exports = function(context){
                 var user = results[0];
                 context.crypto.compare(password, user['password'], function(err2, valid){
                     if(err2){
+                        context.log.error('Unable to check password.');
                         context.log.error(err2);
                     }
                     if(!valid){
@@ -53,7 +54,7 @@ module.exports = function(context){
         const login = req.session.user_data.login;
         context.csrf.newToken(login, function(err, token){
             if(err){
-                context.logger.error('Unable to generate a CSRF token');
+                context.log.error('Unable to generate a CSRF token');
                 res.status(500).send('Fail');
             } else {
                 const data = {
@@ -61,20 +62,33 @@ module.exports = function(context){
                     'login' : login
                     // TODO d'autres infos ?
                 };
-                res.send(ejs.renderFile(context.ejs_root + '/register.ejs', data));
+                ejs.renderFile(context.ejs_root + '/register.ejs', data, function(err, str){
+                    if(err){
+                        context.log.error(err);
+                        res.status(500).send('Une erreure est survenue.');
+                    } else {
+                        res.send(str);
+                    }
+                });
             }
         });
     };
     exports.create_account = function(req, res){
         // doit être utilisé avec POST
         // TODO eviter les doublons
-        // TODO Tester la validité des informations fournies
+        // TODO Tester la validité des informations fournies ?
 
         context.csrf.checkToken(req.body['__token'], req.body.login, function(err, rows){
             if(err){
-                // ?
+                // TODO signaler le probleme a l'utilisateur
+                context.log.error('Unable to check a token.');
+                context.log.error(err);
+                res.redirect('/login.html');
             } else if(rows.length == 0){
                 // token invalide
+                // TODO signaler le probleme a l'utilisateur
+                console.log('Token invalide (message a supprimer)');
+                res.redirect('/login.html');
             } else {
                 // token valide
                 if(req.body.login && req.body.password){
@@ -89,7 +103,7 @@ module.exports = function(context){
                                 !context.validator.matches(req.body.floor, '[A-Z][0-9]+') ||
                                 !context.validator.isNumeric(req.body.picselector)
                             ){
-                                return res.redirect('/register.html?invalid=1');
+                                return res.redirect('/login.html?invalid=1');
                             }
                             // sanitization
                             context.validator.escape(req.body.name);
@@ -143,6 +157,8 @@ module.exports = function(context){
                                     });
                                 } else {
                                     // TODO
+                                    context.log.error('Unable to save user');
+                                    context.log.info(user);
                                     context.log.error(err);
                                     res.status(500);
                                     res.send('DB Fail');
@@ -150,6 +166,7 @@ module.exports = function(context){
                             });
                         } else {
                             // TODO
+                            context.log.error('Unable to hash password');
                             context.log.error(err);
                             res.status(500);
                             res.send('Hash Fail');
@@ -170,8 +187,8 @@ module.exports = function(context){
                     */
                 } else {
                     // TODO faire une page pour signaler a l'utilisateur qu'il a mal remplie le formulaire
-                    // res.redirect('/wrong_datas');
-                    res.send(400);
+                    // res.redirect('/wrong_datas.html');
+                    res.status(400);
                     res.send('User Fail');
                 }
             } 
