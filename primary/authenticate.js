@@ -2,6 +2,8 @@
  * Pour que ce module marche il faut que la table user contienne au moins un champ login et un champ password
  */
 
+const ejs = require('ejs');
+
 module.exports = function(context){
     function get_user(login, callback){
         // interroge la bdd pour savoir si le couple login, password est vallable
@@ -48,18 +50,19 @@ module.exports = function(context){
 
     exports.bounce = cas.bounce;
     exports.new_account = function(req, res){
-        context.crypto.createToken(function(err, token){
-            data = new Object();
-            data.token = token;
-            data.login = req.session.user_data.login;
-            data.time = Date.now(); // pas utilise par le template
-            // TODO d'autres infos ?
-            context.database.save('csrfToken', data, function(err){
-                if(err){
-                    context.logger.error('Unable to save a CSRF token.');
-                }
-            });
-            res.send(ejs.renderFile(context.ejs_root + '/register.ejs', data));
+        const login = req.session.user_data.login;
+        context.csrf.newToken(login, function(err, token){
+            if(err){
+                context.logger.error('Unable to generate a CSRF token');
+                res.status(500).send('Fail');
+            } else {
+                const data = {
+                    'token' : token,
+                    'login' : login
+                    // TODO d'autres infos ?
+                };
+                res.send(ejs.renderFile(context.ejs_root + '/register.ejs', data));
+            }
         });
     };
     exports.create_account = function(req, res){
@@ -67,18 +70,13 @@ module.exports = function(context){
         // TODO eviter les doublons
         // TODO Tester la validité des informations fournies
 
-        context.database.select('csrfToken', 'token = ? AND login = ? AND time > ?', [req.body['__token'], req.body.login, Date.now() - context.token_validity], function(err, rows){
+        context.csrf.checkToken(req.body['__token'], req.body.login, function(err, rows){
             if(err){
                 // ?
             } else if(rows.length == 0){
                 // token invalide
             } else {
                 // token valide
-                context.database.delete('csrfToken', 'token = ? AND login = ?', [req.body['__token'], req.body.login], function(err){
-                    if(err){
-                        context.logger.error('Unable to delete CSRF token.');
-                    }
-                });
                 if(req.body.login && req.body.password){
                     context.crypto.hash(req.body.password, function(err, hash){
                         if(!err){

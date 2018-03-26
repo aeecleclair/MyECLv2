@@ -63,8 +63,11 @@ exports.myecl = function(context){
             }
         }
     } else {
-        context.log.warning('No tables have been defined in config file !');
+        context.log.error('No tables have been defined in config file !');
+        process.exit();
     }
+
+    context.csrf = require('./csrf');
 
     // Chargement des services
     context.log.info('Loading services...');
