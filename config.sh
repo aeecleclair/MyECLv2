@@ -98,6 +98,8 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
         "saveUninitialized" : true
     },
 
+    "token_life" : 600,
+
     "database" : {
       "host"     : "@DB_HOST",
       "user"     : "eclair",
