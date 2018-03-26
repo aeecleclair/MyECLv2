@@ -3,6 +3,7 @@
  */
 
 const bcrypt = require('bcrypt');
+const crypt = require('crypto'); // module node standard
 
 module.exports = function(context){
 
@@ -17,6 +18,17 @@ module.exports = function(context){
         // verifie si hash correspond à password
         bcrypt.compare(password, hash, callback);
     };
+
+    crypto.createToken = function(callback){
+        crypt.randomBytes(512, function(err, buffer){
+            if(err){
+                callback(err);
+            } else {
+                callback(null, buffer.toString('base64'));
+            }
+        });
+    };
+
 
     context.crypto = crypto;
     return crypto;
