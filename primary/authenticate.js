@@ -48,14 +48,25 @@ module.exports = function(context){
 
     exports.bounce = cas.bounce;
     exports.new_account = function(req, res){
-        // TODO utiliser les infos contenues dans req.session.user_data si elles existent
-        // pour préremplir autant que possible le formulaire
-        res.redirect('/register.html');
+        context.crypto.createToken(function(err, token){
+            data = new Object();
+            data.token = token;
+            data.login = req.session.user_data.login;
+            data.time = Date.now(); // pas utilise par le template
+            // TODO d'autres infos ?
+            context.database.save('csrfToken', data, function(err){
+                if(err){
+                    context.logger.error('Unable to save a CSRF token.');
+                }
+            });
+            res.send(ejs.renderFile(context.ejs_root + '/register.ejs', data));
+        });
     };
     exports.create_account = function(req, res){
         // doit être utilisé avec POST
         // TODO eviter les doublons
         // TODO Tester la validité des informations fournies
+
 
         if(req.body.login && req.body.password){
             context.crypto.hash(req.body.password, function(err, hash){
