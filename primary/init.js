@@ -85,6 +85,7 @@ exports.myecl = function(context){
         req.log = context.log;
         req.validator = validator;
         req.serv = context.serv;
+        req.csrf = context.csrf;
 
         // Surcharge de la réponse
         res.setHeader('x-powered-by', 'MyECL');
