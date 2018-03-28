@@ -34,7 +34,7 @@
         },
         {
             "route" : "/modules/admin/delete_group/:id",
-            "method" : "DELETE",
+            "method" : "POST",
             "callback" : "delete_group"
         },
         {

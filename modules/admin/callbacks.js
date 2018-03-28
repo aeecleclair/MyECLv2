@@ -29,13 +29,16 @@ exports.show = function(req, res){
                             'position' : row['position']
                         });
                     }
-                    req.engine['ejs'].renderFile(req.rel_path('ejs/show.ejs'), values, function(err, template){
-                        if(err){
-                            req.log.error(err);
-                            res.status(500).send('Server error');
-                        } else {
-                            res.send(template);
-                        }
+                    req.csrf.newToken(req.session.user.login, function(err, token){
+                        values['token'] = token;
+                        req.engine['ejs'].renderFile(req.rel_path('ejs/show.ejs'), values, function(err, template){
+                            if(err){
+                                req.log.error(err);
+                                res.status(500).send('Server error');
+                            } else {
+                                res.send(template);
+                            }
+                        });
                     });
                 }
             });
@@ -72,12 +75,23 @@ exports.create_group = function(req, res){
         'name' : req.body.name,
         'description' : req.validator.escape(req.body.description)
     };
-    req.database.save('user_group', group, function(err){
+    req.csrf.checkToken(req.session.user.login, req.body['__token'], function(err, valid){
         if(err){
-            res.status(500).send('database error');
-        } else {
-            res.send('ok');
+            context.log.error('Unable to check a token');
+            context.log.error(err);
+            return;
         }
+        if(!valid){
+            res.send('invalid');
+            return;
+        }
+        req.database.save('user_group', group, function(err){
+            if(err){
+                res.status(500).send('database error');
+            } else {
+                res.send('ok');
+            }
+        });
     });
 };
 
@@ -88,12 +102,23 @@ exports.delete_group = function(req, res){
         return;
     }
 
-    req.database.delete('user_group', 'id = ?', [req.params.id], function(err){
+    req.csrf.checkToken(req.session.user.login, req.body['__token'], function(err, valid){
         if(err){
-            res.status(500).send('database error');
-        } else {
-            res.send('ok');
+            context.log.error('Unable to check a token');
+            context.log.error(err);
+            return;
         }
+        if(!valid){
+            res.send('invalid');
+            return;
+        }
+        req.database.delete('user_group', 'id = ?', [req.params.id], function(err){
+            if(err){
+                res.status(500).send('database error');
+            } else {
+                res.send('ok');
+            }
+        });
     });
 };
 
@@ -109,19 +134,34 @@ exports.remove_members = function(req, res){
 
 // /modules/admin/alter_group/:id
 exports.alter_group = function(req, res){
-    if(!req.validator.isAlpha(req.body.name)){
-        res.send('invalid');
+    if(!req.body['__token']){
+        return res.status(401).send('Unauthorized');
     }
-    var group = {
-        'id' : req.params['id'],
-        'name' : req.body.name,
-        'description' : req.validator.escape(req.body.description)
-    };
-    req.database.save('user_group', group, function(err){
+    req.csrf.checkToken(req.session.user.login, req.body['__token'], function(err, valid){
         if(err){
-            res.status(500).send('database error');
-        } else {
-            res.send('ok');
+            context.log.error('Unable to check a token');
+            context.log.error(err);
+            return;
         }
+        if(!valid){
+            res.send('invalid');
+            return;
+        }
+        if(!req.validator.isAlpha(req.body.name)){
+            res.send('invalid');
+            return;
+        }
+        var group = {
+            'id' : req.params['id'],
+            'name' : req.body.name,
+            'description' : req.validator.escape(req.body.description)
+        };
+        req.database.save('user_group', group, function(err){
+            if(err){
+                res.status(500).send('database error');
+            } else {
+                res.send('ok');
+            }
+        });
     });
 };

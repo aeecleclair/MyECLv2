@@ -5,6 +5,7 @@ $('#save_fields').click(function(){
     var name = $('#input_name')[0].value;
     var desc = $('#input_desc')[0].value;
     var id = $('#hidden_id')[0].value;
+    var token = $('#token')[0].value;
 
-    $.post('/modules/admin/alter_group/' + id, {name : name, description : desc});
+    $.post('/modules/admin/alter_group/' + id, {token : token, name : name, description : desc});
 });
