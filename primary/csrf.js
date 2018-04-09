@@ -6,7 +6,7 @@ const crypt = require('crypto'); // module node standard
 module.exports = function(context){
     var csrf = new Object();
     csrf.newToken = function(login, callback){
-        crypt.randomBytes(512, function(err, buffer){
+        crypt.randomBytes(192, function(err, buffer){ // 192 bytes -> 256 base64
             if(err){
                 callback(err);
             } else {
@@ -28,7 +28,7 @@ module.exports = function(context){
     };
 
     csrf.checkToken = function(login, token, callback){
-        context.database.select('csrfToken', 'login = ? AND token = ? AND time > ?', [login, token, Date.now() - context.token_life], function(err, rows){
+        context.database.select('csrfToken', 'login = ? AND token = ? AND time > ?', [login, token, Date.now() - 1000*context.token_life], function(err, rows){
             if(err){
                 callback(err);
             } else {

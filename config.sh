@@ -151,9 +151,9 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
         {
             "table" : "csrfToken",
             "schema" : {
-                "token" : "VARCHAR(512)",
+                "token" : "VARCHAR(256)",
                 "login" : "VARCHAR(12)",
-                "time" : "INT"
+                "time" : "BIGINT UNSIGNED"
             }
         }
     ],
