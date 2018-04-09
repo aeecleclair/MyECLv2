@@ -1,4 +1,3 @@
-
 // show_group
 exports.show = function(req, res){
     req.database.query('SELECT name, description FROM user_group WHERE user_group.id = ?;', [req.params.id], function(err, rows){
@@ -81,12 +80,23 @@ exports.create_group = function(req, res){
         'name' : req.body.name,
         'description' : req.validator.escape(req.body.description)
     };
-    req.database.save('user_group', group, function(err){
+    req.csrf.checkToken(req.session.user.login, req.body['__token'], function(err, valid){
         if(err){
-            res.status(500).send('database error');
-        } else {
-            res.send('ok');
+            req.log.error('Unable to check a token');
+            req.log.error(err);
+            return;
         }
+        if(!valid){
+            res.send('invalid');
+            return;
+        }
+        req.database.save('user_group', group, function(err){
+            if(err){
+                res.status(500).send('database error');
+            } else {
+                res.send('ok');
+            }
+        });
     });
 };
 
@@ -111,6 +121,17 @@ exports.delete_group = function(req, res){
                 }
             });
         }
+        if(!valid){
+            res.send('invalid');
+            return;
+        }
+        req.database.delete('user_group', 'id = ?', [req.params.id], function(err){
+            if(err){
+                res.status(500).send('database error');
+            } else {
+                res.send('ok');
+            }
+        });
     });
 };
 
@@ -148,11 +169,6 @@ exports.alter_group = function(req, res){
     if(!req.validator.isAlpha(req.body.name)){
         res.status(404).send('invalid');
     }
-    var group = {
-        'id' : req.params['id'],
-        'name' : req.body.name,
-        'description' : req.validator.escape(req.body.description)
-    };
     req.csrf.checkToken(req.session.user.login, req.body['__token'], function(err, valid){
         if(err){
             req.log.error(err);
@@ -168,5 +184,17 @@ exports.alter_group = function(req, res){
                 }
             });
         }
+        var group = {
+            'id' : req.params['id'],
+            'name' : req.body.name,
+            'description' : req.validator.escape(req.body.description)
+        };
+        req.database.save('user_group', group, function(err){
+            if(err){
+                res.status(500).send('database error');
+            } else {
+                res.send('ok');
+            }
+        });
     });
 };
