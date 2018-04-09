@@ -3,13 +3,16 @@
         Nom : <input id="input_name" type="text" name="name" value="<%=name%>"><br/>
         Description : <textarea id="input_desc"><%=description%></textarea><br/>
         <button id="save_fields">Enregistrer les champs</button></br>
+        <button id="delete_group">Supprimer le groupe</button></br>
         Membres :
         <% for(let i in members){ %>
             <div>
-                <%=members[i].name%> <%=members[i].firstname%> (<%=members[i].nick%>), <%=members[i].position%><br/>
+                <%=members[i].name%><%=members[i].firstname%> (<%=members[i].nick%>), <%=members[i].position%>
+                <button id="rm_<%=members[i].id%>" class="remove_member">Retirer ce membre</button><br/>
             </div>
         <% } %>
         <button>Ajouter un membre</button>
         <input hidden id="hidden_id" value="<%=id%>">
+        <input id="hidden_token" type=hidden value="<%=token%>"/>
     </div>
 </div>
