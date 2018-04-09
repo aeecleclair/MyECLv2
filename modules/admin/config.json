@@ -29,8 +29,7 @@
 
             "route" : "/modules/admin/create_group",
             "method" : "POST",
-            "callback" : "create_group",
-            "enctype" : "json"
+            "callback" : "create_group"
         },
         {
             "route" : "/modules/admin/delete_group/:id",
@@ -38,20 +37,19 @@
             "callback" : "delete_group"
         },
         {
-            "route" : "/modules/admin/add_members/:id",
-            "method" : "POST",
-            "callback" : "add_members",
-            "enctype" : "json"
-        },
-        {
-            "route" : "/modules/admin/remove_members/:id",
-            "method" : "DELETE",
-            "callback" : "remove_members"
-        },
-        {
             "route" : "/modules/admin/alter_group/:id",
             "method" : "POST",
             "callback" : "alter_group"
+        },
+        {
+            "route" : "/modules/admin/add_members/:id",
+            "method" : "POST",
+            "callback" : "add_members"
+        },
+        {
+            "route" : "/modules/admin/remove_member/:id",
+            "method" : "POST",
+            "callback" : "remove_member"
         }
     ],
     "menu" : [
