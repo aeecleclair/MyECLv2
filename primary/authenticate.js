@@ -26,6 +26,7 @@ module.exports = function(context){
                         context.log.info(login + ' used wrong password.');
                         res.redirect('/login.html?wrong=1');
                     } else {
+                        delete user['password'];
                         req.session.user = user;
                         if(req.session.rejected_on){
                             res.redirect(req.session.rejected_on);
@@ -78,13 +79,13 @@ module.exports = function(context){
         // TODO eviter les doublons
         // TODO Tester la validité des informations fournies ?
 
-        context.csrf.checkToken(req.body['__token'], req.body.login, function(err, rows){
+        context.csrf.checkToken(req.body['__token'], req.body.login, function(err, valid){
             if(err){
                 // TODO signaler le probleme a l'utilisateur
                 context.log.error('Unable to check a token.');
                 context.log.error(err);
                 res.redirect('/login.html');
-            } else if(rows.length == 0){
+            } else if(!valid){
                 // token invalide
                 // TODO signaler le probleme a l'utilisateur
                 console.log('Token invalide (message a supprimer)');
