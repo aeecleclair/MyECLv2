@@ -34,11 +34,11 @@ module.exports = function(context){
             } else {
                 if(rows.length > 0){
                     callback(null, true);
-                    // TODO il faut revoquer le token ici
-                    // mais j'ai merdé sur les branches et
-                    // la fonction dont j'ai besoin (database.delete)
-                    // n'existe pas encore sur cette branche
-                    console.log('Attention le token n\'est pas révoqué.');
+                    context.database.delete('csrfToken', 'login = ? AND token = ?', [login, token], function(err){
+                        if(err){
+                            context.log.error(err);
+                        }
+                    });
                 } else {
                     callback(null, false);
                 }
