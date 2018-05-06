@@ -14,7 +14,7 @@ exports.show = function(req, res){
             values.description = rows[0]['description'];
             values.members = new Array();
 
-            req.database.query('SELECT user.id as uid, user.name AS uname, firstname, nick, position FROM membership JOIN user_group ON user_group.id = membership.id_group JOIN user ON user.id = membership.id_user WHERE user_group.id = ?;', [req.params.id], function(err2, rows){
+            req.database.query('SELECT user.id AS uid, user.name AS uname, firstname, nick, position FROM membership JOIN user_group ON user_group.id = membership.id_group JOIN user ON user.id = membership.id_user WHERE user_group.id = ?;', [req.params.id], function(err2, rows){
                 if(err2){
                     req.log.warning(err2);
                     res.error('500');
@@ -135,9 +135,47 @@ exports.delete_group = function(req, res){
     });
 };
 
-// /modules/admin/add_members/:id
+// POST /modules/admin/add_members/:id
 exports.add_members = function(req, res){
-    res.send('ok');
+    if(!req.validator.isNumeric(req.params.id)){
+        res.status(404).send('invalid');
+        return;
+    }
+    // req.body.members_list = [0, 2,...]
+
+    req.csrf.checkToken(req.session.user.login, req.body['__token'], function(err, valid){
+        if(err){
+            res.status(500).send('token error');
+        } else if(!valid){
+            res.status(401).send('invalid token');
+        } else {
+            const members = req.body.members;
+            var proms = new Array();
+            for(let i in members){
+                let mbship = {
+                    'id_user' : members[i].id,
+                    'id_group' : req.params.id,
+                    'position' : members[i].position,
+                    'term' : members[i].term
+                };
+                proms.push(new Promise(function(done, reject){
+                    req.database.save('membership', mbship, function(err){
+                        if(err){
+                            reject(err);
+                        } else {
+                            done();
+                        }
+                    });
+                }));
+            }
+            Promise.all(proms).then(function(){ // succes
+                res.send('ok');
+            }, function(err){ // echec
+                req.log.error(err);
+                res.send('ko');
+            });
+        }
+    });
 };
 
 // /modules/admin/remove_member/:id
