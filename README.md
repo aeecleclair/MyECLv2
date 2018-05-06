@@ -21,7 +21,7 @@ Ce projet a été publié sous licence MIT (licence libre parmi les plus permiss
 
 Les commits sur github ne doivement pas être fait directement sur la branche master sauf pour modifier le README. Il est préférable de faire les commits sur une branche dédié ou a défaut sur main_dev. Les merge des branches avec master ne doivement se faire qu'après consultation des principaux dévellopeurs.
 
-/!\ Le fichier **myecl_config.json** et le dossier **node_modules** ne doivent _jamais_ être ajouté a un commit car ils sont spécifiques à un utilisateur et sont créé à l'exécution de **config.json**.
+/!\ Le fichier **myecl_config.json** et le dossier **node_modules** ne doivent _jamais_ être ajouté a un commit car ils sont spécifiques à un utilisateur et sont créé à l'exécution de **config.sh**.
 
 ## Pratiques de dévellopement
 
