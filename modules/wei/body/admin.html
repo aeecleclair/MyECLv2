@@ -1,0 +1,142 @@
+<ul class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom" role="tablist">
+    <li class="active">
+        <a href="#manage" role="tab" data-toggle="tab">Gérer les équipes</a>
+    </li>
+    <li>
+        <a href="#scores" role="tab" data-toggle="tab">Gérer les scores</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <!-- GESTION DES EQUIPES -->
+    <div id="manage" class="tab-pane fade active in">
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-plus-circle"></i>Ajouter une équipe</h3>
+                    </div>
+        
+                    <div class="widget-content">
+                        <form class="form-horizontal" action="/modules/wei/create_team" method="POST">
+                        
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="name">Numéro de l'équipe</label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="number" name="number" class="form-control"/>
+                                </div>
+                            </div>
+        
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="name">Nom de l'équipe</label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="name" name="name" class="form-control"/>
+                                </div>
+                            </div>
+                    
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-8">
+                                    <button class="btn btn-primary btn-block" type="submit">Ajouter l'équipe</button>
+                                </div>
+                            </div>
+                    
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-md-6">
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-plus-circle"></i>Ajouter un membre à une équipe</h3>
+                    </div>
+            
+                    <div class="widget-content">
+                        <form class="form-horizontal" action="/modules/wei/add_member" method="POST">
+                         
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="name">Numéro de l'équipe</label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="team" name="team" class="form-control"/>
+                                </div>
+                            </div>
+        
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="name">Login</label>
+                                <div class="col-sm-7">
+                                    <input type="text" id="login" name="login" class="form-control"/>
+                                </div>
+                            </div>
+                    
+                            <div class="form-group">
+                                <div class="col-sm-8" id="message">
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <button class="btn btn-primary btn-block" type="submit" id="add_member">Ajouter le membre</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        <div class="row">
+            <div class="col-md-7" id="teams">
+            </div>
+            <div class="col-md-5" id="current">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- GESTION DES SCORES -->
+    <div id="scores" class="tab-pane fade">
+        <div class="widget">
+            <div class="widget-header">
+                <h3>Mise à jour des scores</h3>
+            </div>
+            <div class="widget-content">
+                <form class="form-horizontal" action="/modules/wei/add_score" method="POST">
+                         
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="name">Numéro de l'équipe</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="team_iddd" name="team_iddd" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="name">Raison</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="event" name="event" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="name">Nombre de points</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="bonus" name="bonus" class="form-control"/>
+                        </div>
+                    </div>
+            
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary btn-block" type="submit" id="add_score">Mettre à jour le score</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MESSAGERIE -->
+    <div id="infos" class="tab-pane fade">
+
+
+    </div>
+</div>
+
