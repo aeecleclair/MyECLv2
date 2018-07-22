@@ -1,0 +1,58 @@
+#available_offers {
+    width : 60%;
+    height : auto;
+    margin-left : 20%;
+}
+
+.study {
+    display : block;
+
+    width: 50%;
+    margin : 10px auto;
+    padding : 10px;
+
+    clear : both;
+
+    background-color :rgb(240, 240, 210);
+}
+
+.align-0 {
+    float:right;
+    border-right : 4px solid #BA1349;
+    border-radius : 0 0 0 10px;
+}
+
+.align-1 {
+    float:left;
+    border-left : 4px solid #BA1349;
+    border-radius : 0 0 10px 0;
+}
+
+.study-title {
+    font-weight:bold;
+    display : block;
+    margin : auto;
+    text-align : center;
+    margin-bottom : 5px;
+}
+
+.study-description {
+    display : block;
+    text-align : justify;
+}
+
+.study-number {
+    display : block;
+    position : relative;
+}
+
+.study-join {
+    display : inline-block;
+    position : relative;
+    margin-right : 10px;
+}
+
+.study-join {
+    display : inline-block;
+    position : relative;
+}
