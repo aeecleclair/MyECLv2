@@ -1,0 +1,96 @@
+{
+    "authorisation" : "#ecl",
+    "database" : [
+        {
+            "table" : "je_studies",
+            "schema" : {
+                "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
+				"appliants" :"TEXT",
+                "description" : "TEXT",
+                "title" : "VARCHAR(255)"                
+            }
+        }
+
+    ],
+    "rules" : [
+        {
+            "route" : "/modules/je_studies/static/*",
+            "static" : "static/"
+        },
+        {
+            "body" : "home",
+            "static" : "body/home.html",
+            "heads" : {
+                "scripts" : [
+                    "/modules/je_studies/static/home.js"
+                ],
+                "styles" : [
+                    "/modules/je_studies/static/home.css"
+                ]
+            }
+        },
+        {
+            "body" : "admin",
+            "static" : "body/admin.html",
+            "heads" : {
+                "scripts" : [
+					"/modules/je_studies/static/summernote.min.js",
+                    "/modules/je_studies/static/admin.js"
+                ],
+                "styles" : [
+                    "/modules/je_studies/static/admin.css"
+                ]
+            },
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'JE';"
+        },
+        {
+            "route" : "/modules/je_studies/get_all",
+            "callback" : "get_all"
+        },
+        {
+            "route" : "/modules/je_studies/get_all_admin",
+            "callback" : "get_all_admin",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'JE';"
+            
+        },
+        {
+            "route" : "/modules/je_studies/add",
+            "callback" : "add",
+            "method" : "POST",
+			"authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'JE';"
+        },
+        {
+            "route" : "/modules/je_studies/update",
+            "callback" : "update",
+            "method" : "POST",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'JE';"
+        },
+        {
+            "route" : "/modules/je_studies/delete",
+            "callback" : "delete",
+            "method" : "POST",
+			"authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'JE';"
+        },
+        {
+            "route" : "/modules/je_studies/apply",
+            "callback" : "apply",
+            "method" : "POST"
+        },
+		{
+            "route" : "/modules/je_studies/quit",
+            "callback" : "quit",
+            "method" : "POST"
+        }
+    ],
+    "menu" : [
+        {
+            "body" : "home",
+            "name" : "Etudes JE"
+        },
+        {
+            "body" : "admin",
+            "name" : "Administration JE",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'JE';"
+        } 
+    ]
+}

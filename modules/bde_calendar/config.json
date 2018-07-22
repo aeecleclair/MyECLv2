@@ -1,0 +1,90 @@
+{
+    "authorisation" : "#ecl",
+    "database" : [
+        {
+            "table" : "bde_calendar_database",
+            "schema" : {
+                "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "title" : "VARCHAR(255)",
+                "description" : "TEXT",
+                "start" : "DATETIME",
+				"end" : "DATETIME",
+				"location" : "VARCHAR(255)",
+				"organisation" : "VARCHAR(255)",
+				"target" : "VARCHAR(255)"
+			}
+        }
+    ],
+    "rules" : [
+        {
+            "route" : "/modules/bde_calendar/static/*",
+            "static" : "static/"
+        },
+        {
+            "body" : "home",
+            "static" : "body/home.html",
+            "heads" : {
+                "scripts" : [
+                    "/modules/bde_calendar/static/fullcalendar.js",
+                    "/modules/bde_calendar/static/home.js"
+                ],
+                "styles" : [
+                    "/modules/bde_calendar/static/home.css"
+                ]
+            }
+        },
+        {
+            "body" : "admin",
+            "static" : "body/admin.html",
+            "heads" : {
+                "scripts" : [
+                    "/modules/bde_calendar/static/fullcalendar.js",
+                    "/modules/bde_calendar/static/admin.js"
+                ],
+                "styles" : [
+                    "/modules/bde_calendar/static/admin.css"
+                ]
+            },
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
+        },
+        {
+            "route" : "/modules/bde_calendar/get_one",
+            "callback" : "get_one"
+        },
+        {
+            "route" : "/modules/bde_calendar/get_all",
+            "callback" : "get_all"
+            
+        },
+        {
+            "route" : "/modules/bde_calendar/add",
+            "callback" : "add",
+            "method" : "POST",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
+        },
+        {
+            "route" : "/modules/bde_calendar/delete",
+            "callback" : "delete",
+            "method" : "POST",
+			"authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
+        },
+
+        {
+            "tile" : "calendar",
+            "title" : "Calendrier associatif",
+            "static" : "body/tile.html",
+            "size" : 12
+        }
+    ],
+    "menu" : [
+        {
+            "body" : "home",
+            "name" : "Calendrier associatif"
+        },
+        {
+            "body" : "admin",
+            "name" : "Administration calendrier associatif",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
+        } 
+    ]
+}
