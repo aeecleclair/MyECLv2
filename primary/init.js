@@ -262,6 +262,12 @@ exports.myecl = function(context){
             res.sendFile('error_404.html', {root : context.public_root});
         };
 
+        app.get('/user_uploads/*', authorise('user', error_404), function(req, res){
+            var filename = req.path.split('/');
+            filename = filename[filename.length - 1];
+            res.sendFile(context.user_upload + '/' + filename);
+        });
+
 
         app.use(
             authorise('user', error_404),
