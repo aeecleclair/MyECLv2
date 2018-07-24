@@ -10,12 +10,16 @@
         "syntaxe car le site ne se lancera pas dans ce cas là."
     ],
     "enabled" : [
-        "tiles",
-        "test",
-        "test_tiles",
         "panorama",
-        "serv",
+        "tiles",
+        "admin",
         "asso",
-        "admin"
+        "bde_calendar",
+        "bde_newsletter",
+        "club_cine",
+        "je_studies",
+        "profile",
+        "sdec",
+        "wei"
     ]
 }
