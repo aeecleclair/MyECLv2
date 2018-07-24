@@ -48,8 +48,7 @@
         },
         {
             "route" : "/modules/bde_newsletter/get_all",
-            "callback" : "get_all",
-            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
+            "callback" : "get_all"
         },
         {
             "route" : "/modules/bde_newsletter/add",

@@ -36,7 +36,6 @@ $(document).ready(function(){
         }
 
         html += "</div>";
-        console.log(html);
         $("#list").html(html);
     });
 
