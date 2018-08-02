@@ -50,6 +50,10 @@
             "route" : "/modules/admin/remove_member/:id",
             "method" : "POST",
             "callback" : "remove_member"
+        },
+        {
+            "route" : "/modules/admin/search_user",
+            "callback" : "search_user"   
         }
     ],
     "menu" : [

@@ -58,14 +58,21 @@ exports.list = function(req, res){
             req.log.warning(err);
             res.error('500');
         } else {
-            req.engine['ejs'].renderFile(req.rel_path('ejs/list.ejs'), {'groups' : rows}, function(err, result){
-                if(err){
-                    req.log.error(err);
+            req.csrf.newToken(req.session.user.login, function(error, token){
+                if(error){
+                    req.log.error(error);
                     res.status(500).send('Server error');
                 } else {
-                    res.send(result);
+                    req.engine['ejs'].renderFile(req.rel_path('ejs/list.ejs'), {'groups' : rows, 'token': token}, function(err, result){
+                        if(err){
+                            req.log.error(err);
+                            res.status(500).send('Server error');
+                        } else {
+                            res.send(result);
+                        }
+                    });
                 }
-            });
+            }) 
         }
     });
 };
@@ -121,17 +128,6 @@ exports.delete_group = function(req, res){
                 }
             });
         }
-        if(!valid){
-            res.send('invalid');
-            return;
-        }
-        req.database.delete('user_group', 'id = ?', [req.params.id], function(err){
-            if(err){
-                res.status(500).send('database error');
-            } else {
-                res.send('ok');
-            }
-        });
     });
 };
 
@@ -149,7 +145,8 @@ exports.add_members = function(req, res){
         } else if(!valid){
             res.status(401).send('invalid token');
         } else {
-            const members = req.body.members;
+            var members = JSON.parse(req.body.members);
+            req.log.info(members);
             var proms = new Array();
             for(let i in members){
                 let mbship = {
@@ -214,25 +211,31 @@ exports.alter_group = function(req, res){
         } else if(!valid){
             res.status(401).send('invalid token');
         } else {
+            var group = {
+                'id' : req.params['id'],
+                'name' : req.body.name,
+                'description' : req.validator.escape(req.body.description)
+            };
             req.database.save('user_group', group, function(err){
                 if(err){
                     res.status(500).send('database error');
                 } else {
+                    req.log.info(group);
                     res.send('ok');
                 }
             });
         }
-        var group = {
-            'id' : req.params['id'],
-            'name' : req.body.name,
-            'description' : req.validator.escape(req.body.description)
-        };
-        req.database.save('user_group', group, function(err){
-            if(err){
-                res.status(500).send('database error');
-            } else {
-                res.send('ok');
-            }
-        });
     });
 };
+
+// /modules/admin/search_user
+exports.search_user = function(req, res){
+    var name = req.query.name;
+    req.serv.user.searchUser(name, function(err, data){
+        if(err){
+            req.log.error(err);
+        } else {
+            res.send(data);
+        }
+    })
+}
