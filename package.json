@@ -4,9 +4,9 @@
   "description": "",
   "main": "myecl.js",
   "dependencies": {
-    "bcrypt": "^1.0.3",
+    "bcrypt": ">2.0.0",
     "body-parser": "^1.18.2",
-    "cas-authentication": "0.0.8",
+    "cas-authentication": "^0.0.8",
     "dom-to-image": "^2.5.2",
     "ejs": "^2.5.8",
     "express": "^4.15.5",
@@ -19,6 +19,7 @@
     "serve-static": "^1.13.1",
     "validator": "^9.4.1"
   },
+  "homepage": "https://github.com/aeecleclair/MyECLv2",
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
