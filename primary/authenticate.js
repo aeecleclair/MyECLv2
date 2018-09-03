@@ -74,22 +74,22 @@ module.exports = function(context){
             }
         });
     };
+
     exports.create_account = function(req, res){
         // doit être utilisé avec POST
         // TODO eviter les doublons
         // TODO Tester la validité des informations fournies ?
 
         context.csrf.checkToken(req.body.login, req.body['__token'], function(err, valid){
+            err = true;
             if(err){
-                // TODO signaler le probleme a l'utilisateur
                 context.log.error('Unable to check a token.');
                 context.log.error(err);
-                res.redirect('/login.html');
+                res.redirect('/login.html?internal_error=1');
             } else if(!valid){
                 // token invalide
-                // TODO signaler le probleme a l'utilisateur
                 console.log('Token invalide (message a supprimer)');
-                res.redirect('/login.html');
+                res.redirect('/login.html?invalid_token=1');
             } else {
                 // token valide
                 if(req.body.login && req.body.password){
@@ -100,8 +100,8 @@ module.exports = function(context){
                             // validation
                             if(
                                 !context.validator.isAlpha(req.body.login) ||
-                                !context.validator.matches(req.body.promo, '[0-9]+[Ee]?') ||
-                                !context.validator.matches(req.body.floor, '[A-Z][0-9]+') ||
+                                !context.validator.matches(req.body.promo, '([0-9]+[Ee]?)?') ||
+                                !context.validator.matches(req.body.floor, '([A-Z][0-9]+)?') ||
                                 !context.validator.isNumeric(req.body.picselector)
                             ){
                                 return res.redirect('/login.html?invalid=1');
@@ -157,7 +157,6 @@ module.exports = function(context){
                                         }
                                     });
                                 } else {
-                                    // TODO
                                     context.log.error('Unable to save user');
                                     context.log.info(user);
                                     context.log.error(err);
@@ -166,7 +165,6 @@ module.exports = function(context){
                                 }
                             });
                         } else {
-                            // TODO
                             context.log.error('Unable to hash password');
                             context.log.error(err);
                             res.status(500);
@@ -187,10 +185,7 @@ module.exports = function(context){
                         "groups" : "TEXT"
                     */
                 } else {
-                    // TODO faire une page pour signaler a l'utilisateur qu'il a mal remplie le formulaire
-                    // res.redirect('/wrong_datas.html');
-                    res.status(400);
-                    res.send('<meta http-equiv="refresh" content="5; URL=/login.html"> User Fail');
+                    res.redirect('/login.html?invalid=1');
                 }
             } 
         });

@@ -24,6 +24,7 @@
 
 <body>
 
+    <div id="info-message"></div>
 	<div class="container">
 
 		<div class="row">
@@ -36,7 +37,7 @@
 
 				</div>
 
-				<div id="wrongpass" onload="wrong_pass()">
+				<div id="password_box">
 
                     <form class="form-horizontal" role="form" enctype="application/x-www-form-urlencoded" method="POST" action="/login">
 
@@ -104,16 +105,44 @@
 
 	<script>
 
-		function wrong_pass(){
+		(function error_msg(){
 
 		    var wrong = parseInt((new URL(window.location.toString())).searchParams.get('wrong'));
+		    var invtok = parseInt((new URL(window.location.toString())).searchParams.get('invalid_token'));
+		    var interr = parseInt((new URL(window.location.toString())).searchParams.get('internal_error'));
+		    var invalid = parseInt((new URL(window.location.toString())).searchParams.get('invalid'));
 		    if(wrong){
 		        document.getElementById("login-input").classList.add("has-error");
 				document.getElementById("password-input").classList.add("has-error");
 				var err = document.getElementById("error-message");
 				err.innerHTML = "<span class='help-block'>Login ou mot de passe incorrect</span>";
-		    }
-		}
+            } else if(invtok){
+				var info = document.getElementById("info-message");
+				info.innerHTML = "Formulaire périmé, essayez à nouveau";
+                info.style.visibility = 'visible';
+                setTimeout(2000, function(){
+                    info.style.visibility = "hidden";
+                    info.innerHTML = "";
+                });
+            } else if(interr){
+				var info = document.getElementById("info-message");
+				info.innerHTML = "Erreur interne, essayez plus tard";
+                info.style.visibility = "visible";
+                setTimeout(2000, function(){
+                    info.style.visibility = "hidden";
+                    info.innerHTML = "";
+                });
+            } else if(invalid){
+				var info = document.getElementById("info-message");
+				info.innerHTML = "L'une des entrée n'était pas autorisé, réessayez ou contactez ECLAIR";
+                info.style.visibility = "visible";
+                setTimeout(2000, function(){
+                    info.style.visibility = "hidden";
+                    info.innerHTML = "";
+                });
+            }
+
+		})()
 
 	</script>
 

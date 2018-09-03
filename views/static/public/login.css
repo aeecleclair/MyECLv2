@@ -15,7 +15,7 @@
 	text-align : center;
 }
 
-#wrongpass{
+#password_box{
 	padding : 15px;
 	text-align : justify;
 }
@@ -26,4 +26,17 @@ legend{
 
 #inscription{
 	margin-bottom: 15px;
+}
+
+#info-message{
+    position : absolute;
+    top : 0;
+    left : 0;
+    width : 100%;
+    text-align : center;
+    background-color : #a00034;
+    visibility : hidden;
+    color : white;
+	font-family: Tahoma; /* à importer */
+	font-size : 18;
 }
