@@ -79,7 +79,7 @@ module.exports = function(context){
         // TODO eviter les doublons
         // TODO Tester la validité des informations fournies ?
 
-        context.csrf.checkToken(req.body['__token'], req.body.login, function(err, valid){
+        context.csrf.checkToken(req.body.login, req.body['__token'], function(err, valid){
             if(err){
                 // TODO signaler le probleme a l'utilisateur
                 context.log.error('Unable to check a token.');

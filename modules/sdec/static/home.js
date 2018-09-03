@@ -59,7 +59,7 @@ function load_my_orders(){
 
                 if (order.file_path != null){
                     to_append += "<div class='row'>";
-                    to_append += "<div class='col-md-12'><a href='file:///" + order.file_path + "'>Voir mon document</a></div>";
+                    to_append += "<div class='col-md-12'><a href='/user_uploads/" + order.file_path + "'>Voir mon document</a></div>";
                     to_append += "</div><br>";
                 }
 

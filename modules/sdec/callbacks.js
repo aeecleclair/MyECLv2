@@ -92,12 +92,13 @@ exports.new_order = function(req, res){
     data.pages = parseInt(data.pages);
     data.user_id = req.session.user.id;
     data.state = 0;
-    data.file_path = req.file.path;
+    data.file_path = req.file.path.split('/');
+    data.file_path = data.file_path[data.file_path.length - 1]
 
     var extension = req.file.originalname.split('.');
     extension = extension[extension.length - 1];
 
-    if (['pdf', 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'tif', 'tiff', 'ico'].indexOf(extension) > -1){    
+    if (['jar', 'exe', 'sh', 'java', 'binary'].indexOf(extension) == -1){    
         if (data.quantity >= 1 && data.format != 'default'){
             req.database.save("CommandeSdec", data, function(error, result){
                 if(error){
@@ -106,9 +107,19 @@ exports.new_order = function(req, res){
                 }
             });
         } else {
+            fs.unlink(req.file.path, function(err){
+                if(err){
+                    console.log(err);
+                }
+            })
             console.log('Quantity must be nonnegative and format not default');
         }
     } else {
+        fs.unlink(req.file.path, function(err){
+            if(err){
+                console.log(err);
+            }
+        })
         console.log('Incorrect format');
     }
     res.redirect("/home/sdec/home");
