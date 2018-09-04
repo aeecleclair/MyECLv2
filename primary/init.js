@@ -232,13 +232,13 @@ exports.myecl = function(context){
 
         app.post('/login', bodyParser.urlencoded({'extended':false}), authenticate.check_password);
 
-        // Passer par le cas puis creer un compte
+        // Passer par le cas puis creer un compte, un token CSRF assure que les
+        // deux étapes soit faites
         app.get('/logcas', authenticate.bounce, authenticate.new_account);
 
         // on utilise multer pour charger l'image
         const upload = multer({'dest': context.user_upload});
-        // TODO Est-ce qu'on a pas une grosse faille de sécurité là ?
-        app.post('/create_account', /*authenticate.bounce,*/ upload.single('picture'), authenticate.create_account);
+        app.post('/create_account', upload.single('picture'), authenticate.create_account);
 
         // Chargement des différents modules
         context.log.info('Loading modules...');

@@ -53,7 +53,7 @@ module.exports = function(context){
     exports.bounce = cas.bounce;
     exports.new_account = function(req, res){
         const login = req.session.login_dsi;
-        context.csrf.newToken(login, function(err, token){
+        context.csrf.newToken(login, 'new_account', function(err, token){
             if(err){
                 context.log.error('Unable to generate a CSRF token');
                 res.status(500).send('Fail');
@@ -80,7 +80,7 @@ module.exports = function(context){
         // TODO eviter les doublons
         // TODO Tester la validité des informations fournies ?
 
-        context.csrf.checkToken(req.body.login, req.body['__token'], function(err, valid){
+        context.csrf.checkToken(req.body.login, req.body['__token'], 'new_account', function(err, valid){
             err = true;
             if(err){
                 context.log.error('Unable to check a token.');
@@ -100,6 +100,7 @@ module.exports = function(context){
                             // validation
                             if(
                                 !context.validator.isAlpha(req.body.login) ||
+                                req.body.login.length > 16 || // longueur fixé dans la table user
                                 !context.validator.matches(req.body.promo, '([0-9]+[Ee]?)?') ||
                                 !context.validator.matches(req.body.floor, '([A-Z][0-9]+)?') ||
                                 !context.validator.isNumeric(req.body.picselector)

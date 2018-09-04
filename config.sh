@@ -112,9 +112,9 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
             "table" : "user",
             "schema" : {
                 "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
-                "login" : "VARCHAR(12)",
+                "login" : "VARCHAR(16)",
                 "password" : "VARCHAR(60)",
-                "name" : "VARCHAR(32)",
+                "name" : "VARCHAR(64)",
                 "firstname" : "VARCHAR(64)",
                 "nick" : "VARCHAR(20)",
                 "birth" : "DATE",
@@ -153,7 +153,8 @@ cat <<EOF | sed "s?@URL?$URL?g" | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT
             "schema" : {
                 "token" : "VARCHAR(256)",
                 "login" : "VARCHAR(12)",
-                "time" : "BIGINT UNSIGNED"
+                "time" : "BIGINT UNSIGNED",
+                "why" : "TEXT"
             }
         }
     ],
