@@ -99,12 +99,16 @@ exports.get_data = function(req, res){
 // /module/asso/edit/:id
 module.exports.authorise_edit = function(req){
     var id = req.params['id'];
-    return `\
-    SELECT user.login \
-    FROM user \
-    JOIN membership \
-        ON user.id = membership.id_user \
-    WHERE membership.id_group = '${id}';`;
+    if(req.validator.isInt(id)){
+        return `\
+            SELECT user.login \
+            FROM user \
+            JOIN membership \
+                ON user.id = membership.id_user \
+            WHERE membership.id_group = '${id}';`;
+    } else {
+        return 'SELECT login WHERE 1 = 0;';
+    }
 };
 
 
