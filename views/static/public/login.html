@@ -105,44 +105,37 @@
 
 	<script>
 
-		(function error_msg(){
-
-		    var wrong = parseInt((new URL(window.location.toString())).searchParams.get('wrong'));
-		    var invtok = parseInt((new URL(window.location.toString())).searchParams.get('invalid_token'));
-		    var interr = parseInt((new URL(window.location.toString())).searchParams.get('internal_error'));
-		    var invalid = parseInt((new URL(window.location.toString())).searchParams.get('invalid'));
-		    if(wrong){
-		        document.getElementById("login-input").classList.add("has-error");
-				document.getElementById("password-input").classList.add("has-error");
-				var err = document.getElementById("error-message");
-				err.innerHTML = "<span class='help-block'>Login ou mot de passe incorrect</span>";
-            } else if(invtok){
-				var info = document.getElementById("info-message");
-				info.innerHTML = "Formulaire périmé, essayez à nouveau";
-                info.style.visibility = 'visible';
-                setTimeout(2000, function(){
-                    info.style.visibility = "hidden";
-                    info.innerHTML = "";
-                });
-            } else if(interr){
-				var info = document.getElementById("info-message");
-				info.innerHTML = "Erreur interne, essayez plus tard";
-                info.style.visibility = "visible";
-                setTimeout(2000, function(){
-                    info.style.visibility = "hidden";
-                    info.innerHTML = "";
-                });
-            } else if(invalid){
-				var info = document.getElementById("info-message");
-				info.innerHTML = "L'une des entrée n'était pas autorisé, réessayez ou contactez ECLAIR";
-                info.style.visibility = "visible";
-                setTimeout(2000, function(){
-                    info.style.visibility = "hidden";
-                    info.innerHTML = "";
-                });
-            }
-
-		})()
+        function show_error(msg){
+            var info = document.getElementById("info-message");
+            info.innerHTML = msg;
+            info.style.visibility = "visible";
+            setTimeout(2000, function(){
+                info.style.visibility = "hidden";
+                info.innerHTML = "";
+            });
+        }
+        function detect_param(name){
+		    return parseInt((new URL(window.location.toString())).searchParams.get(name));
+        }
+        var wrong = detect_param('wrong');
+        var invtok = detect_param('invalid_token');
+        var interr = detect_param('internal_error');
+        var invalid = detect_param('invalid');
+        var dup = detect_param('duplicate');
+        if(wrong){
+            document.getElementById("login-input").classList.add("has-error");
+            document.getElementById("password-input").classList.add("has-error");
+            var err = document.getElementById("error-message");
+            err.innerHTML = "<span class='help-block'>Login ou mot de passe incorrect</span>";
+        } else if(invtok){
+            show_error("Formulaire périmé, essayez à nouveau.");
+        } else if(interr){
+            show_error("Une erreur interne à eu lieu, réessayez plus tard.");
+        } else if(invalid){
+            show_error("L'une des entrée n'était pas autorisé, réessayez ou contactez ECLAIR");
+        } else if(dup){
+            show_error("Vous avez essayé de vous inscrire avec un login déjà utilisé.");
+        }
 
 	</script>
 
