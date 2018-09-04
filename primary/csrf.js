@@ -8,6 +8,7 @@ module.exports = function(context){
     csrf.newToken = function(login, why, callback){
         if(!callback){
             callback = why;
+            why = 'any';
         }
         crypt.randomBytes(192, function(err, buffer){ // 192 bytes -> 256 base64
             if(err){
@@ -18,7 +19,7 @@ module.exports = function(context){
                     'time' : Date.now(),
                     'token' : token,
                     'login' : login,
-                    'why'   : 'any'
+                    'why'   : why
                 };
                 context.database.save('csrfToken', data, function(err){
                     if(err){
@@ -42,7 +43,7 @@ module.exports = function(context){
             } else {
                 if(rows.length > 0){
                     callback(null, true);
-                    context.database.delete('csrfToken', 'login = ? AND token = ?', [login, token], function(err){
+                    context.database.delete('csrfToken', 'login = ? AND token = ? AND why = ?', [login, token, why], function(err){
                         if(err){
                             context.log.error(err);
                         }
@@ -52,6 +53,14 @@ module.exports = function(context){
                 }
             }
         });
+    };
+
+    csrf.flushOutdated = function(callback){
+        context.database.delete(
+            'csrfToken', 'time < ?',
+            [Date.now() - 1000*context.token_life],
+            callback
+        )
     };
     return csrf;
 };

@@ -81,7 +81,6 @@ module.exports = function(context){
         // TODO Tester la validité des informations fournies ?
 
         context.csrf.checkToken(req.body.login, req.body['__token'], 'new_account', function(err, valid){
-            err = true;
             if(err){
                 context.log.error('Unable to check a token.');
                 context.log.error(err);
