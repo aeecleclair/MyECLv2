@@ -22,7 +22,7 @@
 
 </head>
 
-<body>
+<body onload="getError()">
 
 	<div class="container">
 
@@ -36,7 +36,7 @@
 
 				</div>
 
-				<div id="wrongpass" onload="wrong_pass()">
+				<div id="wrongpass">
 
                     <form class="form-horizontal" role="form" enctype="application/x-www-form-urlencoded" method="POST" action="/login">
 
@@ -104,15 +104,28 @@
 
 	<script>
 
-		function wrong_pass(){
+		function getError(){
 
-		    var wrong = parseInt((new URL(window.location.toString())).searchParams.get('wrong'));
-		    if(wrong){
-		        document.getElementById("login-input").classList.add("has-error");
+		    var errorCode = parseInt((new URL(window.location.toString())).searchParams.get('invalid'));
+		    if(errorCode == 0){
+				var err = document.getElementById("error-message");
+				err.innerHTML = "<span class='help-block'>Le login est déjà utilisé</span>";
+		    } else if (errorCode == 1){
+				var err = document.getElementById("error-message");
+				err.innerHTML = "<span class='help-block'>Le login, le surnom, la promo ou l'étage n'est pas au bon format.</span>";
+			} else if (errorCode == 2){
+				var err = document.getElementById("error-message");
+				err.innerHTML = "<span class='help-block'>Login manquant ou mots de passe différents.</span>";
+			} else if (errorCode == 3){
+				document.getElementById("login-input").classList.add("has-error");
+				var err = document.getElementById("error-message");
+				err.innerHTML = "<span class='help-block'>Login introuvable.</span>";
+			} else if (errorCode == 4){
+				document.getElementById("login-input").classList.add("has-error");
 				document.getElementById("password-input").classList.add("has-error");
 				var err = document.getElementById("error-message");
-				err.innerHTML = "<span class='help-block'>Login ou mot de passe incorrect</span>";
-		    }
+				err.innerHTML = "<span class='help-block'>Les identifiants ne correspondent pas.</span>";
+			}
 		}
 
 	</script>

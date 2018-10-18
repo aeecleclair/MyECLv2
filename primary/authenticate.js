@@ -24,7 +24,7 @@ module.exports = function(context){
                     }
                     if(!valid){
                         context.log.info(login + ' used wrong password.');
-                        res.redirect('/login.html?wrong=1');
+                        res.redirect('/login.html?invalid=4');
                     } else {
                         delete user['password'];
                         req.session.user = user;
@@ -42,7 +42,7 @@ module.exports = function(context){
                 } else {
                     context.log.warning('Bad login ' + login);
                 }
-                res.redirect('/login.html?wrong=1');
+                res.redirect('/login.html?invalid=3');
             }
         });
     };
@@ -66,7 +66,7 @@ module.exports = function(context){
                 ejs.renderFile(context.ejs_root + '/register.ejs', data, function(err, str){
                     if(err){
                         context.log.error(err);
-                        res.status(500).send('Une erreure est survenue.');
+                        res.status(500).send('Une erreur est survenue.');
                     } else {
                         res.send(str);
                     }
@@ -75,128 +75,102 @@ module.exports = function(context){
         });
     };
     exports.create_account = function(req, res){
-        // doit être utilisé avec POST
-        // TODO eviter les doublons
-        // TODO Tester la validité des informations fournies ?
 
-        // context.csrf.checkToken(req.body['__token'], req.body.login, function(err, valid){
-        //     if(err){
-        //         // TODO signaler le probleme a l'utilisateur
-        //         context.log.error('Unable to check a token.');
-        //         context.log.error(err);
-        //         res.redirect('/login.html');
-        //     } else if(!valid){
-        //         // token invalide
-        //         // TODO signaler le probleme a l'utilisateur
-        //         console.log('Token invalide (message a supprimer)');
-        //         res.redirect('/login.html');
-        //     } else {
-                // token valide
-                if(req.body.login && req.body.password){
-                    context.crypto.hash(req.body.password, function(err, hash){
-                        if(!err){
-                            var user = new Object();
-
-                            req.body.login = req.body.login[0];
-
-                            // validation
-                            if(
-                                !context.validator.isAlpha(req.body.login) ||
-                                !context.validator.matches(req.body.promo, '[0-9]+[Ee]?') ||
-                                !context.validator.matches(req.body.floor, '[A-Z][0-9]+') ||
-                                !context.validator.isNumeric(req.body.picselector)
-                            ){
-                                return res.redirect('/login.html?invalid=1');
-                            }
-                            // sanitization
-                            context.validator.escape(req.body.name);
-                            context.validator.escape(req.body.firstname);
-                            context.validator.escape(req.body.nick);
-
-                            user['login'] = req.body.login;
-                            user['password'] = hash;
-                            user['name'] = req.body.name;
-                            user['firstname'] = req.body.firstname;
-                            user['nick'] = req.body.nick;
-                            // user['birth'] = req.body.birth; // TODO à formater en date YYYY-MM-DD
-                            user['gender'] = req.body.gender == 'Femme' ? 'F' : 'H';
-                            user['promo'] = req.body.promo;
-                            user['floor'] = req.body.floor;
-
-                            if(req.body.picselector == '3'){
-                                user['picture_path'] = req.file.path;
-                                user['picture_url'] = '/user_upload/' + req.file.filename;
-                            } else {
-                                // TODO ameliorer le choix les photos par defaut
-                                user['picture_path'] = '';
-                                user['picture_url'] = '/picture/default_pic_' + req.body.picselector + '.png';
-                            }
-
-                            // user['email'] = req.session.user_data.email; // TODO verifier que req.session.user_data.email existe
-                            context.database.save('user', user, function(err){
-                                if(!err){
-                                    req.session.user = user;
-                                    res.redirect('/home');
-                                    context.database.select('user', ['id'], 'login = ?', [user.login], function(err2, res){
-                                        if(!err2 && res[0]){
-                                            context.database.save('membership',
-                                                {
-                                                    'id_user' : res[0]['id'],
-                                                    'id_group' : 2, // ecl
-                                                    'position' : 'eleve', // TODO améliorer avec les infos du CAS
-                                                    'term' : ''
-                                                },
-                                                function(err3){
-                                                    if(err3){
-                                                        context.log.error('Unable to set ' + user.login + ' ecl membership :');
-                                                        context.log.error(err3);
-                                                    }
-                                                }
-                                            );
-                                        } else {
-                                            context.log.error('Unable to get ' + user.login + ' id :');
-                                            context.log.error(err2);
-                                        }
-                                    });
-                                } else {
-                                    // TODO
-                                    context.log.error('Unable to save user');
-                                    context.log.info(user);
-                                    context.log.error(err);
-                                    res.status(500);
-                                    res.send('<meta http-equiv="refresh" content="5; URL=/login.html"> DB Fail');
+        if(req.body.login && req.body.password && req.body.password == req.body['conf-password']){
+            context.database.query("SELECT COUNT(*) AS c FROM user WHERE login = ?", [req.body.login[0]], function(err_count, res_count){
+                if (!err_count){
+                    if(parseInt(res_count[0]['c']) > 0){
+                        // le login est déjà utilisé
+                        return res.redirect('/login.html?invalid=0');
+                    } else {
+                        // le login est libre
+                        context.crypto.hash(req.body.password, function(err, hash){
+                            if(!err){
+                                req.body.login = req.body.login[0];
+                                var user = new Object();
+                
+                                // validation
+                                if(
+                                    !context.validator.isAlpha(req.body.login) ||
+                                    !context.validator.matches(req.body.promo, '[0-9]+[Ee]?') ||
+                                    !context.validator.matches(req.body.floor, '[A-Z][0-9]+') ||
+                                    !context.validator.isNumeric(req.body.picselector)
+                                ){
+                                    return res.redirect('/login.html?invalid=1');
                                 }
-                            });
-                        } else {
-                            // TODO
-                            context.log.error('Unable to hash password');
-                            context.log.error(err);
-                            res.status(500);
-                            res.send('<meta http-equiv="refresh" content="5; URL=/login.html"> Hash Fail');
-                        }
-                    });
-                    /*
-                        "id" : "INT PRIMARY KEY NOT NULL",
-                        "login" : "VARCHAR(255)",
-                        "password" : "VARCHAR(255)",
-                        "name" : "VARCHAR(255)",
-                        "firstname" : "VARCHAR(255)",
-                        "nick" : "VARCHAR(255)",
-                        "birth" : "DATE",
-                        "gender" : "VARCHAR(1)",
-                        "promo" : "INT",
-                        "floor" : "VARCHAR(3)",
-                        "groups" : "TEXT"
-                    */
-                } else {
-                    // TODO faire une page pour signaler a l'utilisateur qu'il a mal remplie le formulaire
-                    // res.redirect('/wrong_datas.html');
-                    res.status(400);
-                    res.send('<meta http-equiv="refresh" content="5; URL=/login.html"> User Fail');
+                                // sanitization
+                                context.validator.escape(req.body.name);
+                                context.validator.escape(req.body.firstname);
+                                context.validator.escape(req.body.nick);
+                
+                                user['login'] = req.body.login;
+                                user['password'] = hash;
+                                user['name'] = req.body.name;
+                                user['firstname'] = req.body.firstname;
+                                user['nick'] = req.body.nick;
+                                // user['birth'] = req.body.birth; // TODO à formater en date YYYY-MM-DD
+                                user['gender'] = req.body.gender == 'Femme' ? 'F' : 'H';
+                                user['promo'] = req.body.promo;
+                                user['floor'] = req.body.floor;
+                
+                                if(req.body.picselector == '3'){
+                                    user['picture_path'] = req.file.path;
+                                    user['picture_url'] = '/user_upload/' + req.file.filename;
+                                } else {
+                                    // TODO ameliorer le choix les photos par defaut
+                                    user['picture_path'] = '';
+                                    user['picture_url'] = '/picture/default_pic_' + req.body.picselector + '.png';
+                                }
+                
+                                context.database.save('user', user, function(err){
+                                    if(!err){
+                                        req.session.user = user;
+                                        res.redirect('/home');
+                                        context.database.select('user', ['id'], 'login = ?', [user.login], function(err2, res){
+                                            if(!err2 && res[0]){
+                                                context.database.save('membership',
+                                                    {
+                                                        'id_user' : res[0]['id'],
+                                                        'id_group' : 2, // ecl
+                                                        'position' : 'eleve', // TODO améliorer avec les infos du CAS
+                                                        'term' : ''
+                                                    },
+                                                    function(err3){
+                                                        if(err3){
+                                                            context.log.error('Unable to set ' + user.login + ' ecl membership :');
+                                                            context.log.error(err3);
+                                                        }
+                                                    }
+                                                );
+                                            } else {
+                                                context.log.error('Unable to get ' + user.login + ' id :');
+                                                context.log.error(err2);
+                                            }
+                                        });
+                                    } else {
+                                        context.log.error('Unable to save user');
+                                        context.log.info(user);
+                                        context.log.error(err);
+                                        res.status(500);
+                                        res.send('<meta http-equiv="refresh" content="5; URL=/login.html"> DB Fail');
+                                    }
+                                });
+                            } else {
+                                // TODO
+                                context.log.error('Unable to hash password');
+                                context.log.error(err);
+                                res.status(500);
+                                res.send('<meta http-equiv="refresh" content="5; URL=/login.html"> Hash Fail');
+                            }
+                        });
+                    }
                 }
-            } 
-        // });
-
-    // };
+            });
+        } else {
+            // TODO faire une page pour signaler a l'utilisateur qu'il a mal remplie le formulaire
+            // res.redirect('/wrong_datas.html');
+            res.redirect('/login.html?invalid=2');
+        }
+    } 
     return exports;
 };
