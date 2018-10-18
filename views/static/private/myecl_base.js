@@ -9,6 +9,13 @@ const body_404 = '\
     </div>\
 </div>';
 
+$("#logout").on('click', function(){
+    var loc = window.location.href.split('/');
+    var dest = 'logout.html';
+    console.log(dest);
+    window.location.href = dest;
+})
+
 
 function handle_menu(menu, data){
     for(let i in data){

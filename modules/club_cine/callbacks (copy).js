@@ -140,3 +140,34 @@ exports.create_movie = function(req, res) {
     }
     res.redirect("/home/club_cine/admin");
 }
+
+// /modules/sdec/new_order
+/*exports.new_order = function(req, res){
+    data = req.body;
+    data.color = (data.color == 'on') ? 1 : 0;
+    data.recto_verso = (data.recto_verso == 'on') ? 1 : 0;
+    data.quantity = parseInt(data.quantity);
+    data.pages = parseInt(data.pages);
+    data.user_id = req.session.user.id;
+    data.state = 0;
+    data.file_path = req.file.path;
+
+    var extension = req.file.originalname.split('.');
+    extension = extension[extension.length - 1];
+
+    if (['pdf', 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'tif', 'tiff', 'ico'].indexOf(extension) > -1){    
+        if (data.quantity >= 1 && data.format != 'default'){
+            req.database.save("CommandeSdec", data, function(error, result){
+                if(error){
+                    req.log.error(error);
+                    res.json({}); 
+                }
+            });
+        } else {
+            console.log('Quantity must be nonnegative and format not default');
+        }
+    } else {
+        console.log('Incorrect format');
+    }
+    res.redirect("/home/sdec/home");
+}*/

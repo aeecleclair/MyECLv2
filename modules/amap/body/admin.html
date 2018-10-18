@@ -1,0 +1,145 @@
+<ul class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom" role="tablist">
+    <li class="active">
+        <a href="#weeks" role="tab" data-toggle="tab">Semaines</a>
+    </li>
+    <li>
+        <a href="#products" role="tab" data-toggle="tab">Produits</a>
+    </li>
+    <li>
+        <a href="#orders" role="tab" data-toggle="tab">Commandes</a>
+    </li>
+    <li>
+        <a href="#cashs" role="tab" data-toggle="tab">Soldes</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <!-- GESTION DES SEMAINES -->
+    <div id="weeks" class="tab-pane fade active in">
+        <div class="widget">
+            <div class="widget-header">
+                <h3>Semaines actives</h3>
+            </div>
+
+            <div class="widget-content">
+                <div id="list_weeks"></div>
+            </div>
+        </div>
+
+
+        <div class="widget">
+            <div class="widget-header">
+                <h3>Ajouter une semaine</h3>
+            </div>
+
+            <div class="widget-content">
+                <form class="form-horizontal" action="/modules/amap/toggle_week" method="POST">
+                         
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="name">Date de début</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="start" name="start" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="name">Date de fin</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="end" name="end" class="form-control"/>
+                        </div>
+                    </div>
+            
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary btn-block" type="submit" id="add_week">Ajouter</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- GESTION DES PRODUITS -->
+    <div id="products" class="tab-pane fade">
+        <div class="widget">
+            <div class="widget-header">
+                <h3>Produits disponibles</h3>
+            </div>
+
+            <div class="widget-content">
+                <div id="list_products"></div>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="widget-header">
+                <h3>Ajouter un produit</h3>
+            </div>
+
+            <div class="widget-content">
+
+                <form class="form-horizontal" action="/modules/amap/add_product" method="post">
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="name">Nom</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="name" name="name" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="name">Prix</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="price" name="price" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary btn-block" type="submit" id="add_product">Ajouter</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMMANDES -->
+    <div id="orders" class="tab-pane fade">
+
+        <div id="select_week"></div><br>
+
+        <div class="widget">
+            <div class="widget-header">
+                <h3>Détail des commandes</h3>
+            </div>
+
+            <div class="widget-content">
+                <div id="list_orders"></div>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="widget-header">
+                <h3>Résumé</h3>
+            </div>
+
+            <div class="widget-content">
+                <div id="summary"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SOLDES -->
+    <div id="cashs" class="tab-pane fade">
+
+        <div id="search_member">
+            <div class="col-md-6"><input type="text" class="form-control" name="search" id="search" size="20" placeholder="Rechercher..."></div>
+            <div class="col-md-6"><input type="text" class="form-control" name="amount" id="amount" size="20" placeholder="Nouveau solde..."></div>
+        </div>
+
+        <div id="found_members"></div>
+
+    </div>
+</div>
+

@@ -79,23 +79,25 @@ module.exports = function(context){
         // TODO eviter les doublons
         // TODO Tester la validité des informations fournies ?
 
-        context.csrf.checkToken(req.body['__token'], req.body.login, function(err, valid){
-            if(err){
-                // TODO signaler le probleme a l'utilisateur
-                context.log.error('Unable to check a token.');
-                context.log.error(err);
-                res.redirect('/login.html');
-            } else if(!valid){
-                // token invalide
-                // TODO signaler le probleme a l'utilisateur
-                console.log('Token invalide (message a supprimer)');
-                res.redirect('/login.html');
-            } else {
+        // context.csrf.checkToken(req.body['__token'], req.body.login, function(err, valid){
+        //     if(err){
+        //         // TODO signaler le probleme a l'utilisateur
+        //         context.log.error('Unable to check a token.');
+        //         context.log.error(err);
+        //         res.redirect('/login.html');
+        //     } else if(!valid){
+        //         // token invalide
+        //         // TODO signaler le probleme a l'utilisateur
+        //         console.log('Token invalide (message a supprimer)');
+        //         res.redirect('/login.html');
+        //     } else {
                 // token valide
                 if(req.body.login && req.body.password){
                     context.crypto.hash(req.body.password, function(err, hash){
                         if(!err){
                             var user = new Object();
+
+                            req.body.login = req.body.login[0];
 
                             // validation
                             if(
@@ -141,7 +143,7 @@ module.exports = function(context){
                                                 {
                                                     'id_user' : res[0]['id'],
                                                     'id_group' : 2, // ecl
-                                                    'position' : 'élève', // TODO améliorer avec les infos du CAS
+                                                    'position' : 'eleve', // TODO améliorer avec les infos du CAS
                                                     'term' : ''
                                                 },
                                                 function(err3){
@@ -193,8 +195,8 @@ module.exports = function(context){
                     res.send('<meta http-equiv="refresh" content="5; URL=/login.html"> User Fail');
                 }
             } 
-        });
+        // });
 
-    };
+    // };
     return exports;
 };

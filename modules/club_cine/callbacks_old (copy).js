@@ -122,13 +122,12 @@ exports.suppress_movie = function(req, res) {
 };
 
 exports.create_movie = function(req, res) {
+    console.log(req.file);
     var extension = req.file.originalname.split('.');
     extension = extension[extension.length - 1];
-    console.log(extension);
-    console.log(req.body);
 
     if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tif', 'tiff', 'ico'].indexOf(extension) > -1) {
-        req.database.query("INSERT INTO club_cine VALUES (NULL, '" + req.file.filename + "', '" + req.body.titre + "', '" + req.body.infos + "', '" + req.body.date + " " + req.body.heure + "', '" + req.body.synop + "', '0')", function(error, result) {
+        req.database.query("INSERT INTO club_cine VALUES (NULL, '" + req.file.path + "', '" + req.body.titre + "', '" + req.body.infos + "', '" + req.body.date + "', '" + req.body.synopsis + "', '0')", function(error, result) {
             if (error) {
                 req.log.error("Error: unable to create movie --> overriding");
             } else {
@@ -138,5 +137,4 @@ exports.create_movie = function(req, res) {
     } else {
         req.log.error('Error: unable to upload image file, wrong type');
     }
-    res.redirect("/home/club_cine/admin");
 }

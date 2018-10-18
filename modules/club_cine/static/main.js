@@ -5,7 +5,7 @@ $(document).ready(function() {
             let month = res.movies[i].date.split("T")[0].split("-")[1];
             let hour = res.movies[i].date.split("T")[1].split(":")[0];
             let html = '<section id="affiche' + res.movies[i].id + '" class="download-section content-section text-center">';
-            html += '<style>#affiche' + res.movies[i].id + '{background: url("/modules/club_cine/static/img/bladerunner.jpg") no-repeat center center scroll;}</style>'; //Workaround
+            html += '<style>#affiche' + res.movies[i].id + '{background: url("/user_uploads/' + res.movies[i].image + '") no-repeat center center scroll;}</style>'; //Workaround
             html += '<div class="container">';
             html += '<div class="row">';
             html += '<div class="col-md-8 col-md-offset-2">';

@@ -11,8 +11,16 @@
     ],
     "enabled" : [
         "panorama",
-        "reservations",
+        "tiles",
+        "admin",
+        "asso",
+        "bde_calendar",
         "bde_newsletter",
-        "admin"
+        "club_cine",
+        "je_studies",
+        "profile",
+        "sdec",
+        "wei",
+        "amap"
     ]
 }

@@ -92,16 +92,16 @@ $(document).ready(function() {
     $('#new_btn').on('click', function() {
         $('#new').toggle();
     });
-    $('#create').on('click', function() {
-        $.post('/modules/club_cine/create_movie', {
-            image: $('#image').attr('value'),
-            titre: $('#titre').attr('value'),
-            infos: $('#infos').attr('value'),
-            date: $('#date').attr('value') + ' ' + $('heure').attr('value'),
-            synopsis: $('#synop').attr('value')
-        });
-        $('#new').hide();
-    });
+    // $('#create').on('click', function() {
+    //     $.post('/modules/club_cine/create_movie', {
+    //         image: $('#image').attr('value'),
+    //         titre: $('#titre').attr('value'),
+    //         infos: $('#infos').attr('value'),
+    //         date: $('#date').attr('value') + ' ' + $('heure').attr('value'),
+    //         synopsis: $('#synop').attr('value')
+    //     });
+    //     $('#new').hide();
+    // });
     $('#cancel').on('click', function() {
         $('#new').toggle();
     });

@@ -230,10 +230,16 @@ exports.myecl = function(context){
             });
         });
 
+        app.use('/logout.html', function(req, res, next){
+            delete req.session.user;
+            res.redirect('/');
+        });
+
         app.post('/login', bodyParser.urlencoded({'extended':false}), authenticate.check_password);
 
         // Passer par le cas puis creer un compte
-        app.get('/logcas', authenticate.bounce, authenticate.new_account);
+        // app.get('/logcas', authenticate.bounce, authenticate.new_account);
+        app.get('/logcas', authenticate.new_account);
 
         // on utilise multer pour charger l'image
         const upload = multer({'dest': context.user_upload});
