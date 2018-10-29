@@ -11,8 +11,7 @@
     ],
     "enabled" : [
         "panorama",
-        "reservations",
-        "bde_newsletter",
+        "radio",
         "admin"
     ]
 }
