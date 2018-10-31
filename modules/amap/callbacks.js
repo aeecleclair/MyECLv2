@@ -135,60 +135,65 @@ exports.update_order = function(req, res){
             if(result.length){
                 old_price = Math.max(...result);
             }
-        });
-
-        give_price(new_products, req).then(function(result){
-            if(result.length){
-                new_price = Math.max(...result);
-            } 
-        });
-
-        var possible = new Promise(function(resolve){
-            req.database.query("SELECT amount FROM SoldeAmap WHERE user_id = ?", [user_id], function(err, data){
-                if(err){
-                    req.log.error(err);
-                } else {
-                    if(data.length){
-                        cash = data[0]['amount'];
+            give_price(new_products, req).then(function(result){
+                if(result.length){
+                    new_price = Math.max(...result);
+                } 
+        
+                var possible = new Promise(function(resolve){
+                    req.database.query("SELECT amount FROM SoldeAmap WHERE user_id = ?", [user_id], function(err, data){
+                        if(err){
+                            req.log.error(err);
+                        } else {
+                            if(data.length){
+                                cash = data[0]['amount'];
+                            }
+                            resolve();
+                        }
+                    });
+                });
+                possible.then(function(){
+                    req.log.info("ETAT ACTUEL");
+                    req.log.info(cash);
+                    req.log.info(old_price);
+                    req.log.info(new_price);
+                    req.log.info("\n");
+                    if(cash + old_price < new_price){
+                        res.send(false);
+                        return
+                    } else {
+                        var promises = new Array();
+                        promises.push(new Promise(function(resolve){
+                            if(id > 0){
+                                var params = {id:id, user_id:user_id, week:week, products:JSON.stringify(new_products)};
+                            } else {
+                                var params = {user_id:user_id, week:week, products:JSON.stringify(new_products)};
+                            }
+                            req.database.save('CommandeAmap', params, function(err, data){
+                                if(err){
+                                    req.log.error(err);
+                                }
+                                resolve();
+                            });
+                        }));
+        
+                        promises.push(new Promise(function(resolve){
+                            req.database.query("UPDATE SoldeAmap SET amount = ? WHERE user_id = ?", [cash + old_price - new_price, user_id], function(err, data){
+                                if(err){
+                                    req.log.error(err);
+                                }
+                                resolve();
+                            });
+                        }));
+                        
+                        Promise.all(promises).then(function(){
+                            res.send(true);
+                            return
+                        })
                     }
-                    resolve();
-                }
+                })
             });
         });
-    
-        possible.then(function(){
-            if(cash + old_price < new_price){
-                res.send(false);
-            } else {
-                var promises = new Array();
-                promises.push(new Promise(function(resolve){
-                    if(id > 0){
-                        var params = {id:id, user_id:user_id, week:week, products:JSON.stringify(new_products)};
-                    } else {
-                        var params = {user_id:user_id, week:week, products:JSON.stringify(new_products)};
-                    }
-                    req.database.save('CommandeAmap', params, function(err, data){
-                        if(err){
-                            req.log.error(err);
-                        }
-                        resolve();
-                    });
-                }));
-
-                promises.push(new Promise(function(resolve){
-                    req.database.query("UPDATE SoldeAmap SET amount = ? WHERE user_id = ?", [cash + old_price - new_price, user_id], function(err, data){
-                        if(err){
-                            req.log.error(err);
-                        }
-                        resolve();
-                    });
-                }));
-                
-                Promise.all(promises).then(function(){
-                    res.send(true);
-                })
-            }
-        })
     });    
 }
 

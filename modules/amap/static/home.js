@@ -1,5 +1,6 @@
 $(document).ready(function(){
     load_select();
+    $("#valid_order").hide();
     $("#amount").hide();
     $("#order").hide();
 })
@@ -49,13 +50,15 @@ function load_orders(){
 
         html += "</table>";
 
-        html += "<button class='btn btn-primary' id='valid_order'>Valider la commande</button>";
+        // html += "<button class='btn btn-primary' id='valid_order'>Valider la commande</button>";
         $("#list_orders").html(html);
+        $("#valid_order").show();
         load_price();
     });
 }
 
-$(document).on('click', '#valid_order', function(){
+$("#valid_order").on('click', function(){
+    $(this).prop('disabled', true);
     var week = $("#week_id").val();
     var products = new Object();
     $(".small-input").each(function(){
@@ -65,7 +68,10 @@ $(document).on('click', '#valid_order', function(){
         }
     });
 
-    $.post('/modules/amap/update_order', {week:week, products:JSON.stringify(products)});
+    $.post('/modules/amap/update_order', {week:week, products:JSON.stringify(products)}, function(res){
+        load_orders();
+        $("#valid_order").prop('disabled', false);
+    });
 });
 
 function load_price(){
