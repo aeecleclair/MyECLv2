@@ -1,12 +1,36 @@
-/* Calendar */
+.month {
+    font-size:2rem;
+    color:rgb(84,84,84);
+    font-style: italic;
+}
+
+table.calendar {
+    width: 100%;
+}
+
+div#calendar-previous {
+    padding-left: 6%;
+    padding-right: 2%;
+}
+
+div#calendar-actual {
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+div#calendar-next {
+    padding-left: 2%;
+    padding-right: 6%;
+}
 
 table.calendar th, table.calendar td {
-    border: 1px solid #ddd;
+    border: 1px solid rgb(100,100,100);
     text-align: center;
 }
 
 table.calendar th {
-    background-color: #ccc;
+    background-color: rgb(172,172,172);
+    color : black;
 }
 
 table.calendar {
@@ -22,90 +46,106 @@ table.calendar tbody tr:hover {
 }
 
 table.calendar tr:hover td.calendar-enabled {
-    background-color: darkolivegreen;
-    color: white;
+    background-color: rgb(255, 193, 6);
+    color:black;
+    font-weight:bold;
 }
 
 table.calendar tr:hover td.calendar-disabled {
-    background-color: darkolivegreen;
+    background-color: black;
     color: white;
 }
 
 table.calendar td.calendar-focus {
-    background-color: gold;
+    background-color: rgb(255,165,51);
 }
 
 table.calendar td.calendar-today {
-    background-color: goldenrod;
+    background-color: rgba(255,165,51,0.7);
+    font-weight: bold;
+    color: rgb(150,23,46);
 }
 
 table.calendar td.calendar-sunday {
-    background-color: firebrick;
+    background-color: rgb(150, 23, 46);
     color: white;
 }
 
-#previous-month {
-    font-size: 4rem;
-    padding-top: 4rem;
-}
 
-#next-month {
-    font-size: 4rem;
-    padding-top: 4rem;
-}
-
-#previous-month:hover span, #next-month:hover span {
-    background-color: #555555;
-    color: #f1f1f1;
-}
-
-/* Schedule */
 
 table.schedule th, table.schedule td {
-    border: 1px solid #ddd;
+    border: 1px solid rgb(84,84,84);
     text-align: center;
 }
 
 table.schedule th {
-    background-color: #ccc;
+    background-color: rgb(172,172,172);
+    color:black;
 }
 
-table.schedule {
-    font-size: 1.6rem;
+table.schedule td[day] {
+    width: 11%;
 }
 
 table.schedule {
     font-size: 15px;
     width: 100%;
+    color: black;
 }
 
 table.schedule .empty-period {
     min-height: 3rem;
-    color: #f1f1f1;
     display: flex;
+    cursor: pointer;
 }
 
 table.schedule .empty-period:hover {
-    background-color: darkolivegreen;
-    color: white;
+    background-color: rgb(255, 193, 6);
+    font-weight: bold;
+}
+
+table.schedule .empty-period span {
+    margin: auto;
+    opacity: 0;
+}
+
+table.schedule .empty-period:hover span {
+    opacity: 1;
 }
 
 table.schedule .reservation {
-    min-height: 3rem;
-    background-color: #ccc;
-    display: flex;
+    height: 3rem;
+    border: 1px rgb(150,23,46) solid;
+    cursor: pointer;
+    background-color: rgb(255,165,51);
 }
 
-table.schedule .reservation:hover {
-    background-color: royalblue;
-    color: white;
+table.schedule .reservation-editable:hover {
+    background-color: #1D92AF;
+    border-color: #135f72;
 }
 
-table.schedule .center{
-    margin: auto;
+table.schedule .reservation>div {
+    height: 100%;
 }
 
-/* Reservation body */
+table.schedule .reservation .reservation-period {
+    padding: 0%;
+}
+
+table.schedule .reservation .reservation-period div {
+    font-size: 70%;
+}
+
+table.schedule .reservation .reservation-title span {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+}
+
+
 
 #left-side {
     padding-left: 0%;
@@ -119,13 +159,13 @@ table.reservation {
 }
 
 table.reservation td, table.reservation th {
-    border: 1px solid #ccc;
+    border: 1px solid rgb(172,172,172);
     text-align: center;
     height: 18px;
 }
 
 table.reservation td {
-    background-color: #f1f1f1;
+    background-color: #fff;
 }
 
 table.reservation .hour {
@@ -137,18 +177,19 @@ table.reservation .hour {
     left: 12.2%;
     top: 0%;
     width: 82.8%;
-    color: white;
 }
 
-#reservation-elements div {
+#reservation-elements>div {
     position: absolute;
     width: 100%;
     border-radius: 3px;
 }
 
-#reservation-elements div.reservation {
-    background-color: royalblue;
+#reservation-elements>div.reservation {
+    background-color: rgb(255,165,51);
     display: flex;
+    border: 1px rgb(150, 23, 46) solid;
+    cursor: pointer;
 }
 
 #reservation-elements span {
@@ -156,11 +197,17 @@ table.reservation .hour {
 }
 
 #reservation-elements #new-reservation {
-    background-color: darkolivegreen;
+    background-color: #1D92AF;
+    border-color: #198099;
     display: flex;
+    cursor: pointer;
 }
 
-#error-message {
-    color: firebrick;
-    font-weight: bold;
+#reservation-elements #new-reservation>div {
+    position: absolute;
+}
+
+#reservation-elements #new-reservation .superposition {
+    background-color: red;
+    width: inherit;
 }

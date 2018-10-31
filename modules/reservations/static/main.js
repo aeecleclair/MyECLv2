@@ -1,32 +1,39 @@
 var ldays = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 var lmonths = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-var lressources = ['Salle ciné', 'Barbecue', 'Salle de réunion', 'Terrain de tennis 1', 'Terrain de tennis 2', 'Terrain de tennis 3', 'Terrain de tennis Adoma'];
+var lressources = ['Salle ciné', 'Barbecue', 'Salle de réunion', 'Local StR', 'Terrain de tennis 1', 'Terrain de tennis 2', 'Terrain de tennis 3', 'Terrain de tennis Adoma'];
 var minHour = new H(6, 0);
 var maxHour = new H(0, 0);
-var focusDate = new Date(); //Détermine la semaine à afficher ()
+var focusDate = new Date(); //Détermine la semaine à afficher
 focusDate = new Date(focusDate.getFullYear(), focusDate.getMonth(), focusDate.getDate());
 
 $(document).ready(function() {
-    chargementMain(focusDate);
-});
-
-$('#previous-month').on('click', function() {
-    focusDate.setDate(1);
-    focusDate.setMonth(focusDate.getMonth() - 1);
-    focusDate.setDate(1 + (8 - focusDate.getDay()) % 7);
-    chargementMain();
-});
-
-$('#next-month').on('click', function() {
-    focusDate.setDate(1);
-    focusDate.setMonth(focusDate.getMonth() + 1);
-    focusDate.setDate(1 + (8 - focusDate.getDay()) % 7);
     chargementMain();
 });
 
 function chargementMain() {
 
+    $('#previous-month').on('click', function() {
+        focusDate.setDate(1);
+        focusDate.setMonth(focusDate.getMonth() - 1);
+        focusDate.setDate(1 + (8 - focusDate.getDay()) % 7);
+        printMain();
+    });
+
+    $('#next-month').on('click', function() {
+        focusDate.setDate(1);
+        focusDate.setMonth(focusDate.getMonth() + 1);
+        focusDate.setDate(1 + (8 - focusDate.getDay()) % 7);
+        printMain();
+    });
+
+    printMain();
+}
+
+function printMain() {
     let focusMonth = focusDate.getMonth();
+
+    $('#previous-month').html(lmonths[(focusMonth + 10) % 12]);
+    $('#next-month').html(lmonths[(focusMonth + 2) % 12]);
 
     let someDay = new Date(focusDate);
     someDay.setDate(1);
@@ -81,7 +88,7 @@ function printCalendar(someDay, name) {
         html += '</tr>';
     }
 
-    $('#calendar-' + name).html(html);
+    $('#calendar-' + name + ' tbody').html(html);
 
     $('table.calendar tbody tr').on('click', function() {
         if ($(this).parents("table.calendar tbody").attr("id") == "calendar-previous") {
@@ -94,7 +101,7 @@ function printCalendar(someDay, name) {
         }
 
         focusDate.setDate(parseInt($(this).attr('date')));
-        chargementMain();
+        printMain();
     });
 }
 
@@ -106,27 +113,34 @@ function printSchedule() {
     $.get("/modules/reservations/get_reservations", {monday: monday.toISOString(), nextMonday: nextMonday.toISOString()}, function(res) {
         var someday = new Date(monday);
 
+        var resources = new Map();
+        res.resources.forEach(function(element) {
+            resources.set(element.id, element.resource);
+        });
 
         //Tableau à deux dimensions.
         //Contiendra la liste des réservations effectuées sur une ressource un certain jour.
         //(sert pour éviter une nouvelle requête lors de la redirection)
-        var schedule = new Array(lressources.length);
-        var heights = new Array(lressources.length);
+        var schedule = new Map();
+        var heights = new Map();
 
         //Contient le header et le body du tableau (chaque élément de l'Array est une ligne du tableau)
         var htmlHead = '';
-        var htmlBody = new Array(lressources.length);
+        var htmlBody = new Map();
 
         //Initialisation des tableaux
-        for (let i_ressources = 0; i_ressources < lressources.length; i_ressources++) {
-            schedule[i_ressources] = new Array(7);
-            heights[i_ressources] = {length: 0, empty: new Array(7)};
-            htmlBody[i_ressources] = '';
+        for (let resource_id of resources.keys()) {
+            var resourceSchedule = new Array(7);
+            var resourceEmptyPeriods = new Array(7);
 
             for (let day = 0; day < 7; day++) {
-                schedule[i_ressources][day] = new Array();
-                heights[i_ressources].empty[day] = 0;
+                resourceSchedule[day] = new Array();
             }
+            resourceEmptyPeriods.fill(0);
+
+            schedule.set(resource_id, resourceSchedule);
+            heights.set(resource_id, {length: 0, empty: resourceEmptyPeriods});
+            htmlBody.set(resource_id, '');
         }
 
         //Attribution du mois et de l'année au schedule-body
@@ -140,40 +154,42 @@ function printSchedule() {
             reservation.beginning = new Hour(dateBeg.getHours(), dateBeg.getMinutes());
             reservation.ending = new Hour(dateEnd.getHours(), dateEnd.getMinutes());
 
-            let lreservations = schedule[parseInt(reservation.ressource)][dateBeg.getDay()];
+
+            let lreservations = schedule.get(parseInt(reservation.resource))[dateBeg.getDay()];
 
             if (lreservations.length == 0 && !reservation.beginning.equal(minHour)) {
                 lreservations.push(undefined);
             }
-            else if (lreservations.length > 0 && !reservation.beginning.equal(lreservations[lreservations.length - 1].ending)) {
+            else if (lreservations.length > 0 && !reservation.beginning.isInf(lreservations[lreservations.length - 1].ending.plus(new H(0, 15)))) {
                 lreservations.push(undefined);
             }
 
             lreservations.push(reservation);
         });
 
-        for (let i_ressources = 0; i_ressources < lressources.length; i_ressources++) {
+        for (let resource_id of resources.keys()) {
             for (let i_day = 0; i_day < 7; i_day++) {
 
-                let lreservations = schedule[i_ressources][i_day];
+                let lreservations = schedule.get(resource_id)[i_day];
 
                 if (lreservations.length == 0 || lreservations.length > 0 && !lreservations[lreservations.length - 1].ending.equal(maxHour)) {
                     lreservations.push(undefined);
                 }
 
-                heights[i_ressources].length = Math.max(heights[i_ressources].length, lreservations.length);
+                heights.get(resource_id).length = Math.max(heights.get(resource_id).length, lreservations.length);
 
                 for (let i_reservation = 0; i_reservation < lreservations.length; i_reservation++) {
                     if (lreservations[i_reservation] == undefined) {
-                        heights[i_ressources].empty[i_day]++;
+                        heights.get(resource_id).empty[i_day]++;
                     }
                 }
             }
         }
 
+
         //Génération du code html
 
-        let lreservations;
+        let lreservations, html;
 
         for (let day = 1; day < 8; day++) {
             let date = someday.getDate().toString();
@@ -181,24 +197,25 @@ function printSchedule() {
             //Création du header
             htmlHead += '<th>' + ldays[day % 7] + ' ' + date + '</th>';
 
-            //Création du body
-            for (let i_ressources in schedule) {
-                lreservations = schedule[i_ressources][day % 7];
+            //Création du body --- A revoir
+            for (let resource_id of schedule.keys()) {
+                lreservations = schedule.get(resource_id)[day % 7];
+                html = htmlBody.get(resource_id);
 
-                htmlBody[i_ressources] += '<td day=' + (day % 7).toString() + ' date=' + date + '>';
+                html += '<td day=' + (day % 7).toString() + ' date=' + date + '>';
 
                 for (let i_reservation = 0; i_reservation < lreservations.length; i_reservation++) {
                     if (lreservations[i_reservation] == undefined) {
-                        let h = 3 * (1 + (heights[i_ressources].length - lreservations.length) / heights[i_ressources].empty[day % 7]);
-                        htmlBody[i_ressources] += '<div class="empty-period" n="' + i_reservation + '" style="height:' + h + 'rem">';
-                        htmlBody[i_ressources] += '<span class="center">Réserver</span></div>';
+                        let h = 3 * (1 + (heights.get(resource_id).length - lreservations.length) / heights.get(resource_id).empty[day % 7]);
+                        html += '<div class="empty-period" n="' + i_reservation + '" style="height:' + h + 'rem">';
+                        html += '<span>Réserver</span></div>';
                     }
                     else {
-                        htmlBody[i_ressources] += htmlReservation(lreservations[i_reservation], i_reservation, res.user_id);
+                        html += htmlReservationMain(lreservations[i_reservation], i_reservation, res.user_id);
                     }
                 }
                 
-                htmlBody[i_ressources] += '</td>';
+                htmlBody.set(resource_id, html + '</td>');
             }
 
             someday.setDate(someday.getDate() + 1);
@@ -210,9 +227,9 @@ function printSchedule() {
 
         //Génération du code html du tableau
         html = ''
-        for (let i_ressources in htmlBody) {
-            html += '<tr ressource="' + i_ressources.toString() + '">';
-            html += '<td>' + lressources[i_ressources] + '</td>' + htmlBody[i_ressources] + '</tr>';
+        for (let resource_id of resources.keys()) {
+            html += '<tr ressource="' + resource_id + '">';
+            html += '<td>' + resources.get(resource_id) + '</td>' + htmlBody.get(resource_id) + '</tr>';
         }
         
         //Affichage du tableau
@@ -231,15 +248,15 @@ function printSchedule() {
 
 function redirection_reservation(clickedElement, schedule, user_id) {
     let reservation = {title: '', description: ''};
-    reservation.ressource = clickedElement.parents("tr").attr('ressource');
+    reservation.resource = parseInt(clickedElement.parents("tr").attr('ressource'));
     let reservationDate = new Date($('#schedule-body').attr('date'));
     reservationDate.setDate(reservationDate.getDate() + ((parseInt(clickedElement.parents('td').attr('day')) + 6) % 7));
     let n = parseInt(clickedElement.attr('n'));
+    let editable = false;
 
-    let lreservations = schedule[reservation.ressource][reservationDate.getDay()];
+    let lreservations = schedule.get(reservation.resource)[reservationDate.getDay()];
 
-
-    if (clickedElement.attr('class').split(' ')[0] == 'reservation' && lreservations[n].user_id == user_id) {
+    if (clickedElement.attr('class').split(' ')[0] == 'reservation') {
         reservation.id = lreservations[n].id;
         reservation.title = lreservations[n].title;
         reservation.description = lreservations[n].description;
@@ -247,12 +264,15 @@ function redirection_reservation(clickedElement, schedule, user_id) {
         reservation.hend = lreservations[n].ending;
 
         reservation.update = true;
-        
-        if (n == 0) {
-            lreservations.splice(0, 1);
-        }
-        else {
-            lreservations.splice(n, 2);
+        editable = (lreservations[n].user_id == user_id)
+
+        if (editable) {
+            if (n == 0 || n == lreservations.length - 1 || lreservations[n - 1] != undefined || lreservations[n + 1] != undefined) {
+                lreservations.splice(n, 1);
+            }
+            else {
+                lreservations.splice(n, 2);
+            }
         }
     }
     else if (clickedElement.attr('class') == 'empty-period') {
@@ -268,6 +288,8 @@ function redirection_reservation(clickedElement, schedule, user_id) {
         else {
             reservation.hend = hmax;
         }
+
+        editable = true;
     }
     else {
         return;
@@ -280,7 +302,7 @@ function redirection_reservation(clickedElement, schedule, user_id) {
         success : function(data) {
             $.when($('#main-content-wrapper').html(data)).done(function(data) {
                 print_otherReservations(lreservations, reservationDate);
-                chargement_reservation(lreservations, reservationDate, reservation);
+                chargement_reservation(lreservations, reservationDate, reservation, editable);
             });
         },
         error : function(){
@@ -294,11 +316,11 @@ function print_otherReservations(lreservations, reservationDate) {
     // Affichage du header
     $('#reservation-head').html('<th colspan=2>' + ldays[reservationDate.getDay()] + ' ' + reservationDate.getDate().toString()) + '</th>';
 
-    htmlReservationBody(); // Affichage du body
+    htmlTableReservation(); // Affichage du body
 
     for (n in lreservations) {
         if (lreservations[n] != undefined) {
-            $('#reservation-elements').append(htmlReservation(lreservations[n], n)); // Affichage des réservations
+            $('#reservation-elements').append(htmlReservationReservation(lreservations[n], n)); // Affichage des réservations
         }
     }
 
@@ -315,18 +337,40 @@ function print_otherReservations(lreservations, reservationDate) {
             }).height(positionBottom - positionTop);
         }
     }
+
+    $(document).on('click', function(event) {
+        if ($(event.target).attr('class') == 'reservation') {
+            let reservation = lreservations[$(event.target).closest('div.reservation').attr('n')];
+
+            $('input#title').val(reservation.title).attr('disabled', 'disabled');
+            $('input#description').val(reservation.description).attr('disabled', 'disabled');
+            $('input#beginning').val(reservation.beginning).attr('disabled', 'disabled');
+            $('input#ending').val(reservation.ending).attr('disabled', 'disabled');
+            $('#submit').attr('disabled', 'disabled');
+        }
+    });
 }
 
-function chargement_reservation(lreservations, reservationDate, reservation) {
-    
+function chargement_reservation(lreservations, reservationDate, reservation, editable) {
+
     let superposed = false;
 
-    $('input#titlex').val(reservation.title);
+    $('input#title').val(reservation.title);
     $('input#description').val(reservation.description);
     $('input#beginning').val(reservation.hbeg.toString());
     $('input#ending').val(reservation.hend.toString());
 
-    $('#reservation-elements').append('<div id="new-reservation"><span class="center">' + (reservation.title == '' ? 'Titre' : reservation.title) + '<br>' + reservation.hbeg.toString() + ' - ' + reservation.hend.toString() + '</span></div>');
+    if (!editable) {
+        $('input#title').val(reservation.title).attr('disabled', 'disabled');
+        $('input#description').val(reservation.description).attr('disabled', 'disabled');
+        $('input#beginning').val(reservation.hbeg.toString()).attr('disabled', 'disabled');
+        $('input#ending').val(reservation.hend.toString()).attr('disabled', 'disabled');
+        $('#submit').attr('disabled', 'disabled');
+
+        return;
+    }
+
+    $('#reservation-elements').append('<div id=new-reservation></div>');
 
     let positionTop = reservation.hbeg.position();
     let positionBottom = reservation.hend.position();
@@ -334,31 +378,28 @@ function chargement_reservation(lreservations, reservationDate, reservation) {
     $('#new-reservation').css({top: positionTop}).height(positionBottom - positionTop);
 
 
-    $('input#titlex').on('change', function() {
+    $('input#title').on('change', function() {
         reservation.title = $(this).val();
-        $('#new-reservation span').html((reservation.title == '' ? 'Titre' : reservation.title) + '<br>' + reservation.hbeg.toString() + ' - ' + reservation.hend.toString());
     })
 
     $('input#description').on('change', function() {
         reservation.description = $(this).val();
-        $('#new-reservation span').html((reservation.title == '' ? 'Titre' : reservation.title) + '<br>' + reservation.hbeg.toString() + ' - ' + reservation.hend.toString());
     })
 
     $('#beginning').on('change', function() {
         reservation.hbeg = new Hour($('#beginning').val());
         reservation.hend = new Hour($('#ending').val());
 
+
         if (!reservation.hbeg.isInBounds) {
             reservation.hbeg = new Hour(minHour.hours, minHour.minutes);
         }
-        else if (reservation.hbeg.isSup(reservation.hend)) {
+        else if (reservation.hbeg.plus(new H(0, 15)).isSup(reservation.hend)) {
             reservation.hend = reservation.hbeg.plus(new H(1, 0));
         }
 
         let positionBeg = reservation.hbeg.position();
         let positionEnd = reservation.hend.position();
-        
-        $('#new-reservation span').html((reservation.title == '' ? 'Titre' : reservation.title) + '<br>' + reservation.hbeg.toString() + ' - ' + reservation.hend.toString());
 
         $('#beginning').val(reservation.hbeg.toString());
         $('#ending').val(reservation.hend.toString());
@@ -367,12 +408,6 @@ function chargement_reservation(lreservations, reservationDate, reservation) {
         }).height(positionEnd - positionBeg);
 
         superposed = superposition(lreservations, reservation);
-        
-        if (superposed) {
-            $('#new-reservation').css("background-color","firebrick");
-        } else {
-            $('#new-reservation').css("background-color","darkolivegreen");
-        }
     });
             
     $('#ending').on('change', function() { 
@@ -391,16 +426,8 @@ function chargement_reservation(lreservations, reservationDate, reservation) {
 
         $('#ending').val(reservation.hend.toString());
         $('#new-reservation').height(positionEnd - positionBeg);
-        
-        $('#new-reservation span').html((reservation.title == '' ? 'Titre' : reservation.title) + '<br>' + reservation.hbeg.toString() + ' - ' + reservation.hend.toString());
 
         superposed = superposition(lreservations, reservation);
-        
-        if (superposed) {
-            $('#new-reservation').css("background-color","firebrick");
-        } else {
-            $('#new-reservation').css("background-color","darkolivegreen");
-        }
     });
 
     $('#submit').on('click', function() {
@@ -422,7 +449,7 @@ function chargement_reservation(lreservations, reservationDate, reservation) {
                 description: reservation.description,
                 beginning: dateBeg.toISOString(),
                 ending: dateEnd.toISOString(),
-                ressource: reservation.ressource
+                resource: reservation.resource
             }
 
             function callbackReservation() {
@@ -446,40 +473,73 @@ function chargement_reservation(lreservations, reservationDate, reservation) {
             }
         }
     });
+
+    $(document).on('click', function(event) {
+        if ($(event.target).attr('class') != 'reservation') {
+            $('input#title').val(reservation.title).removeAttr('disabled');
+            $('input#description').val(reservation.description).removeAttr('disabled');
+            $('input#beginning').val(reservation.hbeg.toString()).removeAttr('disabled');
+            $('input#ending').val(reservation.hend.toString()).removeAttr('disabled');
+            $('#submit').removeAttr('disabled');
+        }
+    })
 }
 
 function superposition(lreservations, newReservation) {
 
-    let new_hbeg = parseInt(newReservation.hbeg.toString().split(':')[0]) + parseInt(newReservation.hbeg.toString().split(':')[1])/60;
-    
-    let new_hend = parseInt(newReservation.hend.toString().split(':')[0]) + parseInt(newReservation.hend.toString().split(':')[1])/60;
-    
-    let i_hbeg = 0;
-    let i_hend = 0;
+    let superposed = false;
+    $('#new-reservation').html('');
 
     for (let i_reservation = 0; i_reservation < lreservations.length; i_reservation++) {
 
         if (lreservations[i_reservation] != undefined) {
-            i_hbeg = parseInt(lreservations[i_reservation].beginning.toString().split(':')[0]) + parseInt(lreservations[i_reservation].beginning.toString().split(':')[1])/60;
-            i_hbeg = parseInt(lreservations[i_reservation].ending.toString().split(':')[0]) + parseInt(lreservations[i_reservation].ending.toString().split(':')[1])/60;
-            
-            if ((new_hbeg < i_hbeg && i_hbeg < new_hend) || (new_hbeg < i_hend && i_hend < new_hend)) {
-                return true;
+
+            if (lreservations[i_reservation].beginning.isInf(newReservation.hend) &&
+            lreservations[i_reservation].ending.isSup(newReservation.hbeg)) {
+
+                let positionTop, positionBottom, positionFather;
+
+                positionFather = newReservation.hbeg.position();
+        
+                if (lreservations[i_reservation].beginning.isInf(newReservation.hbeg)) {
+                    positionTop = newReservation.hbeg.position();
+                }
+                else {
+                    positionTop = lreservations[i_reservation].beginning.position();
+                }
+        
+                if (lreservations[i_reservation].ending.isSup(newReservation.hend)) {
+                    positionBottom = newReservation.hend.position();
+                }
+                else {
+                    positionBottom = lreservations[i_reservation].ending.position();
+                }
+        
+                let html = '<div class="superposition"></div>';
+    
+                $.when($('#new-reservation').append(html)).done(function() {
+                $('.superposition:last-child').css({top: positionTop - positionFather}).height(positionBottom - positionTop);
+                });
+
+                superposed = true;
             }
         }
     }
-    return false;
+
+    return superposed;
 }
 
-function htmlReservation(reservation, n, user_id) {
+function htmlReservationMain(reservation, n, user_id) {
     let html = '<div class="reservation';
-    html += (reservation.user_id == user_id) ? ' editable' : '';
-    html += '" n=' + n + '><span class="center">' + reservation.title + '<br>' + reservation.beginning + ' - ' + reservation.ending + '</span></div>';
+    html += (reservation.user_id == user_id) ? ' reservation-editable' : ' reservation-static';
+    html += '" n=' + n + '><div class="col-md-3 reservation-period"><div>' + reservation.beginning + '</div>';
+    html += '<div>' + reservation.ending + '</div></div>';
+    html += '<div class="col-md-9 visible-md visible-lg reservation-title"><span>' + reservation.title + '</span></div></div>';
 
     return html;
 }
 
-function htmlReservationBody() {
+function htmlTableReservation() {
     var html = '';
 
     for (let h = 6; h < 24; h++) {
@@ -491,6 +551,10 @@ function htmlReservationBody() {
     }
 
     $('#reservation-body').html(html);
+}
+
+function htmlReservationReservation(reservation, n) {
+    return '<div class="reservation" n="' + n + '"><span>' + reservation.title + '</span></div>';
 }
 
 
@@ -558,6 +622,6 @@ function H(hours, minutes) {
     }
 
     this.equal = function(time) {
-        return (this.hour % 24 == time.hour % 24 && this.minutes == time.minutes);
+        return ((this.hours % 24) == (time.hours % 24) && this.minutes == time.minutes);
     }
 }

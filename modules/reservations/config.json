@@ -2,15 +2,30 @@
     "authorisation": "#ecl",
     "database": [
         {
-            "table": "reservations2",
+            "table": "resources_reservationBDE",
+            "schema": {
+                "id": "SMALLINT(5) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "resource": "VARCHAR(255)"
+            }
+        },
+        {
+            "table": "reservations_reservationBDE",
             "schema": {
                 "id": "SMALLINT(5) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT",
                 "beginning": "VARCHAR(24)",
                 "ending": "VARCHAR(24)",
                 "title": "VARCHAR(255)",
-                "ressource": "INTEGER",
+                "resource": "INTEGER",
                 "description": "TEXT",
                 "user_id": "INTEGER"
+            }
+        },
+        {
+            "table": "authorisations_reservationBDE",
+            "schema": {
+                "id": "SMALLINT(5) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "group_id" : "INTEGER",
+                "resource_id" : "INTEGER"
             }
         }
     ],
