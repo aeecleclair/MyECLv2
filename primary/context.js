@@ -14,11 +14,13 @@ module.exports = function(config_file){
         throw err;
     }
     
-    ctx.public_root = path.join(ctx.root_path, '/static/public');
-    ctx.private_root = path.join(ctx.root_path, '/static/private');
+    ctx.public_root = path.join(ctx.root_path, '/views/static/public');
+    ctx.private_root = path.join(ctx.root_path, '/views/static/private');
+    ctx.ejs_root = path.join(ctx.root_path, '/views/ejs');
     ctx.user_upload = path.join(ctx.private_root, '/user_upload');
     ctx.module_path = path.join(ctx.root_path, '/modules');
     ctx.service_path = path.join(ctx.root_path, '/services');
+    ctx.template_engine_path = path.join(ctx.root_path, '/template_engines');
 
     ctx.database_config = ctx.database;
 

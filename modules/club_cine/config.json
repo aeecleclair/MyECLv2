@@ -1,0 +1,105 @@
+{
+    "authorisation": "#ecl",
+    "description": "Club-ciné",
+
+    "database": [{
+        "table": "club_cine",
+        "schema": {
+            "id": "smallint(5) unsigned primary key not null auto_increment",
+            "image": "varchar(255)",
+            "titre": "varchar(255)",
+            "infos": "varchar(255)",
+            "date": "datetime",
+            "synopsis": "text",
+            "active": "tinyint(1)"
+        }
+    }],
+    "rules": [{
+            "route": "/modules/club_cine/static/*",
+            "static": "static/"
+        },
+        {
+            "body": "main",
+            "static": "body/main.html",
+            "heads": {
+                "styles": ["/modules/club_cine/static/grayscale.css"],
+                "scripts": ["/modules/club_cine/static/main.js"]
+            }
+        },
+        {
+            "body": "admin",
+            "static": "body/admin.html",
+            "heads": {
+                "styles": ["/modules/club_cine/static/admin.css"],
+                "scripts": ["/modules/club_cine/static/admin.js"]
+            },
+            "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'club_cine';"
+        },
+        {
+            "route": "/modules/club_cine/get_active_movies",
+            "callback": "get_active_movies",
+            "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'club_cine';"
+        },
+        {
+            "route": "/modules/club_cine/get_inactive_movies",
+            "callback": "get_inactive_movies",
+            "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'club_cine';"
+        },
+        {
+            "route": "/modules/club_cine/get_movie",
+            "callback": "get_movie",
+            "method": "POST",
+            "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'club_cine';"
+        },
+        {
+            "route": "/modules/club_cine/create_movie",
+            "callback": "create_movie",
+            "method": "POST",
+            "enctype": "multipart",
+            "multer_method": {
+                "field": "image"
+            },
+            "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'club_cine';"
+        },
+        {
+            "route": "/modules/club_cine/enable_movie",
+            "callback": "enable_movie",
+            "method": "POST",
+            "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'club_cine';"
+        },
+        {
+            "route": "/modules/club_cine/disable_movie",
+            "callback": "disable_movie",
+            "method": "POST",
+            "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'club_cine';"
+        },
+        {
+            "route": "/modules/club_cine/modify_movie",
+            "callback": "modify_movie",
+            "method": "POST",
+            "enctype": "multipart",
+            "multer_method": {
+                "field": "m_image_select"
+            },
+            "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'club_cine';"
+        },
+        {
+            "route": "/modules/club_cine/suppress_movie",
+            "callback": "suppress_movie",
+            "method": "POST",
+            "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'club_cine';"
+        },
+        {
+            "route": "/modules/club_cine/print_movies",
+            "callback": "print_movies"
+        }
+    ],
+    "menu": [{
+        "body": "main",
+        "name": "Club-ciné"
+    }, {
+        "body": "admin",
+        "name": "Club-ciné Admin",
+        "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'club_cine';"
+    }]
+}

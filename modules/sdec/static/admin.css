@@ -1,0 +1,9 @@
+.dotted-hr{
+    display:block;
+    margin-top : 20px;
+}
+
+#current_order{
+    position : sticky !important;
+    top : 50px !important;
+}

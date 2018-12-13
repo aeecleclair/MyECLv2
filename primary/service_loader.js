@@ -14,6 +14,5 @@ module.exports = function(context){
             context.log.info('Loading ' + name + '...');
             context.serv[name] = require(file_name)(context);
         } 
-        console.log(context.serv);
     };
 };

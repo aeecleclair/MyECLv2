@@ -1,0 +1,83 @@
+{
+    "authorisation" : "#ecl",
+    "database" : [
+        {
+            "table" : "bde_newsletter",
+            "schema" : {
+                "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "content" : "TEXT",
+                "date" : "TEXT"                
+            }
+        }
+
+    ],
+    "rules" : [
+        {
+            "route" : "/modules/bde_newsletter/static/*",
+            "static" : "static/"
+        },
+        {
+            "body" : "home",
+            "static" : "body/home.html",
+            "heads" : {
+                "scripts" : [
+                    "/modules/bde_newsletter/static/home.js"
+                ],
+                "styles" : [
+                    "/modules/bde_newsletter/static/home.css"
+                ]
+            }
+        },
+        {
+            "body" : "admin",
+            "static" : "body/admin.html",
+            "heads" : {
+                "scripts" : [
+					"/modules/bde_newsletter/static/summernote.min.js",
+                    "/modules/bde_newsletter/static/admin.js"
+                ],
+                "styles" : [
+                    "/modules/bde_newsletter/static/admin.css"
+                ]
+            },
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
+        },
+        {
+            "route" : "/modules/bde_newsletter/get",
+            "callback" : "get"
+        },
+        {
+            "route" : "/modules/bde_newsletter/get_all",
+            "callback" : "get_all"
+        },
+        {
+            "route" : "/modules/bde_newsletter/add",
+            "callback" : "add",
+            "method" : "POST",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
+        },
+        {
+            "route" : "/modules/bde_newsletter/update",
+            "callback" : "update",
+            "method" : "POST",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
+        },
+        {
+            "route" : "/modules/bde_newsletter/delete",
+            "callback" : "delete",
+            "method" : "POST",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
+        }
+    ],
+    "menu" : [
+        {
+            "body" : "home",
+            "name" : "Newsletter BDE"
+        },
+        {
+            "body" : "admin",
+            "name" : "Administration newsletter BDE",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
+        } 
+    ]
+}

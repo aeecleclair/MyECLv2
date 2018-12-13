@@ -1,0 +1,145 @@
+{
+    "authorisation" : "#ecl",
+    "database" : [
+        {
+            "table" : "CommandeAmap",
+            "schema" : {
+                "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "user_id" : "INTEGER",
+                "products" : "TEXT",
+                "week" : "INTEGER"
+            }
+        },
+        {
+            "table" : "SoldeAmap",
+            "schema" : {
+                "user_id" : "INTEGER PRIMARY KEY NOT NULL",
+                "amount" : "FLOAT"        
+            }
+        },
+        {
+            "table" : "ProduitAmap",
+            "schema" : {
+                "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "price" : "FLOAT",
+                "name" : "TEXT"     
+            }
+        },
+        {
+            "table" : "SemaineAmap",
+            "schema" : {
+                "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "start" : "DATE",
+                "end" : "DATE"     
+            }
+        }
+
+    ],
+    "rules" : [
+        {
+            "route" : "/modules/amap/static/*",
+            "static" : "static/"
+        },
+        {
+            "body" : "home",
+            "static" : "body/home.html",
+            "heads" : {
+                "scripts" : [
+                    "/modules/amap/static/home.js"
+                ],
+                "styles" : [
+                    "/modules/amap/static/home.css"
+                ]
+            }
+        },
+        {
+            "body" : "admin",
+            "static" : "body/admin.html",
+            "heads" : {
+                "scripts" : [
+                    "/modules/amap/static/admin.js"
+                ],
+                "styles" : [
+                    "/modules/amap/static/admin.css"
+                ]
+            },
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'amap';"
+        },
+        {
+            "route" : "/modules/amap/update_cash",
+            "callback" : "update_cash",
+            "method" : "POST",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'amap';"
+        },
+        {
+            "route" : "/modules/amap/add_product",
+            "callback" : "add_product",
+            "method" : "POST",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'amap';"
+        },
+        {
+            "route" : "/modules/amap/remove_product",
+            "callback" : "remove_product",
+            "method" : "POST",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'amap';"
+        },
+        {
+            "route" : "/modules/amap/toggle_week",
+            "callback" : "toggle_week",
+            "method" : "POST",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'amap';"
+        },
+        {
+            "route" : "/modules/amap/compute_price",
+            "callback" : "compute_price"
+        },
+        {
+            "route" : "/modules/amap/search_user",
+            "callback" : "search_user",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'amap';"
+        },
+        {
+            "route" : "/modules/amap/update_order",
+            "callback" : "update_order",
+            "method" : "POST"
+        },
+        {
+            "route" : "/modules/amap/remove_order",
+            "callback" : "remove_order",
+            "method" : "POST"
+        },
+        {
+            "route" : "/modules/amap/get_orders",
+            "callback" : "get_orders",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'amap';"
+        },
+        {
+            "route" : "/modules/amap/get_cash",
+            "callback" : "get_cash",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'amap';"
+        },
+        {
+            "route" : "/modules/amap/get_products",
+            "callback" : "get_products"
+        },
+        {
+            "route" : "/modules/amap/get_weeks",
+            "callback" : "get_weeks"
+        },
+        {
+            "route" : "/modules/amap/get_account",
+            "callback" : "get_account"
+        }
+    ],
+    "menu" : [
+        {
+            "body" : "home",
+            "name" : "AMAP"
+        },
+        {
+            "body" : "admin",
+            "name" : "Administration AMAP",
+            "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'amap';"
+        } 
+    ]
+}

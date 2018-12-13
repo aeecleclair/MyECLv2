@@ -1,0 +1,48 @@
+<div id="left-side" class="col-md-5">
+    <table class="reservation">
+        <thead id="reservation-head"></thead>
+        <tbody id="reservation-body"></tbody>
+    </table>
+    <div id="reservation-elements"></div>
+</div>
+<div class="col-md-2"></div>
+<div class="col-md-5">
+    <form class="form-horizontal" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="titlex" class="col-md-3 control-label">Titre</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="titlex" name="titlex" placeholder="Titre">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="col-md-3 control-label">Description</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="description" name="description" placeholder="Description">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="beginning" class="col-md-3 control-label">Heure de début</label>
+            <div class="col-md-6">
+                <input type="time" id="beginning" name="beginning" min="6:00" max="24:00" valBuffer="0:00"/>
+                <input type="hidden" id="isoBeginning" name="isoBeginning"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="ending" class="col-md-3 control-label">Heure de fin</label>
+            <div class="col-md-6">
+                <input type="time" id="ending" name="ending" min="6:00" max="24:00" valBuffer="0:00"/>
+                <input type="hidden" id="isoEnding" name="isoEnding"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <button id="submit" type="button" class="btn btn-primary pull-center">Enregistrer</button>
+            </div>
+        </div>
+    </form>
+    <span id="error-message"></span>
+</div>

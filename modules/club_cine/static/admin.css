@@ -1,0 +1,13 @@
+textarea {
+    width: 100%;
+}
+
+.btn-multi {
+    margin: 0.2em;
+}
+
+.hline {
+    border-bottom: solid;
+    border-width: 1px;
+    padding-bottom: 0.2em;
+}

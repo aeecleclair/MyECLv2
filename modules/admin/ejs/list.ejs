@@ -1,0 +1,35 @@
+<div class="content">
+    <div class="main-content">
+        <p class="h3 lead">Administration des groupes</p>
+        <ul class="list-unstyled activity-list">
+        <% for(let i in groups){ %>
+            <li>
+                <i class="fa fa-edit activity-icon pull-left"></i>
+                <p>
+                    <a href="/home/admin/show_group/<%=groups[i].id%>"><%=groups[i].description%></a>
+                    <span class="timestamp">#<%=groups[i].name%></span>
+                </p>
+            </li>
+            <% } %>
+        </ul>
+
+        <p class="h3 lead">Créer un groupe</p>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="name" id="name" placeholder="Nom du groupe"/>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-md-6">
+                <textarea name="description" id="description" cols="43" rows="2" placeholder="Description du groupe"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <button id="add_group" class="btn btn-primary">Créer le groupe</button>
+            </div>
+        </div>
+        <input id="hidden_token" type=hidden value="<%=token%>"/>
+    </div>
+</div>

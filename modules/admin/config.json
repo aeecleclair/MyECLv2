@@ -1,0 +1,71 @@
+{
+    "authorisation" : "#admin",
+    "description" : "Module d'administration",
+    "heads" : {
+		"styles" : [
+			"/modules/admin/static/admin.css"
+		],
+		"scripts" : [
+			"/modules/admin/static/admin.js"		
+		]
+	},
+    "rules" : [
+        {
+            "route" : "/modules/admin/static/*",
+            "static" : "static/"
+        },
+        {
+            "body" : "list_group",
+            "callback" : "list"
+        },
+        {
+            "body" : "show_group/:id",
+            "callback" : "show",
+            "heads" : {
+                "scripts" : ["/modules/admin/static/show.js"]
+            }
+        },
+        {
+
+            "route" : "/modules/admin/create_group",
+            "method" : "POST",
+            "callback" : "create_group"
+        },
+        {
+            "route" : "/modules/admin/delete_group/:id",
+            "method" : "POST",
+            "callback" : "delete_group"
+        },
+        {
+            "route" : "/modules/admin/alter_group/:id",
+            "method" : "POST",
+            "callback" : "alter_group"
+        },
+        {
+            "route" : "/modules/admin/add_members/:id",
+            "method" : "POST",
+            "callback" : "add_members"
+        },
+        {
+            "route" : "/modules/admin/remove_member/:id",
+            "method" : "POST",
+            "callback" : "remove_member"
+        },
+        {
+            "route" : "/modules/admin/search_user",
+            "callback" : "search_user"   
+        }
+    ],
+    "menu" : [
+        {
+            "name" : "Administration",
+            "sub" : [
+                {
+                    "name" : "Liste des groupes",
+                    "body" : "list_group"
+                }
+            ]
+        }
+    ]
+}
+

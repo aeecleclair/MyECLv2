@@ -10,6 +10,6 @@
         "syntaxe car le site ne se lancera pas dans ce cas là."
     ],
     "enabled" : [
-        "test_serv"
+        "test_serv", "user"
     ]
 }

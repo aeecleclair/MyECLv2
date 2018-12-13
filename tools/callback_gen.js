@@ -48,17 +48,27 @@ try {
 var src = '';
 
 const template_cb = 
-    '\n// %s\n' + // route
+    '\n// %s %s\n' + // method route
     '%s' + // description
-    'exports.%s = function(req, res){\n' +
-    '    // res.send(\'ok\');\n' +
+    'exports.%s = function(req, res){\n' + // name
+    '    res.send(\'Replace me !\');\n' +
     '};\n'
 ;
 const template_md = 
+    '\n// %s %s\n' + // method route
+    '%s' + // description
+    'exports.%s = function(req, res, next){\n' + // name
+    '    // Do something here' +
+    '    next();\n' +
+    '};\n'
+;
+
+const template_dynauth = 
     '\n// %s\n' + // route
     '%s' + // description
-    'exports.%s = function(req, res, next){\n' +
-    '    next();\n' +
+    'exports.%s = function(req){\n' +
+    '    var query = \'REPLACE ME\';\n' +
+    '    return query;\n' +
     '};\n'
 ;
 
@@ -66,21 +76,30 @@ const template_md =
 for(let key in mod_conf.rules){
     let rule = mod_conf.rules[key];
     if(rule.callback && ! cb[rule.callback]){
+        let method = rule.method || 'GET';
         let route = rule.body || rule.tile || rule.route;
-        let comment = rule.description ? '// ' + rule.description + '/n' : '';
+        let comment = rule.description ? '// ' + rule.description + '\n' : '';
         let name = rule.callback;
-        src += util.format(template_cb, route, comment, name);
+        src += util.format(template_cb, method, route, comment, name);
     } else if(rule.middleware && ! cb[rule.middleware]){
+        let method = rule.method || 'GET';
         let route = rule.body || rule.tile || rule.route;
-        let comment = rule.description ? rule.description : 'no description';
+        let comment = rule.description ? '// ' + rule.description + '\n' : '';
         let name = rule.middleware;
-        src += util.format(template_md, route, comment, name);
+        src += util.format(template_md, method, route, comment, name);
+    }
+
+    if(rule.dyn_authorisation && ! cb[rule.dyn_authorisation]){
+        let route = rule.body || rule.tile || rule.route;
+        let comment = rule.description ? '// ' + rule.description + '\n' : '';
+        let name = rule.callback;
+        src += util.format(template_dynauth, route, comment, name);
     }
 }
 
 fs.appendFile(path.join('./', 'modules', dirname, cb_filename), src, function(err){
     if(err){
-        console.log('Error during writing the callbacks file.');
+        console.log('Error writing the callbacks file.');
         throw err;
     }
 });
