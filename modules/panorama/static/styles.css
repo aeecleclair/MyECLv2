@@ -1,11 +1,11 @@
 /* Importation de Tahoma */
 @font-face {
-	font-family: "Tahoma";
-	src: url('fonts/tahoma.ttf');
+	font-family: "raleway";
+	src: url('fonts/raleway.ttf');
 }
 @font-face {
-	font-family: "Tahoma";
-	src: url('fonts/tahomabd.ttf');
+	font-family: "raleway";
+	src: url('fonts/raleway.ttf');
 	font-weight: bold;
 }
 
@@ -13,7 +13,7 @@
 /* HEADER */
 
 header{
-	background-color: #a00034; /* Couleur officielle de l'ECL */
+	background-color: rgb(47, 134, 193); /* Couleur officielle de l'ECL */
 	top : 0;
 	margin: 0;
 	padding : 0;
@@ -31,7 +31,7 @@ header{
 	margin : 0;
 	padding : 0;
 	color : white;
-	font-family: Tahoma;
+	font-family: raleway;
 }
 
 #authent{

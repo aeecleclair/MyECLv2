@@ -2,13 +2,13 @@
 	margin-top : 100px;
 	padding : 0;
 	border : solid;
-	border-color : #a00034;
+	border-color : rgb(47, 134, 193);
 	border-width: 1px;
 	background-color : white;
 }
 
 #connexion-header{
-	background-color : #a00034;
+	background-color : rgb(47, 134, 193);
 	color : white;
 	font-family: Tahoma;
 	font-size: 200%;

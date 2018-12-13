@@ -91,6 +91,7 @@ function insert_header(){
 
 function insert_body(module_name, body_name){
     var body = $('#main-content-wrapper');
+    var contact = $("#contact-content-wrapper");
     var styles = $('head');
     // supprimer les scripts et styles ajoutÃ© prÃcedement
     $('.dyn-content').remove();
@@ -100,6 +101,29 @@ function insert_body(module_name, body_name){
         type : 'get',
         success : function(data){
             body.html(data);
+        },
+        error : function(){
+            body.html(body_404);
+        }
+    });
+
+    // récupérer le contact de l'asso
+    $.ajax({
+        url : '/contact/' + module_name,
+        type : 'get',
+        success : function(data){
+            contentHTML = "<p>Contact asso : ";
+            if(data.name){
+                contentHTML += data.name;
+            }
+            if(data.phone){
+                contentHTML += " - " + data.phone;
+            }
+            if(data.mail){
+                contentHTML += " - " + data.mail;
+            }
+            contentHTML += "</p>";
+            contact.html(contentHTML);
         },
         error : function(){
             body.html(body_404);

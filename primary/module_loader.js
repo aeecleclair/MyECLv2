@@ -344,7 +344,25 @@ module.exports = function(context){
                 context.log.error(context.module_config_file + ' from module ' + modname + ' contain a non-array menu. Ignoring menu.');
             }
         }
+
         // Chargement des notifications
+
+        // Chargement du contact de l'association
+        if(config.contact){
+            app.use('/contact/'+modname, authorise(config.authorisation), function(req, res){
+                var contact = Object();
+                if(config.contact['name']){
+                    contact.name = config.contact['name'];
+                }
+                if(config.contact['phone']){
+                    contact.phone = config.contact['phone']; 
+                }
+                if(config.contact['mail']){
+                    contact.mail = config.contact['mail']; 
+                }
+                res.json(contact);
+            })
+        }
      
     }
 

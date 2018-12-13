@@ -3,7 +3,7 @@ ul.main-menu .sub-menu li a{
 }
 
 .top-bar{
-	background-color: #a00034;
+	background-color:rgb(47, 134, 193);
 }
 
 
@@ -36,4 +36,13 @@ ul.main-menu .sub-menu li a{
 
 .top-bar-right #user{
 	font-size : 150%;
+}
+
+#contact-content-wrapper {
+	position:fixed;
+	width:100%;
+	bottom:0;
+	height:50px;
+	/* text-align:center; */
+	border-top: 2px solid #555;
 }
