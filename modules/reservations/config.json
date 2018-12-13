@@ -75,5 +75,10 @@
             "name": "Réservations Admin",
             "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
         }
-    ]
+    ],
+    "contact" : {
+        "name":"Rako",
+        "phone":"0679040698",
+        "mail":"bde.reservation"
+    }
 }

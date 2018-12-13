@@ -79,5 +79,10 @@
             "name" : "Administration newsletter BDE",
             "authorisation" : "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
         } 
-    ]
+    ],
+    "contact" : {
+        "name":"BDE",
+        "phone":"0679040698",
+        "mail":"bde.bde"
+    }
 }
