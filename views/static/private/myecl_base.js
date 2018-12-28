@@ -126,7 +126,8 @@ function insert_body(module_name, body_name){
             contact.html(contentHTML);
         },
         error : function(){
-            body.html(body_404);
+            contentHTML = "<p>Contact asso : Non renseigné</p>";
+            contact.html(body_404);
         }
     });
 
