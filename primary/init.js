@@ -231,8 +231,15 @@ exports.myecl = function(context){
         });
 
         app.use('/logout.html', function(req, res, next){
-            delete req.session.user;
-            res.redirect('/');
+            req.database.query("UPDATE user SET online = '0', last_seen = NOW() WHERE id = ?;", [req.session.user.id], function(err, result){
+                if(err){
+                    req.log.warning(err);
+                    res.sendStatus(500);
+                } else {
+                    delete req.session.user;
+                    res.redirect('/');
+                }
+            });
         });
 
         app.post('/login', bodyParser.urlencoded({'extended':false}), authenticate.check_password);

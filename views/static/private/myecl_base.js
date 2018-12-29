@@ -13,7 +13,7 @@ $("#logout").on('click', function(){
     var loc = window.location.href.split('/');
     var dest = 'logout.html';
     console.log(dest);
-    window.location.href = dest;
+    window.location.href = loc[0] + '/' + dest;
 })
 
 

@@ -28,12 +28,19 @@ module.exports = function(context){
                     } else {
                         delete user['password'];
                         req.session.user = user;
-                        if(req.session.rejected_on){
-                            res.redirect(req.session.rejected_on);
-                            req.session.rejected_on = undefined;
-                        } else {
-                            res.redirect('/home');
-                        }
+                        req.database.query("UPDATE user SET online = '1' WHERE id = ?;", [req.session.user.id], function(err, result){
+                            if(err){
+                                req.log.warning(err);
+                                res.sendStatus(500);
+                            } else {
+                                if(req.session.rejected_on){
+                                    res.redirect(req.session.rejected_on);
+                                    req.session.rejected_on = undefined;
+                                } else {
+                                    res.redirect('/home');
+                                }
+                            }
+                        });
                     }
                 });
             } else {
@@ -77,7 +84,7 @@ module.exports = function(context){
     exports.create_account = function(req, res){
 
         if(req.body.login && req.body.password && req.body.password == req.body['conf-password']){
-            context.database.query("SELECT COUNT(*) AS c FROM user WHERE login = ?", [req.body.login[0]], function(err_count, res_count){
+            context.database.query("SELECT COUNT(*) AS c FROM user WHERE login = ?", [req.body.login], function(err_count, res_count){
                 if (!err_count){
                     if(parseInt(res_count[0]['c']) > 0){
                         // le login est déjà utilisé
@@ -86,14 +93,14 @@ module.exports = function(context){
                         // le login est libre
                         context.crypto.hash(req.body.password, function(err, hash){
                             if(!err){
-                                req.body.login = req.body.login[0];
+                                req.body.login = req.body.login;
                                 var user = new Object();
                 
                                 // validation
                                 if(
                                     !context.validator.isAlpha(req.body.login) ||
-                                    !context.validator.matches(req.body.promo, '[0-9]+[Ee]?') ||
-                                    !context.validator.matches(req.body.floor, '[A-Z][0-9]+') ||
+                                    !context.validator.matches(req.body.promo, '[0-9]{4}[Ee]?') ||
+                                    !context.validator.matches(req.body.floor.toLowerCase(), '([abcdxtuv][0-9]+)|(adoma)') ||
                                     !context.validator.isNumeric(req.body.picselector)
                                 ){
                                     return res.redirect('/login.html?invalid=1');
@@ -109,17 +116,17 @@ module.exports = function(context){
                                 user['firstname'] = req.body.firstname;
                                 user['nick'] = req.body.nick;
                                 // user['birth'] = req.body.birth; // TODO à formater en date YYYY-MM-DD
-                                user['gender'] = req.body.gender == 'Femme' ? 'F' : 'H';
                                 user['promo'] = req.body.promo;
                                 user['floor'] = req.body.floor;
+                                user['online'] = '1';
+                                user['last_seen'] = new Date();
                 
-                                if(req.body.picselector == '3'){
-                                    user['picture_path'] = req.file.path;
-                                    user['picture_url'] = '/user_upload/' + req.file.filename;
+                                req.log.info(req.file);
+                                if(req.body.picselector == '1'){
+                                    user['picture'] = req.file.filename;
                                 } else {
                                     // TODO ameliorer le choix les photos par defaut
-                                    user['picture_path'] = '';
-                                    user['picture_url'] = '/picture/default_pic_' + req.body.picselector + '.png';
+                                    user['picture'] = '';
                                 }
                 
                                 context.database.save('user', user, function(err){
@@ -133,7 +140,7 @@ module.exports = function(context){
                                                         'id_user' : res[0]['id'],
                                                         'id_group' : 2, // ecl
                                                         'position' : 'eleve', // TODO améliorer avec les infos du CAS
-                                                        'term' : ''
+                                                        'term' : user.promo
                                                     },
                                                     function(err3){
                                                         if(err3){

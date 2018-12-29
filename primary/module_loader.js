@@ -158,6 +158,7 @@ module.exports = function(context){
         try{
             app[rule.method](route, authorise(rule.authorisation), function (req, res){
                 req.module_name = modname;
+                req.user_upload = context.user_upload;
                 req.rel_path = function(relpath){
                     return path.join(context.module_path, modname, relpath);
                 };

@@ -31,12 +31,12 @@
                 "firstname" : "VARCHAR(64)",
                 "nick" : "VARCHAR(20)",
                 "birth" : "DATE",
-                "gender" : "VARCHAR(1)",
                 "promo" : "INT",
-                "floor" : "VARCHAR(3)",
+                "floor" : "VARCHAR(5)",
                 "email" : "TEXT",
-                "picture_path" : "TEXT",
-                "picture_url" : "TEXT"
+                "picture" : "TEXT",
+                "online" : "VARCHAR(1)",
+                "last_seen" : "DATETIME"
             }
         },
         {
@@ -57,8 +57,10 @@
                 "description" : "TEXT"
             },
             "init" : [
-                "REPLACE INTO user_group (id, name, description) VALUES (0, \"ecl\", \"Centraliens de Lyon\");",
-                "REPLACE INTO user_group (id, name, description) VALUES (1, \"admin\", \"Administrateurs du site\");"
+                "REPLACE INTO user_group (id, name, description) VALUES (2, 'ecl', 'Centraliens de Lyon');",
+                "UPDATE user_group SET id = 2 WHERE name = 'ecl';",
+                "REPLACE INTO user_group (id, name, description) VALUES (1, \"admin\", \"Administrateurs du site\");",
+                "UPDATE user_group SET id = 1 WHERE name = 'admin';"
             ]
         },
         {
