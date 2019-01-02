@@ -1,0 +1,26 @@
+{
+    "comment" : [
+        "Remarques sur ce fichier :",
+        "L'ordre des noms est primordiale",
+        "en effet les modules seront chargé dans cette ordre",
+        "or cela peut être important si certains modules utilisent une",
+        "même route, par exemple l'un avec un middleware et l'autre",
+        "avec un callback",
+        "D'autre part ce fichier ne doit pas présenter d'erreures de",
+        "syntaxe car le site ne se lancera pas dans ce cas là."
+    ],
+    "enabled" : [
+        "panorama",
+        "tiles",
+        "admin",
+        "asso",
+        "bde_calendar",
+        "bde_newsletter",
+        "club_cine",
+        "je_studies",
+        "profile",
+        "sdec",
+        "wei",
+        "amap"
+    ]
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	
+	<title>MyECL</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS non custom : Bootstrap et Kingadmin-->
+
+	<link href="/kingadmin/theme/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="/kingadmin/theme/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="/kingadmin/theme/assets/css/main.css" rel="stylesheet" type="text/css">
+
+	<!-- CSS custom -->
+
+	<link href="/styles_perso.css" rel="stylesheet" type="text/css">
+
+	<link href="/login.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body onload="getError()">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div id="connexion" class="col-xs-4 col-xs-offset-4">
+
+				<div id="connexion-header">
+
+					MyECL
+
+				</div>
+
+				<div id="wrongpass">
+
+                    <form class="form-horizontal" role="form" enctype="application/x-www-form-urlencoded" method="POST" action="/login">
+
+						<div id="login-input" class="form-group">
+							<label for="login" class="control-label sr-only">Login</label>
+							<div class="col-sm-12">
+								<div class="input-group">
+									<input type="text" id="login" name="login" placeholder="Login" class="form-control">
+									<span class="input-group-addon"><i class="fa fa-user"></i></span>
+								</div>
+							</div>
+						</div>
+
+						<div id="password-input" class="form-group">
+							<label for="password" class="control-label sr-only">Mot de passe</label>
+							<div class="col-sm-12">
+								<div class="input-group">
+									<input type="password" id="password" name="password" placeholder="Mot de passe" class="form-control">
+									<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+								</div>
+							</div>
+							<div id="error-message" class="col-sm-12"></div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-12">
+								<label class="fancy-checkbox">
+									<input type="checkbox">
+									<span>Se souvenir de moi</span>
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-12">
+								<button type="submit" class="btn btn-default center-block">Se connecter</button>
+							</div>
+						</div>
+					</form>
+
+					<legend>Première connexion ?</legend>
+
+					<a href="/logcas"><button class="btn btn-default center-block" id="inscription">Elève de l'ECL</button></a>
+    			
+    				Plus à l'école ? Envoyez nous un mail pour confirmer votre statut de centralien à l'adresse <a mailto="inscription@myecl.fr">inscription@myecl.fr</a>.
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- Javascript import -->
+
+	<script src="/kingadmin/theme/assets/js/jquery/jquery-2.1.0.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script src="/kingadmin/theme/assets/js/bootstrap/bootstrap.js"></script>
+	<script src="/kingadmin/theme/assets/js/plugins/modernizr/modernizr.js"></script>
+	<script src="/kingadmin/theme/assets/js/plugins/bootstrap-tour/bootstrap-tour.custom.js"></script>
+	<script src="/kingadmin/theme/assets/js/king-common.js"></script>
+	<script src="/kingadmin/theme/assets/js/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+	<!-- Javascript custom -->
+
+	<script>
+
+		function getError(){
+
+		    var errorCode = parseInt((new URL(window.location.toString())).searchParams.get('invalid'));
+		    if(errorCode == 0){
+				var err = document.getElementById("error-message");
+				err.innerHTML = "<span class='help-block'>Le login est déjà utilisé</span>";
+		    } else if (errorCode == 1){
+				var err = document.getElementById("error-message");
+				err.innerHTML = "<span class='help-block'>Le login, le surnom, la promo ou l'étage n'est pas au bon format.</span>";
+			} else if (errorCode == 2){
+				var err = document.getElementById("error-message");
+				err.innerHTML = "<span class='help-block'>Login manquant ou mots de passe différents.</span>";
+			} else if (errorCode == 3){
+				document.getElementById("login-input").classList.add("has-error");
+				var err = document.getElementById("error-message");
+				err.innerHTML = "<span class='help-block'>Login introuvable.</span>";
+			} else if (errorCode == 4){
+				document.getElementById("login-input").classList.add("has-error");
+				document.getElementById("password-input").classList.add("has-error");
+				var err = document.getElementById("error-message");
+				err.innerHTML = "<span class='help-block'>Les identifiants ne correspondent pas.</span>";
+			}
+		}
+
+	</script>
+
+</body>
+
+</html>

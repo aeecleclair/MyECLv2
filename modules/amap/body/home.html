@@ -1,0 +1,73 @@
+<ul class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom" role="tablist">
+    <li>
+        <a href="#presentation" role="tab" data-toggle="tab">Présentation</a>
+    </li>
+    <li class="active">
+        <a href="#orders" role="tab" data-toggle="tab">Mes commandes</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <!-- PRESENTATION -->
+    <div id="presentation" class="tab-pane fade">
+        <div class="widget">
+
+            <div class="widget-content">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <p class="h5">
+                            L'AMAP (association pour le maintien d'une agriculture paysanne) est un service
+                            proposé par l'association Planet &amp; Co de l'ECL.
+                            Vous pouvez ainsi recevoir des produits (paniers de fruits et légumes, jus, confitures...) 
+                            directement sur le campus !
+                        </p>
+
+                        <p class="h5">
+                            Les commandes doivent être reçues le vendredi 14h et seront receptionnées sur le campus 
+                            le lundi midi.
+                        </p>
+                        <p class="h5">
+                            Vous ne pouvez commander que si votre solde le permet. 
+                            Pour cela, il suffit de faire un Lydia à tout membre de l'équipe de P&amp;Co ou de 
+                            transmettre un chèque à Maxime Grosso.
+                        </p>
+                        <p class="h5">
+                            Bonne cuisine, bon appétit ! 
+                        </p>
+                        <p class="h5">
+                            Contact pour plus d'informations : Maxime Grosso (Gwotham).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMMANDES PAR SEMAINE -->
+    <div id="automatic" class="tab-pane fade">
+        <div id="list_automatic"></div>
+    </div>
+
+    <!-- COMMANDES PAR SEMAINE -->
+    <div id="orders" class="tab-pane fade active in">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div id="select_week"></div>
+            </div>
+
+            <div id="amount" class="col-md-4 lead h6">
+                Solde : <span id="amount_left" ></span>
+                <i class="fa fa-euro"></i> restants
+            </div>
+
+            <div id="order" class="col-md-4 lead h6">
+                Commande : <span id="amount_order" ></span>
+                <i class="fa fa-euro"></i>
+            </div>
+
+        </div>
+
+        <div id="list_orders"></div>        
+    </div>
+</div>

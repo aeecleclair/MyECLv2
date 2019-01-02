@@ -116,6 +116,48 @@ module.exports = function(context){
         pool.query(query, values, callback);
     };
 
+    db.delete = function (){ // execute une requete delete
+        if(typeof arguments[0] !==  'string' && ! (arguments[0] instanceof String)){ // pas une string
+            throw 'First argument should be the table name';
+        }
+        var query, values, callback;
+        switch(arguments.length){
+            case 2: // table, callback
+                query = 'DELETE FROM ' + arguments[0] + ';';
+                callback = arguments[1];
+                values = [];
+                break;
+
+            case 3:// table, condition, callback
+                if(typeof arguments[1] ===  'string' || arguments[1] instanceof String){ // condition
+                    query = 'DELETE FROM ' + arguments[0] + ' WHERE ' + arguments[1] + ' ;';
+                } else {
+                    throw 'Second argument can be string (condition) or Array (field list).';
+                }
+                callback = arguments[2];
+                values = [];
+                break;
+
+            case 4:
+                // table, condition, values, callback
+                if(typeof arguments[1] ===  'string' || arguments[1] instanceof String){ // condition, values
+                    if(!Array.isArray(arguments[2])){
+                        throw 'Third argument should be an Array representing a list of values';
+                    }
+                    query = 'DELETE FROM ' + arguments[0] + ' WHERE ' + arguments[1] + ';';
+                    values = arguments[2];
+                    callback = arguments[3];
+                } else {
+                    throw 'Second argument can be string (condition) or Array (field list).';
+                }
+                break;
+
+            default:
+                throw 'select function can only have betwen two and four arguments.';
+        }
+        pool.query(query, values, callback);
+    };
+
     db.save = function(table, object, callback){ // Enregistre un 'objet' dans une table (l'objet doit correspondre a la table)
         var fields = new Array();
         var values = new Array();

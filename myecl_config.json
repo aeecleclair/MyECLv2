@@ -1,0 +1,100 @@
+{
+    "port" : 8080,
+    "url" : "localhost",
+    "root_path" : "/home/moby/LAB/MyECL/V2",
+
+    "default_route" : "/modules/panorama/index.html",
+
+    "session_config" : {
+        "secret" : "dats a fuckin good secret",
+        "resave" : false,
+        "saveUninitialized" : true
+    },
+
+    "token_life" : 600,
+
+    "database" : {
+      "host"     : "localhost",
+      "user"     : "eclair",
+      "password" : "secret",
+      "database" : "myecl"
+    },
+
+    "tables" : [
+        {
+            "table" : "user",
+            "schema" : {
+                "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "login" : "VARCHAR(12)",
+                "password" : "VARCHAR(60)",
+                "name" : "VARCHAR(32)",
+                "firstname" : "VARCHAR(64)",
+                "nick" : "VARCHAR(20)",
+                "birth" : "DATE",
+                "promo" : "INT",
+                "floor" : "VARCHAR(5)",
+                "email" : "TEXT",
+                "picture" : "TEXT",
+                "online" : "VARCHAR(1)",
+                "last_seen" : "DATETIME"
+            }
+        },
+        {
+            "table" : "membership",
+            "schema" : {
+                "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "id_user" : "INT NOT NULL",
+                "id_group" : "INT NOT NULL",
+                "position" : "VARCHAR(50)",
+                "term" : "VARCHAR(50)"
+            }
+        },
+        {
+            "table" : "user_group",
+            "schema" : {
+                "id" : "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "name" : "VARCHAR(127) UNIQUE",
+                "description" : "TEXT"
+            },
+            "init" : [
+                "REPLACE INTO user_group (id, name, description) VALUES (2, 'ecl', 'Centraliens de Lyon');",
+                "UPDATE user_group SET id = 2 WHERE name = 'ecl';",
+                "REPLACE INTO user_group (id, name, description) VALUES (1, \"admin\", \"Administrateurs du site\");",
+                "UPDATE user_group SET id = 1 WHERE name = 'admin';"
+            ]
+        },
+        {
+            "table" : "csrfToken",
+            "schema" : {
+                "token" : "VARCHAR(256)",
+                "login" : "VARCHAR(12)",
+                "time" : "BIGINT UNSIGNED"
+            }
+        }
+    ],
+
+    "alias" : {
+        "#admin" : "SELECT login FROM user JOIN membership ON user.id = membership.id_user WHERE membership.id_group = 1;",
+        "#ecl" : "SELECT login FROM user JOIN membership ON user.id = membership.id_user WHERE membership.id_group = 2;"
+    },
+
+    "cas_config" : {
+        "cas_url" : "https://cas.ec-lyon.fr/cas",
+        "service_url" : "http://localhost:8080",
+        "cas_version" : "2.0",
+        "session_name" : "login_dsi",
+        "session_info" : "user_data"
+    },
+
+    "body_json_config" : {
+        "inflate" : "false"
+    },
+
+    "default_static_options" : {
+        "index" : false,
+        "redirect" : false
+    },
+
+    "module_callbacks_file" : "callbacks.js",
+    "module_config_file" : "config.json"
+}

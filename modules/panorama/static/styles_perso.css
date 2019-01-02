@@ -1,7 +1,7 @@
-/* Importation de Impact */
+/* Importation de ralewaybold */
 @font-face {
-	font-family: "impact";
-	src: url('fonts/impact.ttf');
+	font-family: "ralewaybold";
+	src: url('fonts/ralewaybold.ttf');
 }
 
 
@@ -23,11 +23,11 @@
 }
 
 #menu li.active, #menu li:hover{ /* Section sur laquelle on se trouve */
-	background-color: #a00034;
+	background-color: rgb(47, 134, 193);
 }
 
 #menu li a{
-	color: #a00034;
+	color: rgb(9, 86, 124);
 	text-decoration: none;
 	-webkit-transition : color 0.5s;
 }
@@ -60,7 +60,7 @@
 .titre_section{ /* Titre des assos/clubs */
 	text-align : center;
 	display: inline-block;
-	font-family: impact;
+	font-family: ralewaybold;
 	color : white;
 	text-shadow: 0 0 5px black;
 	font-size : 900%;
@@ -89,7 +89,7 @@
 
 .titre_section.decalle{ /* Titre des assos/clubs */
 	display: inline-block;
-	font-family: impact;
+	font-family: ralewaybold;
 	color : white;
 	text-shadow: 0 0 5px black;
 	font-size : 900%;

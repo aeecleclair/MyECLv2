@@ -11,9 +11,15 @@ function is_element_of(value, array){
     return array.indexOf(value) >= 0;
 }
 
-
 module.exports = function(context){
     var authorise = require('./authorise')(context);
+
+    var diskStorage = context.multer.diskStorage({
+        destination : context.user_upload,
+        filename: function (req, file, cb) {
+            cb(null, file.fieldname + Date.now().toString(16) + path.extname(file.originalname));
+        }
+    });
 
     function load_callback(modname, cbname){
         // retourne le callback cbname du module modname
@@ -79,7 +85,7 @@ module.exports = function(context){
                         try{
                             res.sendFile(path.join(modname, rule.static), {'root' : context.module_path});
                         } catch(err) {
-                            res.error(500);
+                            res.status(500).send('Server error');
                             context.log.warning('Unable to send static file ' + static_path);
                         }
                     });
@@ -122,6 +128,9 @@ module.exports = function(context){
             if(!rule.post_options){
                 rule.post_options = context.body_json_config;
             }
+            if(rule.post_options.extended == undefined){ // undefined ou null
+                rule.post_options.extended = false;
+            }
 
             switch(rule.enctype){
                 case 'urlencoded':
@@ -138,7 +147,7 @@ module.exports = function(context){
                     let multer_method = rule.multer_method ? rule.multer_method.name || 'single' : 'single';
                     let multer_field = rule.multer_method ? rule.multer_method.field || 'file' : 'file';
                     let multer_max_count = rule.multer_method ? rule.multer_method.max : null;
-                    rule.post_options.dest = context.user_upload;
+                    rule.post_options.storage = diskStorage;
                     app.post(rule.route,
                         context.multer(rule.post_options)[multer_method](multer_field, multer_max_count));
                     break;
@@ -148,6 +157,12 @@ module.exports = function(context){
 
         try{
             app[rule.method](route, authorise(rule.authorisation), function (req, res){
+                req.module_name = modname;
+                req.user_upload = context.user_upload;
+                req.rel_path = function(relpath){
+                    return path.join(context.module_path, modname, relpath);
+                };
+
                 try{
                     cb(req, res);
                 } catch(err) {
@@ -170,7 +185,13 @@ module.exports = function(context){
         }
         // Le middleware doit gérer lui même les methodes et le passage 
         // au callback suivant
-        app.use(rule.route, authorise(rule.authorisation), cb);
+        app.use(rule.route, authorise(rule.authorisation),function(req, res, next){
+            req.module_name = modname;
+            req.rel_path = function(relpath){
+                return path.join(context.module_path, modname, relpath);
+            };
+            next();
+        }, cb);
         context.myecl_map += rule.route + '\n';
     }
 
@@ -246,7 +267,9 @@ module.exports = function(context){
                 for(let i in config.rules){
 
                     let rule = config.rules[i];
-                    if(!rule.authorisation){
+                    if(rule.dyn_authorisation){
+                        rule.authorisation = load_callback(modname, rule.dyn_authorisation);
+                    } else if(!rule.authorisation){
                         rule.authorisation = config.authorisation;
                     }
 
@@ -282,11 +305,8 @@ module.exports = function(context){
 
 
         // Chargement du header
-        console.log('Hey');
         if(config.header){
-            console.log('Ho');
             if(Array.isArray(config.header)){
-                console.log('Ha');
                 for(let i in config.header){
                     let item = config.header[i];
                     // TODO test ? traitements ? quid des autorisations ?
@@ -325,7 +345,25 @@ module.exports = function(context){
                 context.log.error(context.module_config_file + ' from module ' + modname + ' contain a non-array menu. Ignoring menu.');
             }
         }
+
         // Chargement des notifications
+
+        // Chargement du contact de l'association
+        if(config.contact){
+            app.use('/contact/'+modname, authorise(config.authorisation), function(req, res){
+                var contact = Object();
+                if(config.contact['name']){
+                    contact.name = config.contact['name'];
+                }
+                if(config.contact['phone']){
+                    contact.phone = config.contact['phone']; 
+                }
+                if(config.contact['mail']){
+                    contact.mail = config.contact['mail']; 
+                }
+                res.json(contact);
+            })
+        }
      
     }
 

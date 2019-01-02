@@ -1,0 +1,84 @@
+{
+    "authorisation": "#ecl",
+    "database": [
+        {
+            "table": "reservations2",
+            "schema": {
+                "id": "SMALLINT(5) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT",
+                "beginning": "VARCHAR(24)",
+                "ending": "VARCHAR(24)",
+                "title": "VARCHAR(255)",
+                "ressource": "INTEGER",
+                "description": "TEXT",
+                "user_id": "INTEGER"
+            }
+        }
+    ],
+    "rules": [
+        {
+            "route" : "/modules/reservations/static/*",
+            "static" : "static/"
+        },
+        {
+            "body": "main",
+            "static": "body/main.html",
+            "heads": {
+                "scripts" : [
+                    "/modules/reservations/static/main.js"
+                ],
+                "styles": [
+                    "/modules/reservations/static/main.css", 
+                    "/modules/reservations/static/font-awesome/css/font-awesome.css"
+                ]
+            }
+        },
+        {
+            "body": "bde",
+            "static": "body/main.html",
+            "heads": {
+                "scripts" : [
+                    "/modules/reservations/static/bde.js"
+                ],
+                "styles": [
+                    "/modules/reservations/static/main.css", 
+                    "/modules/reservations/static/font-awesome/css/font-awesome.css"
+                ]
+            },
+            "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
+        },
+        {
+            "body": "reservation",
+            "static": "body/reservation.html"
+        },
+        {
+            "route": "/modules/reservations/get_reservations",
+            "callback": "get_reservations"
+        },
+        {
+            "route": "/modules/reservations/new_reservation",
+            "callback": "new_reservation",
+            "method" : "POST"
+        },
+        {
+            "route": "/modules/reservations/update_reservation",
+            "callback": "update_reservation",
+            "method" : "POST"
+        }
+    ],
+    "menu": [
+        {
+            "body": "main",
+            "name": "Réservations"
+        }, 
+        {
+            "body": "bde",
+            "name": "Réservations Admin",
+            "authorisation": "JOIN user_group ON user_group.id = membership.id_group WHERE user_group.name = 'bde';"
+        }
+    ],
+    "contact" : {
+        "name":"Rako",
+        "phone":"0679040698",
+        "mail":"bde.reservation"
+    }
+}
